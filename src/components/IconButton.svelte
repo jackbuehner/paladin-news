@@ -32,7 +32,7 @@
 </style>
 
 <script>
-  export let type = 'default';
+  //export let type = 'default';
   export let viewBox = '0 0 24 24';
   export let disabled = false;
 </script>
