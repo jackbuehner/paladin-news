@@ -1,21 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" href="/favicon.png" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<style>
-			html, body {
-				margin: 0;
-				padding: 0;
-			}
-			* {
-				box-sizing: border-box;
-			}
-		</style>
-		%svelte.head%
-	</head>
-	<body>
-		<div id="svelte">%svelte.body%</div>
-	</body>
+
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" href="/favicon.png" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<style>
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		* {
+			box-sizing: border-box;
+			font-variant-numeric: lining-nums;
+		}
+
+		*:focus {
+			outline: none;
+		}
+
+		*:focus-visible {
+			box-shadow: 0px 0px 8px 2px #722e97, 0px 0px 0px 2px #722e97, inset 0 0 4px #722e97;
+			outline: none;
+			border-radius: 0px;
+			transition: box-shadow 100ms;
+		}
+
+		:root {
+			/* fonts */
+			--font-headline: 'Adamant BG', Georgia, 'Times New Roman', Times, serif;
+			--font-body: Georgia, 'Times New Roman', Times, serif;
+			--font-detail: Lato, Arial, sans-serif;
+
+			/* borders */
+			--border-light: #eee;
+			--radius: 2px;
+
+			/* buttons */
+			--button-bg: transparent;
+			--button-bg-hover: rgba(114, 46, 151, .12);
+			--button-bg-active: rgba(114, 46, 151, .16);
+			--button-color: #333333;
+			--button-color-disabled: #777777;
+			--button-shadow-hover: rgb(0 0 0 / 13%) 0px 1.6px 3.6px 0px, rgb(0 0 0 / 11%) 0px 0.3px 0.9px 0px;
+			--button-shadow-active: rgb(0 0 0 / 13%) 0px 0.8px 3.6px 0px, rgb(0 0 0 / 11%) 0px 0.15px 0.9px 0px;
+
+			/* topbar */
+			--topbar-bg: #ffffff;
+			--topbar-scroll-shadow: 0 0 20px 0 rgb(0 0 0 / 16%);
+
+			/* sidenav */
+			--sidenav-bg: #ffffff;
+			--sidenav-shadow: 0 0 20px 0 rgb(0 0 0 / 18%);
+			--sidenav-width: 280px;
+		}
+	</style>
+	%svelte.head%
+</head>
+
+<body>
+	<div id="svelte">%svelte.body%</div>
+</body>
+
 </html>
