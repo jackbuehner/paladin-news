@@ -20,6 +20,10 @@
     line-height: 26px;
     letter-spacing: -0.017em;
   }
+  .name.isLargerHeadline {
+    font-size: 23px;
+    line-height: 29px;
+  }
   .description {
     font-family: var(--font-body);
     font-size: 16px;
@@ -77,6 +81,7 @@
   export let date: string = undefined; // ISO date format
   export let authors: IArticleAuthor[] = [];
   export let isCompact: boolean = false;
+  export let isLargerHeadline: boolean = false;
 
   const parsed = DateTime.fromISO(date);
   if (parsed.isValid) {
@@ -101,7 +106,7 @@
   {/if}
 
   <!-- article name -->
-  <div class={'name'}>{name}</div>
+  <div class={'name'} class:isLargerHeadline>{name}</div>
 
   <!-- compact article card photo (only if it is compact) -->
   {#if isCompact && photo}
