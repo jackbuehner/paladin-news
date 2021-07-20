@@ -23,6 +23,8 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutpu
     sports: 'sports',
     'diversity-matters': 'diversity',
     'arts-culture': 'arts,campus-culture',
+    arts: 'arts',
+    'campus-culture': 'campus-culture',
   };
   if (!matching[category]) return null;
 
