@@ -2,6 +2,7 @@
   .wrapper {
     position: relative;
     top: -52px;
+    background-color: white;
   }
 
   .sections-grid {
