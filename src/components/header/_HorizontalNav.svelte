@@ -42,14 +42,14 @@
 
 <script lang="typescript">
   const items = [
-    { href: '.', label: 'Home' },
-    { href: 'news', label: 'News' },
-    { href: 'opinions', label: 'Opinions' },
-    { href: 'sports', label: 'Sports' },
-    { href: 'diversity-matters', label: 'Diversity Matters' },
-    { href: 'arts-culture', label: 'Arts, Campus, & Culture' },
-    { href: 'satire', label: 'The Horse' },
-    { href: 'contact', label: 'Contact' },
+    { href: '/', label: 'Home' },
+    { href: '/news', label: 'News' },
+    { href: '/opinions', label: 'Opinions' },
+    { href: '/sports', label: 'Sports' },
+    { href: '/diversity-matters', label: 'Diversity Matters' },
+    { href: '/arts-culture', label: 'Arts, Campus, & Culture' },
+    { href: '/satire', label: 'The Horse' },
+    { href: '/contact', label: 'Contact' },
   ];
 </script>
 

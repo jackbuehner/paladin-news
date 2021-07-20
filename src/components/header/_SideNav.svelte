@@ -82,23 +82,23 @@
 
   const items = [
     [
-      { href: '.', label: 'Home' },
-      { href: 'all-articles', label: 'All articles' },
+      { href: '/.', label: 'Home' },
+      { href: '/all-articles', label: 'All articles' },
     ],
     [
-      { href: 'news', label: 'News' },
-      { href: 'opinions', label: 'Opinions' },
-      { href: 'sports', label: 'Sports' },
-      { href: 'diversity-matters', label: 'Diversity Matters' },
-      { href: 'arts-culture', label: 'Arts, Campus, & Culture' },
+      { href: '/news', label: 'News' },
+      { href: '/opinions', label: 'Opinions' },
+      { href: '/sports', label: 'Sports' },
+      { href: '/diversity-matters', label: 'Diversity Matters' },
+      { href: '/arts-culture', label: 'Arts, Campus, & Culture' },
     ],
-    [{ href: 'satire', label: 'The Horse' }],
-    [{ href: 'contact', label: 'Contact' }],
+    [{ href: '/satire', label: 'The Horse' }],
+    [{ href: '/contact', label: 'Contact' }],
     [
-      { href: 'about', label: 'Who we are' },
-      { href: 'contact', label: 'Contact' },
+      { href: '/about', label: 'Who we are' },
+      { href: '/contact', label: 'Contact' },
       { href: 'https://app.mobilecause.com/vf/DinsDonate/team/PaladinNewspaper', label: 'Donate' },
-      { href: 'privacy-policy', label: 'Privacy policy' },
+      { href: '/privacy-policy', label: 'Privacy policy' },
     ],
   ];
 </script>
