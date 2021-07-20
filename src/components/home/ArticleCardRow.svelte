@@ -1,7 +1,8 @@
 <style>
   section {
     padding: 30px 0;
-    border-bottom: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-dark);
+    height: fit-content;
   }
   section.mobile {
     border-top: 1px solid black;
@@ -11,7 +12,8 @@
     flex-direction: row;
     gap: 16px;
   }
-  div.mobile {
+  div.mobile,
+  div.vertical {
     flex-direction: column;
   }
   h2 {
@@ -26,7 +28,7 @@
   }
   span.mobile {
     display: block;
-    border-bottom: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-dark);
   }
 </style>
 
@@ -41,8 +43,20 @@
   export let mobilePhotoMultiple: number = 4; // hide every photo on mobile except for any multiple of this number (e.g. 3 shows photos for first photo, fourth photo, seventh photo, etc.)
   export let label: string;
   export let categories: string = undefined;
+  export let gridArea: string = 'auto';
+  export let forceVertical: boolean = false;
 
   $: windowWidth = 0;
+
+  // the length of the articles array, calculated based on the number specified in `quantity` for each breakpoint
+  $: arrayLength =
+    windowWidth > 990
+      ? quantity[0]
+      : windowWidth > 760
+      ? quantity[1]
+      : windowWidth > 560
+      ? quantity[2]
+      : quantity[3];
 
   let articles: AggregatePaginateResult<IArticle>;
 
@@ -62,22 +76,27 @@
 
 <svelte:window bind:innerWidth={windowWidth} />
 
-<section class:mobile={windowWidth <= 560}>
+<section class:mobile={windowWidth <= 560} style={`grid-area: ${gridArea}`}>
   <h2>{label}</h2>
-  <div class:mobile={windowWidth <= 560}>
+  <div class:mobile={windowWidth <= 560} class:vertical={forceVertical}>
     {#if articles && articles.docs}
-      {#each Array.from(articles.docs).slice(0, windowWidth > 990 ? quantity[0] : windowWidth > 760 ? quantity[1] : windowWidth > 560 ? quantity[2] : quantity[3]) as article, index}
+      {#each Array.from(articles.docs).slice(0, arrayLength) as article, index}
         <ArticleCard
           name={article.name}
           href={`articles/${article.slug}`}
-          description={article.description}
-          photo={windowWidth <= 560 && !Number.isInteger(index / mobilePhotoMultiple)
+          description={(windowWidth > 560 && !forceVertical) ||
+          (windowWidth > 560 && !Number.isInteger(index / mobilePhotoMultiple) && forceVertical)
+            ? undefined
+            : article.description}
+          photo={(windowWidth <= 560 && !Number.isInteger(index / mobilePhotoMultiple)) ||
+          (windowWidth > 560 && !Number.isInteger(index / mobilePhotoMultiple) && forceVertical)
             ? undefined
             : article.photo_path}
           photoCredit={'not implimented'}
           date={article.timestamps.published_at}
-          authors={article.people.authors} />
-        <span class:mobile={windowWidth <= 560} />
+          authors={article.people.authors}
+          isCompact={forceVertical} />
+        <span class:mobile={(windowWidth <= 560 || forceVertical) && index < arrayLength - 1} />
       {/each}
     {:else}
       <p>loading...</p>

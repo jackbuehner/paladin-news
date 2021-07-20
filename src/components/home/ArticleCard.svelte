@@ -37,12 +37,16 @@
   }
   .photo-wrapper {
     width: 100%;
-    padding-top: calc(66.6667%);
+    padding-top: 66.6667%;
     height: 0px;
     position: relative;
-    float: unset;
-    margin-left: unset;
-    margin-right: unset;
+    margin: 0;
+  }
+  .photo-wrapper.compact {
+    width: 88px;
+    padding-top: 62.6px;
+    float: right;
+    margin-left: 10px;
   }
   img {
     width: 100%;
@@ -64,6 +68,7 @@
   import { DateTime } from 'luxon';
   import type { IArticleAuthor } from 'src/interfaces/articles';
 
+  export let style: string = '';
   export let name: string;
   export let description: string = undefined;
   export let href: string;
@@ -71,6 +76,7 @@
   export let photoCredit: string = undefined;
   export let date: string = undefined; // ISO date format
   export let authors: IArticleAuthor[] = [];
+  export let isCompact: boolean = false;
 
   const parsed = DateTime.fromISO(date);
   if (parsed.isValid) {
@@ -79,11 +85,9 @@
   }
 </script>
 
-<a {href}>
+<a {href} {style}>
   <!-- photo and credit -->
-  {#if photo === undefined}
-    {''}
-  {:else}
+  {#if photo !== undefined && !isCompact}
     <div class={'photo-group'}>
       <div class={'photo-wrapper'}>
         <img src={photo} alt={''} />
@@ -98,6 +102,13 @@
 
   <!-- article name -->
   <div class={'name'}>{name}</div>
+
+  <!-- compact article card photo (only if it is compact) -->
+  {#if isCompact && photo}
+    <div class={'photo-wrapper compact'}>
+      <img src={photo} alt={''} />
+    </div>
+  {/if}
 
   <!-- article description -->
   {#if description === undefined}
