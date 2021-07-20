@@ -113,7 +113,7 @@
         {/if}
       </div>
       <div class="logo" class:hidden={windowScrollY < 180}>
-        <a href="."><ThePaladinLogo width={'100%'} height={46} /></a>
+        <a href="/"><ThePaladinLogo width={'100%'} height={46} /></a>
       </div>
       <div class="right">
         {#if windowWidth > 760}
@@ -142,7 +142,7 @@
 </div>
 <Container>
   <div class="logo-wrapper">
-    <a href="."><ThePaladinLogo width={416} height={140} /></a>
+    <a href="/"><ThePaladinLogo width={416} height={140} /></a>
   </div>
 </Container>
 {#if windowWidth > 990}

@@ -70,7 +70,7 @@
           ><path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" /></IconButton>
       </div>
       <div class="logo">
-        <a href="."><ThePaladinLogo width={'100%'} height={46} /></a>
+        <a href="/"><ThePaladinLogo width={'100%'} height={46} /></a>
       </div>
       <div class="right">
         <IconButton disabled={true}
