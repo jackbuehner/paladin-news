@@ -46,6 +46,9 @@
     position: relative;
     margin: 0;
   }
+  .photo-wrapper.isCategoryPage:not(.compact) {
+    padding-top: 60%;
+  }
   .photo-wrapper.compact {
     width: 88px;
     padding-top: 62.6px;
@@ -81,6 +84,7 @@
   export let date: string = undefined; // ISO date format
   export let authors: IArticleAuthor[] = [];
   export let isCompact: boolean = false;
+  export let isCategoryPage: boolean = false;
   export let isLargerHeadline: boolean = false;
 
   const parsed = DateTime.fromISO(date);
@@ -94,7 +98,7 @@
   <!-- photo and credit -->
   {#if photo !== undefined && !isCompact}
     <div class={'photo-group'}>
-      <div class={'photo-wrapper'}>
+      <div class={'photo-wrapper'} class:isCategoryPage>
         <img src={photo} alt={''} />
       </div>
       {#if photoCredit === undefined}
