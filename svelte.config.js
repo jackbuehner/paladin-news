@@ -12,6 +12,9 @@ const config = {
     target: '#svelte',
     // optimize the build for netlify
     adapter: netlify(),
+    files: {
+      lib: 'src',
+    },
   },
 };
 

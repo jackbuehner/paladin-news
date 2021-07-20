@@ -35,6 +35,7 @@
   import type { IArticle } from 'src/interfaces/articles';
   import { onMount } from 'svelte';
   import ArticleCard from './ArticleCard.svelte';
+  import { variables } from '../../variables';
 
   export let quantity: [number, number, number, number] = [5, 4, 2, 3]; // breakpoints: largest, medium, small, mobile
   export let mobilePhotoMultiple: number = 4; // hide every photo on mobile except for any multiple of this number (e.g. 3 shows photos for first photo, fourth photo, seventh photo, etc.)
@@ -47,7 +48,7 @@
 
   onMount(async () => {
     const hostUrl =
-      import.meta.env.MODE === 'development'
+      variables.mode === 'development'
         ? 'http://localhost:3001'
         : 'https://api.thepaladin.cristata.app';
     const res = await fetch(

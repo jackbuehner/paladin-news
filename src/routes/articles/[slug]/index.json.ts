@@ -3,6 +3,7 @@ import type { EndpointOutput } from '@sveltejs/kit';
 import type { ServerRequest } from '@sveltejs/kit/types/hooks';
 import type { JSONValue } from '@sveltejs/kit/types/endpoint';
 import Renderer from 'prosemirror-to-html-js';
+import { variables } from '../../../variables';
 
 interface IArticleOutput extends IArticle {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -18,7 +19,7 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutpu
   const { slug } = request.params;
 
   const hostUrl =
-    import.meta.env.MODE === 'development'
+    variables.mode === 'development'
       ? 'http://localhost:3001'
       : 'https://api.thepaladin.cristata.app';
   const res = await fetch(`${hostUrl}/api/v2/articles/public/${slug}`);
