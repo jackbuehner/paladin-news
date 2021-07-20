@@ -1,4 +1,14 @@
 <style>
+  h1 {
+    font-family: var(--font-detail);
+    font-size: 48px;
+    line-height: 48px;
+    margin: 0;
+    border-bottom: 2px solid black;
+    padding: 0 0 10px 0;
+    margin: 48px 0 32px 0;
+  }
+
   .top-grid {
     display: grid;
     grid-template-columns: 3fr 0.5px 1.75fr;
@@ -27,6 +37,11 @@
   }
   .main-grid.firstPage {
     grid-template-rows: repeat(4, auto) repeat(13, 0.5px auto) 0.5px auto;
+  }
+  @media (max-width: 990px) {
+    .main-grid {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
   /* divider */
@@ -104,11 +119,16 @@
   export let articles: AggregatePaginateResult<IArticle>;
   export let pageTitle: string;
 
+  $: windowWidth = 0;
 
   // set the header label
   beforeUpdate(() => ($headerLabel = pageTitle));
   onDestroy(() => ($headerLabel = undefined));
 </script>
+
+<svelte:window bind:innerWidth={windowWidth} />
+
+<h1>{$headerLabel}</h1>
 
 <div class={'top-grid'} class:hidden={articles.page !== 1}>
   {#if articles && articles.docs && articles.page === 1}
@@ -175,6 +195,11 @@
       {/if}
     </div>
   </div>
-  <span style={'grid-area: 1 / 3 / -1 / 3;'} />
-  <aside style={'grid-area: 1 / 4 / -1 / 4; background: red;'}>sidebar</aside>
+  <span style={`grid-area: 1 / 3 / -1 / 3; ${windowWidth <= 990 ? 'display: none;' : ''}`} />
+  <aside
+    style={`grid-area: 1 / 4 / -1 / 4; background: red;  ${
+      windowWidth <= 990 ? 'display: none;' : ''
+    }`}>
+    sidebar
+  </aside>
 </div>
