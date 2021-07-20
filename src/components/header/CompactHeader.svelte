@@ -67,14 +67,15 @@
   import IconButton from '../IconButton.svelte';
   import Container from '../Container.svelte';
   import ThePaladinLogo from '../svgs/ThePaladinLogo.svelte';
+  import TheHorseLogo from '../svgs/TheHorseLogo.svelte';
   import SideNav from './_SideNav.svelte';
-  import { writable } from 'svelte/store';
   import { headerLabel } from '../../stores/header';
 
   $: windowWidth = 0;
   $: windowScrollY = 0;
 
   let isSideNavOpen = false;
+  export let isSatire = false;
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} bind:scrollY={windowScrollY} />
@@ -90,7 +91,11 @@
         {/if}
       </div>
       <div class="logo">
-        <a href="/"><ThePaladinLogo width={'100%'} height={46} /></a>
+        {#if isSatire}
+          <a href="/satire"><TheHorseLogo width={'100%'} height={46} /></a>
+        {:else}
+          <a href="/"><ThePaladinLogo width={'100%'} height={46} /></a>
+        {/if}
       </div>
       <div class="right">
         <IconButton disabled={true}

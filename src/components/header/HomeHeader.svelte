@@ -88,6 +88,7 @@
 <script lang="typescript">
   import IconButton from '../IconButton.svelte';
   import ThePaladinLogo from '../svgs/ThePaladinLogo.svelte';
+  import TheHorseLogo from '../svgs/TheHorseLogo.svelte';
   import HorizontalNav from './_HorizontalNav.svelte';
   import SideNav from './_SideNav.svelte';
 
@@ -95,6 +96,7 @@
   $: windowScrollY = 0;
 
   let isSideNavOpen = false;
+  export let isSatire = false;
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} bind:scrollY={windowScrollY} />
@@ -111,7 +113,11 @@
       {/if}
     </div>
     <div class="logo" class:hidden={windowScrollY < 180}>
-      <a href="/"><ThePaladinLogo width={'100%'} height={46} /></a>
+      {#if isSatire}
+        <a href="/satire"><TheHorseLogo width={'100%'} height={46} /></a>
+      {:else}
+        <a href="/"><ThePaladinLogo width={'100%'} height={46} /></a>
+      {/if}
     </div>
     <div class="right">
       {#if windowWidth > 760}
@@ -137,7 +143,11 @@
   </div>
 </div>
 <div class="logo-wrapper">
-  <a href="/"><ThePaladinLogo width={416} height={140} /></a>
+  {#if isSatire}
+    <a href="/satire"><TheHorseLogo width={307} height={140} /></a>
+  {:else}
+    <a href="/"><ThePaladinLogo width={416} height={140} /></a>
+  {/if}
 </div>
 {#if windowWidth > 990}
   <HorizontalNav />
