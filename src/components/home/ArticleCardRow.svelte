@@ -71,7 +71,7 @@
             : article.photo_path}
           photoCredit={'not implimented'}
           date={article.timestamps.published_at}
-          authors={article.people.authors.map((author) => author.toString())} />
+          authors={article.people.authors} />
         <span class:mobile={windowWidth <= 560} />
       {/each}
     {:else}

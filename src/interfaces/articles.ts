@@ -1,6 +1,3 @@
-type GitHubUserID = number;
-type GitHubTeamNodeID = string;
-
 // use these as the stages for articles
 enum Stage {
   PLANNING = 1.1,
@@ -15,40 +12,32 @@ enum Stage {
 
 // interface for each article
 interface IArticle {
-  name?: string;
+  _id: string;
+  name: string;
   slug?: string;
-  permissions: {
-    teams?: GitHubTeamNodeID[];
-    users: GitHubUserID[];
-  };
-  locked?: boolean;
   timestamps?: {
-    created_at?: string; // ISO string
-    modified_at?: string; // ISO string
     published_at?: string; // ISO string
-    target_publish_at?: string; // ISO string
   };
   people: {
-    created_by?: GitHubUserID;
-    modified_by?: GitHubUserID[];
-    last_modified_by: GitHubUserID;
-    published_by?: GitHubUserID[];
-    authors?: GitHubUserID[];
-    editors?: {
-      primary?: GitHubUserID;
-      copy?: GitHubUserID[];
-    };
+    authors?: IAuthor[];
   };
-  stage?: Stage;
   categories?: string[];
   tags?: string[];
   description?: string;
   photo_path: string;
   photo_caption?: string;
   body?: string;
-  versions?: IArticle[]; // store previous versions of the article
-  hidden?: boolean;
-  history?: { type: string; user: GitHubUserID; at: string }[];
 }
 
-export type { IArticle, Stage as EnumArticleStage };
+// interface for author data includes in article
+interface IAuthor {
+  _id: string;
+  name: string;
+  email: string;
+  twitter: string;
+  biography: string;
+  current_title: string;
+  photo: string; // url to photo
+}
+
+export type { IArticle, Stage as EnumArticleStage, IAuthor as IArticleAuthor };

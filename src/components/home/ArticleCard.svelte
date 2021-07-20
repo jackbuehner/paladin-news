@@ -62,6 +62,7 @@
 
 <script lang="ts">
   import { DateTime } from 'luxon';
+  import type { IArticleAuthor } from 'src/interfaces/articles';
 
   export let name: string;
   export let description: string = undefined;
@@ -69,7 +70,7 @@
   export let photo: string = undefined;
   export let photoCredit: string = undefined;
   export let date: string = undefined; // ISO date format
-  export let authors: string[] = undefined;
+  export let authors: IArticleAuthor[] = [];
 
   const parsed = DateTime.fromISO(date);
   if (parsed.isValid) {
@@ -115,7 +116,7 @@
     {/if}
 
     <!-- only show divider if date and authors are both defined-->
-    {#if date !== undefined && date !== 'Dec. 31, 0000' && authors !== undefined}
+    {#if date !== undefined && date !== 'Dec. 31, 0000' && authors.length > 0}
       <span> | </span>
     {/if}
 
@@ -125,23 +126,23 @@
       {''}
     {:else if authors.length === 1}
       <!-- show author if only one -->
-      <span>{authors[0]}</span>
+      <span>{authors[0].name}</span>
     {:else if authors.length === 2}
       <!-- separate with 'and' if two authors -->
-      <span>{authors[0]}</span>
+      <span>{authors[0].name}</span>
       <span> and </span>
-      <span>{authors[1]}</span>
+      <span>{authors[1].name}</span>
     {:else if authors.length > 2}
       <!-- separate with either a comma or ', and' if more than two authors -->
       {#each authors as author, index}
         {#if index === 0}
-          <span>{author}</span>
+          <span>{author.name}</span>
         {:else if index === authors.length - 1}
           <span>, and </span>
-          <span>{author}</span>
+          <span>{author.name}</span>
         {:else}
           <span>, </span>
-          <span>{author}</span>
+          <span>{author.name}</span>
         {/if}
       {/each}
     {/if}
