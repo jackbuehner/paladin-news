@@ -1,4 +1,9 @@
 <style>
+  .wrapper {
+    position: relative;
+    top: -52px;
+  }
+
   .sections-grid {
     display: grid;
     grid-template-columns: 1fr 1px 316px;
@@ -36,9 +41,11 @@
 <script lang="ts">
   import Featured from '../components/home/Featured.svelte';
   import ArticleCardRow from '../components/home/ArticleCardRow.svelte';
+  import HomeHeader from '/src/components/header/HomeHeader.svelte';
 </script>
 
-<div>
+<div class={'wrapper'}>
+  <HomeHeader />
   <Featured />
   <div class={'sections-grid'}>
     <ArticleCardRow label={'News'} categories={'news'} gridArea={'news'} quantity={[5, 4, 2, 3]} />

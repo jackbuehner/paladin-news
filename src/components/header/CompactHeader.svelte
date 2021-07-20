@@ -51,7 +51,6 @@
   import IconButton from '../IconButton.svelte';
   import Container from '../Container.svelte';
   import ThePaladinLogo from '../svgs/ThePaladinLogo.svelte';
-  import HorizontalNav from './_HorizontalNav.svelte';
   import SideNav from './_SideNav.svelte';
 
   $: windowWidth = 0;
@@ -62,7 +61,7 @@
 
 <svelte:window bind:innerWidth={windowWidth} bind:scrollY={windowScrollY} />
 
-<div class="topbar-wrapper" class:scrolled={windowScrollY > 0}>
+<div class="topbar-wrapper compact-header" class:scrolled={windowScrollY > 0}>
   <Container>
     <div class="topbar" class:scrolled={windowScrollY > 0}>
       <div class="left">
