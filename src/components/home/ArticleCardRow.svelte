@@ -46,8 +46,12 @@
   let articles: AggregatePaginateResult<IArticle>;
 
   onMount(async () => {
+    const hostUrl =
+      import.meta.env.MODE === 'development'
+        ? 'http://localhost:3001'
+        : 'https://api.thepaladin.cristata.app';
     const res = await fetch(
-      `http://localhost:3001/api/v2/articles/public?limit=${Math.max(...quantity)}${
+      `${hostUrl}/api/v2/articles/public?limit=${Math.max(...quantity)}${
         categories ? categories.split(',').map((category) => `&category=${category}`) : ''
       }`.replace(',', '')
     );

@@ -17,7 +17,11 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutpu
   // is called [slug].json.ts
   const { slug } = request.params;
 
-  const res = await fetch(`http://localhost:3001/api/v2/articles/public/${slug}`);
+  const hostUrl =
+    import.meta.env.MODE === 'development'
+      ? 'http://localhost:3001'
+      : 'https://api.thepaladin.cristata.app';
+  const res = await fetch(`${hostUrl}/api/v2/articles/public/${slug}`);
   const article: IArticle = await res.json();
 
   // rename categories (sections) to their full names
