@@ -26,6 +26,7 @@ interface IArticle {
   description?: string;
   photo_path: string;
   photo_caption?: string;
+  photo_credit?: string;
   body?: string;
 }
 

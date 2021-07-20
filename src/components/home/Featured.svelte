@@ -103,7 +103,7 @@
         href={`articles/${article.slug}`}
         description={article.description}
         photo={article.photo_path}
-        photoCredit={'not implimented'}
+        photoCredit={article.photo_credit}
         date={article.timestamps.published_at}
         authors={article.people.authors}
         isCompact={type === 'featured' ? index === 2 || index === 3 : false} />

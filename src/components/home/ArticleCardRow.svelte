@@ -92,7 +92,7 @@
           (windowWidth > 560 && !Number.isInteger(index / mobilePhotoMultiple) && forceVertical)
             ? undefined
             : article.photo_path}
-          photoCredit={'not implimented'}
+          photoCredit={article.photo_credit}
           date={article.timestamps.published_at}
           authors={article.people.authors}
           isCompact={forceVertical} />

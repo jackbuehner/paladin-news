@@ -50,7 +50,7 @@
   <ArticleSubtitle>{article.description}</ArticleSubtitle>
   <ArticlePhoto src={article.photo_path} />
   <ArticleCaption>{article.photo_caption}</ArticleCaption>
-  <ArticlePhotoCredit>not yet implimented</ArticlePhotoCredit>
+  <ArticlePhotoCredit>{article.photo_credit}</ArticlePhotoCredit>
   <ArticleMeta
     date={article.timestamps.published_at}
     authors={article.people.authors}
