@@ -16,6 +16,7 @@
     color: rgb(var(--primary-lighter));
     box-shadow: 0 1px 0 0 rgb(var(--primary));
     transition: background-color 0.2s, box-shadow 0.1s, color 0.2s;
+    text-decoration: none;
   }
   :global(.article-body a:hover) {
     box-shadow: 0 2px 0 0 rgb(var(--primary));
