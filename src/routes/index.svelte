@@ -1,2 +1,11 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+  import ArticleCardRow from '../components/home/ArticleCardRow.svelte';
+</script>
+
+<div>
+  <ArticleCardRow label={'News'} categories={'news'} />
+  <ArticleCardRow label={'Opinions'} categories={'opinion'} />
+  <ArticleCardRow label={'Sports'} categories={'sports'} />
+  <ArticleCardRow label={'Diversity Matters'} categories={'diversity'} />
+  <ArticleCardRow label={'Arts, Campus, & Culture'} categories={'arts,campus-culture'} />
+</div>
