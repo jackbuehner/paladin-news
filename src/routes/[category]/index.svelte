@@ -67,10 +67,21 @@
     const url = `/${page.params.category}/${pageNumber}.json`;
     const res = await fetch(url);
 
+    let pagePathToTitle = {
+      '/news': 'News',
+      '/opinions': 'Opinions',
+      '/sports': 'Sports',
+      '/diversity-matters': 'Diversity Matters',
+      '/arts-culture': 'Arts, Campus, & Culture',
+      '/arts': 'Arts',
+      '/campus-culture': 'Campus & Culture',
+    };
+
     if (res.ok) {
       return {
         props: {
           articles: await res.json(),
+          pageTitle: pagePathToTitle[page.path],
         },
       };
     }
@@ -87,8 +98,16 @@
   import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
   import { goto } from '$app/navigation';
   import Button from '/src/components/Button.svelte';
+  import { headerLabel } from '../../stores/header';
+  import { beforeUpdate, onDestroy, onMount } from 'svelte';
 
   export let articles: AggregatePaginateResult<IArticle>;
+  export let pageTitle: string;
+
+
+  // set the header label
+  beforeUpdate(() => ($headerLabel = pageTitle));
+  onDestroy(() => ($headerLabel = undefined));
 </script>
 
 <div class={'top-grid'} class:hidden={articles.page !== 1}>

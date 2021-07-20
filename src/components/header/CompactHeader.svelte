@@ -45,6 +45,22 @@
   .logo > a {
     display: inline-block;
   }
+
+  /* label in header */
+  .label {
+    font-family: var(--font-detail);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 36px;
+    text-transform: uppercase;
+    margin-left: 16px;
+    letter-spacing: 0.7px;
+  }
+  @media (max-width: 760px) {
+    .label {
+      display: none;
+    }
+  }
 </style>
 
 <script lang="typescript">
@@ -52,6 +68,8 @@
   import Container from '../Container.svelte';
   import ThePaladinLogo from '../svgs/ThePaladinLogo.svelte';
   import SideNav from './_SideNav.svelte';
+  import { writable } from 'svelte/store';
+  import { headerLabel } from '../../stores/header';
 
   $: windowWidth = 0;
   $: windowScrollY = 0;
@@ -67,6 +85,9 @@
       <div class="left">
         <IconButton on:click={() => (isSideNavOpen = !isSideNavOpen)}
           ><path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" /></IconButton>
+        {#if $headerLabel}
+          <div class={'label'}>{$headerLabel}</div>
+        {/if}
       </div>
       <div class="logo">
         <a href="/"><ThePaladinLogo width={'100%'} height={46} /></a>
