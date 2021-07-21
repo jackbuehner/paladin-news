@@ -1,0 +1,121 @@
+<style>
+  h1 {
+    font-family: var(--font-detail);
+    font-size: 48px;
+    line-height: 48px;
+    margin: 0;
+    border-bottom: 2px solid black;
+    padding: 0 0 10px 0;
+    margin: 48px 0 32px 0;
+  }
+  span {
+    border-bottom: 1px solid var(--border-dark);
+    display: block;
+    margin: 16px 0;
+  }
+
+  subtitle {
+    font-family: var(--font-detail);
+    font-size: 18px;
+    position: absolute;
+    right: 0;
+    bottom: 14px;
+  }
+
+  headblock {
+    position: relative;
+    display: block;
+  }
+
+  /* page navigation*/
+  .navrow {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    font-family: var(--font-detail);
+    font-size: 14px;
+    font-weight: 400;
+    padding: 16px 20px 32px 20px;
+    grid-area: auto / 1 / auto / 3;
+  }
+  .buttonrow {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+  }
+</style>
+
+<script context="module" lang="ts">
+  import type { LoadInput, LoadOutput } from '@sveltejs/kit';
+  import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
+  import type { IArticle } from 'src/interfaces/articles';
+
+  /**
+   * @type {import('@sveltejs/kit').Load}
+   */
+  export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
+    const pageNumber = page.query.get('page') || '1';
+    const url = `/all-articles-${pageNumber}.json`;
+    const res = await fetch(url);
+
+    if (res.ok) {
+      return {
+        props: {
+          articles: await res.json(),
+        },
+      };
+    }
+
+    return {
+      status: res.status,
+      error: new Error(`Could not load ${url}`),
+    };
+  }
+</script>
+
+<script lang="ts">
+  import { goto } from '$app/navigation';
+  import Button from '/src/components/Button.svelte';
+  import ArticleRow from '/src/components/home/ArticleRow.svelte';
+
+  export let articles: AggregatePaginateResult<IArticle>;
+</script>
+
+<headblock>
+  <h1>All articles</h1>
+  <subtitle>
+    {#if articles.hasNextPage || articles.hasPrevPage}
+      Page {articles.page} of {articles.totalPages}
+    {/if}
+  </subtitle>
+</headblock>
+
+{#if articles && articles.docs}
+  {#each articles.docs as article, index}
+    <ArticleRow
+      style={'grid-area: auto / 1 / auto / 3;'}
+      name={article.name}
+      href={`articles/${article.slug}`}
+      description={article.description}
+      photo={article.photo_path}
+      date={article.timestamps.published_at}
+      authors={article.people.authors} />
+    <span />
+  {/each}
+{/if}
+
+<div class={'navrow'}>
+  {#if articles.hasNextPage || articles.hasPrevPage}
+    Page {articles.page} of {articles.totalPages}
+  {/if}
+  <div class={'buttonrow'}>
+    {#if articles.hasPrevPage}
+      <Button on:click={() => goto(`?page=${articles.prevPage}`)}>Previous</Button>
+    {/if}
+    {#if articles.hasNextPage}
+      <Button on:click={() => goto(`?page=${articles.nextPage}`)}>Next</Button>
+    {/if}
+  </div>
+</div>
