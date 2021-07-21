@@ -14,6 +14,40 @@
     padding-bottom: 48px;
     border-bottom: 1px solid var(--border-dark);
   }
+  @media (max-width: 990px) {
+    .top-grid {
+      grid-template-areas:
+        'a0  d0  a1'
+        'a0  d0  d1'
+        'a0  d0  a2'
+        'd2  d2  d2'
+        'a3  a3  a3';
+    }
+  }
+  @media (max-width: 770px) {
+    .top-grid {
+      grid-template-columns: 1fr 0.5px 1fr;
+      grid-template-areas:
+        'a0  d0  a1'
+        'd1  d1  d1'
+        'a2  a2  a2'
+        'd2  d2  d2'
+        'a3  a3  a3';
+    }
+  }
+  @media (max-width: 560px) {
+    .top-grid {
+      grid-template-rows: auto 0.5px auto 0.5px auto 0.5px auto;
+      grid-template-areas:
+        'a0  a0  a0'
+        'd0  d0  d0'
+        'a1  a1  a1'
+        'd1  d1  d1'
+        'a2  a2  a2'
+        'd2  d2  d2'
+        'a3  a3  a3';
+    }
+  }
   .top-grid.hidden {
     display: none;
   }
@@ -133,7 +167,7 @@
         photoCredit={article.photo_credit}
         date={article.timestamps.published_at}
         authors={article.people.authors}
-        isCompact={index > 0}
+        isCompact={windowWidth <= 770 ? index > 1 : index > 0}
         isCategoryPage={true}
         isLargerHeadline={true} />
       {#if index < 3}
@@ -145,6 +179,9 @@
 <div class={'main-grid'} class:firstPage={articles.page === 1}>
   {#if articles && articles.docs && articles.page === 1}
     {#each Array.from(articles.docs).slice(4, 12) as article, index}
+      {#if windowWidth <= 560}
+        <span style={'grid-area: auto / 1 / auto / 3;'} />
+      {/if}
       <ArticleCard
         name={article.name}
         href={`articles/${article.slug}`}
@@ -152,7 +189,9 @@
         photo={article.photo_path}
         photoCredit={article.photo_credit}
         date={article.timestamps.published_at}
-        authors={article.people.authors} />
+        authors={article.people.authors}
+        isCompact={windowWidth <= 560}
+        style={windowWidth <= 560 ? 'grid-area: auto / 1 / auto / 3;' : ''} />
     {/each}
   {/if}
   {#if articles && articles.docs}
