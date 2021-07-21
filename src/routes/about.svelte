@@ -25,6 +25,15 @@
     flex-grow: 0;
     flex-shrink: 0;
   }
+  @media (max-width: 990px) {
+    .wrapper {
+      flex-direction: column;
+    }
+    .sidebar {
+      width: 100%;
+    }
+  }
+
   a {
     color: rgb(var(--primary-lighter));
     box-shadow: 0 1px 0 0 rgb(var(--primary));
@@ -82,7 +91,7 @@
       <a href={'https://www.youtube.com/channel/UC3UaWOCIldF5_qWnCYEt0RQ'}
         >Furman University News Channel</a>
     </div>
-    <h2>Social Media</h2>
+    <h2>Social media</h2>
     <div><a href={'https://twitter.com/thepaladin_news'}>Twitter</a></div>
     <div><a href={'https://www.facebook.com/thepaladin.news'}>Facebook</a></div>
     <div><a href={'https://instagram.com/thepaladin.news'}>Instagram</a></div>
