@@ -1,13 +1,4 @@
 <style>
-  h1 {
-    font-family: var(--font-detail);
-    font-size: 48px;
-    line-height: 48px;
-    margin: 0;
-    border-bottom: 2px solid black;
-    padding: 0 0 10px 0;
-    margin: 48px 0 32px 0;
-  }
   div {
     font-size: 17px;
     line-height: 1.7;
@@ -44,8 +35,12 @@
   }
 </style>
 
+<script>
+  import PageHeading from '/src/components/PageHeading.svelte';
+</script>
+
 <div>
-  <h1>Privacy policy</h1>
+  <PageHeading>Privacy policy</PageHeading>
   <p>
     At&nbsp;<em>The Paladin Newspaper</em>, we collect and manage user data according to the
     following Privacy Policy.

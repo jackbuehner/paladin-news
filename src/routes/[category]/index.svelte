@@ -1,14 +1,4 @@
 <style>
-  h1 {
-    font-family: var(--font-detail);
-    font-size: 48px;
-    line-height: 48px;
-    margin: 0;
-    border-bottom: 2px solid black;
-    padding: 0 0 10px 0;
-    margin: 48px 0 32px 0;
-  }
-
   .top-grid {
     display: grid;
     grid-template-columns: 3fr 0.5px 1.75fr;
@@ -115,6 +105,7 @@
   import Button from '/src/components/Button.svelte';
   import { headerLabel } from '../../stores/header';
   import { beforeUpdate, onDestroy, onMount } from 'svelte';
+  import PageHeading from '/src/components/PageHeading.svelte';
 
   export let articles: AggregatePaginateResult<IArticle>;
   export let pageTitle: string;
@@ -128,7 +119,7 @@
 
 <svelte:window bind:innerWidth={windowWidth} />
 
-<h1>{$headerLabel}</h1>
+<PageHeading>{$headerLabel}</PageHeading>
 
 <div class={'top-grid'} class:hidden={articles.page !== 1}>
   {#if articles && articles.docs && articles.page === 1}
