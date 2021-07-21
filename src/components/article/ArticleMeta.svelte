@@ -113,23 +113,26 @@
       {''}
     {:else if authors.length === 1}
       <!-- show author if only one -->
-      <a href={`/profile/${slugify(authors[0].name)}`}>{authors[0].name}</a>
+      <a href={`/profile/${authors[0].slug ? authors[0].slug : slugify(authors[0].name)}`}
+        >{authors[0].name}</a>
     {:else if authors.length === 2}
       <!-- separate with 'and' if two authors -->
-      <a href={`/profile/${slugify(authors[0].name)}`}>{authors[0].name}</a>
+      <a href={`/profile/${authors[0].slug ? authors[0].slug : slugify(authors[0].name)}`}
+        >{authors[0].name}</a>
       <span> and </span>
-      <a href={`/profile/${slugify(authors[1].name)}`}>{authors[1].name}</a>
+      <a href={`/profile/${authors[1].slug ? authors[1].slug : slugify(authors[1].name)}`}
+        >{authors[1].name}</a>
     {:else if authors.length > 2}
       <!-- separate with either a comma or ', and' if more than two authors -->
       {#each authors as author, index}
         {#if index === 0}
-          <a href={`/profile/${slugify(author.name)}`}>{author.name}</a>
+          <a href={`/profile/${author.slug ? author.slug : slugify(author.name)}`}>{author.name}</a>
         {:else if index === authors.length - 1}
           <span>, and </span>
-          <a href={`/profile/${slugify(author.name)}`}>{author.name}</a>
+          <a href={`/profile/${author.slug ? author.slug : slugify(author.name)}`}>{author.name}</a>
         {:else}
           <span>, </span>
-          <a href={`/profile/${slugify(author.name)}`}>{author.name}</a>
+          <a href={`/profile/${author.slug ? author.slug : slugify(author.name)}`}>{author.name}</a>
         {/if}
       {/each}
     {/if}

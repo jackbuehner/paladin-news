@@ -34,6 +34,7 @@ interface IArticle {
 interface IAuthor {
   _id: string;
   name: string;
+  slug: string;
   email: string;
   twitter: string;
   biography: string;
