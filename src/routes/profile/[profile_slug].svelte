@@ -135,17 +135,21 @@
   <div>
     <h1>{profile.name}</h1>
     <div class={'detail'}>{profile.current_title}</div>
-    <a href={`mailto:${profile.email}`} class={'detail email'}>{profile.email}</a>
+    {#if profile.email}
+      <a href={`mailto:${profile.email}`} class={'detail email'}>{profile.email}</a>
+    {/if}
   </div>
 </div>
 
-<h2>About</h2>
-<p class={'bio'}>{profile.biography}</p>
-{#if profile.twitter}
-  <p class={'bio'}>
-    You can follow {profile.name} on Twitter at
-    <a href={`https://twitter.com/${profile.twitter}`}>@{profile.twitter}</a>.
-  </p>
+{#if profile.biography}
+  <h2>About</h2>
+  <p class={'bio'}>{profile.biography}</p>
+  {#if profile.twitter}
+    <p class={'bio'}>
+      You can follow {profile.name} on Twitter at
+      <a href={`https://twitter.com/${profile.twitter}`}>@{profile.twitter}</a>.
+    </p>
+  {/if}
 {/if}
 
 <h2>Articles</h2>
