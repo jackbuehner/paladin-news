@@ -8,23 +8,26 @@
   .sections-grid {
     display: grid;
     grid-template-columns: 1fr 1px 316px;
-    grid-template-rows: auto auto auto;
+    grid-template-rows: repeat(4, minmax(0, auto)) 1fr; /* end with 1fr so only last row will expand if needed */
     grid-template-areas:
       'news       news    news'
       'sports     divider opinions'
       'diversity  divider opinions'
-      'acc        divider opinions';
+      'acc        divider opinions'
+      'plus       divider opinions';
     gap: 0px 16px;
   }
   @media (max-width: 740px) {
     .sections-grid {
       grid-template-columns: 1fr;
+      grid-template-rows: repeat(5, minmax(0, auto)) 1fr;
       grid-template-areas:
         'news     '
         'opinions '
         'sports   '
         'diversity'
-        'acc      ';
+        'acc      '
+        'plus     ';
     }
   }
   span {
@@ -44,6 +47,7 @@
   import ArticleCardRow from '../components/home/ArticleCardRow.svelte';
   import HomeHeader from '/src/components/header/HomeHeader.svelte';
   import Container from '/src/components/Container.svelte';
+  import PaladinPlusList from '/src/components/PaladinPlusList.svelte';
 </script>
 
 <div class={'wrapper'}>
@@ -77,6 +81,11 @@
         categories={'arts,campus-culture'}
         gridArea={'acc'}
         quantity={[3, 2, 2, 3]} />
+      <div style={'grid-area: plus;'}>
+        <div style={'border-bottom: 1px solid var(--border-dark); padding: 16px 0'}>
+          <PaladinPlusList />
+        </div>
+      </div>
       <span />
     </div>
   </Container>
