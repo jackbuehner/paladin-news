@@ -53,6 +53,7 @@
     margin: 5px;
     align-items: center;
     justify-self: start;
+    justify-content: space-between;
   }
   a:hover {
     background-color: var(--button-bg-hover);
@@ -110,7 +111,19 @@
   {#each items as itemGroup}
     <div class={`divider`} />
     {#each itemGroup as item}
-      <a href={item.href} on:click={() => (isOpen = false)}>{item.label}</a>
+      <a
+        href={item.href}
+        target={item.external ? '_blank' : undefined}
+        on:click={() => (isOpen = false)}>
+        <span>{item.label}</span>
+        {#if item.external}
+          <svg style="width:12px;height:12px" viewBox="0 0 24 24">
+            <path
+              fill="currentColor"
+              d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z" />
+          </svg>
+        {/if}
+      </a>
     {/each}
   {/each}
 </nav>
