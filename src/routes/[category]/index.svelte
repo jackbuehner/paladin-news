@@ -140,6 +140,7 @@
   import { headerLabel } from '../../stores/header';
   import { beforeUpdate, onDestroy, onMount } from 'svelte';
   import PageHeading from '/src/components/PageHeading.svelte';
+  import Container from '/src/components/Container.svelte';
 
   export let articles: AggregatePaginateResult<IArticle>;
   export let pageTitle: string;
@@ -155,81 +156,83 @@
 
 <PageHeading>{$headerLabel}</PageHeading>
 
-<div class={'top-grid'} class:hidden={articles.page !== 1}>
-  {#if articles && articles.docs && articles.page === 1}
-    {#each Array.from(articles.docs).slice(0, 4) as article, index}
-      <ArticleCard
-        style={`grid-area: a${index}`}
-        name={article.name}
-        href={`articles/${article.slug}`}
-        description={article.description}
-        photo={article.photo_path}
-        photoCredit={article.photo_credit}
-        date={article.timestamps.published_at}
-        authors={article.people.authors}
-        isCompact={windowWidth <= 770 ? index > 1 : index > 0}
-        isCategoryPage={true}
-        isLargerHeadline={true} />
-      {#if index < 3}
-        <span style={`grid-area: d${index}`} />
-      {/if}
-    {/each}
-  {/if}
-</div>
-<div class={'main-grid'} class:firstPage={articles.page === 1}>
-  {#if articles && articles.docs && articles.page === 1}
-    {#each Array.from(articles.docs).slice(4, 12) as article, index}
-      {#if windowWidth <= 560}
-        <span style={'grid-area: auto / 1 / auto / 3;'} />
-      {/if}
-      <ArticleCard
-        name={article.name}
-        href={`articles/${article.slug}`}
-        description={article.description}
-        photo={article.photo_path}
-        photoCredit={article.photo_credit}
-        date={article.timestamps.published_at}
-        authors={article.people.authors}
-        isCompact={windowWidth <= 560}
-        style={windowWidth <= 560 ? 'grid-area: auto / 1 / auto / 3;' : ''} />
-    {/each}
-  {/if}
-  {#if articles && articles.docs}
-    {#each Array.from(articles.docs).slice(articles.page === 1 ? 12 : 0, 26) as article, index}
-      {#if index !== 0}
-        <span style={'grid-area: auto / 1 / auto / 3;'} />
-      {:else if articles.page === 1}
-        <span style={'grid-area: auto / 1 / auto / 3;'} />
-      {/if}
-      <ArticleRow
-        style={'grid-area: auto / 1 / auto / 3;'}
-        name={article.name}
-        href={`articles/${article.slug}`}
-        description={article.description}
-        photo={article.photo_path}
-        date={article.timestamps.published_at}
-        authors={article.people.authors} />
-    {/each}
-  {/if}
-  <span style={'grid-area: auto / 1 / auto / 3;'} />
-  <div class={'navrow'}>
-    {#if articles.hasNextPage || articles.hasPrevPage}
-      Page {articles.page} of {articles.totalPages}
+<Container>
+  <div class={'top-grid'} class:hidden={articles.page !== 1}>
+    {#if articles && articles.docs && articles.page === 1}
+      {#each Array.from(articles.docs).slice(0, 4) as article, index}
+        <ArticleCard
+          style={`grid-area: a${index}`}
+          name={article.name}
+          href={`articles/${article.slug}`}
+          description={article.description}
+          photo={article.photo_path}
+          photoCredit={article.photo_credit}
+          date={article.timestamps.published_at}
+          authors={article.people.authors}
+          isCompact={windowWidth <= 770 ? index > 1 : index > 0}
+          isCategoryPage={true}
+          isLargerHeadline={true} />
+        {#if index < 3}
+          <span style={`grid-area: d${index}`} />
+        {/if}
+      {/each}
     {/if}
-    <div class={'buttonrow'}>
-      {#if articles.hasPrevPage}
-        <Button on:click={() => goto(`?page=${articles.prevPage}`)}>Previous</Button>
-      {/if}
-      {#if articles.hasNextPage}
-        <Button on:click={() => goto(`?page=${articles.nextPage}`)}>Next</Button>
-      {/if}
-    </div>
   </div>
-  <span style={`grid-area: 1 / 3 / -1 / 3; ${windowWidth <= 990 ? 'display: none;' : ''}`} />
-  <aside
-    style={`grid-area: 1 / 4 / -1 / 4; background: red;  ${
-      windowWidth <= 990 ? 'display: none;' : ''
-    }`}>
-    sidebar
-  </aside>
-</div>
+  <div class={'main-grid'} class:firstPage={articles.page === 1}>
+    {#if articles && articles.docs && articles.page === 1}
+      {#each Array.from(articles.docs).slice(4, 12) as article, index}
+        {#if windowWidth <= 560}
+          <span style={'grid-area: auto / 1 / auto / 3;'} />
+        {/if}
+        <ArticleCard
+          name={article.name}
+          href={`articles/${article.slug}`}
+          description={article.description}
+          photo={article.photo_path}
+          photoCredit={article.photo_credit}
+          date={article.timestamps.published_at}
+          authors={article.people.authors}
+          isCompact={windowWidth <= 560}
+          style={windowWidth <= 560 ? 'grid-area: auto / 1 / auto / 3;' : ''} />
+      {/each}
+    {/if}
+    {#if articles && articles.docs}
+      {#each Array.from(articles.docs).slice(articles.page === 1 ? 12 : 0, 26) as article, index}
+        {#if index !== 0}
+          <span style={'grid-area: auto / 1 / auto / 3;'} />
+        {:else if articles.page === 1}
+          <span style={'grid-area: auto / 1 / auto / 3;'} />
+        {/if}
+        <ArticleRow
+          style={'grid-area: auto / 1 / auto / 3;'}
+          name={article.name}
+          href={`articles/${article.slug}`}
+          description={article.description}
+          photo={article.photo_path}
+          date={article.timestamps.published_at}
+          authors={article.people.authors} />
+      {/each}
+    {/if}
+    <span style={'grid-area: auto / 1 / auto / 3;'} />
+    <div class={'navrow'}>
+      {#if articles.hasNextPage || articles.hasPrevPage}
+        Page {articles.page} of {articles.totalPages}
+      {/if}
+      <div class={'buttonrow'}>
+        {#if articles.hasPrevPage}
+          <Button on:click={() => goto(`?page=${articles.prevPage}`)}>Previous</Button>
+        {/if}
+        {#if articles.hasNextPage}
+          <Button on:click={() => goto(`?page=${articles.nextPage}`)}>Next</Button>
+        {/if}
+      </div>
+    </div>
+    <span style={`grid-area: 1 / 3 / -1 / 3; ${windowWidth <= 990 ? 'display: none;' : ''}`} />
+    <aside
+      style={`grid-area: 1 / 4 / -1 / 4; background: red;  ${
+        windowWidth <= 990 ? 'display: none;' : ''
+      }`}>
+      sidebar
+    </aside>
+  </div>
+</Container>

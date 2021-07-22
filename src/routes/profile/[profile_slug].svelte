@@ -125,59 +125,62 @@
 <script lang="ts">
   import type { IProfile } from 'src/interfaces/profiles';
   import { goto } from '$app/navigation';
+  import Container from '/src/components/Container.svelte';
 
   export let profile: IProfile;
   export let articles: AggregatePaginateResult<IArticle>;
 </script>
 
-<div class={'header'}>
-  <img src={profile.photo} alt={''} height={profile.email ? 90 : 74} />
-  <div>
-    <h1>{profile.name}</h1>
-    <div class={'detail'}>{profile.current_title}</div>
-    {#if profile.email}
-      <a href={`mailto:${profile.email}`} class={'detail email'}>{profile.email}</a>
+<Container>
+  <div class={'header'}>
+    <img src={profile.photo} alt={''} height={profile.email ? 90 : 74} />
+    <div>
+      <h1>{profile.name}</h1>
+      <div class={'detail'}>{profile.current_title}</div>
+      {#if profile.email}
+        <a href={`mailto:${profile.email}`} class={'detail email'}>{profile.email}</a>
+      {/if}
+    </div>
+  </div>
+
+  {#if profile.biography}
+    <h2>About</h2>
+    <p class={'bio'}>{profile.biography}</p>
+    {#if profile.twitter}
+      <p class={'bio'}>
+        You can follow {profile.name} on Twitter at
+        <a href={`https://twitter.com/${profile.twitter}`}>@{profile.twitter}</a>.
+      </p>
+    {/if}
+  {/if}
+
+  <h2>Articles</h2>
+  <div class={'articles'}>
+    {#if articles && articles.docs}
+      {#each articles.docs as article, index}
+        <ArticleRow
+          name={article.name}
+          href={`articles/${article.slug}`}
+          description={article.description}
+          photo={article.photo_path}
+          date={article.timestamps.published_at}
+          authors={article.people.authors} />
+        <span />
+      {/each}
     {/if}
   </div>
-</div>
 
-{#if profile.biography}
-  <h2>About</h2>
-  <p class={'bio'}>{profile.biography}</p>
-  {#if profile.twitter}
-    <p class={'bio'}>
-      You can follow {profile.name} on Twitter at
-      <a href={`https://twitter.com/${profile.twitter}`}>@{profile.twitter}</a>.
-    </p>
-  {/if}
-{/if}
-
-<h2>Articles</h2>
-<div class={'articles'}>
-  {#if articles && articles.docs}
-    {#each articles.docs as article, index}
-      <ArticleRow
-        name={article.name}
-        href={`articles/${article.slug}`}
-        description={article.description}
-        photo={article.photo_path}
-        date={article.timestamps.published_at}
-        authors={article.people.authors} />
-      <span />
-    {/each}
-  {/if}
-</div>
-
-<div class={'navrow'}>
-  {#if articles.hasNextPage || articles.hasPrevPage}
-    Page {articles.page} of {articles.totalPages}
-  {/if}
-  <div class={'buttonrow'}>
-    {#if articles.hasPrevPage}
-      <Button on:click={() => goto(`?page=${articles.prevPage}`)}>Previous</Button>
+  <div class={'navrow'}>
+    {#if articles.hasNextPage || articles.hasPrevPage}
+      Page {articles.page} of {articles.totalPages}
     {/if}
-    {#if articles.hasNextPage}
-      <Button on:click={() => goto(`?page=${articles.nextPage}`)}>Next</Button>
-    {/if}
+    <div class={'buttonrow'}>
+      {#if articles.hasPrevPage}
+        <Button on:click={() => goto(`?page=${articles.prevPage}`)}>Previous</Button>
+      {/if}
+      {#if articles.hasNextPage}
+        <Button on:click={() => goto(`?page=${articles.nextPage}`)}>Next</Button>
+      {/if}
+    </div>
   </div>
-</div>
+</Container>

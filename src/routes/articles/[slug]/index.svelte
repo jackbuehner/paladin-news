@@ -40,22 +40,25 @@
   import ArticleMeta from '/src/components/article/ArticleMeta.svelte';
   import ArticleBody from '/src/components/article/ArticleBody.svelte';
   import type { IArticle } from 'src/interfaces/articles';
+  import Container from '/src/components/Container.svelte';
 
   export let article: IArticle;
 </script>
 
-<article>
-  <ArticleCategories categories={article.categories} />
-  <ArticleHeading>{article.name}</ArticleHeading>
-  <ArticleSubtitle>{article.description}</ArticleSubtitle>
-  <ArticlePhoto src={article.photo_path} />
-  <ArticleCaption>{article.photo_caption}</ArticleCaption>
-  <ArticlePhotoCredit>{article.photo_credit}</ArticlePhotoCredit>
-  <ArticleMeta
-    date={article.timestamps.published_at}
-    authors={article.people.authors}
-    articleName={article.name}
-    articleLocation={`https://thepaladin.news/articles/${article.slug}`}
-    articleDescription={article.description} />
-  <ArticleBody doc={article.body} />
-</article>
+<Container>
+  <article>
+    <ArticleCategories categories={article.categories} />
+    <ArticleHeading>{article.name}</ArticleHeading>
+    <ArticleSubtitle>{article.description}</ArticleSubtitle>
+    <ArticlePhoto src={article.photo_path} />
+    <ArticleCaption>{article.photo_caption}</ArticleCaption>
+    <ArticlePhotoCredit>{article.photo_credit}</ArticlePhotoCredit>
+    <ArticleMeta
+      date={article.timestamps.published_at}
+      authors={article.people.authors}
+      articleName={article.name}
+      articleLocation={`https://thepaladin.news/articles/${article.slug}`}
+      articleDescription={article.description} />
+    <ArticleBody doc={article.body} />
+  </article>
+</Container>

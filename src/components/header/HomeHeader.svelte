@@ -24,9 +24,6 @@
       top: 0;
       z-index: 99;
     }
-    .topbar-wrapper.scrolled {
-      box-shadow: var(--topbar-scroll-shadow);
-    }
   }
 
   /* wrapper for the logo */

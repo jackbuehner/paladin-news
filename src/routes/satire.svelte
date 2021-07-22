@@ -8,8 +8,11 @@
 
 <script>
   import HomeHeader from '../components/header/HomeHeader.svelte';
+  import Container from '/src/components/Container.svelte';
 </script>
 
 <div class={'wrapper'}>
-  <HomeHeader isSatire={true} />
+  <Container>
+    <HomeHeader isSatire={true} />
+  </Container>
 </div>

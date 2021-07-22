@@ -50,46 +50,49 @@
 
 <script land="ts">
   import PageHeading from '/src/components/PageHeading.svelte';
+  import Container from '/src/components/Container.svelte';
 </script>
 
 <PageHeading>Who we are</PageHeading>
 
-<div class={'wrapper'}>
-  <div>
-    <p>
-      <i>The Paladin</i>, Furman University's independent student news network, was established in
-      1916. Today, it continues the tradition of providing the student body's perspective on issues
-      affecting the Furman community.
-    </p>
-    <p>
-      <i>The Paladin</i> is a student-run organization and is editorially independent from Furman University.
-      It benefits the campus of Furman University and the Greenville area. Any opinions do not necessarily
-      reflect the opinion of Furman University or any representatives of Furman.
-    </p>
+<Container>
+  <div class={'wrapper'}>
+    <div>
+      <p>
+        <i>The Paladin</i>, Furman University's independent student news network, was established in
+        1916. Today, it continues the tradition of providing the student body's perspective on
+        issues affecting the Furman community.
+      </p>
+      <p>
+        <i>The Paladin</i> is a student-run organization and is editorially independent from Furman University.
+        It benefits the campus of Furman University and the Greenville area. Any opinions do not necessarily
+        reflect the opinion of Furman University or any representatives of Furman.
+      </p>
+    </div>
+    <aside class={'sidebar'}>
+      <h2>Archives</h2>
+      <div>
+        <a href={'https://cdm16821.contentdm.oclc.org/cdm/landingpage/collection/p16821coll21'}
+          ><i>The Hornet</i>, 1916-1961</a>
+      </div>
+      <div>
+        <a href={'https://cdm16821.contentdm.oclc.org/cdm/landingpage/collection/p16821coll21'}
+          ><i>The Furman Paladin</i>, 1962-1969</a>
+      </div>
+      <div>
+        <a href={'https://cdm16821.contentdm.oclc.org/cdm/landingpage/collection/p16821coll21'}
+          ><i>The Paladin</i>, 1970-2019</a>
+      </div>
+      <h2>Video media</h2>
+      <div>
+        <a href={'https://www.youtube.com/channel/UC3UaWOCIldF5_qWnCYEt0RQ'}
+          >Furman University News Channel</a>
+      </div>
+      <h2>Social media</h2>
+      <div><a href={'https://twitter.com/thepaladin_news'}>Twitter</a></div>
+      <div><a href={'https://www.facebook.com/thepaladin.news'}>Facebook</a></div>
+      <div><a href={'https://instagram.com/thepaladin.news'}>Instagram</a></div>
+      <div><a href={'https://www.linkedin.com/company/thepaladin/'}>Linkedin</a></div>
+    </aside>
   </div>
-  <aside class={'sidebar'}>
-    <h2>Archives</h2>
-    <div>
-      <a href={'https://cdm16821.contentdm.oclc.org/cdm/landingpage/collection/p16821coll21'}
-        ><i>The Hornet</i>, 1916-1961</a>
-    </div>
-    <div>
-      <a href={'https://cdm16821.contentdm.oclc.org/cdm/landingpage/collection/p16821coll21'}
-        ><i>The Furman Paladin</i>, 1962-1969</a>
-    </div>
-    <div>
-      <a href={'https://cdm16821.contentdm.oclc.org/cdm/landingpage/collection/p16821coll21'}
-        ><i>The Paladin</i>, 1970-2019</a>
-    </div>
-    <h2>Video media</h2>
-    <div>
-      <a href={'https://www.youtube.com/channel/UC3UaWOCIldF5_qWnCYEt0RQ'}
-        >Furman University News Channel</a>
-    </div>
-    <h2>Social media</h2>
-    <div><a href={'https://twitter.com/thepaladin_news'}>Twitter</a></div>
-    <div><a href={'https://www.facebook.com/thepaladin.news'}>Facebook</a></div>
-    <div><a href={'https://instagram.com/thepaladin.news'}>Instagram</a></div>
-    <div><a href={'https://www.linkedin.com/company/thepaladin/'}>Linkedin</a></div>
-  </aside>
-</div>
+</Container>

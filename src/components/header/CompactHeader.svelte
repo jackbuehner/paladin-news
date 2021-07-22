@@ -2,13 +2,13 @@
   /* wrapper for the topbar */
   .topbar {
     height: 52px;
-    border-bottom: 1px solid var(--border-light);
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
   }
   .topbar-wrapper {
+    border-bottom: 1px solid var(--border-light);
     background-color: var(--topbar-bg);
     transition: box-shadow 200ms;
   }

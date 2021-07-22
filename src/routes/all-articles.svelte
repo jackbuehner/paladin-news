@@ -10,7 +10,12 @@
     font-size: 18px;
     position: absolute;
     right: 0;
-    bottom: 14px;
+    bottom: 46px;
+  }
+  @media (max-width: 540px) {
+    subtitle {
+      bottom: 30px;
+    }
   }
 
   headblock {
@@ -71,43 +76,49 @@
   import Button from '/src/components/Button.svelte';
   import ArticleRow from '/src/components/home/ArticleRow.svelte';
   import PageHeading from '/src/components/PageHeading.svelte';
+  import Container from '/src/components/Container.svelte';
 
   export let articles: AggregatePaginateResult<IArticle>;
 </script>
 
-<headblock>
-  <PageHeading>All articles</PageHeading>
-  <subtitle>
+<PageHeading>All articles</PageHeading>
+
+<Container>
+  <headblock>
+    <subtitle>
+      {#if articles.hasNextPage || articles.hasPrevPage}
+        Page {articles.page} of {articles.totalPages}
+      {/if}
+    </subtitle>
+  </headblock>
+</Container>
+
+<Container>
+  {#if articles && articles.docs}
+    {#each articles.docs as article, index}
+      <ArticleRow
+        style={'grid-area: auto / 1 / auto / 3;'}
+        name={article.name}
+        href={`articles/${article.slug}`}
+        description={article.description}
+        photo={article.photo_path}
+        date={article.timestamps.published_at}
+        authors={article.people.authors} />
+      <span />
+    {/each}
+  {/if}
+
+  <div class={'navrow'}>
     {#if articles.hasNextPage || articles.hasPrevPage}
       Page {articles.page} of {articles.totalPages}
     {/if}
-  </subtitle>
-</headblock>
-
-{#if articles && articles.docs}
-  {#each articles.docs as article, index}
-    <ArticleRow
-      style={'grid-area: auto / 1 / auto / 3;'}
-      name={article.name}
-      href={`articles/${article.slug}`}
-      description={article.description}
-      photo={article.photo_path}
-      date={article.timestamps.published_at}
-      authors={article.people.authors} />
-    <span />
-  {/each}
-{/if}
-
-<div class={'navrow'}>
-  {#if articles.hasNextPage || articles.hasPrevPage}
-    Page {articles.page} of {articles.totalPages}
-  {/if}
-  <div class={'buttonrow'}>
-    {#if articles.hasPrevPage}
-      <Button on:click={() => goto(`?page=${articles.prevPage}`)}>Previous</Button>
-    {/if}
-    {#if articles.hasNextPage}
-      <Button on:click={() => goto(`?page=${articles.nextPage}`)}>Next</Button>
-    {/if}
+    <div class={'buttonrow'}>
+      {#if articles.hasPrevPage}
+        <Button on:click={() => goto(`?page=${articles.prevPage}`)}>Previous</Button>
+      {/if}
+      {#if articles.hasNextPage}
+        <Button on:click={() => goto(`?page=${articles.nextPage}`)}>Next</Button>
+      {/if}
+    </div>
   </div>
-</div>
+</Container>

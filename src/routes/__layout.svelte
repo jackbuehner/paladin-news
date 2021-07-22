@@ -11,7 +11,6 @@
 
 <script>
   import Footer from '../components/Footer.svelte';
-  import Container from '../components/Container.svelte';
   import CompactHeader from '../components/header/CompactHeader.svelte';
 </script>
 
@@ -19,9 +18,7 @@
   <CompactHeader />
 
   <div class={'content'}>
-    <Container>
-      <slot />
-    </Container>
+    <slot />
   </div>
 
   <Footer />
