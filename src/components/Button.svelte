@@ -33,9 +33,10 @@
   }
 </style>
 
-<script>
+<script lang="ts">
   //export let type = 'default';
   export let disabled = false;
+  export let htmlType: string = undefined;
 </script>
 
-<button on:click class:disabled><slot /></button>
+<button on:click class:disabled type={htmlType}><slot /></button>
