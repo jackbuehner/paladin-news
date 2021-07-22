@@ -55,17 +55,18 @@
 
   export let type: 'block' | 'line' | 'blockCentered' = 'line';
   export let subtitle: string = undefined;
+  export let width: number = 1200;
 </script>
 
 {#if type === 'line'}
-  <Container>
+  <Container {width}>
     <div class={'line'}><h1><slot /></h1></div>
   </Container>
 {/if}
 
 {#if type === 'block'}
   <div class={'block'}>
-    <Container>
+    <Container {width}>
       <h1><slot /></h1>
       {#if subtitle !== undefined}
         <p>{subtitle}</p>
@@ -76,7 +77,7 @@
 
 {#if type === 'blockCentered'}
   <div class={'block centered'}>
-    <Container>
+    <Container {width}>
       <h1><slot /></h1>
       {#if subtitle !== undefined}
         <div>{@html subtitle}</div>

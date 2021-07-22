@@ -93,6 +93,7 @@
           <div class={'header'}>More</div>
           <a href={'/all-articles'}>All articles</a>
           <a href={'/satire'}>The Horse</a>
+          <a href={'/satire'}>Newsletters</a>
           <a href={'/'}>Home</a>
         </div>
         <div>

@@ -13,6 +13,9 @@
     transition: 200ms;
     color: var(--button-color);
   }
+  button.isOutlined {
+    border-color: var(--border-dark);
+  }
   button:hover:not(.disabled) {
     background-color: var(--button-bg-hover);
     border: 1px solid var(--button-bg-hover);
@@ -31,13 +34,14 @@
   }
 </style>
 
-<script>
+<script lang="ts">
   //export let type = 'default';
   export let viewBox = '0 0 24 24';
   export let disabled = false;
+  export let isOutlined: boolean = false;
 </script>
 
-<button on:click class:disabled>
+<button on:click class:disabled class:isOutlined>
   <svg style="width:24px;height:24px" {viewBox}>
     <slot />
   </svg>

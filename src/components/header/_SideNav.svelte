@@ -94,11 +94,22 @@
       { href: '/arts-culture', label: 'Arts, Campus, & Culture' },
     ],
     [{ href: '/satire', label: 'The Horse' }],
-    [{ href: '/contact', label: 'Contact' }],
+    [
+      {
+        href: 'https://www.youtube.com/channel/UC3UaWOCIldF5_qWnCYEt0RQ',
+        label: 'Videos',
+        external: true,
+      },
+      { href: '/newsletters', label: 'Newsletters' },
+    ],
     [
       { href: '/about', label: 'Who we are' },
       { href: '/contact', label: 'Contact' },
-      { href: 'https://app.mobilecause.com/vf/DinsDonate/team/PaladinNewspaper', label: 'Donate' },
+      {
+        href: 'https://app.mobilecause.com/vf/DinsDonate/team/PaladinNewspaper',
+        label: 'Donate',
+        external: true,
+      },
       { href: '/privacy-policy', label: 'Privacy policy' },
     ],
   ];
