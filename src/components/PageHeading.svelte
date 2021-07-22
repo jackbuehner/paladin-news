@@ -48,6 +48,20 @@
     font-weight: 400;
     margin: 0;
   }
+  :global(.block a) {
+    color: rgb(var(--primary-lighter));
+    box-shadow: 0 1px 0 0 rgb(var(--primary));
+    transition: background-color 0.2s, box-shadow 0.1s, color 0.2s;
+    text-decoration: none;
+  }
+  :global(.block a:hover) {
+    box-shadow: 0 2px 0 0 rgb(var(--primary));
+    background-color: rgba(var(--primary), 0.1);
+    color: var(--color-neutral-dark);
+  }
+  :global(.block a:active) {
+    background-color: rgba(var(--primary), 0.16);
+  }
 </style>
 
 <script lang="ts">
@@ -69,7 +83,7 @@
     <Container {width}>
       <h1><slot /></h1>
       {#if subtitle !== undefined}
-        <p>{subtitle}</p>
+        <p>{@html subtitle}</p>
       {/if}
     </Container>
   </div>
