@@ -40,6 +40,28 @@
       display: none;
     }
   }
+
+  /* section groups */
+  .section {
+    padding: 30px 0;
+    border-bottom: 1px solid var(--border-dark);
+  }
+
+  /* section headings */
+  .section > h2 {
+    font-family: var(--font-detail);
+    font-size: 18px;
+    line-height: 18px;
+    text-transform: uppercase;
+    margin: 0 0 16px 0;
+  }
+
+  /* hide twitter section on smaller screens */
+  @media (max-width: 740px) {
+    .twitter {
+      display: none;
+    }
+  }
 </style>
 
 <script lang="ts">
@@ -60,12 +82,29 @@
         categories={'news'}
         gridArea={'news'}
         quantity={[5, 4, 2, 3]} />
-      <ArticleCardRow
-        label={'Opinions'}
-        categories={'opinion'}
-        gridArea={'opinions'}
-        quantity={[6, 4, 3, 3]}
-        forceVertical={true} />
+      <div style={'grid-area: opinions'}>
+        <ArticleCardRow
+          label={'Opinions'}
+          categories={'opinion'}
+          quantity={[6, 4, 3, 3]}
+          forceVertical={true} />
+        <div class={'section twitter'}>
+          <h2>Tweets</h2>
+          <a
+            href="https://twitter.com/thepaladin_news"
+            data-theme="light"
+            data-border-color="#ffff00"
+            data-cards="hidden"
+            data-chrome="noheader nofooter noborders noscrollbar transparent"
+            data-dnt="true"
+            data-width="312"
+            data-tweet-limit="2"
+            target="_blank">
+            Tweets by thepaladin_news
+          </a>
+          <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+      </div>
       <ArticleCardRow
         label={'Sports'}
         categories={'sports'}
