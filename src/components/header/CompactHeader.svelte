@@ -70,12 +70,12 @@
   import TheHorseLogo from '../svgs/TheHorseLogo.svelte';
   import SideNav from './_SideNav.svelte';
   import { headerLabel } from '../../stores/header';
+  import { headerIsSatire } from '../../stores/header';
 
   $: windowWidth = 0;
   $: windowScrollY = 0;
 
   let isSideNavOpen = false;
-  export let isSatire = false;
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} bind:scrollY={windowScrollY} />
@@ -91,7 +91,7 @@
         {/if}
       </div>
       <div class="logo">
-        {#if isSatire}
+        {#if $headerIsSatire}
           <a href="/satire"><TheHorseLogo width={'100%'} height={46} /></a>
         {:else}
           <a href="/"><ThePaladinLogo width={'100%'} height={46} /></a>

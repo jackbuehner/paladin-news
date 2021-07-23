@@ -1,0 +1,70 @@
+<style>
+  article {
+    max-width: 590px;
+    margin: 32px auto;
+  }
+</style>
+
+<script context="module" lang="ts">
+  import type { LoadInput, LoadOutput } from '@sveltejs/kit';
+
+  /**
+   * @type {import('@sveltejs/kit').Load}
+   */
+  export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
+    const url = `/satire/${page.params.slug}.json`;
+    const res = await fetch(url);
+
+    if (res.ok) {
+      return {
+        props: {
+          satire: await res.json(),
+        },
+      };
+    }
+
+    return {
+      status: res.status,
+      error: new Error(`Could not load ${url}`),
+    };
+  }
+</script>
+
+<script lang="ts">
+  import ArticleHeading from '/src/components/article/ArticleHeading.svelte';
+  import ArticleSubtitle from '/src/components/article/ArticleSubtitle.svelte';
+  import ArticleCategories from '/src/components/article/ArticleCategories.svelte';
+  import ArticlePhoto from '/src/components/article/ArticlePhoto.svelte';
+  import ArticleCaption from '/src/components/article/ArticleCaption.svelte';
+  import ArticlePhotoCredit from '/src/components/article/ArticlePhotoCredit.svelte';
+  import ArticleBody from '/src/components/article/ArticleBody.svelte';
+  import type { ISatire } from 'src/interfaces/satire';
+  import Container from '/src/components/Container.svelte';
+  import SatireMeta from '/src/components/article/SatireMeta.svelte';
+  import { headerIsSatire } from '../../stores/header';
+  import { beforeUpdate, onDestroy } from 'svelte';
+
+  export let satire: ISatire;
+
+  // set the header to satire
+  beforeUpdate(() => ($headerIsSatire = true));
+  onDestroy(() => ($headerIsSatire = false));
+</script>
+
+<Container>
+  <article>
+    <ArticleCategories categories={['Satire']} />
+    <ArticleHeading>{satire.name}</ArticleHeading>
+    <ArticleSubtitle>{satire.description}</ArticleSubtitle>
+    <SatireMeta authors={satire.people.display_authors} date={satire.timestamps.published_at} />
+    <ArticlePhoto src={satire.photo_path} />
+    {#if satire.photo_caption}
+      <ArticleCaption>{satire.photo_caption}</ArticleCaption>
+    {/if}
+    {#if satire.photo_credit}
+      <ArticlePhotoCredit>{satire.photo_credit}</ArticlePhotoCredit>
+    {/if}
+
+    <ArticleBody doc={satire.body} />
+  </article>
+</Container>
