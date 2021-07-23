@@ -151,7 +151,7 @@
     <div>
       {#if writers && profiles.length > 0}
         <section>
-          {#each profiles as profile}
+          {#each writers as profile}
             <a href={`/profile/${profile.slug}`} class={'card'}>
               <img src={profile.photo} alt={''} />
               <div class={'name'}>{profile.name}</div>
@@ -164,7 +164,7 @@
     <aside class={'sidebar'}>
       <h2>More team members</h2>
       <div><a href={'/team'}>Current members of The Board</a></div>
-      <div><a href={'/team/writers'}>Current and former employees</a></div>
+      <div><a href={'/team/all'}>Current and former employees</a></div>
       <div><a href={'/team'}>Managers, assistant editors, and copy editors</a></div>
       <div><a href={'/team'}>Photo and video team members</a></div>
     </aside>
