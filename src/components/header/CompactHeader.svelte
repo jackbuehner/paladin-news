@@ -41,10 +41,14 @@
     left: 50%;
     transform: translateX(-50%);
     opacity: 1;
+    transition: opacity 200ms;
     margin: 4px 0 0 0;
   }
   .logo > a {
     display: inline-block;
+  }
+  .logo.hidden {
+    opacity: 0;
   }
 
   /* label in header */
@@ -72,6 +76,7 @@
   import SideNav from './_SideNav.svelte';
   import { headerLabel } from '../../stores/header';
   import { headerIsSatire } from '../../stores/header';
+  import { headerNoLogoUntil } from '../../stores/header';
 
   $: windowWidth = 0;
   $: windowScrollY = 0;
@@ -95,7 +100,7 @@
           <div class={'label'}>{$headerLabel}</div>
         {/if}
       </div>
-      <div class="logo">
+      <div class="logo" class:hidden={windowScrollY < $headerNoLogoUntil}>
         {#if $headerIsSatire}
           <a href="/satire"><TheHorseLogo width={'100%'} height={46} /></a>
         {:else}

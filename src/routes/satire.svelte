@@ -163,10 +163,23 @@
   import ArticleCard from '/src/components/home/ArticleCard.svelte';
   import ArticleRow from '/src/components/home/ArticleRow.svelte';
   import TheHorseLogo from '/src/components/svgs/TheHorseLogo.svelte';
+  import { beforeUpdate, onDestroy } from 'svelte';
+  import { headerIsSatire } from '../../src/stores/header';
+  import { headerNoLogoUntil } from '../../src/stores/header';
 
   export let articles: AggregatePaginateResult<ISatire>;
 
   $: windowWidth = 0;
+
+  // set the header to satire
+  beforeUpdate(() => {
+    $headerIsSatire = true;
+    $headerNoLogoUntil = 180;
+  });
+  onDestroy(() => {
+    $headerIsSatire = false;
+    $headerNoLogoUntil = 0;
+  });
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} />
