@@ -141,6 +141,7 @@
   import { beforeUpdate, onDestroy, onMount } from 'svelte';
   import PageHeading from '/src/components/PageHeading.svelte';
   import Container from '/src/components/Container.svelte';
+  import { title } from '../../stores/title';
 
   export let articles: AggregatePaginateResult<IArticle>;
   export let pageTitle: string;
@@ -150,6 +151,9 @@
   // set the header label
   beforeUpdate(() => ($headerLabel = pageTitle));
   onDestroy(() => ($headerLabel = undefined));
+
+  // set the document title
+  onMount(() => ($title = pageTitle));
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} />

@@ -55,6 +55,10 @@
   import Container from '/src/components/Container.svelte';
   import NewsletterCard from '/src/components/NewsletterCard.svelte';
   import { onMount } from 'svelte';
+  import { title } from '../stores/title';
+
+  // set the document title
+  onMount(() => ($title = 'Newsletters & notifications'));
 
   /**
     Pass through a blur event for the email input field.

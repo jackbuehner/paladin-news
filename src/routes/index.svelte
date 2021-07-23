@@ -70,6 +70,11 @@
   import HomeHeader from '/src/components/header/HomeHeader.svelte';
   import Container from '/src/components/Container.svelte';
   import PaladinPlusList from '/src/components/PaladinPlusList.svelte';
+  import { onMount } from 'svelte';
+  import { title } from '../stores/title';
+
+  // set the document title
+  onMount(() => ($title = undefined));
 </script>
 
 <div class={'wrapper'}>

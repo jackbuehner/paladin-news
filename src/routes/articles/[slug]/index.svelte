@@ -41,8 +41,13 @@
   import ArticleBody from '/src/components/article/ArticleBody.svelte';
   import type { IArticle } from 'src/interfaces/articles';
   import Container from '/src/components/Container.svelte';
+  import { onMount } from 'svelte';
+  import { title } from '../../../stores/title';
 
   export let article: IArticle;
+
+  // set the document title
+  onMount(() => ($title = article.name));
 </script>
 
 <Container>

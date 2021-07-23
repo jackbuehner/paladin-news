@@ -36,6 +36,11 @@
   import PageHeading from '/src/components/PageHeading.svelte';
   import Container from '/src/components/Container.svelte';
   import { Tabs, TabList, TabPanel, Tab } from '../../components/Tabs';
+  import { onMount } from 'svelte';
+  import { title } from '../../stores/title';
+
+  // set the document title
+  onMount(() => ($title = 'COVID-19 on Campus'));
 </script>
 
 <div style={'height: 0;'}>

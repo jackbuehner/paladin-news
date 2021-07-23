@@ -38,6 +38,11 @@
 <script>
   import PageHeading from '/src/components/PageHeading.svelte';
   import Container from '/src/components/Container.svelte';
+  import { onMount } from 'svelte';
+  import { title } from '../stores/title';
+
+  // set the document title
+  onMount(() => ($title = 'Privacy policy'));
 </script>
 
 <PageHeading type={'blockCentered'}>Privacy policy</PageHeading>

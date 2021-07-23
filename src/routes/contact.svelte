@@ -33,12 +33,16 @@
   import TextArea from '/src/components/inputs/TextArea.svelte';
   import Select from '/src/components/inputs/Select.svelte';
   import Button from '/src/components/Button.svelte';
+  import { title } from '../stores/title';
 
   export const prerender = true;
 
   onMount(() => {
     kwesforms.init();
   });
+
+  // set the document title
+  onMount(() => ($title = 'Contact us'));
 </script>
 
 <PageHeading>Contact us</PageHeading>

@@ -166,6 +166,11 @@
   import { beforeUpdate, onDestroy } from 'svelte';
   import { headerIsSatire } from '../../src/stores/header';
   import { headerNoLogoUntil } from '../../src/stores/header';
+  import { onMount } from 'svelte';
+  import { title } from '../stores/title';
+
+  // set the document title
+  onMount(() => ($title = 'The Horse (Satire)'));
 
   export let articles: AggregatePaginateResult<ISatire>;
 

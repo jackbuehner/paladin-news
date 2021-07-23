@@ -42,13 +42,17 @@
   import Container from '/src/components/Container.svelte';
   import SatireMeta from '/src/components/article/SatireMeta.svelte';
   import { headerIsSatire } from '../../stores/header';
-  import { beforeUpdate, onDestroy } from 'svelte';
+  import { beforeUpdate, onDestroy, onMount } from 'svelte';
+  import { title } from '../../stores/title';
 
   export let satire: ISatire;
 
   // set the header to satire
   beforeUpdate(() => ($headerIsSatire = true));
   onDestroy(() => ($headerIsSatire = false));
+
+  // set the document title
+  onMount(() => ($title = `${satire.name} - Satire`));
 </script>
 
 <Container>

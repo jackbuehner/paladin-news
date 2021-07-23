@@ -126,9 +126,14 @@
   import type { IProfile } from 'src/interfaces/profiles';
   import { goto } from '$app/navigation';
   import Container from '/src/components/Container.svelte';
+  import { onMount } from 'svelte';
+  import { title } from '../../stores/title';
 
   export let profile: IProfile;
   export let articles: AggregatePaginateResult<IArticle>;
+
+  // set the document title
+  onMount(() => ($title = `${profile.name} - Profile`));
 </script>
 
 <Container>
