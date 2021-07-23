@@ -137,7 +137,7 @@
   import { title } from '../../stores/title';
 
   // set the document title
-  onMount(() => ($title = 'Our team'));
+  onMount(() => ($title = 'All team members (past and present)'));
 
   export let profiles: IProfile[];
 </script>

@@ -55,7 +55,7 @@
   import { title } from '../stores/title';
 
   // set the document title
-  onMount(() => ($title = 'Who we are'));
+  onMount(() => ($title = 'About'));
 </script>
 
 <PageHeading>Who we are</PageHeading>
