@@ -14,8 +14,9 @@
   }
   @media (max-width: 990px) {
     .topbar-wrapper {
-      position: sticky;
+      position: fixed;
       top: 0;
+      width: 100%;
       z-index: 99;
     }
     .topbar.scrolled {
@@ -79,6 +80,10 @@
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} bind:scrollY={windowScrollY} />
+
+{#if windowWidth <= 990}
+  <div style={'flex: 0 0 52px'} />
+{/if}
 
 <div class="topbar-wrapper compact-header" class:scrolled={windowScrollY > 0}>
   <Container>
