@@ -8,6 +8,7 @@ interface IProfile {
   biography: string;
   current_title: string;
   photo: string; // url to photo
+  group: number;
 }
 
 export type { IProfile };
