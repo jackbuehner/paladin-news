@@ -55,6 +55,15 @@
   onMount(() => ($title = `${satire.name} - Satire`));
 </script>
 
+<svelte:head>
+  <meta property={'og:url'} content={`https://thepaladin.news/satire/${satire.slug}`} />
+  <meta property={'og:type'} content={'article'} />
+  <meta property={'og:title'} content={satire.name} />
+  <meta property={'og:description'} content={satire.description} />
+  <meta property={'og:image'} content={satire.photo_path} />
+  <meta property={'og:locale'} content={'en_US'} />
+</svelte:head>
+
 <Container>
   <article>
     <ArticleCategories categories={['Satire']} />
