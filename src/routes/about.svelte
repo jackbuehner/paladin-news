@@ -75,6 +75,9 @@
       </p>
     </div>
     <aside class={'sidebar'}>
+      <h2>Our team</h2>
+      <div><a href={'/team'}>Current team</a></div>
+      <div><a href={'/team/all'}>All past and present members</a></div>
       <h2>Archives</h2>
       <div>
         <a href={'https://cdm16821.contentdm.oclc.org/cdm/landingpage/collection/p16821coll21'}
