@@ -28,6 +28,8 @@ interface IArticle {
   photo_caption?: string;
   photo_credit?: string;
   body?: string;
+  video_path?: string;
+  video_replaces_photo?: string;
 }
 
 // interface for author data includes in article
