@@ -31,6 +31,9 @@
     line-height: 26px;
     letter-spacing: -0.017em;
   }
+  .name.noMargin {
+    margin-bottom: 0;
+  }
   .name.isLargerHeadline {
     font-size: 23px;
     line-height: 29px;
@@ -46,6 +49,9 @@
     line-height: 20px;
     margin-top: 4px;
     color: var(--color-neutral-light);
+  }
+  .meta.noMargin {
+    margin-top: 0;
   }
   .photo-group {
     margin-bottom: 8px;
@@ -157,7 +163,12 @@
   {/if}
 
   <!-- article name -->
-  <div class={'name'} class:isLargerHeadline>{name}</div>
+  <div
+    class={'name'}
+    class:isLargerHeadline
+    class:noMargin={isCompact && description === undefined}>
+    {name}
+  </div>
 
   <!-- compact article card photo (only if it is compact) -->
   {#if isCompact && photo}
@@ -174,7 +185,7 @@
   {/if}
 
   <!-- article meta info (date and authors) -->
-  <div class={'meta'}>
+  <div class={'meta'} class:noMargin={isCompact && description === undefined}>
     <!-- article date -->
     {#if date === undefined || date === 'Dec. 31, 0000'}
       {''}
