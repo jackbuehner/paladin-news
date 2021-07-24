@@ -108,7 +108,8 @@
         description={article.description}
         photo={article.photo_path}
         date={article.timestamps.published_at}
-        authors={article.people.authors} />
+        authors={article.people.authors}
+        categories={article.categories} />
       <span />
     {/each}
   {/if}

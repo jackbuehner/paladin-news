@@ -106,6 +106,7 @@
         photoCredit={article.photo_credit}
         date={article.timestamps.published_at}
         authors={article.people.authors}
+        categories={article.categories}
         isCompact={type === 'featured' ? index === 2 || index === 3 : false} />
 
       {#if index < articles.docs.length - 1}

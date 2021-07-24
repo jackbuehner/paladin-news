@@ -11,6 +11,17 @@
   a:hover {
     color: var(--color-neutral-light);
   }
+  .categories {
+    font-family: var(--font-detail);
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+  .categories.isCompact {
+    margin-top: 0;
+  }
   .name {
     margin-top: 0px;
     margin-bottom: 8px;
@@ -86,6 +97,29 @@
   export let isCompact: boolean = false;
   export let isCategoryPage: boolean = false;
   export let isLargerHeadline: boolean = false;
+  export let categories: string[] = undefined;
+
+  // modify the names of the categories to match the website sections
+  let categoriesModified = [];
+  if (categories) {
+    categories.forEach((category) => {
+      switch (category) {
+        case 'arts-culture':
+          categoriesModified.push('arts & culture');
+          break;
+        case 'campus-culture':
+          categoriesModified.push('campus');
+          break;
+        case 'diversity':
+          categoriesModified.push('diversity matters');
+          break;
+        default:
+          // if category is missing from this switch, push it anyway
+          categoriesModified.push(category);
+          break;
+      }
+    });
+  }
 
   const parsed = DateTime.fromISO(date);
   if (parsed.isValid) {
@@ -106,6 +140,19 @@
       {:else}
         <div class={'photo-credit'}>{photoCredit}</div>
       {/if}
+    </div>
+  {/if}
+
+  <!-- article categories -->
+  {#if categoriesModified.length > 0}
+    <div class={'categories'} class:isCompact>
+      {categoriesModified
+        .map((cat, index) => {
+          console.log(cat);
+          if (index < categoriesModified.length - 1) return `${cat}  |  `;
+          return cat;
+        })
+        .join('')}
     </div>
   {/if}
 
