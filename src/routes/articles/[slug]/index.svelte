@@ -75,6 +75,9 @@
   import Container from '/src/components/Container.svelte';
   import { onMount } from 'svelte';
   import { title } from '../../../stores/title';
+  import MoreArticles from '/src/components/article/MoreArticles.svelte';
+  import Button from '/src/components/Button.svelte';
+  import { goto } from '$app/navigation';
 
   export let article: IArticle;
 
@@ -214,4 +217,81 @@
     {/if}
     <script src="https://player.vimeo.com/api/player.js"></script>
   </article>
+
+  <!-- more from the paladin -->
+  <aside class={'more'}>
+    <style>
+      .more {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 16px;
+      }
+      @media (max-width: 900px) {
+        .more {
+          grid-template-columns: 1fr;
+        }
+      }
+      .more img {
+        width: 100%;
+      }
+      .more .desc {
+        margin-top: 10px;
+        padding-bottom: 10px;
+        font-family: var(--font-detail);
+        color: var(--color-neutral-dark);
+        font-size: 16px;
+        line-height: 20px;
+        font-style: normal;
+        text-align: center;
+      }
+      .more .group {
+        border: 1px solid var(--border-dark);
+        border-radius: var(--radius);
+        padding: 20px;
+        flex: 1;
+      }
+      .more .groups {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      @media (max-width: 900px) {
+        .more .groups {
+          flex-direction: row;
+        }
+      }
+      @media (max-width: 560px) {
+        .more .groups {
+          flex-direction: column;
+        }
+      }
+    </style>
+    <MoreArticles />
+    <div>
+      <h1>More from The Paladin</h1>
+      <div class={'groups'}>
+        <div class={'group'}>
+          <img
+            src={'https://paladin-photo-library.s3.us-east-1.amazonaws.com/sunday-summary_logo_banner_background.svg'}
+            alt={'Sunday Summary'} />
+          <div class={'desc'}>
+            A newsletter discussing the top articles of the week. Subscribe to recieve it in your
+            inbox every Sunday.
+          </div>
+          <Button width={'100%'} on:click={() => goto('/newsletters')}>Subscribe</Button>
+        </div>
+        <div class={'group'}>
+          <img
+            src={'https://paladin-photo-library.s3.us-east-1.amazonaws.com/rwbp_logo_banner.svg'}
+            alt={'Red, White, Blue, and Purple'} />
+          <div class={'desc'}>
+            Price St. Clair’s podcast-newsletter that covers politics and policy from a Furman
+            Perspective. Subscribe to receive key takeaways and more when a new episode is
+            published.
+          </div>
+          <Button width={'100%'} on:click={() => goto('/newsletters')}>Subscribe</Button>
+        </div>
+      </div>
+    </div>
+  </aside>
 </Container>
