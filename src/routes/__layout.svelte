@@ -14,6 +14,7 @@
 
   import Footer from '../components/Footer.svelte';
   import CompactHeader from '../components/header/CompactHeader.svelte';
+  import Search from '/src/components/search/Search.svelte';
 
   $: title_ = $title ? `${$title} - The Paladin` : 'The Paladin';
 </script>
@@ -31,3 +32,5 @@
 
   <Footer />
 </div>
+
+<Search />

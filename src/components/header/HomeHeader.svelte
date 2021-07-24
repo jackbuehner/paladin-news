@@ -88,6 +88,7 @@
   import TheHorseLogo from '../svgs/TheHorseLogo.svelte';
   import HorizontalNav from './_HorizontalNav.svelte';
   import SideNav from './_SideNav.svelte';
+  import { searchOpen } from '../../stores/search';
 
   $: windowWidth = 0;
   $: windowScrollY = 0;
@@ -104,7 +105,7 @@
       <IconButton on:click={() => (isSideNavOpen = !isSideNavOpen)}
         ><path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" /></IconButton>
       {#if windowWidth > 760}
-        <IconButton disabled={true}
+        <IconButton on:click={() => ($searchOpen = true)}
           ><path
             d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" /></IconButton>
       {/if}
@@ -132,7 +133,7 @@
           ><path
             d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z" /></IconButton>
       {:else}
-        <IconButton disabled={true}
+        <IconButton on:click={() => ($searchOpen = true)}
           ><path
             d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" /></IconButton>
       {/if}
