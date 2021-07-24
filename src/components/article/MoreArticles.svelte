@@ -1,0 +1,74 @@
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 16px;
+  }
+  .grid.narrower {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+  }
+  @media (max-width: 900px) {
+    .grid,
+    .grid.narrower {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto auto auto;
+    }
+  }
+  h1 {
+    font-family: var(--font-detail);
+    color: var(--color-neutral-dark);
+    font-size: 22px;
+    line-height: 26px;
+    font-weight: 700;
+    margin: 40px 0 20px 0;
+  }
+</style>
+
+<script lang="ts">
+  import Button from '/src/components/Button.svelte';
+  import ArticleCard from '/src/components/home/ArticleCard.svelte';
+  import PageHeading from '/src/components/PageHeading.svelte';
+  import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
+  import type { IArticle } from 'src/interfaces/articles';
+  import { variables } from '../../variables';
+  import { onMount } from 'svelte';
+
+  onMount(async () => {
+    const hostUrl =
+      variables.mode === 'development'
+        ? 'http://localhost:3001'
+        : 'https://api.thepaladin.cristata.app';
+    const res = await fetch(`${hostUrl}/api/v2/articles/public?limit=6`);
+    articles = await res.json();
+  });
+
+  export let articles: AggregatePaginateResult<IArticle>;
+  export let thisSlug: string = undefined;
+
+  $: componentWidth = 0;
+  $: windowWidth = 0;
+</script>
+
+<svelte:window bind:innerWidth={windowWidth} />
+
+<div>
+  <h1>More articles</h1>
+  <div class={'grid'} bind:clientWidth={componentWidth} class:narrower={componentWidth <= 860}>
+    {#if articles && articles.docs}
+      {#each articles.docs.filter((article) => article.slug !== thisSlug).slice(0, 5) as article}
+        <ArticleCard
+          name={article.name}
+          href={`/articles/${article.slug}`}
+          description={windowWidth <= 900 ? undefined : article.description}
+          photo={windowWidth <= 900 ? undefined : article.photo_path}
+          photoCredit={article.photo_credit}
+          categories={article.categories}
+          date={article.timestamps.published_at}
+          authors={article.people.authors}
+          isCompact={windowWidth <= 900} />
+      {/each}
+    {/if}
+  </div>
+</div>
