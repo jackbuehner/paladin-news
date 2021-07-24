@@ -11,6 +11,30 @@
     font-weight: 700;
     margin: 40px 0 20px 0;
   }
+  .paladin-plus-article-prompt {
+    margin-top: 20px;
+    margin-bottom: -14px;
+    padding: 20px;
+    border: 1px solid var(--border-dark);
+    font-family: var(--font-detail);
+    font-size: 15px;
+    line-height: 21px;
+    font-style: italic;
+  }
+  a {
+    color: rgb(var(--primary));
+    box-shadow: 0 1px 0 0 rgb(var(--primary));
+    transition: background-color 0.2s, box-shadow 0.1s, color 0.2s;
+    text-decoration: none;
+  }
+  a:hover {
+    box-shadow: 0 2px 0 0 rgb(var(--primary));
+    background-color: rgba(var(--primary), 0.1);
+    color: var(--color-neutral-dark);
+  }
+  a:active {
+    background-color: rgba(var(--primary), 0.16);
+  }
 </style>
 
 <script context="module" lang="ts">
@@ -94,9 +118,16 @@
 
 <Container>
   <article>
+    <!-- categories -->
     <ArticleCategories categories={article.categories} />
+
+    <!-- heading -->
     <ArticleHeading>{article.name}</ArticleHeading>
+
+    <!-- subtitle -->
     <ArticleSubtitle>{article.description}</ArticleSubtitle>
+
+    <!-- video/photo -->
     {#if video_embed_path && article.video_replaces_photo}
       <div style={'padding: 56.25% 0 0 0; position: relative;'}>
         <iframe
@@ -110,13 +141,65 @@
       <ArticleCaption>{article.photo_caption}</ArticleCaption>
       <ArticlePhotoCredit>{article.photo_credit}</ArticlePhotoCredit>
     {/if}
+
+    <!-- meta info -->
     <ArticleMeta
       date={article.timestamps.published_at}
       authors={article.people.authors}
       articleName={article.name}
       articleLocation={`https://thepaladin.news/articles/${article.slug}`}
       articleDescription={article.description} />
+
+    <!-- special content notices -->
+    {#if article.tags}
+      {#if article.tags.includes('paladin profiles')}
+        <div class={'paladin-plus-article-prompt'}>
+          This article is part of the <b>Paladin Profiles</b> video interview newsletter. Paladin
+          Profiles highlight the important work Paladins past and present are doing to improve
+          diversity and inclusion on campus and beyond. To receive content like this a week early,
+          <a href={'/newsletters'}>subscribe here</a>!
+        </div>
+      {:else if article.tags.includes('sunday summary')}
+        <div class={'paladin-plus-article-prompt'}>
+          This article is part of the <b>Sunday summary</b> newsletter. To receive more content like
+          this a week early,
+          <a href={'/newsletters'}>subscribe here</a>!
+        </div>
+      {:else if article.tags.includes('rwbp')}
+        <div class={'paladin-plus-article-prompt'}>
+          This article is part of the <b>Red, White, Blue, & Purple</b> podcast-newsletter that
+          covers politics and policy from a Furman Perspective. To receive more content like this a
+          week early,
+          <a href={'/newsletters'}>subscribe here</a>!
+        </div>
+      {:else if article.tags.includes('the works')}
+        <div class={'paladin-plus-article-prompt'}>
+          This article is part of the <b>The Works</b> newsletter. The Works tracks the latest
+          trends sweeping the student body, highlights creative talent, and shines a light on the
+          best (and worst) aspects of campus culture at Furman. To receive more content like this a
+          week early,
+          <a href={'/newsletters'}>subscribe here</a>!
+        </div>
+      {:else if article.tags.includes('deep dive')}
+        <div class={'paladin-plus-article-prompt'}>
+          This article is part of The Paladin’s data-driven newsletter uncovering campus’ biggest
+          stories, <b>Deep Dive</b>. To receive content like this a week early,
+          <a href={'/newsletters'}>subscribe here</a>!
+        </div>
+      {:else if article.tags.includes('sports roundup')}
+        <div class={'paladin-plus-article-prompt'}>
+          This article is part of the <b>Paladin Sports Roundup</b>, a newsletter with comprehensive
+          updates on the Paladins and special features such as video interviews with Furman
+          athletes. To receive content like this a week early,
+          <a href={'/newsletters'}>subscribe here</a>!
+        </div>
+      {/if}
+    {/if}
+
+    <!-- body -->
     <ArticleBody doc={article.body} />
+
+    <!-- video -->
     {#if video_embed_path && !article.video_replaces_photo}
       <aside>
         <h1>Related video</h1>
