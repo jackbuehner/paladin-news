@@ -37,6 +37,8 @@
   //export let type = 'default';
   export let disabled = false;
   export let htmlType: string = undefined;
+  export let width: string = undefined;
 </script>
 
-<button on:click class:disabled type={htmlType}><slot /></button>
+<button on:click class:disabled type={htmlType} style={width ? `width: ${width};` : ''}
+  ><slot /></button>
