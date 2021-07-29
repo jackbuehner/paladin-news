@@ -88,7 +88,7 @@
       variables.mode === 'development'
         ? 'http://localhost:3001'
         : 'https://api.thepaladin.cristata.app';
-    const res = await fetch(`${hostUrl}/api/v2/articles/public?limit=4}`);
+    const res = await fetch(`${hostUrl}/api/v2/articles/public?limit=4&featured=true}`);
     articles = await res.json();
   });
 </script>
