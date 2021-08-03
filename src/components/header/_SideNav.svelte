@@ -10,11 +10,13 @@
     overflow: hidden auto;
     z-index: 999;
     box-shadow: var(--sidenav-shadow);
-    transform: translateX(calc(-1 * var(--sidenav-width)));
+    transform: none;
+    left: calc(-1 * var(--sidenav-width));
+    transform: none;
     transition: transform cubic-bezier(0.165, 0.84, 0.44, 1) 360ms;
   }
   nav.isOpen {
-    transform: none;
+    transform: translateX(var(--sidenav-width));
   }
 
   /* padding for logo */
