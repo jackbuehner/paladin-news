@@ -117,7 +117,8 @@
     <p>
       For more general information on cookies, please read&nbsp;<a
         href="https://www.cookieconsent.com/what-are-cookies/"
-        target="_blank">"What Are Cookies"</a
+        target="_blank"
+        rel="noreferrer">"What Are Cookies"</a
       >.
     </p>
     <h2>Opt-Out, Communication Preferences</h2>

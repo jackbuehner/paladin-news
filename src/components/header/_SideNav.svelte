@@ -127,6 +127,7 @@
       <a
         href={item.href}
         target={item.external ? '_blank' : undefined}
+        rel="noreferrer"
         on:click={() => (isOpen = false)}>
         <span>{item.label}</span>
         {#if item.external}

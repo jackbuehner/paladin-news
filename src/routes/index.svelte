@@ -104,7 +104,8 @@
             data-dnt="true"
             data-width="312"
             data-tweet-limit="2"
-            target="_blank">
+            target="_blank"
+            rel="noreferrer">
             Tweets by thepaladin_news
           </a>
           <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
