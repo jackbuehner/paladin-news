@@ -232,11 +232,6 @@
       </div>
     </div>
     <span style={`grid-area: 1 / 3 / -1 / 3; ${windowWidth <= 990 ? 'display: none;' : ''}`} />
-    <aside
-      style={`grid-area: 1 / 4 / -1 / 4; background: red;  ${
-        windowWidth <= 990 ? 'display: none;' : ''
-      }`}>
-      sidebar
-    </aside>
+    <aside style={`grid-area: 1 / 4 / -1 / 4;  ${windowWidth <= 990 ? 'display: none;' : ''}`} />
   </div>
 </Container>
