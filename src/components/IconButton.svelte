@@ -39,9 +39,10 @@
   export let viewBox = '0 0 24 24';
   export let disabled = false;
   export let isOutlined: boolean = false;
+  export let ariaLabel: string;
 </script>
 
-<button on:click class:disabled class:isOutlined>
+<button on:click class:disabled class:isOutlined aria-label={ariaLabel}>
   <svg style="width:24px;height:24px" {viewBox}>
     <slot />
   </svg>

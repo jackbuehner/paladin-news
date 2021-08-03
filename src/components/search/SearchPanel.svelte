@@ -366,7 +366,7 @@
 
 <div class={'flyout'}>
   <div class={'close-button'}>
-    <IconButton on:click={() => ($searchOpen = false)}
+    <IconButton ariaLabel={'close'} on:click={() => ($searchOpen = false)}
       ><svg style="width:24px;height:24px" viewBox="0 0 24 24">
         <path
           fill="currentColor"

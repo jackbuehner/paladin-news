@@ -61,6 +61,7 @@
 
   const items = [
     {
+      label: 'Deep Dive News',
       href: '/newsletters',
       src:
         'https://paladin-photo-library.s3.us-east-1.amazonaws.com/deep-dive_logo_banner_color.svg',
@@ -68,6 +69,7 @@
       color: 'rgba(114,46,151,.16)',
     },
     {
+      label: 'Paladin Profiles',
       href: '/newsletters',
       src:
         'https://paladin-photo-library.s3.us-east-1.amazonaws.com/paladin-profiles_banner_color.svg',
@@ -76,6 +78,7 @@
       color: 'rgba(114,46,151,.16)',
     },
     {
+      label: 'Red, White, Blue, & Purple',
       href: '/newsletters',
       src: 'https://paladin-photo-library.s3.us-east-1.amazonaws.com/rwbp_logo_banner.svg',
       description:
@@ -83,6 +86,7 @@
       color: 'rgba(114,46,151,.86)',
     },
     {
+      label: 'Sports Roundup',
       href: '/newsletters',
       src:
         'https://paladin-photo-library.s3.us-east-1.amazonaws.com/sports-roundup_logo_banner_color.svg',
@@ -91,6 +95,7 @@
       color: 'rgba(114,46,151,.16)',
     },
     {
+      label: 'The Works',
       href: '/newsletters',
       src:
         'https://paladin-photo-library.s3.us-east-1.amazonaws.com/the-works_logo_banner_color.svg',
@@ -99,6 +104,7 @@
       color: 'rgba(114,46,151,.16)',
     },
     {
+      label: 'ZoomUni',
       href: '/newsletters',
       src:
         'https://paladin-photo-library.s3.us-east-1.amazonaws.com/zoomuni_logo_banner_background.svg',
@@ -107,6 +113,7 @@
       color: 'rgba(26,36,145,.36)',
     },
     {
+      label: 'Sunday Summary',
       href: '/newsletters',
       src:
         'https://paladin-photo-library.s3.us-east-1.amazonaws.com/sunday-summary_logo_banner_background.svg',
@@ -142,7 +149,7 @@
       {#each items as item}
         <div>
           <div class={'card'}>
-            <a href={item.href}>
+            <a href={item.href} aria-label={item.label}>
               <img src={item.src} alt={''} />
             </a>
           </div>
