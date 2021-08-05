@@ -33,6 +33,22 @@
 			transition: box-shadow 100ms;
 		}
 
+		/* progress bar styles */
+		#nprogress {
+			position: fixed;
+			top: 0;
+			height: 2px;
+			left: 0;
+			width: 100%;
+			z-index: 998;
+			background-color: rgba(var(--primary), 0.1);
+		}
+
+		#nprogress .peg {
+			height: 2px;
+			background-color: rgba(var(--primary), 1);
+		}
+
 		:root {
 			/* fonts */
 			--font-headline: 'Adamant BG', Georgia, 'Times New Roman', Times, serif;
