@@ -80,23 +80,25 @@
   import ArticleCard from '../home/ArticleCard.svelte';
 
   export let type: 'featured' = 'featured';
+  export let articles: AggregatePaginateResult<IArticle> = undefined;
 
-  let articles: AggregatePaginateResult<IArticle>;
-
+  // if articles is undefined, retrieve the featured articles
   onMount(async () => {
-    const hostUrl =
-      variables.mode === 'development'
-        ? 'http://localhost:3001'
-        : 'https://api.thepaladin.cristata.app';
-    const res = await fetch(`${hostUrl}/api/v2/articles/public?limit=4&featured=true}`);
-    articles = await res.json();
+    if (!articles) {
+      const hostUrl =
+        variables.mode === 'development'
+          ? 'http://localhost:3001'
+          : 'https://api.thepaladin.cristata.app';
+      const res = await fetch(`${hostUrl}/api/v2/articles/public?limit=4&featured=true}`);
+      articles = await res.json();
+    }
   });
 </script>
 
 <div class={'grid'} class:featured={type === 'featured'}>
   <h2>Featured articles</h2>
   {#if articles && articles.docs}
-    {#each Array.from(articles.docs) as article, index}
+    {#each Array.from(articles.docs).slice(0, 4) as article, index}
       <ArticleCard
         style={`grid-area: fa-${index}`}
         name={article.name}

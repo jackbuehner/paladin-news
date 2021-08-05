@@ -45,6 +45,7 @@
   export let categories: string = undefined;
   export let gridArea: string = 'auto';
   export let forceVertical: boolean = false;
+  export let articles: AggregatePaginateResult<IArticle> = undefined;
 
   $: windowWidth = 0;
 
@@ -58,19 +59,20 @@
       ? quantity[2]
       : quantity[3];
 
-  let articles: AggregatePaginateResult<IArticle>;
-
+  // if articles is undefined, retrieve the articles using the categories
   onMount(async () => {
-    const hostUrl =
-      variables.mode === 'development'
-        ? 'http://localhost:3001'
-        : 'https://api.thepaladin.cristata.app';
-    const res = await fetch(
-      `${hostUrl}/api/v2/articles/public?limit=${Math.max(...quantity)}${
-        categories ? categories.split(',').map((category) => `&category=${category}`) : ''
-      }`.replace(',', '')
-    );
-    articles = await res.json();
+    if (!articles) {
+      const hostUrl =
+        variables.mode === 'development'
+          ? 'http://localhost:3001'
+          : 'https://api.thepaladin.cristata.app';
+      const res = await fetch(
+        `${hostUrl}/api/v2/articles/public?limit=${Math.max(...quantity)}${
+          categories ? categories.split(',').map((category) => `&category=${category}`) : ''
+        }`.replace(',', '')
+      );
+      articles = await res.json();
+    }
   });
 </script>
 
