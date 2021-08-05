@@ -17,20 +17,28 @@
   import Search from '/src/components/search/Search.svelte';
 
   $: title_ = $title ? `${$title} - The Paladin` : 'The Paladin';
+
+  // keep track of window width
+  $: windowWidth = 0;
 </script>
 
 <svelte:head>
   <title>{title_}</title>
 </svelte:head>
 
-<div class={'wrapper'}>
-  <CompactHeader />
+<svelte:window bind:innerWidth={windowWidth} />
 
-  <div class={'content'}>
-    <slot />
+<!--do not show content until windowWidth has been calculated-->
+{#if windowWidth > 0}
+  <div class={'wrapper'}>
+    <CompactHeader />
+
+    <div class={'content'}>
+      <slot />
+    </div>
+
+    <Footer />
   </div>
-
-  <Footer />
-</div>
+{/if}
 
 <Search />
