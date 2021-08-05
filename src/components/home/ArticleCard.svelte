@@ -126,12 +126,6 @@
       }
     });
   }
-
-  const parsed = DateTime.fromISO(date);
-  if (parsed.isValid) {
-    // only set the date if it was successfully parsed from ISO
-    date = parsed.toFormat('LLL. dd, yyyy');
-  }
 </script>
 
 <a {href} {style}>
@@ -190,7 +184,7 @@
     {#if date === undefined || date === 'Dec. 31, 0000'}
       {''}
     {:else}
-      <span>{date}</span>
+      <span>{DateTime.fromISO(date).toFormat('LLL. dd, yyyy')}</span>
     {/if}
 
     <!-- only show divider if date and authors are both defined-->
