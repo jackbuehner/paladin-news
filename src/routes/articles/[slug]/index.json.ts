@@ -42,11 +42,14 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutpu
 
   // convert the json body to html
   try {
-    const renderer = new Renderer.Renderer();
-    article.body = renderer.render({
-      type: 'doc',
-      content: JSON.parse(article.body),
-    });
+    // if the body is not html, convert json to html (check with closing p tag)
+    if (!article.body.includes('</p>')) {
+      const renderer = new Renderer.Renderer();
+      article.body = renderer.render({
+        type: 'doc',
+        content: JSON.parse(article.body),
+      });
+    }
   } catch (err) {
     console.error(err);
   }
