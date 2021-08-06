@@ -140,7 +140,7 @@
   <div class={'header'}>
     <img src={profile.photo} alt={''} height={profile.email ? 90 : 74} />
     <div>
-      <h1>{profile.name}</h1>
+      <h1>{profile.name.replace(' (Provisional)', '')}</h1>
       <div class={'detail'}>{profile.current_title}</div>
       {#if profile.email}
         <a href={`mailto:${profile.email}`} class={'detail email'}>{profile.email}</a>

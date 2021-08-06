@@ -152,7 +152,7 @@
           {#each profiles as profile}
             <a href={`/profile/${profile.slug}`} class={'card'}>
               <img src={profile.photo} alt={''} />
-              <div class={'name'}>{profile.name}</div>
+              <div class={'name'}>{profile.name.replace(' (Provisional)', '')}</div>
               <div class={'title'}>{profile.current_title}</div>
             </a>
           {/each}

@@ -198,23 +198,23 @@
       {''}
     {:else if authors.length === 1}
       <!-- show author if only one -->
-      <span>{authors[0].name}</span>
+      <span>{authors[0].name.replace(' (Provisional)', '')}</span>
     {:else if authors.length === 2}
       <!-- separate with 'and' if two authors -->
-      <span>{authors[0].name}</span>
+      <span>{authors[0].name.replace(' (Provisional)', '')}</span>
       <span> and </span>
-      <span>{authors[1].name}</span>
+      <span>{authors[1].name.replace(' (Provisional)', '')}</span>
     {:else if authors.length > 2}
       <!-- separate with either a comma or ', and' if more than two authors -->
       {#each authors as author, index}
         {#if index === 0}
-          <span>{author.name}</span>
+          <span>{author.name.replace(' (Provisional)', '')}</span>
         {:else if index === authors.length - 1}
           <span>, and </span>
-          <span>{author.name}</span>
+          <span>{author.name.replace(' (Provisional)', '')}</span>
         {:else}
           <span>, </span>
-          <span>{author.name}</span>
+          <span>{author.name.replace(' (Provisional)', '')}</span>
         {/if}
       {/each}
     {/if}
