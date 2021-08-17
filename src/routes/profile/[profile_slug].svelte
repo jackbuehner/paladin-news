@@ -165,7 +165,7 @@
       {#each articles.docs as article, index}
         <ArticleRow
           name={article.name}
-          href={`articles/${article.slug}`}
+          href={`/articles/${article.slug}`}
           description={article.description}
           photo={article.photo_path}
           date={article.timestamps.published_at}
