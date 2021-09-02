@@ -138,10 +138,11 @@
   import { goto } from '$app/navigation';
   import Button from '/src/components/Button.svelte';
   import { headerLabel } from '../../stores/header';
-  import { beforeUpdate, onDestroy, onMount } from 'svelte';
+  import { afterUpdate, beforeUpdate, onDestroy, onMount } from 'svelte';
   import PageHeading from '/src/components/PageHeading.svelte';
   import Container from '/src/components/Container.svelte';
   import { title } from '../../stores/title';
+  import { page } from '$app/stores';
 
   export let articles: AggregatePaginateResult<IArticle>;
   export let pageTitle: string;
@@ -154,6 +155,18 @@
 
   // set the document title
   onMount(() => ($title = pageTitle));
+
+  // set the data for pico
+  afterUpdate(() => {
+    // @ts-expect-error pico exists on window
+    window.pico('visit', {
+      article: true,
+      post_id: pageTitle,
+      post_type: 'category',
+      taxonomies: {},
+      url: window.location.href,
+    });
+  });
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} />

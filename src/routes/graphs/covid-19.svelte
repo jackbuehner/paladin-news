@@ -36,11 +36,24 @@
   import PageHeading from '/src/components/PageHeading.svelte';
   import Container from '/src/components/Container.svelte';
   import { Tabs, TabList, TabPanel, Tab } from '../../components/Tabs';
-  import { onMount } from 'svelte';
+  import { afterUpdate, onMount } from 'svelte';
   import { title } from '../../stores/title';
 
   // set the document title
   onMount(() => ($title = 'COVID-19 on Campus'));
+
+  // set the data for pico
+  afterUpdate(() => {
+    // @ts-expect-error pico exists on window
+    window.pico('visit', {
+      article: true,
+      post_id: 'covid-19-on-campus',
+      post_type: 'graph',
+      taxonomies: {},
+      url: window.location.href,
+      resource_ref: 'covid-19-on-campus',
+    });
+  });
 </script>
 
 <div style={'height: 0;'}>

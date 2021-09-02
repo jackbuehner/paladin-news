@@ -26,7 +26,7 @@
   import PageHeading from '/src/components/PageHeading.svelte';
   import Container from '/src/components/Container.svelte';
   import kwesforms from 'kwesforms';
-  import { onMount } from 'svelte';
+  import { afterUpdate, onMount } from 'svelte';
   import InputGroup from '/src/components/inputs/InputGroup.svelte';
   import InputLabel from '/src/components/inputs/InputLabel.svelte';
   import TextInput from '/src/components/inputs/TextInput.svelte';
@@ -43,6 +43,19 @@
 
   // set the document title
   onMount(() => ($title = 'Contact us'));
+
+  // set the data for pico
+  afterUpdate(() => {
+    // @ts-expect-error pico exists on window
+    window.pico('visit', {
+      article: false,
+      post_id: $title,
+      post_type: 'page',
+      taxonomies: {},
+      url: window.location.href,
+      resource_ref: $title,
+    });
+  });
 </script>
 
 <PageHeading>Contact us</PageHeading>

@@ -163,7 +163,7 @@
   import ArticleCard from '/src/components/home/ArticleCard.svelte';
   import ArticleRow from '/src/components/home/ArticleRow.svelte';
   import TheHorseLogo from '/src/components/svgs/TheHorseLogo.svelte';
-  import { beforeUpdate, onDestroy } from 'svelte';
+  import { afterUpdate, beforeUpdate, onDestroy } from 'svelte';
   import { headerIsSatire } from '../../src/stores/header';
   import { headerNoLogoUntil } from '../../src/stores/header';
   import { onMount } from 'svelte';
@@ -184,6 +184,19 @@
   onDestroy(() => {
     $headerIsSatire = false;
     $headerNoLogoUntil = 0;
+  });
+
+  // set the data for pico
+  afterUpdate(() => {
+    // @ts-expect-error pico exists on window
+    window.pico('visit', {
+      article: false,
+      post_id: 'satire',
+      post_type: 'category',
+      taxonomies: {},
+      url: window.location.href,
+      resource_ref: $title,
+    });
   });
 </script>
 

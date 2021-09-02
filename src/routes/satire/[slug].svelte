@@ -42,7 +42,7 @@
   import Container from '/src/components/Container.svelte';
   import SatireMeta from '/src/components/article/SatireMeta.svelte';
   import { headerIsSatire } from '../../stores/header';
-  import { beforeUpdate, onDestroy, onMount } from 'svelte';
+  import { afterUpdate, beforeUpdate, onDestroy, onMount } from 'svelte';
   import { title } from '../../stores/title';
 
   export let satire: ISatire;
@@ -53,6 +53,19 @@
 
   // set the document title
   onMount(() => ($title = `${satire.name} - Satire`));
+
+  // set the data for pico
+  afterUpdate(() => {
+    // @ts-expect-error pico exists on window
+    window.pico('visit', {
+      article: true,
+      post_id: satire._id,
+      post_type: 'satire',
+      taxonomies: {},
+      url: window.location.href,
+      resource_ref: satire.slug,
+    });
+  });
 </script>
 
 <svelte:head>

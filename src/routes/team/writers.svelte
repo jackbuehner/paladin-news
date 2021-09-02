@@ -133,11 +133,24 @@
 <script lang="ts">
   import PageHeading from '/src/components/PageHeading.svelte';
   import Container from '/src/components/Container.svelte';
-  import { onMount } from 'svelte';
+  import { afterUpdate, onMount } from 'svelte';
   import { title } from '../../stores/title';
 
   // set the document title
   onMount(() => ($title = 'Writers and contributors'));
+
+  // set the data for pico
+  afterUpdate(() => {
+    // @ts-expect-error pico exists on window
+    window.pico('visit', {
+      article: false,
+      post_id: $title,
+      post_type: 'page',
+      taxonomies: {},
+      url: window.location.href,
+      resource_ref: $title,
+    });
+  });
 
   export let profiles: IProfile[];
 

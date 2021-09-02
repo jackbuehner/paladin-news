@@ -121,7 +121,7 @@
   import HomeHeader from '/src/components/header/HomeHeader.svelte';
   import Container from '/src/components/Container.svelte';
   import PaladinPlusList from '/src/components/PaladinPlusList.svelte';
-  import { onMount } from 'svelte';
+  import { afterUpdate, onMount } from 'svelte';
   import { title } from '../stores/title';
   import { variables } from '../variables';
   import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
@@ -129,6 +129,19 @@
 
   // set the document title
   onMount(() => ($title = undefined));
+
+  // set the data for pico
+  afterUpdate(() => {
+    // @ts-expect-error pico exists on window
+    window.pico('visit', {
+      article: false,
+      post_id: 'home',
+      post_type: 'home',
+      taxonomies: {},
+      url: window.location.href,
+      resource_ref: 'home',
+    });
+  });
 
   // receive the articles from the load function
   interface Iarticles {

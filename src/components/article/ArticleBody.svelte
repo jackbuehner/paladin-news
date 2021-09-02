@@ -32,6 +32,6 @@
   export let doc;
 </script>
 
-<div class={'article-body'}>
+<div class={'article-body'} id={'pico'}>
   {@html doc}
 </div>

@@ -73,7 +73,7 @@
   import ArticleBody from '/src/components/article/ArticleBody.svelte';
   import type { IArticle } from 'src/interfaces/articles';
   import Container from '/src/components/Container.svelte';
-  import { onMount } from 'svelte';
+  import { afterUpdate, onMount } from 'svelte';
   import { title } from '../../../stores/title';
   import MoreArticles from '/src/components/article/MoreArticles.svelte';
   import Button from '/src/components/Button.svelte';
@@ -108,6 +108,22 @@
         ? `https://player.vimeo.com/video/${videoId}?color=ffffff&byline=0&portrait=0`
         : null;
   }
+
+  // set the data for pico
+  afterUpdate(() => {
+    // @ts-expect-error pico exists on window
+    window.pico('visit', {
+      article: true,
+      post_id: article._id,
+      post_type: 'article',
+      taxonomies: {
+        tags: article.tags ? [...article.tags] : [],
+        categories: article.categories ? [...article.categories] : [],
+      },
+      url: window.location.href,
+      resource_ref: article.slug,
+    });
+  });
 </script>
 
 <svelte:head>

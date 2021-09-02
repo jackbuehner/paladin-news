@@ -126,7 +126,7 @@
   import type { IProfile } from 'src/interfaces/profiles';
   import { goto } from '$app/navigation';
   import Container from '/src/components/Container.svelte';
-  import { onMount } from 'svelte';
+  import { afterUpdate, onMount } from 'svelte';
   import { title } from '../../stores/title';
 
   export let profile: IProfile;
@@ -134,6 +134,19 @@
 
   // set the document title
   onMount(() => ($title = `${profile.name} - Profile`));
+
+  // set the data for pico
+  afterUpdate(() => {
+    // @ts-expect-error pico exists on window
+    window.pico('visit', {
+      article: false,
+      post_id: profile._id + profile.slug,
+      post_type: 'author',
+      taxonomies: {},
+      url: window.location.href,
+      resource_ref: profile.slug,
+    });
+  });
 </script>
 
 <Container>
