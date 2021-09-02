@@ -52,6 +52,7 @@
     display: flex;
     flex-direction: row;
     gap: 4px;
+    align-items: center;
   }
 
   /* container for small logo in header */
@@ -89,12 +90,16 @@
   import HorizontalNav from './_HorizontalNav.svelte';
   import SideNav from './_SideNav.svelte';
   import { searchOpen } from '../../stores/search';
+  import Button from '../Button.svelte';
 
   $: windowWidth = 0;
   $: windowScrollY = 0;
 
   let isSideNavOpen = false;
   export let isSatire = false;
+
+  // @ts-expect-error Pico exists
+  const isAuthenticated = window.Pico?.user?.authenticated;
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} bind:scrollY={windowScrollY} />
@@ -140,6 +145,26 @@
           on:click={() => window.open('https://www.linkedin.com/company/thepaladin/')}
           ><path
             d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z" /></IconButton>
+
+        {#if !isAuthenticated}
+          <Button
+            className={`PicoEditProfile`}
+            cssExtra={`
+            --button-light-bg: transparent;
+            --button-light-border-color: #c8c8c8;
+      `}>Account</Button>
+        {:else}
+          <Button
+            className={`PicoEditProfile`}
+            cssExtra={`
+              --button-light-bg: #000000;
+              --button-light-bg-hover: #333333;
+              --button-light-bg-active: #222222;
+              --button-color: #e0e0e0;
+              --button-shadow-hover: rgb(0 0 0 / 28%) 0px 1.6px 3.6px 0px, rgb(0 0 0 / 24%) 0px 0.3px 0.9px 0px;
+            --button-shadow-active: rgb(0 0 0 / 28%) 0px 0.8px 3.6px 0px, rgb(0 0 0 / 24%) 0px 0.15px 0.9px 0px;
+        `}>Account</Button>
+        {/if}
       {:else}
         <IconButton ariaLabel={'search'} on:click={() => ($searchOpen = true)}
           ><path
