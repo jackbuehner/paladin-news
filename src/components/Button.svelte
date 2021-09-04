@@ -38,7 +38,8 @@
   export let disabled = false;
   export let htmlType: string = undefined;
   export let width: string = undefined;
+  export let href: string = undefined;
 </script>
 
-<button on:click class:disabled type={htmlType} style={width ? `width: ${width};` : ''}
+<button on:click {href} class:disabled type={htmlType} style={width ? `width: ${width};` : ''}
   ><slot /></button>
