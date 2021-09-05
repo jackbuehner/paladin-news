@@ -1,5 +1,6 @@
 <style>
-  article {
+  article,
+  #commento {
     max-width: 590px;
     margin: 32px auto;
   }
@@ -217,6 +218,68 @@
     {/if}
     <script src="https://player.vimeo.com/api/player.js"></script>
   </article>
+
+  <!-- comments container -->
+  <div id="commento" />
+  <!-- load commento into the commento element -->
+  <script defer src="https://cdn.commento.io/js/commento.js"></script>
+  <!-- add listener to click the sso option once user click login -->
+  <script>
+    document.querySelector('.commento-login-text').addEventListener('click', () => {
+      document.querySelector('.commento-sso-button').click();
+    });
+  </script>
+  <!-- commento styles -->
+  <style>
+    .commento-root-font * {
+      font-family: var(--font-detail);
+    }
+    .commento-root .commento-submit-button {
+      display: inline-flex;
+      height: 30px;
+      justify-content: center;
+      align-items: center;
+      border-radius: var(--radius);
+      color: var(--button-color);
+      cursor: default;
+      background-color: var(--button-light-bg);
+      border: 1px solid var(--button-light-border-color);
+      transition: 200ms;
+      color: var(--button-color);
+      min-width: 80px;
+      padding: 0 10px;
+      font-family: var(--font-detail);
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      text-transform: none;
+      box-shadow: none;
+      margin-right: 0;
+    }
+    .commento-root .commento-submit-button:hover:not(.disabled) {
+      background-color: var(--button-light-bg-hover);
+      border: 1px solid var(--button-light-bg-hover);
+      box-shadow: var(--button-shadow-hover);
+    }
+    .commento-root .commento-submit-button:active:not(.disabled) {
+      background-color: var(--button-light-bg-active);
+      border: 1px solid var(--button-light-bg-active);
+      box-shadow: var(--button-shadow-active);
+    }
+    .commento-root .commento-submit-button.disabled {
+      color: var(--button-color-disabled);
+    }
+    .commento-root
+      .commento-sort-policy-buttons-container
+      .commento-sort-policy-buttons
+      .commento-sort-policy-button-selected,
+    .commento-root .commento-mod-tools::before {
+      color: rgb(var(--primary));
+    }
+    .commento-root .commento-logo-container {
+      display: none;
+    }
+  </style>
 
   <!-- more from the paladin -->
   <aside class={'more'}>
