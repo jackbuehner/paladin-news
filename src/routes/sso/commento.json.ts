@@ -4,6 +4,7 @@ import type { JSONValue } from '@sveltejs/kit/types/endpoint';
 import type { Member } from 'src/utils/Memberstack';
 import hmacsha256 from 'crypto-js/hmac-sha256.js';
 import Hex from 'crypto-js/enc-hex.js';
+import { variables } from '../../variables';
 
 interface IOutput {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,7 +26,7 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IOutput>> {
   if (!incomingHmac) return { status: 400, body: { reason: 'No hmac was provided' } };
 
   // decode commento secret and incoming token from 64-length hex to 32 decoded bytes
-  const parsedSecret = Hex.parse(process.env.COMMENTO_SECRET);
+  const parsedSecret = Hex.parse(variables.COMMENTO_SECRET);
   const parsedToken = Hex.parse(incomingToken);
 
   // verify that the incoming hmac matches the hmac-sha256 of the token
