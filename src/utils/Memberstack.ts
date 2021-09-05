@@ -68,4 +68,36 @@ const Memberstack = {
   },
 };
 
+// MEMBERSTACK REST API TYPES
+interface Member {
+  id: string; // unique user identifier
+  membership: Membership;
+  email: string;
+  created_at: string; // unix timestamp
+  accessTokenExpires?: string; // unix timestamp
+  customFields?: {
+    [key: string]: string;
+  };
+}
+
+interface Membership {
+  oneTime: boolean;
+  testMode: boolean;
+  status:
+    | 'trialing'
+    | 'active'
+    | 'expired'
+    | 'past_due'
+    | 'canceled'
+    | 'unpaid'
+    | 'incomplete'
+    | 'incomplete_expired';
+  plan: string; // plan id
+  type: 'free' | 'paid';
+  amount: null | number;
+  cancel_at_period_end?: boolean;
+  current_period_end?: string; // unix timestamp
+}
+
 export { Memberstack };
+export type { Member, Membership };
