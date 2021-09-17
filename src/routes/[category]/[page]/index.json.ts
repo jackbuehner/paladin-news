@@ -29,10 +29,7 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutpu
   if (!matching[category]) return null;
 
   // get the articles in the category
-  const hostUrl =
-    variables.mode === 'development'
-      ? 'http://localhost:3001'
-      : 'https://api.thepaladin.cristata.app';
+  const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
   const res = await fetch(
     `${hostUrl}/api/v2/articles/public?limit=25&page=${page}${matching[category]
       .split(',')

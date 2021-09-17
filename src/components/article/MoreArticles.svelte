@@ -36,10 +36,7 @@
   import { onMount } from 'svelte';
 
   onMount(async () => {
-    const hostUrl =
-      variables.mode === 'development'
-        ? 'http://localhost:3001'
-        : 'https://api.thepaladin.cristata.app';
+    const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
     const res = await fetch(`${hostUrl}/api/v2/articles/public?limit=6`);
     articles = await res.json();
   });

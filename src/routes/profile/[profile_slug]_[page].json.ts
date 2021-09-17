@@ -20,10 +20,7 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IOutput>> {
   const { profile_slug, page } = request.params;
 
   // get the profile
-  const hostUrl =
-    variables.mode === 'development'
-      ? 'http://localhost:3001'
-      : 'https://api.thepaladin.cristata.app';
+  const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
   const res = await fetch(`${hostUrl}/api/v2/users/public/${profile_slug}`);
   const profile: IProfile = await res.json();
 

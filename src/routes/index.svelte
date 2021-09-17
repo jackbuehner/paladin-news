@@ -71,10 +71,7 @@
    * @type {import('@sveltejs/kit').Load}
    */
   export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
-    const hostUrl =
-      variables.mode === 'development'
-        ? 'http://localhost:3001'
-        : 'https://api.thepaladin.cristata.app';
+    const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
     const url = `${hostUrl}/api/v2/articles/public?limit=10`;
 
     const res = {
