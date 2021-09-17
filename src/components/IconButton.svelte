@@ -12,6 +12,8 @@
     border: 1px solid transparent;
     transition: 200ms;
     color: var(--button-color);
+    margin: 0;
+    padding: 6px;
   }
   button.isOutlined {
     border-color: var(--border-dark);
