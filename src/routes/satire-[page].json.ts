@@ -17,10 +17,7 @@ async function get(request: ServerRequest): Promise<EndpointOutput<ISatireOutput
   const { page } = request.params;
 
   // get the satire articles in the category
-  const hostUrl =
-    variables.mode === 'development'
-      ? 'http://localhost:3001'
-      : 'https://api.thepaladin.cristata.app';
+  const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
   const res = await fetch(`${hostUrl}/api/v2/satire/public?limit=20&page=${page}`);
   const articles: AggregatePaginateResult<ISatire> = await res.json();
 

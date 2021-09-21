@@ -55,6 +55,7 @@
   import { DateTime } from 'luxon';
   import type { IArticleAuthor } from 'src/interfaces/articles';
   import { slugify } from '../../utils/slugify';
+  import { share } from './share';
   import SocialButton from './_SocialButton.svelte';
 
   export let date: string;
@@ -67,40 +68,6 @@
   if (parsed.isValid) {
     // only set the date if it was successfully parsed from ISO
     date = parsed.toFormat('LLL. dd, yyyy');
-  }
-
-  function share(to: 'facebook' | 'twitter' | 'email' | 'linkedin') {
-    const name = encodeURIComponent(articleName);
-    const description = encodeURIComponent(articleDescription);
-    if (to === 'facebook') {
-      const location = encodeURIComponent(
-        `${articleLocation}?utm_source=facebook&utm_medium=social&utm_campaign=${name}`
-      );
-      window.open(
-        `http://www.facebook.com/sharer/sharer.php?quote=${name}&u=${location}`,
-        '_blank'
-      );
-    }
-    if (to === 'twitter') {
-      const location = encodeURIComponent(
-        `${articleLocation}?utm_source=twitter&utm_medium=social&utm_campaign=${name}`
-      );
-      window.open(`http://twitter.com/intent/tweet?text=${name}&url=${location}`, '_blank');
-    }
-    if (to === 'email') {
-      const location = encodeURIComponent(
-        `${articleLocation}?utm_source=email&utm_medium=email&utm_campaign=${name}`
-      );
-      window.open(
-        `mailto:?subject=${name}&body=From%20The%20Paladin%20Newspaper%3A%0A%0A${name}%0A%0A${description}%0A%0A${location}%0A%0A`
-      );
-    }
-    if (to === 'linkedin') {
-      const location = encodeURIComponent(
-        `${articleLocation}?utm_source=linkedin&utm_medium=social&utm_campaign=${name}`
-      );
-      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${location}`, '_blank');
-    }
   }
 </script>
 
@@ -156,7 +123,8 @@
     {date}
   </div>
   <div class={'social-buttons'}>
-    <SocialButton on:click={() => share('facebook')}>
+    <SocialButton
+      on:click={() => share('facebook', articleName, articleDescription, articleLocation)}>
       <svg viewBox="0 0 7 15"
         ><path
           fill-rule="evenodd"
@@ -164,19 +132,21 @@
           d="M4.775 14.163V7.08h1.923l.255-2.441H4.775l.004-1.222c0-.636.06-.977.958-.977H6.94V0H5.016c-2.31 0-3.123 1.184-3.123 3.175V4.64H.453v2.44h1.44v7.083h2.882z"
           fill="currentColor" /></svg>
     </SocialButton>
-    <SocialButton on:click={() => share('twitter')}>
+    <SocialButton
+      on:click={() => share('twitter', articleName, articleDescription, articleLocation)}>
       <svg viewBox="0 0 24 24"
         ><path
           fill="currentColor"
           d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.79C20.33,8.6 20.33,8.42 20.32,8.23C21.16,7.63 21.88,6.87 22.46,6Z" /></svg>
     </SocialButton>
-    <SocialButton on:click={() => share('email')}>
+    <SocialButton on:click={() => share('email', articleName, articleDescription, articleLocation)}>
       <svg viewBox="0 0 24 24"
         ><path
           fill="currentColor"
           d="M13 17H17V14L22 18.5L17 23V20H13V17M20 4H4A2 2 0 0 0 2 6V18A2 2 0 0 0 4 20H11.35A5.8 5.8 0 0 1 11 18A6 6 0 0 1 22 14.69V6A2 2 0 0 0 20 4M20 8L12 13L4 8V6L12 11L20 6Z" /></svg>
     </SocialButton>
-    <SocialButton on:click={() => share('linkedin')}>
+    <SocialButton
+      on:click={() => share('linkedin', articleName, articleDescription, articleLocation)}>
       <svg viewBox="0 0 24 24"
         ><path
           fill="currentColor"

@@ -18,10 +18,7 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutpu
   // is called [slug].json.ts
   const { slug } = request.params;
 
-  const hostUrl =
-    variables.mode === 'development'
-      ? 'http://localhost:3001'
-      : 'https://api.thepaladin.cristata.app';
+  const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
   const res = await fetch(`${hostUrl}/api/v2/articles/public/${slug}`);
   const article: IArticle = await res.json();
 

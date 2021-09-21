@@ -18,10 +18,7 @@ async function get(request: ServerRequest): Promise<EndpointOutput<ISatireOutput
   // is called [slug].json.ts
   const { slug } = request.params;
 
-  const hostUrl =
-    variables.mode === 'development'
-      ? 'http://localhost:3001'
-      : 'https://api.thepaladin.cristata.app';
+  const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
   const res = await fetch(`${hostUrl}/api/v2/satire/public/${slug}`);
   const satire: ISatire = await res.json();
 

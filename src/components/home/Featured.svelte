@@ -85,10 +85,7 @@
   // if articles is undefined, retrieve the featured articles
   onMount(async () => {
     if (!articles) {
-      const hostUrl =
-        variables.mode === 'development'
-          ? 'http://localhost:3001'
-          : 'https://api.thepaladin.cristata.app';
+      const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
       const res = await fetch(`${hostUrl}/api/v2/articles/public?limit=4&featured=true}`);
       articles = await res.json();
     }
