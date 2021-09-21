@@ -30,6 +30,7 @@ interface IArticle {
   body?: string;
   video_path?: string;
   video_replaces_photo?: string;
+  show_comments?: boolean;
 }
 
 // interface for author data includes in article
