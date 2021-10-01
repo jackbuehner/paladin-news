@@ -77,14 +77,14 @@
         'Video interviews that highlight the important work Paladins past and present are doing to improve diversity and inclusion on campus and beyond.',
       color: 'rgba(114,46,151,.16)',
     },
-    {
+    /*{
       label: 'Red, White, Blue, & Purple',
       href: '/newsletters',
       src: 'https://paladin-photo-library.s3.us-east-1.amazonaws.com/rwbp_logo_banner.svg',
       description:
         'Price St. Clair’s podcast-newsletter that covers politics and policy from a Furman Perspective.',
       color: 'rgba(114,46,151,.86)',
-    },
+    },*/
     {
       label: 'Sports Roundup',
       href: '/newsletters',

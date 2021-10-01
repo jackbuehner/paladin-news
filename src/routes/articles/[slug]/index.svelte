@@ -375,17 +375,6 @@
           </div>
           <Button width={'100%'} on:click={() => goto('/newsletters')}>Subscribe</Button>
         </div>
-        <div class={'group'}>
-          <img
-            src={'https://paladin-photo-library.s3.us-east-1.amazonaws.com/rwbp_logo_banner.svg'}
-            alt={'Red, White, Blue, and Purple'} />
-          <div class={'desc'}>
-            Price St. Clair’s podcast-newsletter that covers politics and policy from a Furman
-            Perspective. Subscribe to receive key takeaways and more when a new episode is
-            published.
-          </div>
-          <Button width={'100%'} on:click={() => goto('/newsletters')}>Subscribe</Button>
-        </div>
       </div>
     </div>
   </aside>

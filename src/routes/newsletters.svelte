@@ -165,12 +165,12 @@
         description={`Editor-in-Chief Emeritus Evan Myers’ examinations of last week’s biggest stories,
       expositions on the best and worst that Furman has to offer, and expectations for the week ahead.`}
         on:click={submitForm} />
-      <NewsletterCard
+      <!--<NewsletterCard
         icon={'https://paladin-photo-library.s3.amazonaws.com/logo_rwbp.svg'}
         listId={'7a64885c-64fe-11eb-a3d0-06b4694bee2a'}
         name={'Red, White, Blue, & Purple'}
         description={`Price St. Clair’s podcast-newsletter that covers politics and policy from a Furman Perspective.`}
-        on:click={submitForm} />
+        on:click={submitForm} />-->
       <NewsletterCard
         icon={'https://paladin-photo-library.s3.amazonaws.com/paladin-profiles_logo_square.svg'}
         listId={'f90b09cd-64fe-11eb-a3d0-06b4694bee2a'}
