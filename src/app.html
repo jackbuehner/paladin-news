@@ -1,111 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- favicon -->
+    <link rel="icon" href="/favicon.png" />
+    <!-- website manifest -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <!-- title and meta information -->
+    <title>The Paladin</title>
+    <meta
+      name="description"
+      content="The latest news and stories that matter to the Furman community"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Memberstack -->
+    <script
+      src="https://api.memberstack.io/static/memberstack.js?custom"
+      data-memberstack-id="fd9f195c90fb5af77747df5dfd6ced64"
+    ></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6GE6P18VFF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
 
-<head>
-	<meta charset="utf-8" />
-	<link rel="icon" href="/favicon.png" />
-	<link rel="manifest" href="/manifest.webmanifest" />
-	<title>The Paladin</title>
-	<meta name="description" content="The latest news and stories that matter to the Furman community" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<!-- Memberstack -->
-	<script src="https://api.memberstack.io/static/memberstack.js?custom"
-		data-memberstack-id="fd9f195c90fb5af77747df5dfd6ced64"> </script>
-	<style>
-		html,
-		body,
-		#svelte {
-			margin: 0;
-			padding: 0;
-			height: 100%;
-		}
+      gtag('config', 'G-6GE6P18VFF');
+    </script>
+    <!-- site styles -->
+    <style>
+      html,
+      body,
+      #svelte {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
 
-		* {
-			box-sizing: border-box;
-			font-variant-numeric: lining-nums;
-		}
+      * {
+        box-sizing: border-box;
+        font-variant-numeric: lining-nums;
+      }
 
-		*:focus {
-			outline: none;
-		}
+      *:focus {
+        outline: none;
+      }
 
-		*:focus-visible {
-			box-shadow: 0px 0px 8px 2px #722e97, 0px 0px 0px 2px #722e97, inset 0 0 4px #722e97;
-			outline: none;
-			border-radius: 0px;
-			transition: box-shadow 100ms;
-		}
+      *:focus-visible {
+        box-shadow: 0px 0px 8px 2px #722e97, 0px 0px 0px 2px #722e97, inset 0 0 4px #722e97;
+        outline: none;
+        border-radius: 0px;
+        transition: box-shadow 100ms;
+      }
 
-		/* progress bar styles */
-		#nprogress {
-			position: fixed;
-			top: 0;
-			height: 2px;
-			left: 0;
-			width: 100%;
-			z-index: 998;
-			background-color: rgba(var(--primary), 0.1);
-		}
+      /* progress bar styles */
+      #nprogress {
+        position: fixed;
+        top: 0;
+        height: 2px;
+        left: 0;
+        width: 100%;
+        z-index: 998;
+        background-color: rgba(var(--primary), 0.1);
+      }
 
-		#nprogress .peg {
-			height: 2px;
-			background-color: rgba(var(--primary), 1);
-		}
+      #nprogress .peg {
+        height: 2px;
+        background-color: rgba(var(--primary), 1);
+      }
 
-		:root {
-			/* fonts */
-			--font-headline: 'Adamant BG', Georgia, 'Times New Roman', Times, serif;
-			--font-body: Georgia, 'Times New Roman', Times, serif;
-			--font-detail: Lato, Arial, sans-serif;
+      :root {
+        /* fonts */
+        --font-headline: 'Adamant BG', Georgia, 'Times New Roman', Times, serif;
+        --font-body: Georgia, 'Times New Roman', Times, serif;
+        --font-detail: Lato, Arial, sans-serif;
 
-			/* colors */
-			--primary: 109, 56, 183;
-			--primary-lighter: 129, 96, 175;
+        /* colors */
+        --primary: 109, 56, 183;
+        --primary-lighter: 129, 96, 175;
 
-			--color-neutral-dark: #333333;
-			--color-neutral-light: #767676;
-			--color-neutral-lightest: #a7a7a7;
+        --color-neutral-dark: #333333;
+        --color-neutral-light: #767676;
+        --color-neutral-lightest: #a7a7a7;
 
-			/* borders */
-			--border-light: #eee;
-			--border-dark: #ccc;
-			--radius: 2px;
+        /* borders */
+        --border-light: #eee;
+        --border-dark: #ccc;
+        --radius: 2px;
 
-			/* buttons */
-			--button-bg: transparent;
-			--button-bg-hover: rgba(114, 46, 151, .12);
-			--button-bg-active: rgba(114, 46, 151, .16);
+        /* buttons */
+        --button-bg: transparent;
+        --button-bg-hover: rgba(114, 46, 151, 0.12);
+        --button-bg-active: rgba(114, 46, 151, 0.16);
 
-			--button-light-bg: rgba(128, 128, 128, 0.2);
-			--button-light-bg-hover: rgba(105, 81, 194, 0.2);
-			--button-light-bg-active: rgba(105, 81, 194, 0.2);
-			--button-light-border-color: rgba(128, 128, 128, 0.2);
+        --button-light-bg: rgba(128, 128, 128, 0.2);
+        --button-light-bg-hover: rgba(105, 81, 194, 0.2);
+        --button-light-bg-active: rgba(105, 81, 194, 0.2);
+        --button-light-border-color: rgba(128, 128, 128, 0.2);
 
-			--button-color: #333333;
-			--button-color-disabled: #777777;
-			--button-shadow-hover: rgb(0 0 0 / 13%) 0px 1.6px 3.6px 0px, rgb(0 0 0 / 11%) 0px 0.3px 0.9px 0px;
-			--button-shadow-active: rgb(0 0 0 / 13%) 0px 0.8px 3.6px 0px, rgb(0 0 0 / 11%) 0px 0.15px 0.9px 0px;
+        --button-color: #333333;
+        --button-color-disabled: #777777;
+        --button-shadow-hover: rgb(0 0 0 / 13%) 0px 1.6px 3.6px 0px,
+          rgb(0 0 0 / 11%) 0px 0.3px 0.9px 0px;
+        --button-shadow-active: rgb(0 0 0 / 13%) 0px 0.8px 3.6px 0px,
+          rgb(0 0 0 / 11%) 0px 0.15px 0.9px 0px;
 
-			/* topbar */
-			--topbar-bg: #ffffff;
-			--topbar-scroll-shadow: 0 0 20px 0 rgb(0 0 0 / 16%);
+        /* topbar */
+        --topbar-bg: #ffffff;
+        --topbar-scroll-shadow: 0 0 20px 0 rgb(0 0 0 / 16%);
 
-			/* sidenav */
-			--sidenav-bg: #ffffff;
-			--sidenav-shadow: 0 0 20px 0 rgb(0 0 0 / 18%);
-			--sidenav-width: 280px;
+        /* sidenav */
+        --sidenav-bg: #ffffff;
+        --sidenav-shadow: 0 0 20px 0 rgb(0 0 0 / 18%);
+        --sidenav-width: 280px;
 
-			/* backgrounds and surfaces */
-			--background: #ffffff;
-			--surface: #ffffff;
-		}
-	</style>
-	<script type="module" src="/pwabuilder-sw-register.js" />
-	%svelte.head%
-</head>
+        /* backgrounds and surfaces */
+        --background: #ffffff;
+        --surface: #ffffff;
+      }
+    </style>
+    <!-- service worker -->
+    <script type="module" src="/pwabuilder-sw-register.js"></script>
+    <!-- svelte head -->
+    %svelte.head%
+  </head>
 
-<body>
-	<div id="svelte">%svelte.body%</div>
-</body>
-
+  <body>
+    <div id="svelte">%svelte.body%</div>
+  </body>
 </html>
