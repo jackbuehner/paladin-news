@@ -89,8 +89,8 @@
 </style>
 
 <script lang="ts">
-  import { DateTime } from 'luxon';
   import type { IArticleAuthor } from 'src/interfaces/articles';
+  import { formatISODate } from '../../utils/formatISODate';
 
   export let style: string = '';
   export let name: string;
@@ -184,7 +184,7 @@
     {#if date === undefined || date === 'Dec. 31, 0000'}
       {''}
     {:else}
-      <span>{DateTime.fromISO(date).toFormat('LLL. dd, yyyy')}</span>
+      <span>{formatISODate(date)}</span>
     {/if}
 
     <!-- only show divider if date and authors are both defined-->

@@ -53,6 +53,7 @@
 
 <script lang="ts">
   import { DateTime } from 'luxon';
+  import { formatISODate } from '../../utils/formatISODate';
   import type { IArticleAuthor } from 'src/interfaces/articles';
   import { slugify } from '../../utils/slugify';
   import { share } from './share';
@@ -67,7 +68,7 @@
   const parsed = DateTime.fromISO(date);
   if (parsed.isValid) {
     // only set the date if it was successfully parsed from ISO
-    date = parsed.toFormat('LLL. dd, yyyy');
+    date = formatISODate(date);
   }
 </script>
 

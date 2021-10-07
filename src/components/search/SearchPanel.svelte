@@ -207,7 +207,7 @@
 </style>
 
 <script lang="ts">
-  import { DateTime } from 'luxon';
+  import { formatISODate } from '../../utils/formatISODate';
   import type { IArticle } from 'src/interfaces/articles';
   import { searchOpen } from '../../stores/search';
   import { onMount } from 'svelte';
@@ -303,9 +303,7 @@
             }
 
             // format the date
-            const published_at = DateTime.fromISO(item.timestamps.published_at).toFormat(
-              'LLL. dd, yyyy'
-            );
+            const published_at = formatISODate(item.timestamps.published_at);
 
             // return the article card
             return `
