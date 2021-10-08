@@ -26,10 +26,42 @@
   :global(.article-body a:active) {
     background-color: rgba(var(--primary), 0.16);
   }
+  :global(.article-body iframe.widget) {
+    width: 1px;
+    min-width: 100%;
+    border: none;
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    margin: 20px 0;
+  }
 </style>
 
 <script>
+  import { onMount } from 'svelte';
+
   export let doc;
+
+  onMount(() => {
+    const scriptElem = document.createElement('script');
+    scriptElem.type = 'text/javascript';
+    scriptElem.src = '/js/iframeResizer.min.js';
+    scriptElem.onload = () => {
+      // get the resizable iframes
+      const resizableIframeElems = document.querySelectorAll('iframe.resize');
+
+      // for each resizable iFrame, set an ID and apply the resize function
+      for (let i = 0; i < resizableIframeElems.length; i++) {
+        const iframeElem = resizableIframeElems[i];
+        iframeElem.id = `resizeIframe${i}`;
+        // @ts-ignore
+        window.iFrameResize(
+          { log: false, autoResize: true, checkOrigin: false, resizeFrom: 'child' },
+          `#resizeIframe${i}`
+        );
+      }
+    };
+    document.body.appendChild(scriptElem);
+  });
 </script>
 
 <div class={'article-body'}>

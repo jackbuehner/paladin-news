@@ -4,6 +4,7 @@ import type { ServerRequest } from '@sveltejs/kit/types/hooks';
 import type { JSONValue } from '@sveltejs/kit/types/endpoint';
 import Renderer from 'prosemirror-to-html-js';
 import { variables } from '../../../variables';
+import { SweepwidgetWidget } from '../../../pm/render/SweepwidgetWidget';
 
 interface IArticleOutput extends IArticle {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -42,6 +43,7 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutpu
     // if the body is not html, convert json to html (check with closing p tag)
     if (!article.body.includes('</p>')) {
       const renderer = new Renderer.Renderer();
+      renderer.addNode(SweepwidgetWidget);
       article.body = renderer.render({
         type: 'doc',
         content: JSON.parse(article.body),
