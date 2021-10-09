@@ -26,13 +26,18 @@
   :global(.article-body a:active) {
     background-color: rgba(var(--primary), 0.16);
   }
-  :global(.article-body iframe.widget) {
+  :global(.article-body .widget) {
     width: 1px;
     min-width: 100%;
     border: none;
     border-top: 1px solid #cccccc;
     border-bottom: 1px solid #cccccc;
     margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+  }
+  :global(.article-body iframe) {
+    border: none;
   }
 </style>
 

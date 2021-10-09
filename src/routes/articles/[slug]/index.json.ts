@@ -5,6 +5,7 @@ import type { JSONValue } from '@sveltejs/kit/types/endpoint';
 import Renderer from 'prosemirror-to-html-js';
 import { variables } from '../../../variables';
 import { SweepwidgetWidget } from '../../../pm/render/SweepwidgetWidget';
+import { YoutubeWidget } from '../../../pm/render/YoutubeWidget';
 
 interface IArticleOutput extends IArticle {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -38,12 +39,29 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutpu
     console.error(err);
   }
 
+  article.body = JSON.stringify([
+    {
+      type: 'youtubeWidget',
+      attrs: {
+        videoId: 'Ttkq_mh7bKg',
+        showCaption: true,
+      },
+      content: [
+        {
+          type: 'text',
+          text: 'Windows 11 experience upgrade video',
+        },
+      ],
+    },
+  ]);
+
   // convert the json body to html
   try {
     // if the body is not html, convert json to html (check with closing p tag)
     if (!article.body.includes('</p>')) {
       const renderer = new Renderer.Renderer();
       renderer.addNode(SweepwidgetWidget);
+      renderer.addNode(YoutubeWidget);
       article.body = renderer.render({
         type: 'doc',
         content: JSON.parse(article.body),
