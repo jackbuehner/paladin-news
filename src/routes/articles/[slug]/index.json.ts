@@ -6,6 +6,7 @@ import Renderer from '@cristata/prosemirror-to-html-js';
 import { variables } from '../../../variables';
 import { SweepwidgetWidget } from '../../../pm/render/SweepwidgetWidget';
 import { YoutubeWidget } from '../../../pm/render/YoutubeWidget';
+import { PhotoWidget } from '../../../pm/render/PhotoWidget';
 
 interface IArticleOutput extends IArticle {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -46,6 +47,7 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutpu
       const renderer = new Renderer.Renderer();
       renderer.addNode(SweepwidgetWidget);
       renderer.addNode(YoutubeWidget);
+      renderer.addNode(PhotoWidget);
       article.body = renderer.render({
         type: 'doc',
         content: JSON.parse(article.body),

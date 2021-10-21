@@ -39,6 +39,27 @@
   :global(.article-body iframe) {
     border: none;
   }
+  :global(.article-body figure .img-wrapper::after) {
+    content: attr(data-photo-credit);
+    display: inline;
+    margin: 0;
+    font-family: var(--font-body);
+    color: var(--color-neutral-lightest);
+    font-size: 13px;
+    line-height: 20px;
+    position: absolute;
+    right: 0;
+    top: 100%;
+  }
+  :global(.article-body figure figcaption::after) {
+    content: attr(data-photo-credit);
+    display: inline;
+    margin: -4px 0 0 6px;
+    font-family: var(--font-body);
+    color: var(--color-neutral-lightest);
+    font-size: 13px;
+    line-height: 20px;
+  }
 </style>
 
 <script>
