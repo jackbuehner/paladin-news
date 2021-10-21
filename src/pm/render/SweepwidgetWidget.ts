@@ -1,10 +1,10 @@
-import Renderer from 'prosemirror-to-html-js';
+import Renderer from '@cristata/prosemirror-to-html-js';
 
 class SweepwidgetWidget extends Renderer.Node {
   matching() {
     return this.node.type === 'sweepwidgetWidget';
   }
-  tag() {
+  toDOM() {
     return {
       tag: 'iframe',
       attrs: {

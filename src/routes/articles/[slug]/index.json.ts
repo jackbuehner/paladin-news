@@ -2,7 +2,7 @@ import type { IArticle } from 'src/interfaces/articles';
 import type { EndpointOutput } from '@sveltejs/kit';
 import type { ServerRequest } from '@sveltejs/kit/types/hooks';
 import type { JSONValue } from '@sveltejs/kit/types/endpoint';
-import Renderer from 'prosemirror-to-html-js';
+import Renderer from '@cristata/prosemirror-to-html-js';
 import { variables } from '../../../variables';
 import { SweepwidgetWidget } from '../../../pm/render/SweepwidgetWidget';
 import { YoutubeWidget } from '../../../pm/render/YoutubeWidget';
@@ -38,22 +38,6 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutpu
   } catch (err) {
     console.error(err);
   }
-
-  article.body = JSON.stringify([
-    {
-      type: 'youtubeWidget',
-      attrs: {
-        videoId: 'Ttkq_mh7bKg',
-        showCaption: true,
-      },
-      content: [
-        {
-          type: 'text',
-          text: 'Windows 11 experience upgrade video',
-        },
-      ],
-    },
-  ]);
 
   // convert the json body to html
   try {

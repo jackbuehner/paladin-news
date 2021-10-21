@@ -1,4 +1,4 @@
-declare module 'prosemirror-to-html-js' {
+declare module '@cristata/prosemirror-to-html-js' {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const Renderer: any;
   export = Renderer;
