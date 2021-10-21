@@ -2,7 +2,7 @@ import type { ISatire } from 'src/interfaces/satire';
 import type { EndpointOutput } from '@sveltejs/kit';
 import type { ServerRequest } from '@sveltejs/kit/types/hooks';
 import type { JSONValue } from '@sveltejs/kit/types/endpoint';
-import Renderer from 'prosemirror-to-html-js';
+import Renderer from '@cristata/prosemirror-to-html-js';
 import { variables } from '../../variables';
 
 interface ISatireOutput extends ISatire {
