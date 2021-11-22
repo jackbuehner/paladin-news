@@ -1,0 +1,83 @@
+@font-face {
+  font-family: "Adamant BG";
+  font-weight: 400;
+  font-style: normal;
+  src: url(./adamant-bg/Adamant_BG-Regular.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Adamant BG";
+  font-weight: 400;
+  font-style: italic;
+  src: url(./adamant-bg/Adamant_BG-Italic.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Adamant BG";
+  font-weight: 700;
+  font-style: normal;
+  src: url(./adamant-bg/Adamant_BG-Bold.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Adamant BG";
+  font-weight: 700;
+  font-style: italic;
+  src: url(./adamant-bg/Adamant_BG-BoldItalic.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Lato";
+  font-weight: 400;
+  font-style: normal;
+  src: url(./lato/Lato-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Lato";
+  font-weight: 400;
+  font-style: italic;
+  src: url(./lato/Lato-Italic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Lato";
+  font-weight: 500;
+  font-style: normal;
+  src: url(./lato/Lato-Medium.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Lato";
+  font-weight: 500;
+  font-style: italic;
+  src: url(./lato/Lato-MediumItalic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Lato";
+  font-weight: 600;
+  font-style: normal;
+  src: url(./lato/Lato-SemiBold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Lato";
+  font-weight: 600;
+  font-style: italic;
+  src: url(./lato/Lato-SemiBoldItalic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Lato";
+  font-weight: 700;
+  font-style: normal;
+  src: url(./lato/Lato-Bold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Lato";
+  font-weight: 700;
+  font-style: italic;
+  src: url(./lato/Lato-BoldItalic.ttf) format("truetype");
+}

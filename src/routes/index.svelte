@@ -80,7 +80,7 @@
       sports: await fetch(`${url}&category=sports`),
       diversity: await fetch(`${url}&category=diversity`),
       acc: await fetch(`${url}&category=arts&category=campus-culture`),
-      featured: await fetch(`${url}&featured=true`),
+      //featured: await fetch(`${url}&featured=true`),
     };
 
     if (
@@ -88,8 +88,8 @@
       res.opinion.ok &&
       res.sports.ok &&
       res.diversity.ok &&
-      res.acc.ok &&
-      res.featured.ok
+      res.acc.ok //&&
+      //res.featured.ok
     ) {
       return {
         props: {
@@ -99,7 +99,7 @@
             sports: await res.sports.json(),
             diversity: await res.diversity.json(),
             acc: await res.acc.json(),
-            featured: await res.featured.json(),
+            //featured: await res.featured.json(),
           },
         },
       };
