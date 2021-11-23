@@ -13,7 +13,7 @@ class PhotoWidget extends Renderer.Node {
         {
           class: 'img-wrapper',
           'data-photo-credit': !this.node.attrs.showCaption ? this.node.attrs.photoCredit : '',
-          style: 'margin: 20px 0; display: flex; position: relative;',
+          style: 'margin: 20px 0; display: flex; position: relative; align-items: start;',
         },
         [
           'img',
