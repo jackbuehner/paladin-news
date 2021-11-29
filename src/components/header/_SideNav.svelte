@@ -104,7 +104,10 @@
       { href: '/diversity-matters', label: 'Diversity Matters' },
       { href: '/arts-culture', label: 'Arts, Campus, & Culture' },
     ],
-    [{ href: '/satire', label: 'The Horse' }],
+    [
+      { href: '/satire', label: 'The Horse [Satire]' },
+      { href: '/flusher', label: 'The Royal Flush' },
+    ],
     [
       {
         href: 'https://www.youtube.com/channel/UC3UaWOCIldF5_qWnCYEt0RQ',
