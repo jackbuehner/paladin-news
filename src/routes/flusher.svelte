@@ -65,7 +65,7 @@
    * @type {import('@sveltejs/kit').Load}
    */
   export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
-    const url = `/flusher.json`;
+    const url = `/flusher.json?${page.query.toString()}`;
     const res = await fetch(url);
 
     if (res.ok) {

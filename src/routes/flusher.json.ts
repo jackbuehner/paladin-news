@@ -16,7 +16,24 @@ interface IArticleOutput extends IFlush {
 async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutput>> {
   // query for latest flusher
   const GET_LATEST_FLUSHER = `{
-    flushesPublic(limit: 1, sort: "{ \\\"issue\\\": -1, \\\"volume\\\": 1 }") {
+    flushesPublic(
+      ${
+        request.query.has('week')
+          ? `
+              limit: 1,
+              sort: "{ \\\"issue\\\": -1, \\\"volume\\\": 1 }",
+              filter: "{ \\\"$and\\\": [ { \\\"timestamps.week\\\": { \\\"$gte\\\": \\\"${new Date(
+                request.query.get('week')
+              ).toISOString()}\\\" } }, { \\\"timestamps.week\\\": { \\\"$lt\\\": \\\"${new Date(
+              new Date(request.query.get('week')).getTime() + 60 * 60 * 24 * 1000
+            ).toISOString()}\\\" } } ] }"
+            `
+          : `
+              limit: 1,
+              sort: "{ \\\"issue\\\": -1, \\\"volume\\\": 1 }"
+            `
+      } 
+    ) {
       docs {
         volume
         issue
