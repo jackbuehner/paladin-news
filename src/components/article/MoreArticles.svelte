@@ -27,13 +27,12 @@
 </style>
 
 <script lang="ts">
-  import Button from '/src/components/Button.svelte';
   import ArticleCard from '/src/components/home/ArticleCard.svelte';
-  import PageHeading from '/src/components/PageHeading.svelte';
   import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
   import type { IArticle } from 'src/interfaces/articles';
   import { variables } from '../../variables';
   import { onMount } from 'svelte';
+  import { insertDate } from '../../utils/insertDate';
 
   onMount(async () => {
     const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
@@ -54,10 +53,14 @@
   <h1>More articles</h1>
   <div class={'grid'} bind:clientWidth={componentWidth} class:narrower={componentWidth <= 860}>
     {#if articles && articles.docs}
-      {#each articles.docs.filter((article) => article.slug !== thisSlug).slice(0, 5) as article}
+      {#each insertDate(articles.docs
+          .filter((article) => article.slug !== thisSlug)
+          .slice(0, 5)) as article}
         <ArticleCard
           name={article.name}
-          href={`/articles/${article.slug}`}
+          href={article.date
+            ? `/articles/${article.date.year}/${article.date.month}/${article.date.day}/${article.slug}`
+            : `/articles/${article.slug}`}
           description={windowWidth <= 900 ? undefined : article.description}
           photo={windowWidth <= 900 ? undefined : article.photo_path}
           photoCredit={article.photo_credit}

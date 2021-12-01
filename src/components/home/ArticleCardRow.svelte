@@ -38,6 +38,7 @@
   import { onMount } from 'svelte';
   import ArticleCard from './ArticleCard.svelte';
   import { variables } from '../../variables';
+  import { insertDate } from '../../utils/insertDate';
 
   export let quantity: [number, number, number, number] = [5, 4, 2, 3]; // breakpoints: largest, medium, small, mobile
   export let mobilePhotoMultiple: number = 4; // hide every photo on mobile except for any multiple of this number (e.g. 3 shows photos for first photo, fourth photo, seventh photo, etc.)
@@ -79,10 +80,12 @@
   <h2>{label}</h2>
   <div class:mobile={windowWidth <= 560} class:vertical={forceVertical}>
     {#if articles && articles.docs}
-      {#each Array.from(articles.docs).slice(0, arrayLength) as article, index}
+      {#each insertDate(Array.from(articles.docs).slice(0, arrayLength)) as article, index}
         <ArticleCard
           name={article.name}
-          href={`articles/${article.slug}`}
+          href={article.date
+            ? `/articles/${article.date.year}/${article.date.month}/${article.date.day}/${article.slug}`
+            : `/articles/${article.slug}`}
           description={(windowWidth > 560 && !forceVertical) ||
           (windowWidth > 560 && !Number.isInteger(index / mobilePhotoMultiple) && forceVertical)
             ? undefined

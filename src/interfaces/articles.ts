@@ -32,6 +32,12 @@ interface IArticle {
   video_path?: string;
   video_replaces_photo?: string;
   show_comments?: boolean;
+  date?: {
+    // is sometimes added using the insertDate() function
+    year: number;
+    month: number;
+    day: number;
+  };
 }
 
 // interface for author data includes in article

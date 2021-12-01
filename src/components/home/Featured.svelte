@@ -78,6 +78,7 @@
   import { variables } from '../../variables';
   import { onMount } from 'svelte';
   import ArticleCard from '../home/ArticleCard.svelte';
+  import { insertDate } from '../../utils/insertDate';
 
   export let type: 'featured' = 'featured';
   export let articles: AggregatePaginateResult<IArticle> = undefined;
@@ -86,7 +87,7 @@
   onMount(async () => {
     if (!articles) {
       const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
-      const res = await fetch(`${hostUrl}/api/v2/articles/public?limit=4&featured=true}`);
+      const res = await fetch(`${hostUrl}/api/v2/articles/public?limit=4&featured=true`);
       articles = await res.json();
     }
   });
@@ -95,11 +96,13 @@
 <div class={'grid'} class:featured={type === 'featured'}>
   <h2>Featured articles</h2>
   {#if articles && articles.docs}
-    {#each Array.from(articles.docs).slice(0, 4) as article, index}
+    {#each insertDate(Array.from(articles.docs).slice(0, 4)) as article, index}
       <ArticleCard
         style={`grid-area: fa-${index}`}
         name={article.name}
-        href={`articles/${article.slug}`}
+        href={article.date
+          ? `/articles/${article.date.year}/${article.date.month}/${article.date.day}/${article.slug}`
+          : `/articles/${article.slug}`}
         description={article.description}
         photo={article.photo_path}
         photoCredit={article.photo_credit}

@@ -79,6 +79,7 @@
   import Container from '/src/components/Container.svelte';
   import { onMount } from 'svelte';
   import { title } from '../stores/title';
+  import { insertDate } from '../utils/insertDate';
 
   export let articles: AggregatePaginateResult<IArticle>;
 
@@ -100,11 +101,13 @@
 
 <Container>
   {#if articles && articles.docs}
-    {#each articles.docs as article, index}
+    {#each insertDate(articles.docs) as article, index}
       <ArticleRow
         style={'grid-area: auto / 1 / auto / 3;'}
         name={article.name}
-        href={`articles/${article.slug}`}
+        href={article.date
+          ? `/articles/${article.date.year}/${article.date.month}/${article.date.day}/${article.slug}`
+          : `/articles/${article.slug}`}
         description={article.description}
         photo={article.photo_path}
         date={article.timestamps.published_at}

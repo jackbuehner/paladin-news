@@ -90,11 +90,14 @@
   import type { IFlush } from 'src/interfaces/flush';
   import ArticleRow from '/src/components/home/ArticleRow.svelte';
   import { formatISODate } from '../utils/formatISODate';
+  import { insertDate } from '../utils/insertDate';
 
   // set the document title
   onMount(() => ($title = 'The Royal Flush'));
 
   export let flusher: IFlush;
+
+  const featuredArticle = insertDate([flusher.articles.featured])[0];
 </script>
 
 <h1>The Royal Flush</h1>
@@ -103,17 +106,24 @@
 <Container>
   <h2>Featured Article</h2>
   <ArticleRow
-    name={flusher.articles.featured.name}
-    href={`/articles/${flusher.articles.featured.slug}`}
-    description={flusher.articles.featured.description}
-    photo={flusher.articles.featured.photo_path}
-    date={flusher.articles.featured.timestamps.published_at}
-    authors={flusher.articles.featured.people.authors.filter((author) => !!author)} />
+    name={featuredArticle.name}
+    href={featuredArticle.date
+      ? `/articles/${featuredArticle.date.year}/${featuredArticle.date.month}/${featuredArticle.date.day}/${featuredArticle.slug}`
+      : `/articles/${featuredArticle.slug}`}
+    description={featuredArticle.description}
+    photo={featuredArticle.photo_path}
+    date={featuredArticle.timestamps.published_at}
+    authors={featuredArticle.people.authors.filter((author) => !!author)} />
 
   <h2>More Articles</h2>
   <ol>
-    {#each flusher.articles.more as article}
-      <li><a href={`/articles/${article.slug}`}>{article.name}</a></li>
+    {#each insertDate(flusher.articles.more) as article}
+      <li>
+        <a
+          href={article.date
+            ? `/articles/${article.date.year}/${article.date.month}/${article.date.day}/${article.slug}`
+            : `/articles/${article.slug}`}>{article.name}</a>
+      </li>
     {/each}
   </ol>
 </Container>

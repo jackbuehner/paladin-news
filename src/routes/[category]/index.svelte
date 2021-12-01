@@ -142,6 +142,7 @@
   import PageHeading from '/src/components/PageHeading.svelte';
   import Container from '/src/components/Container.svelte';
   import { title } from '../../stores/title';
+  import { insertDate } from '../../utils/insertDate';
 
   export let articles: AggregatePaginateResult<IArticle>;
   export let pageTitle: string;
@@ -163,11 +164,13 @@
 <Container>
   <div class={'top-grid'} class:hidden={articles.page !== 1}>
     {#if articles && articles.docs && articles.page === 1}
-      {#each Array.from(articles.docs).slice(0, 4) as article, index}
+      {#each insertDate(Array.from(articles.docs).slice(0, 4)) as article, index}
         <ArticleCard
           style={`grid-area: a${index}`}
           name={article.name}
-          href={`articles/${article.slug}`}
+          href={article.date
+            ? `/articles/${article.date.year}/${article.date.month}/${article.date.day}/${article.slug}`
+            : `/articles/${article.slug}`}
           description={article.description}
           photo={article.photo_path}
           photoCredit={article.photo_credit}
@@ -184,13 +187,15 @@
   </div>
   <div class={'main-grid'} class:firstPage={articles.page === 1}>
     {#if articles && articles.docs && articles.page === 1}
-      {#each Array.from(articles.docs).slice(4, 12) as article, index}
+      {#each insertDate(Array.from(articles.docs).slice(4, 12)) as article, index}
         {#if windowWidth <= 560}
           <span style={'grid-area: auto / 1 / auto / 3;'} />
         {/if}
         <ArticleCard
           name={article.name}
-          href={`articles/${article.slug}`}
+          href={article.date
+            ? `/articles/${article.date.year}/${article.date.month}/${article.date.day}/${article.slug}`
+            : `/articles/${article.slug}`}
           description={article.description}
           photo={article.photo_path}
           photoCredit={article.photo_credit}
@@ -201,7 +206,7 @@
       {/each}
     {/if}
     {#if articles && articles.docs}
-      {#each Array.from(articles.docs).slice(articles.page === 1 ? 12 : 0, 26) as article, index}
+      {#each insertDate(Array.from(articles.docs).slice(articles.page === 1 ? 12 : 0, 26)) as article, index}
         {#if index !== 0}
           <span style={'grid-area: auto / 1 / auto / 3;'} />
         {:else if articles.page === 1}
@@ -210,7 +215,9 @@
         <ArticleRow
           style={'grid-area: auto / 1 / auto / 3;'}
           name={article.name}
-          href={`articles/${article.slug}`}
+          href={article.date
+            ? `/articles/${article.date.year}/${article.date.month}/${article.date.day}/${article.slug}`
+            : `/articles/${article.slug}`}
           description={article.description}
           photo={article.photo_path}
           date={article.timestamps.published_at}

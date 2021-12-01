@@ -60,6 +60,9 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutpu
           more {
             slug
             name
+            timestamps {
+              published_at
+            }
           }
         }
         timestamps {
