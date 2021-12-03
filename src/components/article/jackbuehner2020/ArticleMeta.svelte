@@ -53,10 +53,10 @@
 
 <script lang="ts">
   import { DateTime } from 'luxon';
-  import { formatISODate } from '../../utils/formatISODate';
+  import { formatISODate } from '../../../utils/formatISODate';
   import type { IArticleAuthor } from 'src/interfaces/articles';
-  import { slugify } from '../../utils/slugify';
-  import { share } from './share';
+  import { slugify } from '../../../utils/slugify';
+  import { share } from './../share';
   import SocialButton from './_SocialButton.svelte';
 
   export let date: string;

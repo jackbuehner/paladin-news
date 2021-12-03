@@ -81,3 +81,24 @@
   font-style: italic;
   src: url(./lato/Lato-BoldItalic.ttf) format("truetype");
 }
+
+@font-face {
+  font-family: "Merriweather";
+  font-weight: 400;
+  font-style: italic;
+  src: url(./merriweather/Merriweather-Italic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Merriweather";
+  font-weight: 700;
+  font-style: normal;
+  src: url(./merriweather/Merriweather-Bold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Merriweather";
+  font-weight: 900;
+  font-style: normal;
+  src: url(./merriweather/Merriweather-Black.ttf) format("truetype");
+}

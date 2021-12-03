@@ -12,7 +12,7 @@
 
 <script lang="ts">
   import { DateTime } from 'luxon';
-  import { formatISODate } from '../../utils/formatISODate';
+  import { formatISODate } from '../../../utils/formatISODate';
 
   export let date: string;
   export let authors: string[] = [];

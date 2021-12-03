@@ -30,9 +30,9 @@
   import ArticleCard from '/src/components/home/ArticleCard.svelte';
   import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
   import type { IArticle } from 'src/interfaces/articles';
-  import { variables } from '../../variables';
+  import { variables } from '../../../variables';
   import { onMount } from 'svelte';
-  import { insertDate } from '../../utils/insertDate';
+  import { insertDate } from '../../../utils/insertDate';
 
   onMount(async () => {
     const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
@@ -40,7 +40,7 @@
     articles = await res.json();
   });
 
-  export let articles: AggregatePaginateResult<IArticle>;
+  export let articles: AggregatePaginateResult<IArticle> = undefined;
   export let thisSlug: string = undefined;
 
   $: componentWidth = 0;

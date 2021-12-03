@@ -212,9 +212,9 @@
 </style>
 
 <script lang="ts">
-  import { commentsOpen } from '../../../stores/comments';
+  import { commentsOpen } from '../../../../stores/comments';
   import { onMount } from 'svelte';
-  import IconButton from '../../IconButton.svelte';
+  import IconButton from '../../../IconButton.svelte';
 
   export let pageId: string;
 

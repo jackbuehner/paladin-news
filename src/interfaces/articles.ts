@@ -38,6 +38,7 @@ interface IArticle {
     month: number;
     day: number;
   };
+  template: string;
 }
 
 // interface for author data includes in article

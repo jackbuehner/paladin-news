@@ -58,7 +58,7 @@
 </style>
 
 <script lang="ts">
-  import { commentsOpen } from '../../../stores/comments';
+  import { commentsOpen } from '../../../../stores/comments';
   import CommentsPanel from './CommentsPanel.svelte';
 
   let isPanelOpen = $commentsOpen;
