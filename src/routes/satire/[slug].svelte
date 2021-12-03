@@ -31,16 +31,18 @@
 </script>
 
 <script lang="ts">
-  import ArticleHeading from '/src/components/article/ArticleHeading.svelte';
-  import ArticleSubtitle from '/src/components/article/ArticleSubtitle.svelte';
-  import ArticleCategories from '/src/components/article/ArticleCategories.svelte';
-  import ArticlePhoto from '/src/components/article/ArticlePhoto.svelte';
-  import ArticleCaption from '/src/components/article/ArticleCaption.svelte';
-  import ArticlePhotoCredit from '/src/components/article/ArticlePhotoCredit.svelte';
-  import ArticleBody from '/src/components/article/ArticleBody.svelte';
+  import {
+    ArticleHeading,
+    ArticleSubtitle,
+    ArticleCategories,
+    ArticlePhoto,
+    ArticleCaption,
+    ArticlePhotoCredit,
+    ArticleBody,
+  } from '../../components/article/jackbuehner2020';
   import type { ISatire } from 'src/interfaces/satire';
   import Container from '/src/components/Container.svelte';
-  import SatireMeta from '/src/components/article/SatireMeta.svelte';
+  import SatireMeta from '/src/components/article/jackbuehner2020/SatireMeta.svelte';
   import { headerIsSatire } from '../../stores/header';
   import { beforeUpdate, onDestroy, onMount } from 'svelte';
   import { title } from '../../stores/title';
