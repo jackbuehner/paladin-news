@@ -43,9 +43,24 @@
   export let isOutlined: boolean = false;
   export let ariaLabel: string;
   export let href: string = undefined;
+  export let color: string = undefined;
+  export let radius: string = undefined;
+  export let background: { base?: string; hover?: string; active?: string } = undefined;
 </script>
 
-<button on:click {href} class:disabled class:isOutlined aria-label={ariaLabel}>
+<button
+  on:click
+  {href}
+  class:disabled
+  class:isOutlined
+  aria-label={ariaLabel}
+  style={`
+  ${color ? `--button-color: ${color};` : ``}
+  ${radius ? `--radius: ${radius};` : ``}
+  ${background?.base ? `--button-bg: ${background.base};` : ``}
+  ${background?.hover ? `--button-bg-hover: ${background.hover};` : ``}
+  ${background?.active ? `--button-bg-active: ${background.active};` : ``}
+`}>
   <svg style="width:24px;height:24px" {viewBox}>
     <slot />
   </svg>
