@@ -130,7 +130,7 @@
 
 <a {href} {style}>
   <!-- photo and credit -->
-  {#if photo !== undefined && !isCompact}
+  {#if photo !== undefined && photo.length > 0 && !isCompact}
     <div class={'photo-group'}>
       <div class={'photo-wrapper'} class:isCategoryPage>
         <img src={photo} alt={''} />

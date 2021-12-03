@@ -196,7 +196,7 @@
           style={'position: absolute; top: 0; left: 0; width: 100%; height: 100%;'}
           frameborder={'0'} />
       </div>
-    {:else}
+    {:else if article.photo_path && article.photo_path.length > 0}
       <ArticlePhoto src={article.photo_path} />
       <ArticleCaption>{article.photo_caption}</ArticleCaption>
       <ArticlePhotoCredit>{article.photo_credit}</ArticlePhotoCredit>

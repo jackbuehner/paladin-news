@@ -103,7 +103,6 @@
       <div class={'categories'}>
         {categoriesModified
           .map((cat, index) => {
-            console.log(cat);
             if (index < categoriesModified.length - 1) return `${cat}  |  `;
             return cat;
           })
@@ -165,7 +164,7 @@
   </div>
 
   <!-- photo -->
-  {#if photo !== undefined}
+  {#if photo !== undefined && photo.length > 0}
     <div class={'photo-wrapper'}>
       <img src={photo} alt={''} />
     </div>
