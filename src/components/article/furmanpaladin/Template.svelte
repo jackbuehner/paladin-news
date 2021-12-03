@@ -89,6 +89,17 @@
     margin: 11px 0 0;
     font-weight: 400;
   }
+  note {
+    display: block;
+    background-color: rgb(var(--legacy-primary-darker));
+    color: #e0e0e0;
+    font-size: 12px;
+    padding: 4px 0;
+    letter-spacing: 0.3px;
+  }
+  note a {
+    color: #e0e0e0;
+  }
 </style>
 
 <script lang="ts">
@@ -116,6 +127,7 @@
 
   // set header colors
   onMount(() => {
+    console.log('hi');
     const topbar: HTMLDivElement | undefined = document.querySelector(`.topbar-wrapper`);
     console.log(topbar);
     document.body.style.setProperty(`--topbar-bg`, `#26272b`);
@@ -150,6 +162,12 @@
     <meta property={'og:locale'} content={'en_US'} />
   {/if}
 </svelte:head>
+
+<note
+  ><Container
+    >This article was migrated from the original furmanpaladin.com. <a href={`/contact`}
+      >Contact us</a> if you notice missing information.</Container
+  ></note>
 
 <div class={`header`}>
   <Container>
