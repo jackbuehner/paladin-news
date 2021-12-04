@@ -12,6 +12,10 @@
     margin-top: 0;
     margin-bottom: 25px;
   }
+  :global(.article-body-furmanpaladin img) {
+    max-width: 100%;
+    height: auto;
+  }
   :global(.article-body-furmanpaladin a) {
     color: rgb(var(--primary-lighter));
     box-shadow: 0 1px 0 0 rgb(var(--primary));
