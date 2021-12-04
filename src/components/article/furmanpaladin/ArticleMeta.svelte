@@ -9,10 +9,6 @@
     flex-direction: column;
     gap: 10px;
   }
-  .date,
-  .byline {
-    white-space: nowrap;
-  }
   @media (max-width: 950px) {
     .article-metadata-furmanpaladin {
       flex-direction: row;
