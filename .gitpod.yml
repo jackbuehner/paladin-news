@@ -1,0 +1,14 @@
+ports:
+  - port: 4000
+    onOpen: notify
+    visibility: private
+  - port: 40001
+    onOpen: ignore
+    visibility: public
+
+vscode:
+  extensions:
+    - gitpod.gitpod-web
+    - esbenp.prettier-vscode
+    - svelte.svelte-vscode
+    - aaron-bond.better-comments
