@@ -22,6 +22,11 @@
     line-height: 18px;
     text-transform: uppercase;
     margin: 0 0 16px 0;
+    color: var(--color-neutral-dark);
+  }
+  h2 > a {
+    text-decoration: none;
+    color: var(--color-neutral-dark);
   }
   span {
     display: none;
@@ -43,6 +48,7 @@
   export let quantity: [number, number, number, number] = [5, 4, 2, 3]; // breakpoints: largest, medium, small, mobile
   export let mobilePhotoMultiple: number = 4; // hide every photo on mobile except for any multiple of this number (e.g. 3 shows photos for first photo, fourth photo, seventh photo, etc.)
   export let label: string;
+  export let href: string = undefined;
   export let categories: string = undefined;
   export let gridArea: string = 'auto';
   export let forceVertical: boolean = false;
@@ -77,7 +83,11 @@
 <svelte:window bind:innerWidth={windowWidth} />
 
 <section class:mobile={windowWidth <= 560} style={`grid-area: ${gridArea}`}>
-  <h2>{label}</h2>
+  {#if href}
+    <h2><a {href}>{label}</a></h2>
+  {:else}
+    <h2>{label}</h2>
+  {/if}
   <div class:mobile={windowWidth <= 560} class:vertical={forceVertical}>
     {#if articles && articles.docs}
       {#each insertDate(Array.from(articles.docs).slice(0, arrayLength)) as article, index}

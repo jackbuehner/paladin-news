@@ -146,12 +146,14 @@
     <div class={'sections-grid'}>
       <ArticleCardRow
         label={'News'}
+        href={'/section/news'}
         articles={articles.news}
         gridArea={'news'}
         quantity={[5, 4, 2, 3]} />
       <div style={'grid-area: opinions'}>
         <ArticleCardRow
           label={'Opinions'}
+          href={'/section/opinions'}
           articles={articles.opinion}
           quantity={[6, 4, 3, 3]}
           forceVertical={true} />
@@ -175,16 +177,19 @@
       </div>
       <ArticleCardRow
         label={'Sports'}
+        href={'/section/sports'}
         articles={articles.sports}
         gridArea={'sports'}
         quantity={[3, 2, 2, 3]} />
       <ArticleCardRow
         label={'Diversity Matters'}
+        href={'/section/diversity-matters'}
         articles={articles.diversity}
         gridArea={'diversity'}
         quantity={[3, 2, 2, 3]} />
       <ArticleCardRow
         label={'Arts, Campus, & Culture'}
+        href={'/section/arts-campus-culture'}
         articles={articles.acc}
         gridArea={'acc'}
         quantity={[3, 2, 2, 3]} />
