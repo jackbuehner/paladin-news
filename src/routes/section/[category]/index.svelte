@@ -110,6 +110,7 @@
       string.replace('/', ''); // remove and slashes
       if (string === 'diversity-matters') return 'Diversity Matters';
       else if (string === 'arts-culture') return 'Arts, Campus, & Culture';
+      else if (string === 'arts-campus-culture') return 'Arts, Campus, & Culture';
       else if (string === 'campus-culture') return 'Campus & Culture';
       else return capitalize(string, true);
     };

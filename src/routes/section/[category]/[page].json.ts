@@ -22,6 +22,7 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutpu
   if (category === 'diversity-matters') categories = ['diversity'];
   else if (category === 'opinions') categories = ['opinion'];
   else if (category === 'arts-culture') categories = ['arts', 'campus-culture'];
+  else if (category === 'arts-campus-culture') categories = ['arts', 'campus-culture'];
   else categories = [category];
 
   // get the articles in the category
