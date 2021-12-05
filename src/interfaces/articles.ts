@@ -12,8 +12,6 @@ enum Stage {
 
 // interface for each article
 interface IArticle {
-  _id: string;
-  github_id: string;
   name: string;
   slug?: string;
   timestamps?: {

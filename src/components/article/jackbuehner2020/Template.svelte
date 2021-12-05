@@ -316,7 +316,7 @@
           </SocialButton>
         </div>
       </div>
-      <Comments pageId={article._id} />
+      <Comments pageId={article.timestamps.published_at + '_' + article.slug} />
     {/if}
 
     <!-- more from the paladin -->
