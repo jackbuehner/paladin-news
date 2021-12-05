@@ -6,20 +6,29 @@
     margin-bottom: 12px;
     flex-wrap: wrap;
   }
-  span {
+  a {
     display: inline-block;
     background-color: transparent;
     font-family: var(--font-detail);
-    color: var(--color-neutral-dark);
+    color: rgb(var(--legacy-primary));
+    text-decoration: none;
+    transition: background-color 0.2s, box-shadow 0.1s;
     font-size: 0.9em;
     font-weight: 900;
     text-align: justify;
     letter-spacing: 1px;
     text-transform: uppercase;
   }
-  span:not(:last-of-type) {
+  a:not(:last-of-type) {
     padding-right: 5px;
     border-right: 1px solid var(--border-dark);
+  }
+  a:hover {
+    background-color: rgba(var(--legacy-primary), 0.1);
+    box-shadow: 0 2px 0 0 rgb(var(--legacy-primary));
+  }
+  a:active {
+    background-color: rgba(var(--legacy-primary), 0.16);
   }
 </style>
 
@@ -34,6 +43,6 @@
 
 <div>
   {#each categories as category}
-    <span>{category}</span>
+    <a href={`/section/${category}`}>{category}</a>
   {/each}
 </div>
