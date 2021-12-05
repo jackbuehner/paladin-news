@@ -83,11 +83,11 @@
       <div class={'grid'}>
         <div>
           <div class={'header'}>Sections</div>
-          <a href={'/news'}>News</a>
-          <a href={'/opinions'}>Opinions</a>
-          <a href={'/sports'}>Sports</a>
-          <a href={'/diversity-matters'}>Diversity Matters</a>
-          <a href={'/arts-culture'}>Arts, Campus, & Culture</a>
+          <a href={'/section/news'}>News</a>
+          <a href={'/section/opinions'}>Opinions</a>
+          <a href={'/section/sports'}>Sports</a>
+          <a href={'/section/diversity-matters'}>Diversity Matters</a>
+          <a href={'/section/arts-culture'}>Arts, Campus, & Culture</a>
         </div>
         <div>
           <div class={'header'}>More</div>

@@ -98,11 +98,11 @@
       { href: '/all-articles', label: 'All articles' },
     ],
     [
-      { href: '/news', label: 'News' },
-      { href: '/opinions', label: 'Opinions' },
-      { href: '/sports', label: 'Sports' },
-      { href: '/diversity-matters', label: 'Diversity Matters' },
-      { href: '/arts-culture', label: 'Arts, Campus, & Culture' },
+      { href: '/section/news', label: 'News' },
+      { href: '/section/opinions', label: 'Opinions' },
+      { href: '/section/sports', label: 'Sports' },
+      { href: '/section/diversity-matters', label: 'Diversity Matters' },
+      { href: '/section/arts-culture', label: 'Arts, Campus, & Culture' },
     ],
     [
       { href: '/satire', label: 'The Horse [Satire]' },
