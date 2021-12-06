@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
   export let width: number | string = 1521;
   export let height: number | string = 512;
 </script>

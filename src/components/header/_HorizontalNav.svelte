@@ -40,7 +40,7 @@
   }
 </style>
 
-<script lang="typescript">
+<script lang="ts">
   const items = [
     { href: '/', label: 'Home' },
     { href: '/section/news', label: 'News' },

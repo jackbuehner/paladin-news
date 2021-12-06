@@ -5,10 +5,11 @@ import 'dotenv/config';
 import fetch from 'node-fetch';
 
 const DEV_SERVER_PORT = 4000;
-const HMR_SERVER_PORT = 40001;
-const HMR_SERVER_HOST = process.env.GITPOD_WORKSPACE_ID ? `${HMR_SERVER_PORT}-${process.env.GITPOD_WORKSPACE_ID}.${process.env.GITPOD_WORKSPACE_CLUSTER_HOST}` : undefined;
-const HMR_CLIENT_PORT = process.env.GITPOD_WORKSPACE_ID ? 443 : undefined; // gitpod only serves content from 443
-const HMR_CLIENT_PROTOCOL = process.env.GITPOD_WORKSPACE_ID ? 'wss' : undefined;
+const HMR_HOST = process.env.GITPOD_WORKSPACE_ID
+  ? `${DEV_SERVER_PORT}-${process.env.GITPOD_WORKSPACE_ID}.${process.env.GITPOD_WORKSPACE_CLUSTER_HOST}`
+  : undefined;
+const HMR_PORT = process.env.GITPOD_WORKSPACE_ID ? 443 : DEV_SERVER_PORT; // gitpod only serves content from 443
+const HMR_PROTOCOL = process.env.GITPOD_WORKSPACE_ID ? 'wss' : undefined;
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -27,18 +28,17 @@ const config = {
     prerender: {
       crawl: true,
       enabled: true,
-      force: true,
-      pages: ['*'],
+      onError: 'fail', //TODO: investigate the best prerender options
+      entries: ['*'],
     },
     vite: {
       server: {
         port: DEV_SERVER_PORT,
         strictPort: true, // exit if port already in use
         hmr: {
-          protocol: HMR_CLIENT_PROTOCOL,
-          host: HMR_SERVER_HOST,
-          port: HMR_SERVER_PORT,
-          clientPort: HMR_CLIENT_PORT
+          protocol: HMR_PROTOCOL,
+          host: HMR_HOST,
+          port: HMR_PORT,
         },
       },
     },

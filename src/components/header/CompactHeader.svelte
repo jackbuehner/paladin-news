@@ -69,7 +69,7 @@
   }
 </style>
 
-<script lang="typescript">
+<script lang="ts">
   import IconButton from '../IconButton.svelte';
   import Container from '../Container.svelte';
   import ThePaladinLogo from '../svgs/ThePaladinLogo.svelte';

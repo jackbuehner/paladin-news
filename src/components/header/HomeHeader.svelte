@@ -85,7 +85,7 @@
   }
 </style>
 
-<script lang="typescript">
+<script lang="ts">
   import IconButton from '../IconButton.svelte';
   import ThePaladinLogo from '../svgs/ThePaladinLogo.svelte';
   import TheHorseLogo from '../svgs/TheHorseLogo.svelte';
