@@ -50,15 +50,22 @@
   }
 </style>
 
+<script context="module" lang="ts">
+  import { title } from '../stores/title';
+  /** @type {import('@sveltejs/kit').Load} */
+  export async function load() {
+    // set the document title
+    title.set('Newsletters & notifications');
+
+    return { status: 200 };
+  }
+</script>
+
 <script lang="ts">
   import PageHeading from '/src/components/PageHeading.svelte';
   import Container from '/src/components/Container.svelte';
   import NewsletterCard from '/src/components/NewsletterCard.svelte';
   import { onMount } from 'svelte';
-  import { title } from '../stores/title';
-
-  // set the document title
-  onMount(() => ($title = 'Newsletters & notifications'));
 
   /**
     Pass through a blur event for the email input field.

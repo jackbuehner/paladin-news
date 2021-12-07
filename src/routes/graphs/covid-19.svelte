@@ -32,15 +32,21 @@
   }
 </style>
 
+<script context="module" lang="ts">
+  /** @type {import('@sveltejs/kit').Load} */
+  export async function load() {
+    // set the document title
+    title.set('COVID-19 on Campus');
+
+    return { status: 200 };
+  }
+</script>
+
 <script>
   import PageHeading from '/src/components/PageHeading.svelte';
   import Container from '/src/components/Container.svelte';
   import { Tabs, TabList, TabPanel, Tab } from '../../components/Tabs';
-  import { onMount } from 'svelte';
   import { title } from '../../stores/title';
-
-  // set the document title
-  onMount(() => ($title = 'COVID-19 on Campus'));
 </script>
 
 <div style={'height: 0;'}>
@@ -152,11 +158,7 @@
             scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
             vizElement.parentNode.insertBefore(scriptElement, vizElement);
           </script>
-          <style>
-            #vizFrame1611153331235 {
-              margin-top: -42px !important;
-            }
-          </style>
+          <style></style>
         </div>
       </Container>
     </TabPanel>

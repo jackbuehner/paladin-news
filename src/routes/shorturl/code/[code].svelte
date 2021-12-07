@@ -10,6 +10,9 @@
     const url = `/shorturl/code/${page.params.code}.json`;
     const res = await fetch(url);
 
+    // set the document title
+    title.set('Redirecting...');
+
     if (res.ok) {
       return {
         props: {
@@ -27,6 +30,7 @@
 
 <script lang="ts">
   import { goto } from '$app/navigation';
+  import { title } from '../../../stores/title';
 
   export let shortURL: IShortURL;
 
@@ -42,5 +46,3 @@ The Paladin Network
 <br />
 <br />
 Link does not work? Send us this code: <code>{shortURL.code}</code>
-
-https://api.thepaladin.dev.cristata.app/api/v2/shorturl/LeciAhD

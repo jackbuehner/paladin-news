@@ -106,6 +106,9 @@
     const res = await fetch(url);
     const { profile, articles } = await res.json();
 
+    // set the document title
+    title.set(`${profile.name} - Profile`);
+
     if (res.ok) {
       return {
         props: {
@@ -126,15 +129,11 @@
   import type { IProfile } from 'src/interfaces/profiles';
   import { goto } from '$app/navigation';
   import Container from '/src/components/Container.svelte';
-  import { onMount } from 'svelte';
   import { title } from '../../stores/title';
   import { insertDate } from '../../utils/insertDate';
 
   export let profile: IProfile;
   export let articles: AggregatePaginateResult<IArticle>;
-
-  // set the document title
-  onMount(() => ($title = `${profile.name} - Profile`));
 </script>
 
 <Container>

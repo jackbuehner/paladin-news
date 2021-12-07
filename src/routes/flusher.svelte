@@ -68,6 +68,9 @@
     const url = `/flusher.json?${page.query.toString()}`;
     const res = await fetch(url);
 
+    // set the document title
+    title.set('The Royal Flush');
+
     if (res.ok) {
       return {
         props: {
@@ -91,9 +94,6 @@
   import ArticleRow from '/src/components/home/ArticleRow.svelte';
   import { formatISODate } from '../utils/formatISODate';
   import { insertDate } from '../utils/insertDate';
-
-  // set the document title
-  onMount(() => ($title = 'The Royal Flush'));
 
   export let flusher: IFlush;
 

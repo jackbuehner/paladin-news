@@ -115,6 +115,9 @@
     const url = `/team-${pageNumber}.json`;
     const res = await fetch(url);
 
+    // set the document title
+    title.set('Our team');
+
     if (res.ok) {
       return {
         props: {
@@ -133,11 +136,7 @@
 <script lang="ts">
   import PageHeading from '/src/components/PageHeading.svelte';
   import Container from '/src/components/Container.svelte';
-  import { onMount } from 'svelte';
   import { title } from '../stores/title';
-
-  // set the document title
-  onMount(() => ($title = 'Our team'));
 
   export let profiles: IProfile[];
 

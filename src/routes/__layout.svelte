@@ -9,18 +9,24 @@
   }
 </style>
 
-<script>
+<script context="module" lang="ts">
+  /** @type {import('@sveltejs/kit').Load} */
+  export async function load({ page }) {
+    return { props: { path: page.path } };
+  }
+</script>
+
+<script lang="ts">
   import { title } from '../../src/stores/title';
   import Footer from '../components/Footer.svelte';
-  import CompactHeader from '../components/header/CompactHeader.svelte';
+  import Header from '../components/header/Header.svelte';
   import Search from '/src/components/search/Search.svelte';
   import NProgress from 'nprogress';
   import { onMount } from 'svelte';
 
   $: title_ = $title ? `${$title} - The Paladin` : 'The Paladin';
 
-  // keep track of window width
-  $: windowWidth = 0;
+  export let path: string;
 
   onMount(() => {
     // configure the navigation progress bar
@@ -49,19 +55,14 @@
   <title>{title_}</title>
 </svelte:head>
 
-<svelte:window bind:innerWidth={windowWidth} />
+<div class={'wrapper'}>
+  <Header type={path === '/' ? 'full' : undefined} />
 
-<!--do not show content until windowWidth has been calculated-->
-{#if windowWidth > 0}
-  <div class={'wrapper'}>
-    <CompactHeader />
-
-    <div class={'content'}>
-      <slot />
-    </div>
-
-    <Footer />
+  <div class={'content'}>
+    <slot />
   </div>
-{/if}
+
+  <Footer />
+</div>
 
 <Search />

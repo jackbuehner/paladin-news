@@ -82,9 +82,6 @@
 
   export let article: IArticle;
 
-  // set the document title
-  onMount(() => ($title = article.name));
-
   // video embed options
   let video_embed_path: string | null = null;
   if (article && article.video_path) {

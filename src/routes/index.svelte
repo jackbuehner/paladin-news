@@ -1,7 +1,7 @@
 <style>
   .wrapper {
     position: relative;
-    top: -52px;
+    /*top: -52px;*/
     background-color: white;
   }
 
@@ -141,7 +141,6 @@
 
 <div class={'wrapper'}>
   <Container>
-    <HomeHeader />
     <Featured articles={articles.featured} />
     <div class={'sections-grid'}>
       <ArticleCardRow

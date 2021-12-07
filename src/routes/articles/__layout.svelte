@@ -29,11 +29,15 @@
     // fetch the data
     const url = `/articles${date.path || '/_/_/_'}/${page.params.slug}.json`;
     const res = await fetch(url);
+    const article = await res.json();
+
+    // set the document title
+    title.set(article.name);
 
     if (res.ok) {
       return {
         props: {
-          article: await res.json(),
+          article,
         },
       };
     }
@@ -47,6 +51,7 @@
 
 <script lang="ts">
   import type { IArticle } from 'src/interfaces/articles';
+  import { title } from '../../stores/title';
   import {
     ArticleTemplateJackBuehner2020,
     ArticleTemplateFurmanPaladin,

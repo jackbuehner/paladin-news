@@ -115,11 +115,15 @@
       else return capitalize(string, true);
     };
 
+    // set the page title
+    const pageTitle = pagePathToTitle(page.path.split('/').slice(-1)[0]);
+    title.set(pageTitle);
+
     if (res.ok) {
       return {
         props: {
           articles: await res.json(),
-          pageTitle: pagePathToTitle(page.path.split('/').slice(-1)[0]),
+          pageTitle,
         },
       };
     }
@@ -152,9 +156,6 @@
   // set the header label
   beforeUpdate(() => ($headerLabel = pageTitle));
   onDestroy(() => ($headerLabel = undefined));
-
-  // set the document title
-  onMount(() => ($title = pageTitle));
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} />

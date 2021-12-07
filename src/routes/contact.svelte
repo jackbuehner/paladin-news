@@ -22,6 +22,17 @@
   }
 </style>
 
+<script context="module" lang="ts">
+  import { title } from '../stores/title';
+  /** @type {import('@sveltejs/kit').Load} */
+  export async function load() {
+    // set the document title
+    title.set('Contact us');
+
+    return { status: 200 };
+  }
+</script>
+
 <script lang="ts">
   import PageHeading from '/src/components/PageHeading.svelte';
   import Container from '/src/components/Container.svelte';
@@ -33,16 +44,12 @@
   import TextArea from '/src/components/inputs/TextArea.svelte';
   import Select from '/src/components/inputs/Select.svelte';
   import Button from '/src/components/Button.svelte';
-  import { title } from '../stores/title';
 
   export const prerender = true;
 
   onMount(() => {
     kwesforms.init();
   });
-
-  // set the document title
-  onMount(() => ($title = 'Contact us'));
 </script>
 
 <PageHeading>Contact us</PageHeading>

@@ -119,9 +119,6 @@
 
   export let article: IArticle;
 
-  // set the document title
-  onMount(() => ($title = article.name));
-
   // keep track of window width
   $: windowWidth = 0;
 

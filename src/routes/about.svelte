@@ -48,14 +48,20 @@
   }
 </style>
 
+<script context="module" lang="ts">
+  import { title } from '../stores/title';
+  /** @type {import('@sveltejs/kit').Load} */
+  export async function load() {
+    // set the document title
+    title.set('About');
+
+    return { status: 200 };
+  }
+</script>
+
 <script land="ts">
   import PageHeading from '/src/components/PageHeading.svelte';
   import Container from '/src/components/Container.svelte';
-  import { onMount } from 'svelte';
-  import { title } from '../stores/title';
-
-  // set the document title
-  onMount(() => ($title = 'About'));
 </script>
 
 <PageHeading>Who we are</PageHeading>

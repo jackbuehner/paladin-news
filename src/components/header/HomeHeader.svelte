@@ -76,6 +76,9 @@
     .logo.hidden {
       opacity: 0;
     }
+    div.horizontal-nav {
+      display: none;
+    }
   }
   @media (max-width: 560px) {
     .logo,
@@ -142,9 +145,9 @@
     <a href={'/'} aria-label={'home'}><ThePaladinLogo width={416} height={140} /></a>
   {/if}
 </div>
-{#if windowWidth > 990}
+<div class={`horizontal-nav`}>
   <HorizontalNav />
-{/if}
+</div>
 <SideNav bind:isOpen={isSideNavOpen} />
 
 <slot />

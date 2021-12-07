@@ -14,11 +14,18 @@
   export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
     const url = `/satire/${page.params.slug}.json`;
     const res = await fetch(url);
+    const satire = await res.json();
+
+    // set the document title
+    title.set(`${satire.name} - Satire`);
+
+    // set the header to satire
+    headerIsSatire.set(true);
 
     if (res.ok) {
       return {
         props: {
-          satire: await res.json(),
+          satire,
         },
       };
     }
@@ -49,12 +56,8 @@
 
   export let satire: ISatire;
 
-  // set the header to satire
-  beforeUpdate(() => ($headerIsSatire = true));
+  // unset the header as satire on unmount
   onDestroy(() => ($headerIsSatire = false));
-
-  // set the document title
-  onMount(() => ($title = `${satire.name} - Satire`));
 </script>
 
 <svelte:head>

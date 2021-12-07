@@ -56,6 +56,9 @@
     const url = `/all-articles/${n}.json`;
     const res = await fetch(url);
 
+    // set the document title
+    title.set('All articles');
+
     if (res.ok) {
       return {
         props: {
@@ -72,7 +75,6 @@
 </script>
 
 <script lang="ts">
-  import { goto } from '$app/navigation';
   import Button from '/src/components/Button.svelte';
   import ArticleRow from '/src/components/home/ArticleRow.svelte';
   import PageHeading from '/src/components/PageHeading.svelte';
@@ -82,9 +84,6 @@
   import { insertDate } from '../../utils/insertDate';
 
   export let articles: AggregatePaginateResult<IArticle>;
-
-  // set the document title
-  onMount(() => ($title = 'All articles'));
 </script>
 
 <PageHeading>All articles</PageHeading>

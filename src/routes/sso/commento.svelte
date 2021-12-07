@@ -1,3 +1,14 @@
+<script context="module" lang="ts">
+  import { title } from '../../stores/title';
+  /** @type {import('@sveltejs/kit').Load} */
+  export async function load() {
+    // set the document title
+    title.set('Commento SSO');
+
+    return { status: 200 };
+  }
+</script>
+
 <script lang="ts">
   import { Memberstack } from '../../utils/Memberstack';
   import { onMount } from 'svelte';
