@@ -8,7 +8,7 @@ function insertDate(articles: IArticle[]) {
       const date = {
         day: pubTimestamp.getUTCDate().toString().padStart(2, '0'),
         month: `${pubTimestamp.getUTCMonth() + 1}`.padStart(2, '0'), // +1 because January === 0
-        year: pubTimestamp.getUTCFullYear(),
+        year: pubTimestamp.getUTCFullYear().toString(),
       };
       return { ...article, date };
     }
