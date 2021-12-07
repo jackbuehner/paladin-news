@@ -6,8 +6,8 @@ function insertDate(articles: IArticle[]) {
     if (article.timestamps && article.timestamps.published_at) {
       const pubTimestamp = new Date(article.timestamps.published_at);
       const date = {
-        day: pubTimestamp.getUTCDate(),
-        month: pubTimestamp.getUTCMonth(),
+        day: pubTimestamp.getUTCDate().toString().padStart(2, '0'),
+        month: `${pubTimestamp.getUTCMonth() + 1}`.padStart(2, '0'), // +1 because January === 0
         year: pubTimestamp.getUTCFullYear(),
       };
       return { ...article, date };

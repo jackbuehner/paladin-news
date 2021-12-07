@@ -32,9 +32,9 @@ interface IArticle {
   show_comments?: boolean;
   date?: {
     // is sometimes added using the insertDate() function
-    year: number;
-    month: number;
-    day: number;
+    year: string;
+    month: string;
+    day: string;
   };
   template: string;
 }
