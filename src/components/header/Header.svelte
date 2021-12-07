@@ -6,10 +6,10 @@
   export let type: 'compact' | 'full' = 'compact';
 </script>
 
-{#if type === 'compact'}
-  <CompactHeader />
-{:else if type === 'full'}
+{#if type === 'full'}
   <Container>
     <HomeHeader />
   </Container>
+{:else}
+  <CompactHeader />
 {/if}
