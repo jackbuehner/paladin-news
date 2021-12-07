@@ -22,11 +22,17 @@
   import Header from '../components/header/Header.svelte';
   import Search from '/src/components/search/Search.svelte';
   import NProgress from 'nprogress';
-  import { onMount } from 'svelte';
+  import { onMount, afterUpdate } from 'svelte';
 
   $: title_ = $title ? `${$title} - The Paladin` : 'The Paladin';
 
+  // determine the header type based on path
   export let path: string;
+  afterUpdate(() => {
+    // keep the path updated when the component changes
+    path = window.location.pathname;
+  });
+  $: headerType = path === '/' ? 'full' : (undefined as 'full' | undefined); // full only when on home page
 
   onMount(() => {
     // configure the navigation progress bar
@@ -56,7 +62,7 @@
 </svelte:head>
 
 <div class={'wrapper'}>
-  <Header type={path === '/' ? 'full' : undefined} />
+  <Header type={headerType} />
 
   <div class={'content'}>
     <slot />
