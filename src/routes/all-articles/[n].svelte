@@ -52,8 +52,8 @@
    * @type {import('@sveltejs/kit').Load}
    */
   export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
-    const pageNumber = page.query.get('page') || '1';
-    const url = `/all-articles-${pageNumber}.json`;
+    const { n } = page.params;
+    const url = `/all-articles/${n}.json`;
     const res = await fetch(url);
 
     if (res.ok) {
@@ -78,8 +78,8 @@
   import PageHeading from '/src/components/PageHeading.svelte';
   import Container from '/src/components/Container.svelte';
   import { onMount } from 'svelte';
-  import { title } from '../stores/title';
-  import { insertDate } from '../utils/insertDate';
+  import { title } from '../../stores/title';
+  import { insertDate } from '../../utils/insertDate';
 
   export let articles: AggregatePaginateResult<IArticle>;
 
@@ -123,10 +123,10 @@
     {/if}
     <div class={'buttonrow'}>
       {#if articles.hasPrevPage}
-        <Button on:click={() => goto(`?page=${articles.prevPage}`)}>Previous</Button>
+        <Button href={`./${articles.prevPage}`}>Previous</Button>
       {/if}
       {#if articles.hasNextPage}
-        <Button on:click={() => goto(`?page=${articles.nextPage}`)}>Next</Button>
+        <Button href={`./${articles.nextPage}`}>Next</Button>
       {/if}
     </div>
   </div>
