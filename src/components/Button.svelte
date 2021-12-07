@@ -1,5 +1,6 @@
 <style>
-  button {
+  button,
+  a {
     display: inline-flex;
     height: 30px;
     justify-content: center;
@@ -17,18 +18,22 @@
     font-size: 14px;
     font-weight: 500;
     white-space: nowrap;
+    text-decoration: none;
   }
-  button:hover:not(.disabled) {
+  button:hover:not(.disabled),
+  a:hover:not(.disabled) {
     background-color: var(--button-light-bg-hover);
     border: 1px solid var(--button-light-bg-hover);
     box-shadow: var(--button-shadow-hover);
   }
-  button:active:not(.disabled) {
+  button:active:not(.disabled),
+  a:active:not(.disabled) {
     background-color: var(--button-light-bg-active);
     border: 1px solid var(--button-light-bg-active);
     box-shadow: var(--button-shadow-active);
   }
-  button.disabled {
+  button.disabled,
+  a.disabled {
     color: var(--button-color-disabled);
   }
 </style>
@@ -42,15 +47,27 @@
   export let style: string = undefined;
 </script>
 
-<button
-  on:click
-  {href}
-  class:disabled
-  type={htmlType}
-  style={style && width
-    ? `width: ${width};${style}`
-    : style
-    ? style
-    : width
-    ? `width: ${width};`
-    : ''}><slot /></button>
+{#if href}
+  <a
+    {href}
+    class:disabled
+    style={style && width
+      ? `width: ${width};${style}`
+      : style
+      ? style
+      : width
+      ? `width: ${width};`
+      : ''}><slot /></a>
+{:else}
+  <button
+    on:click
+    class:disabled
+    type={htmlType}
+    style={style && width
+      ? `width: ${width};${style}`
+      : style
+      ? style
+      : width
+      ? `width: ${width};`
+      : ''}><slot /></button>
+{/if}

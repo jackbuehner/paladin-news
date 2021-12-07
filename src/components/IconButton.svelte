@@ -1,5 +1,6 @@
 <style>
-  button {
+  button,
+  a {
     display: inline-flex;
     width: 36px;
     height: 36px;
@@ -15,15 +16,18 @@
     margin: 0;
     padding: 6px;
   }
-  button.isOutlined {
+  button.isOutlined,
+  a.isOutlined {
     border-color: var(--border-dark);
   }
-  button:hover:not(.disabled) {
+  button:hover:not(.disabled),
+  a:hover:not(.disabled) {
     background-color: var(--button-bg-hover);
     border: 1px solid var(--button-bg-hover);
     box-shadow: var(--button-shadow-hover);
   }
-  button:active:not(.disabled) {
+  button:active:not(.disabled),
+  a:active:not(.disabled) {
     background-color: var(--button-bg-active);
     border: 1px solid var(--button-bg-active);
     box-shadow: var(--button-shadow-active);
@@ -31,7 +35,8 @@
   svg {
     fill: currentColor;
   }
-  button.disabled {
+  button.disabled,
+  a.disabled {
     color: var(--button-color-disabled);
   }
 </style>
@@ -48,20 +53,38 @@
   export let background: { base?: string; hover?: string; active?: string } = undefined;
 </script>
 
-<button
-  on:click
-  {href}
-  class:disabled
-  class:isOutlined
-  aria-label={ariaLabel}
-  style={`
-  ${color ? `--button-color: ${color};` : ``}
-  ${radius ? `--radius: ${radius};` : ``}
-  ${background?.base ? `--button-bg: ${background.base};` : ``}
-  ${background?.hover ? `--button-bg-hover: ${background.hover};` : ``}
-  ${background?.active ? `--button-bg-active: ${background.active};` : ``}
-`}>
-  <svg style="width:24px;height:24px" {viewBox}>
-    <slot />
-  </svg>
-</button>
+{#if href}
+  <a
+    {href}
+    class:disabled
+    class:isOutlined
+    aria-label={ariaLabel}
+    style={`
+    ${color ? `--button-color: ${color};` : ``}
+    ${radius ? `--radius: ${radius};` : ``}
+    ${background?.base ? `--button-bg: ${background.base};` : ``}
+    ${background?.hover ? `--button-bg-hover: ${background.hover};` : ``}
+    ${background?.active ? `--button-bg-active: ${background.active};` : ``}
+  `}>
+    <svg style="width:24px;height:24px" {viewBox}>
+      <slot />
+    </svg>
+  </a>
+{:else}
+  <button
+    on:click
+    class:disabled
+    class:isOutlined
+    aria-label={ariaLabel}
+    style={`
+      ${color ? `--button-color: ${color};` : ``}
+      ${radius ? `--radius: ${radius};` : ``}
+      ${background?.base ? `--button-bg: ${background.base};` : ``}
+      ${background?.hover ? `--button-bg-hover: ${background.hover};` : ``}
+      ${background?.active ? `--button-bg-active: ${background.active};` : ``}
+    `}>
+    <svg style="width:24px;height:24px" {viewBox}>
+      <slot />
+    </svg>
+  </button>
+{/if}
