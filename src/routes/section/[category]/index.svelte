@@ -187,7 +187,7 @@
   <div class={'main-grid'} class:firstPage={articles.page === 1}>
     {#if articles && articles.docs && articles.page === 1}
       {#each insertDate(Array.from(articles.docs).slice(4, 12)) as article, index}
-        {#if windowWidth <= 560}
+        {#if windowWidth <= 560 && windowWidth > 0}
           <span style={'grid-area: auto / 1 / auto / 3;'} />
         {/if}
         <ArticleCard
@@ -199,8 +199,8 @@
           photo={article.photo_path}
           photoCredit={article.photo_credit}
           date={article.timestamps.published_at}
-          isCompact={windowWidth <= 560}
-          style={windowWidth <= 560 ? 'grid-area: auto / 1 / auto / 3;' : ''} />
+          isCompact={windowWidth <= 560 && windowWidth > 0}
+          style={windowWidth <= 560 && windowWidth > 0 ? 'grid-area: auto / 1 / auto / 3;' : ''} />
       {/each}
     {/if}
     {#if articles && articles.docs}
@@ -235,7 +235,13 @@
         {/if}
       </div>
     </div>
-    <span style={`grid-area: 1 / 3 / -1 / 3; ${windowWidth <= 990 ? 'display: none;' : ''}`} />
-    <aside style={`grid-area: 1 / 4 / -1 / 4;  ${windowWidth <= 990 ? 'display: none;' : ''}`} />
+    <span
+      style={`grid-area: 1 / 3 / -1 / 3; ${
+        windowWidth <= 990 && windowWidth > 0 ? 'display: none;' : ''
+      }`} />
+    <aside
+      style={`grid-area: 1 / 4 / -1 / 4;  ${
+        windowWidth <= 990 && windowWidth > 0 ? 'display: none;' : ''
+      }`} />
   </div>
 </Container>
