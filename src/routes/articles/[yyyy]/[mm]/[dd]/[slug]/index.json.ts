@@ -9,6 +9,7 @@ import { YoutubeWidget } from '../../../../../../pm/render/YoutubeWidget';
 import { PhotoWidget } from '../../../../../../pm/render/PhotoWidget';
 import { insertDate } from '../../../../../../utils/insertDate';
 import { GET_ARTICLE_BY_SLUG } from '../../../../../../queries/GET_ARTICLE_BY_SLUG';
+import { string as smartquotes } from 'smartquotes';
 
 interface IArticleOutput extends IArticle {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -75,6 +76,16 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutpu
     }
   } catch (err) {
     console.error(err);
+  }
+
+  // use smart quotes (curly quotes)
+  try {
+    article.name = smartquotes(article.name);
+    article.description = smartquotes(article.description);
+    article.body = smartquotes(article.body);
+    article.photo_caption = smartquotes(article.photo_caption);
+  } catch {
+    console.error(`failed to add smartquotes`);
   }
 
   if (article) {

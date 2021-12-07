@@ -75,6 +75,7 @@
 <script lang="ts">
   import { formatISODate } from '../../utils/formatISODate';
   import type { IArticleAuthor } from 'src/interfaces/articles';
+  import { string as smartquotes } from 'smartquotes';
 
   export let style: string = '';
   export let name: string;
@@ -130,13 +131,13 @@
     {/if}
 
     <!-- article name -->
-    <div class={'name'}>{name}</div>
+    <div class={'name'}>{smartquotes(name)}</div>
 
     <!-- article description -->
     {#if description === undefined}
       {''}
     {:else}
-      <div class={'description'}>{description}</div>
+      <div class={'description'}>{smartquotes(description)}</div>
     {/if}
 
     <!-- article meta info (date and authors) -->

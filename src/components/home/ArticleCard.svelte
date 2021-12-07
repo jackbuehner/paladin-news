@@ -91,6 +91,7 @@
 <script lang="ts">
   import type { IArticleAuthor } from 'src/interfaces/articles';
   import { formatISODate } from '../../utils/formatISODate';
+  import { string as smartquotes } from 'smartquotes';
 
   export let style: string = '';
   export let name: string;
@@ -161,7 +162,7 @@
     class={'name'}
     class:isLargerHeadline
     class:noMargin={isCompact && description === undefined}>
-    {name}
+    {smartquotes(name)}
   </div>
 
   <!-- compact article card photo (only if it is compact) -->
@@ -175,7 +176,7 @@
   {#if description === undefined}
     {''}
   {:else}
-    <div class={'description'}>{description}</div>
+    <div class={'description'}>{smartquotes(description)}</div>
   {/if}
 
   <!-- article meta info (date and authors) -->
