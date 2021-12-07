@@ -72,11 +72,12 @@
     float: right;
     margin-left: 10px;
   }
-  img {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0px;
+  :global(.article-card-image),
+  :global(.article-card-image-container) {
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute !important;
+    top: 0px !important;
     object-fit: cover;
   }
   .photo-credit {
@@ -92,6 +93,7 @@
   import type { IArticleAuthor } from 'src/interfaces/articles';
   import { formatISODate } from '../../utils/formatISODate';
   import { string as smartquotes } from 'smartquotes';
+  import Image from '../Image.svelte';
 
   export let style: string = '';
   export let name: string;
@@ -134,7 +136,10 @@
   {#if photo !== undefined && photo.length > 0 && !isCompact}
     <div class={'photo-group'}>
       <div class={'photo-wrapper'} class:isCategoryPage>
-        <img src={photo} alt={''} />
+        <Image
+          src={photo}
+          className={`article-card-image`}
+          containerClassName={`article-card-image-container`} />
       </div>
       {#if photoCredit === undefined}
         {''}
@@ -168,7 +173,10 @@
   <!-- compact article card photo (only if it is compact) -->
   {#if isCompact && photo}
     <div class={'photo-wrapper compact'}>
-      <img src={photo} alt={''} />
+      <Image
+        src={photo}
+        className={`article-card-image`}
+        containerClassName={`article-card-image-container`} />
     </div>
   {/if}
 

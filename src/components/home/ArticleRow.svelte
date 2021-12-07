@@ -51,7 +51,8 @@
     flex-grow: 0;
     flex-shrink: 0;
   }
-  img {
+  :global(.article-row-image),
+  :global(.article-row-image-container) {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -76,6 +77,7 @@
   import { formatISODate } from '../../utils/formatISODate';
   import type { IArticleAuthor } from 'src/interfaces/articles';
   import { string as smartquotes } from 'smartquotes';
+  import Image from '../Image.svelte';
 
   export let style: string = '';
   export let name: string;
@@ -113,7 +115,10 @@
   <!-- photo -->
   {#if photo !== undefined && photo.length > 0}
     <div class={'photo-wrapper'}>
-      <img src={photo} alt={''} />
+      <Image
+        src={photo}
+        className={`article-row-image`}
+        containerClassName={`article-row-image-container`} />
     </div>
   {/if}
 

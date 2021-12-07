@@ -1,12 +1,12 @@
 <style>
-  div {
+  :global(.article-photo-container--jackbuehner) {
     width: 100%;
     padding-top: calc(66.6667%);
     height: 0px;
     position: relative;
     margin: 0 0 4px 0;
   }
-  img {
+  :global(.article-photo-image--jackbuehner) {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -16,9 +16,12 @@
 </style>
 
 <script lang="ts">
+  import Image from '../../Image.svelte';
+
   export let src: string;
 </script>
 
-<div>
-  <img {src} alt={''} />
-</div>
+<Image
+  {src}
+  className={`article-photo-image--jackbuehner`}
+  containerClassName={`article-photo-container--jackbuehner`} />
