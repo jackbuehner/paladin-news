@@ -106,7 +106,6 @@
   import type { IArticle } from 'src/interfaces/articles';
   import Container from '/src/components/Container.svelte';
   import { onDestroy, onMount } from 'svelte';
-  import { title } from '../../../stores/title';
   import {
     ArticleCategories,
     ArticleHeading,
@@ -116,6 +115,7 @@
     ArticleBody,
     ArticleMeta,
   } from '.';
+  import { browser } from '$app/env';
 
   export let article: IArticle;
 
@@ -124,20 +124,21 @@
 
   // set header colors
   onMount(() => {
-    console.log('hi');
     const topbar: HTMLDivElement | undefined = document.querySelector(`.topbar-wrapper`);
-    console.log(topbar);
     document.body.style.setProperty(`--topbar-bg`, `#26272b`);
     document.body.style.setProperty(`--topbar-color`, `#999999`);
     document.body.style.setProperty(`background-color`, `#f4f4f4`);
     topbar?.style.setProperty(`--border-light`, `#212121`);
   });
   onDestroy(() => {
-    const topbar: HTMLDivElement | undefined = document.querySelector(`.topbar-wrapper`);
-    document.body.style.removeProperty(`--topbar-bg`);
-    document.body.style.removeProperty(`--topbar-color`);
-    document.body.style.removeProperty(`background-color`);
-    topbar?.style.removeProperty(`--border-light`);
+    if (browser) {
+      // onDestroy runs in SSR, so we need to ensure we are in the browser
+      const topbar: HTMLDivElement | undefined = document.querySelector(`.topbar-wrapper`);
+      document.body.style.removeProperty(`--topbar-bg`);
+      document.body.style.removeProperty(`--topbar-color`);
+      document.body.style.removeProperty(`background-color`);
+      topbar?.style.removeProperty(`--border-light`);
+    }
   });
 </script>
 
