@@ -82,7 +82,6 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutpu
   try {
     article.name = smartquotes(article.name);
     article.description = smartquotes(article.description);
-    article.body = smartquotes(article.body);
     article.photo_caption = smartquotes(article.photo_caption);
   } catch {
     console.error(`failed to add smartquotes`);
