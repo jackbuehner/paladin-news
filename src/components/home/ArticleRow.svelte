@@ -8,7 +8,7 @@
     flex-basis: 0;
     cursor: pointer;
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     justify-content: space-between;
     gap: 16px;
   }
@@ -58,6 +58,18 @@
     top: 0px;
     object-fit: cover;
   }
+  /* on small screens, render article rows like cmpact cards */
+  @media (max-width: 560px) {
+    a {
+      display: block;
+    }
+    .photo-wrapper {
+      width: 88px;
+      height: 62.6px;
+      float: right;
+      margin-left: 10px;
+    }
+  }
 </style>
 
 <script lang="ts">
@@ -97,6 +109,13 @@
 </script>
 
 <a {href} {style}>
+  <!-- photo -->
+  {#if photo !== undefined && photo.length > 0}
+    <div class={'photo-wrapper'}>
+      <img src={photo} alt={''} />
+    </div>
+  {/if}
+
   <div>
     <!-- article categories -->
     {#if categoriesModified.length > 0}
@@ -162,11 +181,4 @@
       {/if}
     </div>
   </div>
-
-  <!-- photo -->
-  {#if photo !== undefined && photo.length > 0}
-    <div class={'photo-wrapper'}>
-      <img src={photo} alt={''} />
-    </div>
-  {/if}
 </a>
