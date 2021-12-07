@@ -115,15 +115,15 @@
       else return capitalize(string, true);
     };
 
-    // set the page title
+    // set the page title and header text
     const pageTitle = pagePathToTitle(page.path.split('/').slice(-1)[0]);
     title.set(pageTitle);
+    headerLabel.set(pageTitle);
 
     if (res.ok) {
       return {
         props: {
           articles: await res.json(),
-          pageTitle,
         },
       };
     }
@@ -149,12 +149,10 @@
   import { capitalize } from '../../../utils/capitalize';
 
   export let articles: AggregatePaginateResult<IArticle>;
-  export let pageTitle: string;
 
   $: windowWidth = 0;
 
-  // set the header label
-  beforeUpdate(() => ($headerLabel = pageTitle));
+  // unset the header label on destroy
   onDestroy(() => ($headerLabel = undefined));
 </script>
 
@@ -176,7 +174,7 @@
           photo={article.photo_path}
           photoCredit={article.photo_credit}
           date={article.timestamps.published_at}
-          isCompact={windowWidth <= 770 ? index > 1 : index > 0}
+          isCompact={windowWidth <= 770 && windowWidth > 560 ? index > 1 : index > 0}
           isCategoryPage={true}
           isLargerHeadline={true} />
         {#if index < 3}
