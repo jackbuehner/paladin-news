@@ -12,40 +12,41 @@ const GET_ARTICLES = `
       filter: $filter,
     ) {
       docs {
-        name,
-        slug,
+        name
+        slug
         timestamps {
-          published_at,
+          published_at
         },
         people {
           authors {
             github_id
             name
             slug
+            photo
           }
         }
-        categories,
-        tags,
-        description,
-        photo_path,
-        photo_caption,
-        photo_credit,
-        body,
-        legacy_html,
-        video_path,
-        video_replaces_photo,
-        show_comments,
-        template,
-        layout,
+        categories
+        tags
+        description
+        photo_path
+        photo_caption
+        photo_credit
+        body
+        legacy_html
+        video_path
+        video_replaces_photo
+        show_comments
+        template
+        layout
       }
-      totalDocs,
-      limit,
-      page,
-      totalPages,
-      nextPage,
-      prevPage,
-      hasPrevPage,
-      hasNextPage,
+      totalDocs
+      limit
+      page
+      totalPages
+      nextPage
+      prevPage
+      hasPrevPage
+      hasNextPage
     }
   }
 `;
