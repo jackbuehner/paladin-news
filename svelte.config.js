@@ -28,7 +28,7 @@ const config = {
     prerender: {
       crawl: true,
       enabled: true,
-      onError: 'fail', //TODO: investigate the best prerender options
+      onError: 'continue', //TODO: investigate the best prerender options
       entries: ['*'],
     },
     vite: {
