@@ -42,16 +42,12 @@
   export let date: string;
   export let authors: IArticleAuthor[] = [];
 
-  const parsed = DateTime.fromISO(date);
-  if (parsed.isValid) {
-    // only set the date if it was successfully parsed from ISO
-    date = formatISODate(date);
-  }
+  $: parsed = DateTime.fromISO(date).isValid ? formatISODate(date) : date;
 </script>
 
 <div class={`article-metadata-furmanpaladin`}>
   <div class={'date'}>
-    Date: {date}
+    Date: {parsed}
   </div>
   <div class={'byline'}>
     <span>By:</span>

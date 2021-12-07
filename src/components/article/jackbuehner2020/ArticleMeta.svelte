@@ -65,11 +65,7 @@
   export let articleLocation: string;
   export let articleDescription: string;
 
-  const parsed = DateTime.fromISO(date);
-  if (parsed.isValid) {
-    // only set the date if it was successfully parsed from ISO
-    date = formatISODate(date);
-  }
+  $: parsed = DateTime.fromISO(date).isValid ? formatISODate(date) : date;
 </script>
 
 <div class={'grid'}>
@@ -121,7 +117,7 @@
     {/if}
   </div>
   <div class={'date'}>
-    {date}
+    {parsed}
   </div>
   <div class={'social-buttons'}>
     <SocialButton
