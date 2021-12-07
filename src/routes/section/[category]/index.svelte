@@ -105,6 +105,7 @@
     const pageNumber = page.query.get('page') || '1';
     const url = `${page.path}/${pageNumber}.json`;
     const res = await fetch(url);
+    const articles = await res.json();
 
     const pagePathToTitle = (string: string): string => {
       string.replace('/', ''); // remove and slashes
@@ -123,7 +124,7 @@
     if (res.ok) {
       return {
         props: {
-          articles: await res.json(),
+          articles,
         },
       };
     }
