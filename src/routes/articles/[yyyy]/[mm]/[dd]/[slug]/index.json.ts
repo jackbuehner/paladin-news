@@ -1,13 +1,14 @@
 import type { IArticle } from 'src/interfaces/articles';
 import type { EndpointOutput } from '@sveltejs/kit';
 import type { ServerRequest } from '@sveltejs/kit/types/hooks';
-import type { JSONValue } from '@sveltejs/kit/types/endpoint';
+import type { JSONValue } from '@sveltejs/kit/types/helper';
 import Renderer from '@cristata/prosemirror-to-html-js';
 import { variables } from '../../../../../../variables';
 import { SweepwidgetWidget } from '../../../../../../pm/render/SweepwidgetWidget';
 import { YoutubeWidget } from '../../../../../../pm/render/YoutubeWidget';
 import { PhotoWidget } from '../../../../../../pm/render/PhotoWidget';
 import { insertDate } from '../../../../../../utils/insertDate';
+import { GET_ARTICLE_BY_SLUG } from '../../../../../../queries/GET_ARTICLE_BY_SLUG';
 
 interface IArticleOutput extends IArticle {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -28,12 +29,21 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutpu
   if (mm === '_') mm = null;
   if (dd === '_') dd = null;
 
-  // TODO: switch to GraphQL API
-  // TODO: require article to be from the specified date if the date is not null
-
+  // request the article from the api
   const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
-  const res = await fetch(`${hostUrl}/api/v2/articles/public/${slug}`);
-  const article: IArticle = await res.json();
+  const res = await fetch(`${hostUrl}/v3`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      query: GET_ARTICLE_BY_SLUG,
+      variables: { slug, date: yyyy && mm && dd ? `${yyyy}-${mm}-${dd}` : undefined },
+    }),
+  });
+
+  // get the article from the response
+  const json = await res.json();
+  if (json.errors) return { status: 500 };
+  const article: IArticle = json.data?.articleBySlugPublic;
 
   // rename categories (sections) to their full names
   try {
