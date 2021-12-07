@@ -72,14 +72,38 @@
    */
   export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
     const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
+    const fetchSection = async (section: string) => {
+      // request the articles from the api
+      const res = await fetch(`${hostUrl}/v3`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query: GET_ARTICLES,
+          variables: {
+            limit: 10,
+            filter: JSON.stringify({
+              categories: { $in: section.split(',') },
+              'timestamps.published_at': { $exists: true },
+            }),
+          },
+        }),
+      });
+
+      // proces the response
+      const resJson = await res.json(); // get the response as JSON
+      const articles = resJson?.data?.articlesPublic; // identify the articles response
+
+      // return the articles
+      return { data: articles, ok: res.ok };
+    };
     const url = `${hostUrl}/api/v2/articles/public?limit=10`;
 
     const res = {
-      news: await fetch(`${url}&category=news`),
-      opinion: await fetch(`${url}&category=opinion`),
-      sports: await fetch(`${url}&category=sports`),
-      diversity: await fetch(`${url}&category=diversity`),
-      acc: await fetch(`${url}&category=arts&category=campus-culture`),
+      news: await fetchSection('news'),
+      opinion: await fetchSection('opinion'),
+      sports: await fetchSection('sports'),
+      diversity: await fetchSection('diversity'),
+      acc: await fetchSection('arts,campus-culture'),
       featured: await fetch(`${url}&featured=true`),
     };
 
@@ -94,11 +118,11 @@
       return {
         props: {
           articles: {
-            news: await res.news.json(),
-            opinion: await res.opinion.json(),
-            sports: await res.sports.json(),
-            diversity: await res.diversity.json(),
-            acc: await res.acc.json(),
+            news: res.news.data,
+            opinion: res.opinion.data,
+            sports: res.sports.data,
+            diversity: res.diversity.data,
+            acc: res.acc.data,
             featured: await res.featured.json(),
           },
         },
@@ -115,7 +139,6 @@
 <script lang="ts">
   import Featured from '../components/home/Featured.svelte';
   import ArticleCardRow from '../components/home/ArticleCardRow.svelte';
-  import HomeHeader from '/src/components/header/HomeHeader.svelte';
   import Container from '/src/components/Container.svelte';
   import PaladinPlusList from '/src/components/PaladinPlusList.svelte';
   import { onMount } from 'svelte';
@@ -123,6 +146,7 @@
   import { variables } from '../variables';
   import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
   import type { IArticle } from 'src/interfaces/articles';
+  import { GET_ARTICLES } from '../queries';
 
   // set the document title
   onMount(() => ($title = undefined));

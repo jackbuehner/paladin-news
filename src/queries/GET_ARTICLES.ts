@@ -20,6 +20,8 @@ const GET_ARTICLES = `
         people {
           authors {
             github_id
+            name
+            slug
           }
         }
         categories,
