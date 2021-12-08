@@ -15,6 +15,9 @@
   a:hover {
     color: var(--color-neutral-light);
   }
+  div.text {
+    width: 100%;
+  }
   .categories {
     font-family: var(--font-detail);
     font-size: 12px;
@@ -122,7 +125,7 @@
     </div>
   {/if}
 
-  <div>
+  <div class={`text`}>
     <!-- article categories -->
     {#if categoriesModified.length > 0}
       <div class={'categories'}>
