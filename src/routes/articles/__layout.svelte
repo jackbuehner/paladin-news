@@ -55,6 +55,7 @@
   import {
     ArticleTemplateJackBuehner2020,
     ArticleTemplateFurmanPaladin,
+    ArticleTemplateFurmanMediaCom,
   } from '../../components/article/index';
 
   export let article: IArticle;
@@ -62,6 +63,8 @@
 
 {#if article.template === 'jackbuehner2020'}
   <ArticleTemplateJackBuehner2020 {article} />
+{:else if article.template === 'furmanmediacom'}
+  <ArticleTemplateFurmanMediaCom {article} />
 {:else if article.template === 'furmanpaladin'}
   <ArticleTemplateFurmanPaladin {article} />
 {/if}

@@ -1,4 +1,9 @@
 import ArticleTemplateFurmanPaladin from './furmanpaladin/Template.svelte';
+import ArticleTemplateFurmanMediaCom from './furmanmediacom/Template.svelte';
 import ArticleTemplateJackBuehner2020 from './jackbuehner2020/Template.svelte';
 
-export { ArticleTemplateFurmanPaladin, ArticleTemplateJackBuehner2020 };
+export {
+  ArticleTemplateFurmanPaladin,
+  ArticleTemplateFurmanMediaCom,
+  ArticleTemplateJackBuehner2020,
+};

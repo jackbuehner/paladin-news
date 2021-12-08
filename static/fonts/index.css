@@ -102,3 +102,31 @@
   font-style: normal;
   src: url(./merriweather/Merriweather-Black.ttf) format("truetype");
 }
+
+@font-face {
+  font-family: "PT Serif";
+  font-weight: 400;
+  font-style: normal;
+  src: url(./pt-serif/PTSerif-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "PT Serif";
+  font-weight: 400;
+  font-style: italic;
+  src: url(./pt-serif/PTSerif-Italic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "PT Serif";
+  font-weight: 700;
+  font-style: normal;
+  src: url(./pt-serif/PTSerif-Bold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "PT Serif";
+  font-weight: 700;
+  font-style: italic;
+  src: url(./pt-serif/PTSerif-BoldItalic.ttf) format("truetype");
+}

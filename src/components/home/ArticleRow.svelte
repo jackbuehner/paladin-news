@@ -142,7 +142,7 @@
     <div class={'name'}>{smartquotes(name)}</div>
 
     <!-- article description -->
-    {#if description === undefined}
+    {#if description === undefined || description === ''}
       {''}
     {:else}
       <div class={'description'}>{smartquotes(description)}</div>
