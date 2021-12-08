@@ -5,7 +5,7 @@
     font-size: 2.5em;
     line-height: 1.25em;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 900;
     letter-spacing: -1px;
     color: var(--color-neutral-dark);
     margin-bottom: 10px;
