@@ -12,6 +12,9 @@
     background-color: var(--topbar-bg);
     transition: box-shadow 200ms;
   }
+  .sticky-spacer {
+    display: none;
+  }
   @media (max-width: 990px) {
     .topbar-wrapper {
       position: fixed;
@@ -24,6 +27,9 @@
     }
     .topbar-wrapper.scrolled {
       box-shadow: var(--topbar-scroll-shadow);
+    }
+    .sticky-spacer {
+      display: block;
     }
   }
 
@@ -90,7 +96,7 @@
 <svelte:window bind:innerWidth={windowWidth} bind:scrollY={windowScrollY} />
 
 {#if windowWidth <= 990}
-  <div style={'flex: 0 0 52px'} />
+  <div style={'flex: 0 0 52px'} class={`sticky-spacer`} />
 {/if}
 
 <div class="topbar-wrapper compact-header" class:scrolled={windowScrollY > 0}>
