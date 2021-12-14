@@ -33,6 +33,7 @@
     --secondary: rgb(var(--secondary-rgb));
     --on-dark: #e0e0e0;
     --on-light: #212121;
+    --border-light: #e0e0e0;
 
     /* app bar */
     --app-bar-background: #ffffff;

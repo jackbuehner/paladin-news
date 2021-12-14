@@ -5,11 +5,15 @@
     width: 100%;
     top: 0;
     background-color: var(--app-bar-background);
-    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1), 0 4px 5px 0 rgba(0, 0, 0, 0.07),
-      0 1px 10px 0 rgba(0, 0, 0, 0.06);
     overflow: hidden;
     z-index: 10;
     padding: 0 12px;
+    transition: box-shadow 200ms;
+    border-bottom: 1px solid var(--border-light);
+  }
+  header.scrolled {
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1), 0 4px 5px 0 rgba(0, 0, 0, 0.07),
+      0 1px 10px 0 rgba(0, 0, 0, 0.06);
   }
   h1 {
     font-family: var(--font-logo);
@@ -157,6 +161,7 @@
   import { onMount } from 'svelte';
 
   let innerWidth: number;
+  let scrollY: number;
   let appbar: HTMLElement;
 
   function toggleNav() {
@@ -181,9 +186,9 @@
   });
 </script>
 
-<svelte:window bind:innerWidth />
+<svelte:window bind:innerWidth bind:scrollY />
 
-<header id={'appbar'} bind:this={appbar}>
+<header id={'appbar'} bind:this={appbar} class:scrolled={scrollY > 0}>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
