@@ -54,11 +54,20 @@
 </style>
 
 <script lang="ts">
+import { onMount } from 'svelte';
+
   import { Header, SH, QuickLink } from '../../../components/sites/myfurman';
+
+  onMount(() => {
+    const currentFavicon = document.head.querySelector('link[rel="icon"]');
+    currentFavicon.setAttribute('type', 'image/svg+xml');
+    currentFavicon.setAttribute('href', '/sites/myfurman/favicon.svg');
+  })
 </script>
 
 <svelte:head>
   <link rel="stylesheet" href="https://use.typekit.net/uti5owu.css" />
+  <title>myFurman</title>
 </svelte:head>
 
 <vars>
