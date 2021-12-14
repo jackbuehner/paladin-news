@@ -9,7 +9,6 @@
     gap: 6px;
     color: inherit;
     text-decoration: none;
-    min-width: 360px;
     flex: 1;
     transition: ease 200ms;
     padding: 10px;
@@ -18,6 +17,19 @@
     border: 1px solid transparent;
     user-select: none;
     -webkit-user-drag: none;
+    align-items: center;
+    overflow: hidden;
+  }
+  a.compact {
+    flex-direction: column;
+    height: 110px;
+    width: 110px;
+  }
+  a.small {
+    height: 100px;
+    width: 64px;
+    padding: 10px 0px;
+    letter-spacing: -0.025em;
   }
   a:hover {
     background-color: rgba(var(--primary-rgb), 0.12);
@@ -40,6 +52,18 @@
     font-style: normal;
     font-weight: 500;
     margin: 0;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+  }
+  div.name.compact {
+    font-size: 16px;
+    font-style: normal;
+    text-align: center;
+  }
+  div.name.small {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
   }
   div.description {
     font-size: 16px;
@@ -47,7 +71,11 @@
     font-family: var(--font-ql-description);
     font-style: normal;
     font-weight: 400;
-    margin: -6px 0 0 0;
+    margin: 0;
+    line-height: 1.15;
+  }
+  div.description.compact {
+    display: none;
   }
 </style>
 
@@ -56,12 +84,14 @@
   export let description: string;
   export let imgsrc: string;
   export let href: string;
+  export let compact = false;
+  export let small = false;
 </script>
 
-<a {href}>
+<a {href} class:compact class:small={compact && small}>
   <img src={imgsrc} alt={''} />
   <div class={'label'}>
-    <div class={'name'}>{name}</div>
-    <div class={'description'}>{description}</div>
+    <div class={'name'} class:compact class:small={compact && small}>{name}</div>
+    <div class={'description'} class:compact class:small={compact && small}>{description}</div>
   </div>
 </a>
