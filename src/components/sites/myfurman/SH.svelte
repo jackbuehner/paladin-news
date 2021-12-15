@@ -9,6 +9,11 @@
     width: 100%;
     margin: 0;
   }
+  @media (max-width: 700px) {
+    h2 {
+      font-size: 28px;
+    }
+  }
 </style>
 
 <h2><slot /></h2>
