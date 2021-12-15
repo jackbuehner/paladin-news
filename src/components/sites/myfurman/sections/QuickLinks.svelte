@@ -14,9 +14,9 @@
 </style>
 
 <script lang="ts">
-  import { QuickLink, SH } from '..';
+  import { QuickLink, QuickLinkType, SH } from '..';
 
-  export let links: { name: string; description: string; imgsrc: string; href: string }[];
+  export let links: QuickLinkType[];
 
   $: windowWidth = 0;
   $: compact = windowWidth <= 900;

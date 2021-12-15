@@ -25,6 +25,11 @@
     }
   }
 
+  p {
+    font-family: var(--font-body);
+    color: var(--on-light);
+  }
+
   vars {
     /* colors */
     --primary-rgb: 88, 44, 131;
@@ -58,13 +63,91 @@
 
 <script lang="ts">
   import { onMount } from 'svelte';
+  import {
+    AccountType,
+    Header,
+    QuickLinks,
+    QuickLinkType,
+  } from '../../../components/sites/myfurman';
+  import * as msal from '@azure/msal-browser';
+  import { msalInstance } from '../../../stores/msalInstance';
+  import { page } from '$app/stores';
 
-  import { Header, SH, QuickLinks } from '../../../components/sites/myfurman';
+  let account: AccountType;
+  let links: QuickLinkType[];
 
   onMount(() => {
     const currentFavicon = document.head.querySelector('link[rel="icon"]');
     currentFavicon.setAttribute('type', 'image/svg+xml');
     currentFavicon.setAttribute('href', '/sites/myfurman/favicon.svg');
+  });
+
+  // authenticate and get a bearer token
+  let token: string;
+  onMount(async () => {
+    // configure the Microsoft Authentication Library (MSAL)
+    const msalConfig = {
+      auth: {
+        clientId: import.meta.env.VITE_MSAL_CLIENT_ID as string,
+        authority: 'https://login.microsoftonline.com/furman.edu/',
+        postLogoutRedirectUri: `${import.meta.env.DEV ? 'http://' : 'https://'}${$page.host}${
+          $page.path
+        }/done`, // redirect back to this page on logout
+      },
+    };
+
+    // define common options
+    const scopes = ['user.read'];
+    const domainHint = 'furman.edu';
+
+    // create an instance of MSAL
+
+    $msalInstance = new msal.PublicClientApplication(msalConfig);
+
+    // authenticate
+    (async () => {
+      try {
+        // check if the code is in the url hash (it is there if the Microsoft already redirected back to the page)
+        const result = await $msalInstance.handleRedirectPromise(); // undefined if not available
+        if (result) {
+          // set the active account to the account that was just authenticated
+          $msalInstance.setActiveAccount($msalInstance.getAllAccounts()[0]);
+        }
+
+        // otherwise, redirect to login IF there are no accounts
+        const accounts = $msalInstance.getAllAccounts();
+        if (accounts.length === 0) {
+          $msalInstance.loginRedirect({
+            scopes,
+            domainHint,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+
+    // aquire a bearer access token
+    try {
+      const { accessToken } = await $msalInstance.acquireTokenSilent({ scopes });
+      token = accessToken;
+    } catch (error) {
+      if (error instanceof msal.InteractionRequiredAuthError) {
+        // fallback to interaction when silent call fails
+        return $msalInstance.acquireTokenRedirect({ scopes, domainHint });
+      }
+    }
+
+    // fetch the data
+    const me = await fetch('me.json', { headers: { token } });
+    const ql = await fetch('ql.json', { headers: { token } });
+
+    // reload if not signed in (to trigger the sign in process)
+    if (me.status === 401 || ql.status === 401) location.reload();
+
+    // set the data
+    account = (await me.json()) as AccountType;
+    links = (await ql.json()) as QuickLinkType[];
   });
 </script>
 
@@ -75,105 +158,10 @@
 
 <vars>
   <Header />
-  <div class={'grid'}>
-    <QuickLinks
-      links={[
-        {
-          name: 'Outlook Online',
-          description: 'Online email access',
-          imgsrc: '/sites/myfurman/icons/outlook.png',
-          href: 'http://outlook.com/furman.edu',
-        },
-        {
-          name: 'Office 365 Online',
-          description: 'Word, Excel, PowerPoint, OneNote',
-          imgsrc: '/sites/myfurman/icons/office365.png',
-          href: 'https://portal.office.com',
-        },
-        {
-          name: 'Moodle',
-          description: 'Course resources',
-          imgsrc: '/sites/myfurman/icons/moodle.png',
-          href: 'https://courses.furman.edu',
-        },
-        {
-          name: 'Workday',
-          description: 'Academics, tuition, finance, payroll',
-          imgsrc: '/sites/myfurman/icons/workday.png',
-          href: 'https://wd5.myworkday.com/furman',
-        },
-        {
-          name: 'Housing',
-          description: 'Housing lottery and express checkout',
-          imgsrc: '/sites/myfurman/icons/housing.png',
-          href: 'https://furman.datacenter.adirondacksolutions.com/furman_thdss_prod',
-        },
-        {
-          name: 'Box',
-          description: 'Storage and shared folders',
-          imgsrc: '/sites/myfurman/icons/box.png',
-          href: 'http://furman.app.box.com',
-        },
-        {
-          name: 'OneDrive',
-          description: 'Storage and collaborative documents',
-          imgsrc: '/sites/myfurman/icons/onedrive.png',
-          href: 'https://furman-my.sharepoint.com',
-        },
-        {
-          name: 'Academic Calendar',
-          description: 'Important dates',
-          imgsrc: '/sites/myfurman/icons/calendar.png',
-          href: 'https://www.furman.edu/academics/university-calendar/',
-        },
-        {
-          name: 'CLP Calendar',
-          description: 'Cultural Life Program events',
-          imgsrc: '/sites/myfurman/icons/clp-calendar.png',
-          href: 'https://www.furman.edu/academics/cultural-life-program/upcoming-clp-events/',
-        },
-        {
-          name: 'Furman Wiki',
-          description: 'Collaborative wikis and support resources',
-          imgsrc: '/sites/myfurman/icons/confluence.png',
-          href: 'https://confluence.furman.edu:8443/',
-        },
-        {
-          name: 'Hours of Operations',
-          description: 'Libraries, dining, and other campus services',
-          imgsrc: '/sites/myfurman/icons/clock.png',
-          href: '/hours',
-        },
-        {
-          name: 'Libraries',
-          description: 'Resources and services',
-          imgsrc: '/sites/myfurman/icons/library.png',
-          href: 'https://library.furman.edu/',
-        },
-        {
-          name: 'Room Reservation',
-          description: 'Event and room coordination',
-          imgsrc: '/sites/myfurman/icons/reserve.png',
-          href: 'https://25live.collegenet.com/furman/',
-        },
-        {
-          name: 'Success@Furman',
-          description: 'Advising and support services',
-          imgsrc: '/sites/myfurman/icons/starfish.png',
-          href: 'https://furman.starfishsolutions.com/starfish-ops',
-        },
-        {
-          name: 'syncDIN',
-          description: 'Student organizations',
-          imgsrc: '/sites/myfurman/icons/student-orgs.png',
-          href: 'https://furman.campuslabs.com/engage/account/login?returnUrl=/engage/',
-        },
-        {
-          name: 'Technology Help',
-          description: 'IT Service Center assistance',
-          imgsrc: '/sites/myfurman/icons/tech-support.png',
-          href: 'https://www.furman.edu/offices-services/information-technology-services/',
-        },
-      ]} />
-  </div>
+  {#if links && account}
+    <div class={'grid'}>
+      <QuickLinks {links} />
+      <p>Signed in as {account.displayName} {`<${account.mail}>`}</p>
+    </div>
+  {/if}
 </vars>

@@ -67,7 +67,8 @@
     right: 0;
     opacity: 1;
   }
-  a:not(.btn) {
+  a:not(.btn),
+  button:not(.btn) {
     height: 36px;
     line-height: 36px;
     letter-spacing: 0.8px;
@@ -81,17 +82,20 @@
     transition: ease 200ms;
     left: -20px;
   }
-  a:hover {
+  a:hover,
+  button:hover {
     color: var(--on-dark);
     background-color: var(--secondary);
     box-shadow: rgb(0 0 0 / 33%) 0px 3.2px 5.6px 0px, rgb(0 0 0 / 31%) 0px 0.3px 2.9px 0px;
   }
-  a:active {
+  a:active,
+  button:active {
     background-color: var(--secondary);
     color: var(--on-dark);
     box-shadow: rgb(0 0 0 / 13%) 0px 1.6px 5.6px 0px, rgb(0 0 0 / 11%) 0px 0.3px 2.9px 0px;
   }
   .btn {
+    border: none;
     background-color: var(--secondary);
     color: var(--on-dark);
     height: 36px;
@@ -159,6 +163,7 @@
 
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { msalInstance } from '../../../stores/msalInstance';
 
   let innerWidth: number;
   let scrollY: number;
@@ -184,6 +189,10 @@
       true
     );
   });
+
+  function signOut() {
+    $msalInstance.logoutRedirect({ account: $msalInstance.getActiveAccount() });
+  }
 </script>
 
 <svelte:window bind:innerWidth bind:scrollY />
@@ -239,6 +248,6 @@
     <a href={'https://www.furman.edu/academics/departments/'}
       ><span class={'hide-small'}>Academic </span>Departments</a>
     <a href={'https://blogs.furman.edu/myfurman/a-z-for-students/'}>All Resources</a>
-    <a href={'https://blogs.furman.edu/wp-login.php?action=logout'} class={'btn'}>Sign Out</a>
+    <button on:click={signOut} class={'btn'}>Sign Out</button>
   </nav>
 </header>
