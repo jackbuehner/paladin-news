@@ -99,6 +99,7 @@
     // define common options
     const scopes = ['user.read'];
     const domainHint = 'furman.edu';
+    const loginHint = localStorage.getItem('myfurman.last_user');
 
     // create an instance of MSAL
 
@@ -112,6 +113,9 @@
         if (result) {
           // set the active account to the account that was just authenticated
           $msalInstance.setActiveAccount($msalInstance.getAllAccounts()[0]);
+          // save the active account username to localStorage
+          // to allow it to be autofilled on next login
+          localStorage.setItem('myfurman.last_user', $msalInstance.getActiveAccount().username);
         }
 
         // otherwise, redirect to login IF there are no accounts
@@ -120,6 +124,7 @@
           $msalInstance.loginRedirect({
             scopes,
             domainHint,
+            loginHint,
           });
         }
       } catch (error) {
@@ -134,9 +139,11 @@
     } catch (error) {
       if (error instanceof msal.InteractionRequiredAuthError) {
         // fallback to interaction when silent call fails
-        return $msalInstance.acquireTokenRedirect({ scopes, domainHint });
+        return $msalInstance.acquireTokenRedirect({ scopes, domainHint, loginHint });
       }
     }
+
+    console.log($msalInstance.getActiveAccount().username);
 
     if (token) {
       // fetch the data
