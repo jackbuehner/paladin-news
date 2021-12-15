@@ -116,6 +116,7 @@
   @media (max-width: 800px) {
     a:not(.btn) {
       padding: 0 10px;
+      letter-spacing: 0.6px;
     }
     .btn {
       margin-left: 10px;
@@ -124,6 +125,7 @@
   @media (max-width: 730px) {
     a:not(.btn) {
       padding: 0 4px;
+      letter-spacing: 0.4px;
     }
     .btn {
       margin-left: 16px;
@@ -244,7 +246,7 @@
   </svg>
   <h1><span>My</span>Furman</h1>
   <nav>
-    <a href={'https://www.furman.edu/offices-services/'}>Office &amp; Services</a>
+    <a href={'https://www.furman.edu/offices-services/'}>Offices &amp; Services</a>
     <a href={'https://www.furman.edu/academics/departments/'}
       ><span class={'hide-small'}>Academic </span>Departments</a>
     <a href={'https://blogs.furman.edu/myfurman/a-z-for-students/'}>All Resources</a>
