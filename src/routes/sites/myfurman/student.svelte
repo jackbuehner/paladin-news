@@ -105,7 +105,7 @@
     $msalInstance = new msal.PublicClientApplication(msalConfig);
 
     // authenticate
-    (async () => {
+    await (async () => {
       try {
         // check if the code is in the url hash (it is there if the Microsoft already redirected back to the page)
         const result = await $msalInstance.handleRedirectPromise(); // undefined if not available
@@ -138,16 +138,18 @@
       }
     }
 
-    // fetch the data
-    const me = await fetch('me.json', { headers: { token } });
-    const ql = await fetch('ql.json', { headers: { token } });
+    if (token) {
+      // fetch the data
+      const me = await fetch('me.json', { headers: { token } });
+      const ql = await fetch('ql.json', { headers: { token } });
 
-    // reload if not signed in (to trigger the sign in process)
-    if (me.status === 401 || ql.status === 401) location.reload();
+      // reload if not signed in (to trigger the sign in process)
+      if (me.status === 401 || ql.status === 401) location.reload();
 
-    // set the data
-    account = (await me.json()) as AccountType;
-    links = (await ql.json()) as QuickLinkType[];
+      // set the data
+      account = (await me.json()) as AccountType;
+      links = (await ql.json()) as QuickLinkType[];
+    }
   });
 </script>
 
