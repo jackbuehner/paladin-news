@@ -34,7 +34,7 @@ async function get(request: ServerRequest): Promise<EndpointOutput> {
           name: 'Moodle',
           description: 'Course resources',
           imgsrc: '/sites/myfurman/icons/moodle.png',
-          href: 'https://courses.furman.edu',
+          href: 'https://courses.furman.edu/login',
         },
         {
           name: 'Workday',
