@@ -1,3 +1,5 @@
+import type { GraphJsonType, Paged } from '.';
+
 const GET_ARTICLES = `
   query GetArticles(
     $page: Int = 1,
@@ -19,7 +21,7 @@ const GET_ARTICLES = `
         },
         people {
           authors {
-            github_id
+            _id
             name
             slug
             photo
@@ -51,4 +53,40 @@ const GET_ARTICLES = `
   }
 `;
 
+interface GET_ARTICLES__DOC_TYPE {
+  name: string;
+  slug: string;
+  timestamps: {
+    published_at: string; // ISO date
+  };
+  people: {
+    authors: Array<{
+      _id: string;
+      name: string;
+      slug: string;
+      photo: string;
+    }>;
+  };
+  categories: string[];
+  tags: string[];
+  description: string;
+  photo_path: string;
+  photo_caption: string;
+  photo_credit: string;
+  body?: string;
+  legacy_html: boolean; // true if it is html from the old webflow
+  video_path: string;
+  video_replaces_photo: boolean;
+  show_comments: boolean; // whether commenting on article should be enabled (for website, not cms)
+  template: string;
+  layout: string;
+}
+
+interface GET_ARTICLES__TYPE {
+  articlesPublic?: Paged<GET_ARTICLES__DOC_TYPE>;
+}
+
+interface GET_ARTICLES__JSON extends GraphJsonType<GET_ARTICLES__TYPE> {}
+
 export { GET_ARTICLES };
+export type { GET_ARTICLES__JSON, GET_ARTICLES__TYPE, GET_ARTICLES__DOC_TYPE };
