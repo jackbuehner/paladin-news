@@ -1,14 +1,19 @@
-import type { IArticle } from 'src/interfaces/articles';
 import type { EndpointOutput } from '@sveltejs/kit';
+import type { JSONValue } from '@sveltejs/kit/types/helper';
 import type { ServerRequest } from '@sveltejs/kit/types/hooks';
-import type { JSONValue } from '@sveltejs/kit/types/endpoint';
+import {
+  GET_ARTICLES,
+  GET_ARTICLES__JSON,
+  GET_ARTICLES__TYPE,
+  GET_USER_BY_SLUG,
+  GET_USER_BY_SLUG__JSON,
+  GET_USER_BY_SLUG__TYPE,
+} from '../../queries';
 import { variables } from '../../variables';
-import type { IProfile } from 'src/interfaces/profiles';
-import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
 
 interface IOutput {
-  profile: IProfile;
-  articles: AggregatePaginateResult<IArticle>;
+  profile: GET_USER_BY_SLUG__TYPE;
+  articles: GET_ARTICLES__TYPE;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: JSONValue | any;
 }
@@ -18,17 +23,37 @@ interface IOutput {
  */
 async function get(request: ServerRequest): Promise<EndpointOutput<IOutput>> {
   const { profile_slug, page } = request.params;
+  if (profile_slug === 'pwabuilder-sw.js') return { status: 404 };
 
   // get the profile
   const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
-  const res = await fetch(`${hostUrl}/api/v2/users/public/${profile_slug}`);
-  const profile: IProfile = await res.json();
+  const res = await fetch(`${hostUrl}/v3`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      query: GET_USER_BY_SLUG,
+      variables: {
+        slug: profile_slug,
+      },
+    }),
+  });
+  const resJson: GET_USER_BY_SLUG__JSON = await res.json();
+  const profile = resJson.data;
 
   // get articles from this person
-  const res2 = await fetch(
-    `${hostUrl}/api/v2/articles/public?page=${page}&author=${profile.github_id}`
-  );
-  const articles: AggregatePaginateResult<IArticle> = await res2.json();
+  const res2 = await fetch(`${hostUrl}/v3`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      query: GET_ARTICLES,
+      variables: {
+        page: parseInt(page),
+        filter: JSON.stringify({ 'people.authors': profile?.userPublicBySlug?._id }),
+      },
+    }),
+  });
+  const res2Json: GET_ARTICLES__JSON = await res2.json();
+  const articles = res2Json.data;
 
   // return the profile to the page
   if (profile) {

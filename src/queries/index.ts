@@ -4,6 +4,12 @@ export type {
   GET_ARTICLES__JSON,
   GET_ARTICLES__TYPE,
 } from './GET_ARTICLES';
+export { GET_USER_BY_SLUG } from './GET_USER_BY_SLUG';
+export type {
+  GET_USER_BY_SLUG__DOC_TYPE,
+  GET_USER_BY_SLUG__JSON,
+  GET_USER_BY_SLUG__TYPE,
+} from './GET_USER_BY_SLUG';
 
 export interface GraphJsonType<T> {
   error?: unknown;
