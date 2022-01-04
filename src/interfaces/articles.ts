@@ -28,7 +28,7 @@ interface IArticle {
   photo_credit?: string;
   body?: string;
   video_path?: string;
-  video_replaces_photo?: string;
+  video_replaces_photo?: boolean;
   show_comments?: boolean;
   date?: {
     // is sometimes added using the insertDate() function
