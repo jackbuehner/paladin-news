@@ -154,7 +154,6 @@
     <div class={'categories'} class:isCompact>
       {categoriesModified
         .map((cat, index) => {
-          console.log(cat);
           if (index < categoriesModified.length - 1) return `${cat}  |  `;
           return cat;
         })

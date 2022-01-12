@@ -103,7 +103,6 @@
    */
   export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
     // remove special characters and redirect
-    console.log(page.params.category);
     if (page.params.category.indexOf(' ') !== -1 || page.params.category.indexOf('&') !== -1) {
       return {
         status: 302,

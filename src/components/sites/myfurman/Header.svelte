@@ -172,7 +172,6 @@
   let appbar: HTMLElement;
 
   function toggleNav() {
-    console.log('hi');
     if (appbar.style.height === '64px' && innerWidth <= 700) {
       appbar.style.height = '100vh';
     } else {

@@ -315,7 +315,6 @@
                     categories.length !== 0
                       ? `<div class="search-flyout--hit-card--tags">${categories
                           .map((cat, index) => {
-                            console.log(cat);
                             if (index < categories.length - 1) return `${cat}  |  `;
                             return cat;
                           })
