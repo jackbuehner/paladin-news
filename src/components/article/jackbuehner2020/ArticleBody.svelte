@@ -64,6 +64,60 @@
     font-size: 13px;
     line-height: 20px;
   }
+  :global(.article-body figure figcaption::after) {
+    content: attr(data-photo-credit);
+    display: inline;
+    margin: -4px 0 0 6px;
+    font-family: var(--font-body);
+    color: var(--color-neutral-lightest);
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  /* headings */
+  :global(.article-body h1) {
+    font-family: var(--font-headline);
+    font-size: 24px;
+    font-weight: 400;
+    margin: 10px 0;
+  }
+  :global(.article-body h2) {
+    font-family: var(--font-headline);
+    font-size: 20px;
+    font-weight: 400;
+    margin: 10px 0;
+  }
+  :global(.article-body h3) {
+    font-family: var(--font-headline);
+    font-size: 17px;
+    font-weight: 400;
+    margin: 10px 0;
+  }
+
+  /* title and subtitle */
+  :global(.article-body h1.title) {
+    font-size: 48px;
+    font-weight: 400;
+    margin: 15px 0;
+    text-align: center;
+    line-height: 1.3;
+  }
+  :global(.article-body p.subtitle) {
+    font-size: 18px;
+    text-align: center;
+    margin: 15px 0;
+  }
+  :global(.article-body h1.title + p.subtitle) {
+    font-size: 18px;
+    text-align: center;
+    margin-top: -15px;
+  }
+
+  /* hanging indent paragraph */
+  :global(.article-body p.hanging) {
+    padding-left: 20px;
+    text-indent: -20px;
+  }
 </style>
 
 <script>
