@@ -2,7 +2,7 @@
   "name": "@thepaladin/website",
   "version": "0.0.1",
   "scripts": {
-    "dev": "svelte-kit dev",
+    "dev": "svelte-kit dev --port 4000 --host",
     "build": "svelte-kit build --verbose",
     "preview": "svelte-kit preview --port 4000",
     "check": "svelte-check --tsconfig ./tsconfig.json",
