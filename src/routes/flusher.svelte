@@ -97,7 +97,9 @@
 
   export let flusher: IFlush;
 
-  const featuredArticle = insertDate([flusher.articles.featured])[0];
+  const featuredArticle = flusher.articles.featured
+    ? insertDate([flusher.articles.featured])[0]
+    : null;
 </script>
 
 <h1>The Royal Flush</h1>
@@ -106,14 +108,14 @@
 <Container>
   <h2>Featured Article</h2>
   <ArticleRow
-    name={featuredArticle.name}
-    href={featuredArticle.date
+    name={featuredArticle?.name}
+    href={featuredArticle?.date
       ? `/articles/${featuredArticle.date.year}/${featuredArticle.date.month}/${featuredArticle.date.day}/${featuredArticle.slug}`
       : `/articles/${featuredArticle.slug}`}
-    description={featuredArticle.description}
-    photo={featuredArticle.photo_path}
-    date={featuredArticle.timestamps.published_at}
-    authors={featuredArticle.people.authors.filter((author) => !!author)} />
+    description={featuredArticle?.description}
+    photo={featuredArticle?.photo_path}
+    date={featuredArticle?.timestamps.published_at}
+    authors={featuredArticle?.people.authors.filter((author) => !!author)} />
 
   <h2>More Articles</h2>
   <ol>

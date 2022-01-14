@@ -1,9 +1,9 @@
-import type { IFlush } from 'src/interfaces/flush';
 import type { EndpointOutput } from '@sveltejs/kit';
+import type { JSONValue } from '@sveltejs/kit/types/helper';
 import type { ServerRequest } from '@sveltejs/kit/types/hooks';
-import type { JSONValue } from '@sveltejs/kit/types/endpoint';
-import { variables } from '../variables';
 import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
+import type { IFlush } from 'src/interfaces/flush';
+import { variables } from '../variables';
 
 interface IArticleOutput extends IFlush {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -21,7 +21,7 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutpu
         request.query.has('week')
           ? `
               limit: 1,
-              sort: "{ \\\"issue\\\": -1, \\\"volume\\\": 1 }",
+              sort: "{ \\\"volume\\\": -1, \\\"issue\\\": -1 }",
               filter: "{ \\\"$and\\\": [ { \\\"timestamps.week\\\": { \\\"$gte\\\": \\\"${new Date(
                 request.query.get('week')
               ).toISOString()}\\\" } }, { \\\"timestamps.week\\\": { \\\"$lt\\\": \\\"${new Date(
@@ -30,7 +30,8 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutpu
             `
           : `
               limit: 1,
-              sort: "{ \\\"issue\\\": -1, \\\"volume\\\": 1 }"
+              sort: "{ \\\"volume\\\": -1, \\\"issue\\\": -1 }",
+              filter: "{ \\\"timestamps.week\\\": { \\\"$lte\\\": \\\"${new Date().toISOString()}\\\" } }"
             `
       } 
     ) {
