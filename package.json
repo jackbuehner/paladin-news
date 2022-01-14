@@ -34,7 +34,7 @@
   "type": "module",
   "dependencies": {
     "@azure/msal-browser": "^2.20.0",
-    "@cristata/prosemirror-to-html-js": "^2.0.1",
+    "@cristata/prosemirror-to-html-js": "2.1.2",
     "@rooi/slicker": "^0.0.3",
     "crypto-js": "^4.1.1",
     "dotenv": "^10.0.0",
