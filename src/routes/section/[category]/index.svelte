@@ -145,19 +145,18 @@
 </script>
 
 <script lang="ts">
-  import type { IArticle } from 'src/interfaces/articles';
-  import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
   import { goto } from '$app/navigation';
   import Button from '/src/components/Button.svelte';
   import { headerLabel } from '../../../stores/header';
-  import { beforeUpdate, onDestroy, onMount } from 'svelte';
+  import { onDestroy } from 'svelte';
   import PageHeading from '/src/components/PageHeading.svelte';
   import Container from '/src/components/Container.svelte';
   import { title } from '../../../stores/title';
   import { insertDate } from '../../../utils/insertDate';
   import { capitalize } from '../../../utils/capitalize';
+  import type { GET_ARTICLES__DOC_TYPE, Paged } from 'src/queries';
 
-  export let articles: AggregatePaginateResult<IArticle>;
+  export let articles: Paged<GET_ARTICLES__DOC_TYPE>;
 
   $: windowWidth = 0;
 
@@ -184,6 +183,7 @@
             photo={article.photo_path}
             photoCredit={article.photo_credit}
             date={article.timestamps.published_at}
+            authors={article.people.authors}
             isCompact={windowWidth <= 770 && windowWidth > 560 ? index > 1 : index > 0}
             isCategoryPage={true}
             isLargerHeadline={true} />
@@ -208,6 +208,7 @@
             photo={article.photo_path}
             photoCredit={article.photo_credit}
             date={article.timestamps.published_at}
+            authors={article.people.authors}
             isCompact={windowWidth <= 560 && windowWidth > 0}
             style={windowWidth <= 560 && windowWidth > 0
               ? 'grid-area: auto / 1 / auto / 3;'
@@ -229,7 +230,8 @@
               : `/articles/${article.slug}`}
             description={article.description}
             photo={article.photo_path}
-            date={article.timestamps.published_at} />
+            date={article.timestamps.published_at}
+            authors={article.people.authors} />
         {/each}
       {/if}
       <span style={'grid-area: auto / 1 / auto / 3;'} />

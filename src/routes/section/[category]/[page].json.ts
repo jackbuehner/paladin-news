@@ -1,10 +1,10 @@
 import type { IArticle } from 'src/interfaces/articles';
 import type { EndpointOutput } from '@sveltejs/kit';
 import type { ServerRequest } from '@sveltejs/kit/types/hooks';
-import type { JSONValue } from '@sveltejs/kit/types/endpoint';
+import type { JSONValue } from '@sveltejs/kit/types/helper';
 import { variables } from '../../../variables';
 import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
-import { GET_ARTICLES } from '../../../queries';
+import { GET_ARTICLES, GET_ARTICLES__JSON } from '../../../queries';
 
 interface IArticleOutput extends AggregatePaginateResult<IArticle> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -16,6 +16,7 @@ interface IArticleOutput extends AggregatePaginateResult<IArticle> {
  */
 async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutput>> {
   const { category, page } = request.params;
+  if (category === 'pwabuilder-sw.js') return { status: 404 };
 
   // generate the categories for the query
   let categories = [];
@@ -46,21 +47,17 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutpu
   });
 
   // proces the response
-  const resJson = await res.json(); // get the response as JSON
+  const resJson: GET_ARTICLES__JSON = await res.json(); // get the response as JSON
+  console.log(
+    category,
+    resJson.data.articlesPublic.docs.map((doc) => doc.people.authors)
+  );
   const articles = resJson?.data?.articlesPublic; // identify the articles response
-  const cleanArticles: AggregatePaginateResult<IArticle> = {
-    // consolidate author objects into array of IDs
-    ...articles,
-    docs: articles?.docs?.map((doc) => ({
-      ...doc,
-      people: { ...doc.people, authors: doc.people.authors.map((author) => author.github_id) },
-    })),
-  };
 
   // return the articles to the page
-  if (articles && cleanArticles) {
+  if (articles) {
     return {
-      body: cleanArticles,
+      body: articles,
     };
   }
   return null;
