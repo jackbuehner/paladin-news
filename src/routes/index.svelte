@@ -216,11 +216,6 @@
         articles={articles.acc}
         gridArea={'acc'}
         quantity={[3, 2, 2, 3]} />
-      <div style={'grid-area: plus;'}>
-        <div style={'border-bottom: 1px solid var(--border-dark); padding: 16px 0'}>
-          <PaladinPlusList />
-        </div>
-      </div>
       <span />
     </div>
   </Container>
