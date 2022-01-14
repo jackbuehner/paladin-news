@@ -69,6 +69,7 @@
   export let listId: string;
   export let name: string;
   export let description: string;
+  export let frequency: string;
 </script>
 
 <div class={'card'}>
@@ -115,7 +116,7 @@
       </IconButton>
     </div>
   </div>
-  <div class={'frequency'}>Every Sunday</div>
+  <div class={'frequency'}>{frequency}</div>
   <h3>{name}</h3>
   <p>{description}</p>
 </div>

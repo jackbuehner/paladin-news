@@ -169,21 +169,16 @@
         icon={'https://paladin-photo-library.s3.amazonaws.com/sunday-summary_logo_square.svg'}
         listId={'15ae10eb-642c-11eb-a3d0-06b4694bee2a'}
         name={'Sunday Summary'}
-        description={`Editor-in-Chief Emeritus Evan Myers’ examinations of last week’s biggest stories,
-      expositions on the best and worst that Furman has to offer, and expectations for the week ahead.`}
+        description={`Editor-in-Chief Scotty Bryan's examinations of last week’s biggest stories and expectations for the week ahead.`}
+        frequency={`Every Sunday`}
         on:click={submitForm} />
-      <!--<NewsletterCard
-        icon={'https://paladin-photo-library.s3.amazonaws.com/logo_rwbp.svg'}
-        listId={'7a64885c-64fe-11eb-a3d0-06b4694bee2a'}
-        name={'Red, White, Blue, & Purple'}
-        description={`Price St. Clair’s podcast-newsletter that covers politics and policy from a Furman Perspective.`}
-        on:click={submitForm} />-->
       <NewsletterCard
         icon={'https://paladin-photo-library.s3.amazonaws.com/paladin-profiles_logo_square.svg'}
         listId={'f90b09cd-64fe-11eb-a3d0-06b4694bee2a'}
         name={'Paladin Profiles'}
-        description={`Video interviews that highlight the important work Paladins past and present are doing 
+        description={`Interviews that highlight the important work Paladins past and present are doing 
       to improve diversity and inclusion on campus and beyond.`}
+        frequency={`1-4 per semester`}
         on:click={submitForm} />
       <NewsletterCard
         icon={'https://paladin-photo-library.s3.amazonaws.com/the-works_logo_square.svg'}
@@ -191,27 +186,7 @@
         name={'The Works'}
         description={`The Paladin’s casual newsletter tracking the latest trends sweeping the student body, 
       highlighting creative talent, and shining a light on the best (and worst) aspects of campus culture at Furman.`}
-        on:click={submitForm} />
-      <NewsletterCard
-        icon={'https://paladin-photo-library.s3.amazonaws.com/zoomuni_logo_square.svg'}
-        listId={'de01a167-6500-11eb-a3d0-06b4694bee2a'}
-        name={'ZoomUni'}
-        description={`A professor and student collaboration, the ZoomUni podcast examines how changes in politics 
-      and culture are affecting college communities across the country through long-form interviews with a new 
-      special guest each week.`}
-        on:click={submitForm} />
-      <NewsletterCard
-        icon={'https://paladin-photo-library.s3.amazonaws.com/deep-dive_logo_square.svg'}
-        listId={'1c29797a-69a3-11eb-a3d0-06b4694bee2a'}
-        name={'Deep Dive'}
-        description={`The Paladin’s data-driven newsletter uncovering campus’ biggest stories.`}
-        on:click={submitForm} />
-      <NewsletterCard
-        icon={'https://paladin-photo-library.s3.amazonaws.com/sports-roundup_logo_square.svg'}
-        listId={'0e86b76e-69a7-11eb-a3d0-06b4694bee2a'}
-        name={'Paladin Sports Roundup'}
-        description={`A newsletter with comprehensive updates on the Paladins and special features including video 
-      interviews with Furman athletes.`}
+        frequency={`Every Friday`}
         on:click={submitForm} />
     </div>
     <div style={'border-bottom: 1px solid var(--border-dark); margin-top: 20px;'} />
