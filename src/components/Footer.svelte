@@ -101,6 +101,7 @@
           <div class={'header'}>About us</div>
           <a href={'/about'}>Who we are</a>
           <a href={'/team'}>Our team</a>
+          <a href={'/jobs'}>Jobs</a>
           <a href={'/contact'}>Contact us</a>
           <a href={'/privacy-policy'}>Privacy policy</a>
         </div>

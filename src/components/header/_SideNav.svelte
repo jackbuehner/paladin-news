@@ -119,6 +119,7 @@
     [
       { href: '/about', label: 'Who we are' },
       { href: '/contact', label: 'Contact' },
+      { href: '/jobs', label: 'Jobs' },
       { href: '/subscribe', label: 'Subscribe' },
       {
         href: 'https://app.mobilecause.com/vf/DinsDonate/team/PaladinNewspaper',
