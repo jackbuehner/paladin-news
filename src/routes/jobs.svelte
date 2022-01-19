@@ -57,15 +57,29 @@
       formTime: '1-3 minutes',
     },
     {
+      title: 'Sports Editor',
+      note: '4 hours per week; $10.00/hr',
+      description: `
+        <ul style="margin: 0;">
+          <li>Manage the sports section of <i>The Paladin</i>.</li>
+          <li>Effectively communicate with writers editors to produce articles for the sports section.</i></li>
+          <li>Attend weekly board meetings.</i></li>
+          <li>Must have a general interest in Furman sports.</i></li>
+        </ul>
+      `,
+      form: 'https://forms.office.com/Pages/ResponsePage.aspx?id=2fdi-EbxGEWm-58uqC08gEsJCrlx8F1JqSx6fdQssF5UM1dIWktMOENBS0cxNkUxN0EwWFdSMEwxVyQlQCN0PWcu',
+      formTime: '< 10 minutes',
+    },
+    {
       title: 'Producer, <i>The Royal Flush</i>',
       note: '1 hour per week; $9.00/hr',
       description: `
         <ul style="margin: 0;">
           <li>Produce <i>The Royal Flush</i>, our weekly restroom newsletter.</li>
-          <li>Aggregate upcoming campus events and identify top articles from The Paladin Newspaper.</i>
-          <li>Coordinate advertisement space with the Ads Manager</i>
+          <li>Aggregate upcoming campus events and identify top articles from The Paladin Newspaper.</i></li>
+          <li>Coordinate advertisement space with the Ads Manager</i>.</li>
           <li>Submit <i>The Royal Flush</i> to press by Friday morning of each week.</li>
-          <li>Provide printed copies of <i>The Royal Flush</i> to the distribution team.</i>
+          <li>Provide printed copies of <i>The Royal Flush</i> to the distribution team.</i></li>
         </ul>
       `,
       form: 'https://forms.office.com/Pages/ResponsePage.aspx?id=2fdi-EbxGEWm-58uqC08gEsJCrlx8F1JqSx6fdQssF5UNFZDU0JSWFMySExDNlMyUTNVVEMwNkJMMCQlQCN0PWcu',
