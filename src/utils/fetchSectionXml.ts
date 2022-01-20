@@ -13,22 +13,7 @@ async function fetchSectionXml(section: string, path: string, limit?: number) {
   const res = (await fetchSection(section, limit)).data as AggregatePaginateResult<IArticle>;
   const docs = insertDate<IArticle>(res.docs);
 
-  const toHTML = (str: string) => {
-    // if the body is not html, convert json to html (check with closing p tag)
-    if (!str.includes('</p>')) {
-      const renderer = new Renderer.Renderer();
-      renderer.addNode(SweepwidgetWidget);
-      renderer.addNode(YoutubeWidget);
-      renderer.addNode(PhotoWidget);
-      return renderer.render({
-        type: 'doc',
-        content: JSON.parse(str),
-      });
-    }
-    return str;
-  };
-
-  const body = xml(
+  const body = toXML(
     docs
       .map((doc) => {
         if (!doc.timestamps?.published_at) return null;
@@ -55,10 +40,25 @@ interface Post {
   html: string;
 }
 
-const xml = (
+const toHTML = (str: string): string => {
+  // if the body is not html, convert json to html (check with closing p tag)
+  if (!str.includes('</p>')) {
+    const renderer = new Renderer.Renderer();
+    renderer.addNode(SweepwidgetWidget);
+    renderer.addNode(YoutubeWidget);
+    renderer.addNode(PhotoWidget);
+    return renderer.render({
+      type: 'doc',
+      content: JSON.parse(str),
+    });
+  }
+  return str;
+};
+
+const toXML = (
   posts: Post[],
   url: string
-) => `<rss xmlns:dc="https://purl.org/dc/elements/1.1/" xmlns:content="https://purl.org/rss/1.0/modules/content/" xmlns:atom="https://www.w3.org/2005/Atom" version="2.0">
+): string => `<rss xmlns:dc="https://purl.org/dc/elements/1.1/" xmlns:content="https://purl.org/rss/1.0/modules/content/" xmlns:atom="https://www.w3.org/2005/Atom" version="2.0">
   <channel>
     <title>${variables.name}</title>
     <link>${variables.website}</link>
@@ -82,4 +82,4 @@ const xml = (
   </channel>
 </rss>`;
 
-export { fetchSectionXml };
+export { fetchSectionXml, toHTML, toXML };
