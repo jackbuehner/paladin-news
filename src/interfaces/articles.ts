@@ -14,8 +14,8 @@ enum Stage {
 interface IArticle {
   name: string;
   slug?: string;
-  timestamps?: {
-    published_at?: string; // ISO string
+  timestamps: {
+    published_at: string; // ISO string
   };
   people: {
     authors?: IAuthor[];
