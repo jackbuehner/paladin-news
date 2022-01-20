@@ -72,30 +72,6 @@
    */
   export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
     const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
-    const fetchSection = async (section: string) => {
-      // request the articles from the api
-      const res = await fetch(`${hostUrl}/v3`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          query: GET_ARTICLES,
-          variables: {
-            limit: 10,
-            filter: JSON.stringify({
-              categories: { $in: section.split(',') },
-              'timestamps.published_at': { $exists: true },
-            }),
-          },
-        }),
-      });
-
-      // proces the response
-      const resJson = await res.json(); // get the response as JSON
-      const articles = resJson?.data?.articlesPublic; // identify the articles response
-
-      // return the articles
-      return { data: articles, ok: res.ok };
-    };
     const url = `${hostUrl}/api/v2/articles/public?limit=10`;
 
     const res = {
@@ -140,13 +116,12 @@
   import Featured from '../components/home/Featured.svelte';
   import ArticleCardRow from '../components/home/ArticleCardRow.svelte';
   import Container from '/src/components/Container.svelte';
-  import PaladinPlusList from '/src/components/PaladinPlusList.svelte';
   import { onMount } from 'svelte';
   import { title } from '../stores/title';
   import { variables } from '../variables';
   import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
   import type { IArticle } from 'src/interfaces/articles';
-  import { GET_ARTICLES } from '../queries';
+  import { fetchSection } from '../utils/fetchSection';
 
   // set the document title
   onMount(() => ($title = undefined));
