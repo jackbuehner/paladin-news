@@ -2,7 +2,8 @@
   div.wrapper {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: fit-content;
+    min-height: 100%;
   }
   div.content {
     flex-grow: 1;
