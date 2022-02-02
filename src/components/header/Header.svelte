@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Container from '../Container.svelte';
   import CompactHeader from './CompactHeader.svelte';
   import HomeHeader from './HomeHeader.svelte';
 
@@ -7,9 +6,7 @@
 </script>
 
 {#if type === 'full'}
-  <Container>
-    <HomeHeader />
-  </Container>
+  <HomeHeader />
 {:else}
   <CompactHeader />
 {/if}

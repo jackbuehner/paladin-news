@@ -8,7 +8,7 @@
   }
   @media (min-width: 991px) {
     .grid {
-      padding-top: 14px;
+      padding-top: 2px;
     }
   }
 

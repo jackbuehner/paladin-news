@@ -2,7 +2,6 @@
   /* wrapper for the topbar */
   .topbar {
     height: 42px;
-    border-bottom: 1px solid var(--border-light);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -11,24 +10,33 @@
   .topbar-wrapper {
     background-color: var(--topbar-bg);
     transition: box-shadow 200ms;
+    padding: 0 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+    width: 100%;
   }
   @media (max-width: 990px) {
     .topbar {
       height: 52px;
+      border-bottom: 1px solid var(--border-light);
+      padding: 0 20px;
     }
     .topbar.scrolled {
       border-bottom: 1px solid transparent;
     }
     .topbar-wrapper {
       position: sticky;
+      align-self: flex-start;
       top: 0;
       z-index: 99;
+      padding: 0;
     }
   }
 
   /* wrapper for the logo */
   .logo-wrapper {
-    padding: 16px 0 20px 0;
+    padding: 10px 0 4px 0;
+    margin-top: -42px;
     display: flex;
     justify-content: center;
   }
@@ -37,11 +45,6 @@
     color: var(--topbar-color);
   }
   @media (max-width: 990px) {
-    .logo-wrapper {
-      border-bottom: 1px solid var(--border-light);
-    }
-  }
-  @media (max-width: 560px) {
     .logo-wrapper {
       display: none;
     }
@@ -73,17 +76,8 @@
       opacity: 1;
       transition: opacity 200ms;
     }
-    .logo.hidden {
-      opacity: 0;
-    }
     div.horizontal-nav {
       display: none;
-    }
-  }
-  @media (max-width: 560px) {
-    .logo,
-    .logo.hidden {
-      opacity: 1;
     }
   }
 </style>
@@ -96,6 +90,7 @@
   import SideNav from './_SideNav.svelte';
   import { searchOpen } from '../../stores/search';
   import SignInUp from './SignInUp.svelte';
+  import Container from '../Container.svelte';
 
   $: windowWidth = 0;
   $: windowScrollY = 0;
@@ -138,16 +133,18 @@
     </div>
   </div>
 </div>
-<div class="logo-wrapper">
-  {#if isSatire}
-    <a href={'/satire'} aria-label={'satire home'}><TheHorseLogo width={307} height={140} /></a>
-  {:else}
-    <a href={'/'} aria-label={'home'}><ThePaladinLogo width={416} height={140} /></a>
-  {/if}
-</div>
-<div class={`horizontal-nav`}>
-  <HorizontalNav />
-</div>
+<Container>
+  <div class="logo-wrapper">
+    {#if isSatire}
+      <a href={'/satire'} aria-label={'satire home'}><TheHorseLogo width={307} height={120} /></a>
+    {:else}
+      <a href={'/'} aria-label={'home'}><ThePaladinLogo width={416} height={120} /></a>
+    {/if}
+  </div>
+  <div class={`horizontal-nav`}>
+    <HorizontalNav />
+  </div>
+</Container>
 <SideNav bind:isOpen={isSideNavOpen} />
 
 <slot />

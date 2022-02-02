@@ -1,6 +1,6 @@
 <style>
   nav {
-    height: 52px;
+    height: 46px;
     width: 100%;
     border-top: 1px solid #000000;
     border-bottom: 1px solid #000000;
