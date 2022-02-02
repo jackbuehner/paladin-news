@@ -59,7 +59,21 @@
   } from '../../components/article/index';
 
   export let article: IArticle;
+
+  /**
+   * Opens the article in Cristata when ALT + C is pressed.
+   */
+  const openInCMS = (event: KeyboardEvent) => {
+    if (event.altKey && event.key === 'c') {
+      window.open(
+        `https://thepaladin.cristata.app/cms/item/articles/${article._id}?fs=force&props=1`,
+        '_blank'
+      );
+    }
+  };
 </script>
+
+<svelte:window on:keydown={openInCMS} />
 
 {#if article.template === 'jackbuehner2020'}
   <ArticleTemplateJackBuehner2020 {article} />

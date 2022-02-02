@@ -1,6 +1,7 @@
 const GET_ARTICLE_BY_SLUG = `
   query GetArticleBySlug($slug: String!, $date: Date) {
     articleBySlugPublic(slug: $slug, date: $date) {
+      _id
       name
       slug
       timestamps {

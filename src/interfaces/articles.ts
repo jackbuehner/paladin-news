@@ -12,6 +12,7 @@ enum Stage {
 
 // interface for each article
 interface IArticle {
+  _id?: string; // sometimes available
   name: string;
   slug?: string;
   timestamps: {
