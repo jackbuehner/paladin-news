@@ -108,7 +108,6 @@
         <div>
           <div class={'header'}>Support us</div>
           <a href={'https://app.mobilecause.com/vf/DinsDonate/team/PaladinNewspaper'}>Donate</a>
-          <a href={'/subscribe'}>Subscribe</a>
           <a href={'/contact'}>Tip us</a>
           <a href={'/contact'}>Advertise</a>
         </div>
