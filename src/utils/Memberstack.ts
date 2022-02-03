@@ -27,7 +27,6 @@ const Memberstack = {
    * causes it to not recognize some memberstack links and actions.
    */
   reload: function (): void {
-    console.log('reloading');
     window.MemberStack.reload();
   },
 
@@ -63,7 +62,6 @@ const Memberstack = {
    */
   onReady: async function (): Promise<boolean> {
     const ready = await window.MemberStack.onReady;
-    console.log(ready);
     return !!ready;
   },
 };

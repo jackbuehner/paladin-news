@@ -143,8 +143,6 @@
       }
     }
 
-    console.log($msalInstance.getActiveAccount().username);
-
     if (token) {
       // fetch the data
       const me = await fetch('me.json', { headers: { token } });

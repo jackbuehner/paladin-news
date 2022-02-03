@@ -48,10 +48,6 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutpu
 
   // proces the response
   const resJson: GET_ARTICLES__JSON = await res.json(); // get the response as JSON
-  console.log(
-    category,
-    resJson.data.articlesPublic.docs.map((doc) => doc.people.authors)
-  );
   const articles = resJson?.data?.articlesPublic; // identify the articles response
 
   // return the articles to the page

@@ -99,19 +99,17 @@
             </div>
             <input type="hidden" name="successRedirectUrl" />
             <!-- submit button -->
-            <button
-              type="submit"
-              style="display: none;"
-              on:click|preventDefault={() => console.log('submit')}>Subscribe</button>
+            <button type="submit" style="display: none;" on:click|preventDefault={() => null}
+              >Subscribe</button>
             <div>
-              <IconButton isOutlined on:click
+              <IconButton isOutlined ariaLabel={'subscribe'} on:click
                 ><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
               </IconButton>
             </div>
           </form>
         </div>
       </div>
-      <IconButton isOutlined disabled>
+      <IconButton isOutlined ariaLabel={''} disabled>
         <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
       </IconButton>
     </div>
