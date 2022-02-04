@@ -40,10 +40,16 @@
   });
 
   // determine the header type based on path
-  $: headerType = path === '/' ? 'full' : (undefined as 'full' | undefined); // full only when on home page
+  let headerType: 'compact' | 'full' = path === '/' ? 'full' : (undefined as 'full' | undefined); // full only when on home page
+  afterUpdate(() => {
+    headerType = path === '/' ? 'full' : (undefined as 'full' | undefined); // full only when on home page
+  });
 
   // create the document title
-  $: title_ = $title || path !== '/' ? `${$title} - The Paladin` : 'The Paladin';
+  let title_: string = $title || path !== '/' ? `${$title} - The Paladin` : 'The Paladin';
+  afterUpdate(() => {
+    title_ = $title || path !== '/' ? `${$title} - The Paladin` : 'The Paladin';
+  });
 
   onMount(() => {
     // configure the navigation progress bar
