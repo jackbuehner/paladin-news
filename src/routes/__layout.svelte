@@ -13,6 +13,13 @@
 <script context="module" lang="ts">
   /** @type {import('@sveltejs/kit').Load} */
   export async function load({ page }) {
+    // return 204 status when sveltekit tries to load scripts as pages
+    // (this happens with embedded scripts and pwabuilder scripts)
+    if (page.path.includes(['/pwa-update.js']) || page.path.includes(['/js/'])) {
+      return { status: 204 };
+    }
+
+    // return the page path to the page
     return { props: { path: page.path } };
   }
 </script>
@@ -25,15 +32,18 @@
   import NProgress from 'nprogress';
   import { onMount, afterUpdate } from 'svelte';
 
-  $: title_ = $title ? `${$title} - The Paladin` : 'The Paladin';
-
-  // determine the header type based on path
+  // keep track of the page path
   export let path: string;
   afterUpdate(() => {
     // keep the path updated when the component changes
     path = window.location.pathname;
   });
+
+  // determine the header type based on path
   $: headerType = path === '/' ? 'full' : (undefined as 'full' | undefined); // full only when on home page
+
+  // create the document title
+  $: title_ = $title || path !== '/' ? `${$title} - The Paladin` : 'The Paladin';
 
   onMount(() => {
     // configure the navigation progress bar
