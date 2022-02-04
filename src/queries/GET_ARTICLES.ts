@@ -6,12 +6,14 @@ const GET_ARTICLES = `
     $limit: Int = 10,
     $sort: JSON = "{\\\"timestamps.published_at\\\":-1}",
     $filter: JSON = null,
+    $featured: Boolean = false,
   ) {
     articlesPublic(
       limit: $limit,
       page: $page,
       sort: $sort,
       filter: $filter,
+      featured: $featured,
     ) {
       docs {
         name

@@ -65,22 +65,23 @@
 </style>
 
 <script context="module" lang="ts">
-  import type { LoadInput, LoadOutput } from '@sveltejs/kit';
+  import type { LoadOutput } from '@sveltejs/kit';
 
   /**
    * @type {import('@sveltejs/kit').Load}
    */
-  export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
-    const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
-    const url = `${hostUrl}/api/v2/articles/public?limit=10`;
+  export async function load(): Promise<LoadOutput> {
+    // set the document title
+    title.set(undefined);
 
+    // get the articles
     const res = {
       news: await fetchSection('news'),
       opinion: await fetchSection('opinion'),
       sports: await fetchSection('sports'),
       diversity: await fetchSection('diversity'),
       acc: await fetchSection('arts,campus-culture'),
-      featured: await fetch(`${url}&featured=true`),
+      featured: await fetchFeatured(),
     };
 
     if (
@@ -99,7 +100,7 @@
             sports: res.sports.data,
             diversity: res.diversity.data,
             acc: res.acc.data,
-            featured: await res.featured.json(),
+            featured: res.featured.data,
           },
         },
       };
@@ -116,15 +117,11 @@
   import Featured from '../components/home/Featured.svelte';
   import ArticleCardRow from '../components/home/ArticleCardRow.svelte';
   import Container from '/src/components/Container.svelte';
-  import { onMount } from 'svelte';
-  import { title } from '../stores/title';
-  import { variables } from '../variables';
   import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
   import type { IArticle } from 'src/interfaces/articles';
   import { fetchSection } from '../utils/fetchSection';
-
-  // set the document title
-  onMount(() => ($title = undefined));
+  import { fetchFeatured } from '../utils/fetchFeatured';
+  import { title } from '../stores/title';
 
   // receive the articles from the load function
   interface Iarticles {
