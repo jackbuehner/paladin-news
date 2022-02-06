@@ -5,15 +5,18 @@ class PhotoWidget extends Renderer.Node {
     return this.node.type === 'photoWidget';
   }
   toDOM() {
+    const position: string = this.node.attrs.position || 'center';
     return [
       'figure',
-      { class: 'widget photo' },
+      {
+        class: `widget photo position-${position}`,
+      },
       [
         'div',
         {
           class: 'img-wrapper',
           'data-photo-credit': !this.node.attrs.showCaption ? this.node.attrs.photoCredit : '',
-          style: 'margin: 20px 0; display: flex; position: relative; align-items: start;',
+          style: `margin: 0; display: flex; position: relative; align-items: start;`,
         },
         [
           'img',
@@ -34,7 +37,7 @@ class PhotoWidget extends Renderer.Node {
                 ? `
                   display: block;
                   text-align: center;
-                  margin: -10px 0 10px 0;
+                  margin: 10px 0 10px 0;
                 `
                 : `
                   display: block;

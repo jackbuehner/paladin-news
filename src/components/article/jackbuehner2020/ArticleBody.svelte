@@ -30,6 +30,8 @@
   :global(.article-body a:active) {
     background-color: rgba(var(--primary), 0.16);
   }
+
+  /* widget styles */
   :global(.article-body .widget) {
     width: 1px;
     min-width: 100%;
@@ -40,9 +42,39 @@
     display: flex;
     flex-direction: column;
   }
+
+  /* allow widgets to have special alignment on big-enough screens */
+  @media (min-width: 401px) {
+    /* left aligned widgets use the left 50% of space and have no borders */
+    :global(.article-body .widget.position-left) {
+      width: 50%;
+      min-width: 50%;
+      float: left;
+      margin: 10px 20px 10px 0px;
+      border: none;
+    }
+    /* right aligned widgets use the right 50% of space and have no borders*/
+    :global(.article-body .widget.position-right) {
+      width: 50%;
+      min-width: 50%;
+      float: right;
+      margin: 10px 0px 10px 20px;
+      border: none;
+    }
+  }
+
+  /* no borders for iframes */
   :global(.article-body iframe) {
     border: none;
   }
+
+  /* do not use top and bottom borders for photos/figures */
+  :global(.article-body figure.widget) {
+    border: none;
+  }
+
+  /* insert photo credit after the figure */
+  /*when there is no caption*/
   :global(.article-body figure .img-wrapper::after) {
     content: attr(data-photo-credit);
     display: inline;
@@ -55,6 +87,7 @@
     right: 0;
     top: 100%;
   }
+  /*when there is a caption*/
   :global(.article-body figure figcaption::after) {
     content: attr(data-photo-credit);
     display: inline;
