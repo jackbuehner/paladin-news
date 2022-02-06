@@ -31,6 +31,9 @@
       z-index: 99;
       padding: 0;
     }
+    .topbar-wrapper.scrolled {
+      box-shadow: var(--topbar-scroll-shadow);
+    }
   }
 
   /* wrapper for the logo */
@@ -101,7 +104,7 @@
 
 <svelte:window bind:innerWidth={windowWidth} bind:scrollY={windowScrollY} />
 
-<div class="topbar-wrapper">
+<div class="topbar-wrapper" class:scrolled={windowScrollY > 0}>
   <div class="topbar" class:scrolled={windowScrollY > 0}>
     <div class="left">
       <IconButton ariaLabel={'menu'} on:click={() => (isSideNavOpen = !isSideNavOpen)} {color}
