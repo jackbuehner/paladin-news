@@ -49,10 +49,17 @@
       display: none;
     }
   }
+  @media (max-width: 500px) {
+    .flyout-wrapper {
+      margin: 0;
+    }
+    .flyout-wrapper.isOpen {
+      width: 100%;
+    }
+  }
 </style>
 
 <script>
-  import { loop_guard } from 'svelte/internal';
   import { searchOpen } from '../../stores/search';
   import SearchPanel from './SearchPanel.svelte';
 
