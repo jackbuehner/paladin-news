@@ -23,7 +23,6 @@ class PhotoWidget extends Renderer.Node {
           {
             src: this.node.attrs.photoUrl,
             alt: '',
-            style: 'width: 100%;',
           },
         ],
       ],
