@@ -72,9 +72,16 @@
     padding: 4px 0;
     letter-spacing: 0.3px;
     font-family: var(--font-detail);
+    max-width: 1200px;
   }
   note a {
     color: #e0e0e0;
+  }
+  @media (min-width: 991px) {
+    note {
+      margin: 16px auto 0 auto;
+      text-align: center;
+    }
   }
 </style>
 
