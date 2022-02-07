@@ -70,9 +70,15 @@
   <div class={'wrapper'}>
     <div>
       <p>
-        <i>The Paladin</i>, Furman University's independent student news network, was established in
-        1916. Today, it continues the tradition of providing the student body's perspective on
-        issues affecting the Furman community.
+        <i>The Paladin</i> is more than just a student news network; it's the voice of Furman's students.
+        As Furman University's only independent student news network, it is our responsibility to offer
+        in-depth coverage of campus news and provide a platform for the content our community needs and
+        wants.
+      </p>
+      <p>
+        Established in 1916 as a print newspaper, we continue the tradition of providing the student
+        body's perspective on issues affecting the Furman community in a more-frequent, digital
+        format.
       </p>
       <p>
         <i>The Paladin</i> is a student-run organization and is editorially independent from Furman University.
