@@ -55,7 +55,7 @@
 <Container>
   <div>
     <p>
-      At&nbsp;<em>The Paladin Newspaper</em>, we collect and manage user data according to the
+      At&nbsp;<em>The Paladin Network</em>, we collect and manage user data according to the
       following Privacy Policy.
     </p>
     <h2>Data Collected</h2>
@@ -70,7 +70,8 @@
       We collect anonymous data from every visitor of the Website to monitor traffic and fix bugs.
       For example, we collect information like web requests, the data sent in response to such
       requests, the Internet Protocol address, the browser type, the browser language, and a
-      timestamp for the request.
+      timestamp for the request. Data that could be used to identify your device is deleted within
+      24 hours.
     </p>
     <p>
       We also use various technologies to collect information, and this may include sending cookies
@@ -84,7 +85,7 @@
     <h2>Use of the Data</h2>
     <p>
       We only use your personal information to provide you&nbsp;services directly related to <em
-        >The Paladin Newspaper</em> or to communicate with you about the Website or the services.
+        >The Paladin Network</em> or to communicate with you about the Website or the services.
     </p>
     <p>
       We employ industry standard techniques to protect against unauthorized access of data about
@@ -109,8 +110,10 @@
       We may allow third parties to provide analytics services. These third parties may use cookies,
       web beacons and other technologies to collect information about your use of the services and
       other websites, including your IP address, web browser, pages viewed, time spent on pages,
-      links clicked and conversion information. Our website uses Google Analytics. You can ready
-      their privacy policy <a href="https://policies.google.com/privacy?hl=en-US">here</a>.
+      links clicked and conversion information. Our website uses Fathom Analytics, an privacy-first
+      analytics provider. You can read more about them at <a href="https://usefathom.com/about"
+        >usefathom.com/about</a
+      >.
     </p>
     <p>
       We also use social buttons that link to services such as Twitter, Facebook, Instagram, and
@@ -130,7 +133,7 @@
     <h2>Opt-Out, Communication Preferences</h2>
     <p>
       You may modify your communication preferences and/or opt-out from specific communications at
-      any time. Please specify and adjust your preferences.
+      any time. Every email message has an unsubscribe button.
     </p>
     <h2>Security</h2>
     <p>

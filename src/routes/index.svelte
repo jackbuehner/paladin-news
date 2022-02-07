@@ -62,6 +62,20 @@
       display: none;
     }
   }
+
+  /* notice bars  */
+  note {
+    display: block;
+    background-color: var(--color-neutral-dark);
+    color: #e0e0e0;
+    font-size: 12px;
+    padding: 4px 0;
+    letter-spacing: 0.3px;
+    font-family: var(--font-detail);
+  }
+  note a {
+    color: #e0e0e0;
+  }
 </style>
 
 <script context="module" lang="ts">
@@ -134,6 +148,13 @@
   }
   export let articles: Iarticles;
 </script>
+
+<note
+  ><Container
+    >We updated our <a href={'/privacy-policy'}>privacy policy</a> on Feb. 2, 2022 to reflect our new
+    analytics provider. To ensure your privacy, we left Google Analytics for Fathom Analytics, which
+    does not track you accross multiple websites.</Container
+  ></note>
 
 <div class={'wrapper'}>
   <Container>
