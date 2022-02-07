@@ -173,6 +173,18 @@
     padding-left: 20px;
     text-indent: -20px;
   }
+
+  /* divider */
+  :global(.article-body hr::before) {
+    content: '•  •  •';
+    display: flex;
+    justify-content: center;
+    white-space: pre;
+    margin: 10px;
+  }
+  :global(.article-body hr) {
+    border: none;
+  }
 </style>
 
 <script lang="ts">
