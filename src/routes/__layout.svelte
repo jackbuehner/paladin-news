@@ -30,6 +30,7 @@
   import Header from '../components/header/Header.svelte';
   import Search from '/src/components/search/Search.svelte';
   import NProgress from 'nprogress';
+  import * as Fathom from 'fathom-client';
   import { onMount, afterUpdate } from 'svelte';
 
   // keep track of the page path
@@ -70,6 +71,19 @@
     // hide progress bar on navigation end
     window.addEventListener('sveltekit:navigation-end', () => {
       NProgress.done();
+    });
+  });
+
+  // fathom analytics
+  onMount(() => {
+    // load on page load
+    Fathom.load(import.meta.env.VITE_FATHOM_ID as string, {
+      url: import.meta.env.VITE_FATHOM_URL as string,
+    });
+
+    // track page view after each new navigation
+    window.addEventListener('sveltekit:navigation-end', () => {
+      Fathom.trackPageview();
     });
   });
 </script>
