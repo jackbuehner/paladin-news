@@ -1,13 +1,13 @@
-import Renderer from '@cristata/prosemirror-to-html-js';
+import Renderer, { DOMOutputSpec } from '@cristata/prosemirror-to-html-js';
 
 class SweepwidgetWidget extends Renderer.Node {
-  matching() {
+  matching(): boolean {
     return this.node.type === 'sweepwidgetWidget';
   }
-  toDOM() {
-    return {
-      tag: 'iframe',
-      attrs: {
+  toDOM(): DOMOutputSpec {
+    return [
+      'iframe',
+      {
         srcdoc: `
           <head>
             <script type='text/javascript' src='/js/iframeResizer.contentWindow.min.js'></script>
@@ -19,7 +19,7 @@ class SweepwidgetWidget extends Renderer.Node {
         `,
         class: 'widget sweepwidgetWidget resize',
       },
-    };
+    ];
   }
 }
 

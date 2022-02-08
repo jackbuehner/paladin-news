@@ -1,10 +1,17 @@
-import Renderer from '@cristata/prosemirror-to-html-js';
+import Renderer, { DOMOutputSpec } from '@cristata/prosemirror-to-html-js';
 
-class PhotoWidget extends Renderer.Node {
-  matching() {
+interface PhotoWidgetAttrs {
+  position?: string;
+  showCaption?: boolean;
+  photoCredit?: string;
+  photoUrl: string;
+}
+
+class PhotoWidget extends Renderer.Node<PhotoWidgetAttrs> {
+  matching(): boolean {
     return this.node.type === 'photoWidget';
   }
-  toDOM() {
+  toDOM(): DOMOutputSpec {
     const position: string = this.node.attrs.position || 'center';
     return [
       'figure',
@@ -49,7 +56,7 @@ class PhotoWidget extends Renderer.Node {
             text-align: center;
           `,
         },
-        this.node.attrs.showCaption ? 0 : 1,
+        this.node.attrs.showCaption ? 0 : undefined,
       ],
     ];
   }

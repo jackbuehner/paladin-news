@@ -1,10 +1,10 @@
-import Renderer from '@cristata/prosemirror-to-html-js';
+import Renderer, { DOMOutputSpec } from '@cristata/prosemirror-to-html-js';
 
 class YoutubeWidget extends Renderer.Node {
-  matching() {
+  matching(): boolean {
     return this.node.type === 'youtubeWidget';
   }
-  toDOM() {
+  toDOM(): DOMOutputSpec {
     return [
       'div',
       { class: 'widget youtube' },
