@@ -18,6 +18,7 @@
   import { commentsOpen } from '../../../stores/comments';
   import SocialButton from './_SocialButton.svelte';
   import { share } from '../../../components/article/share';
+  import Image from '../../../components/Image.svelte';
 
   export let article: IArticle;
 
@@ -73,6 +74,17 @@
 <Container>
   {#if article}
     <article>
+      <!-- advertisement -->
+      <a href={'https://salons.greatclips.com/us/sc/greenville/5052-old-buncombe-rd'}>
+        <Image
+          src={`https://ik.imagekit.io/paladin/939516b5-05d6-4c7d-ad32-ffad14551d80`}
+          className={`article-adv`}
+          containerClassName={`article-adv`}
+          loading={'eager'}
+          maxSrcWidth={600}
+        />
+      </a>
+
       <!-- categories -->
       <ArticleCategories categories={article.categories} />
 
@@ -398,5 +410,14 @@
       flex-direction: column;
       gap: 18px;
     }
+  }
+
+  /* article advertisment */
+  :global(.article-adv) {
+    width: 600px;
+    height: 150px;
+  }
+  :global(.article-adv > img) {
+    position: absolute;
   }
 </style>
