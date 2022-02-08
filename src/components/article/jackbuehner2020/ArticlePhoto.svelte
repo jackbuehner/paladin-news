@@ -31,4 +31,5 @@
 <Image
   {src}
   className={`article-photo-image--jackbuehner`}
-  containerClassName={`article-photo-container--jackbuehner`} />
+  containerClassName={`article-photo-container--jackbuehner`}
+  loading={'eager'} />

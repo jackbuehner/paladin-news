@@ -24,4 +24,5 @@
 <Image
   {src}
   className={`article-photo-image--furmanpaladin`}
-  containerClassName={`article-photo-container--furmanpaladin`} />
+  containerClassName={`article-photo-container--furmanpaladin`}
+  loading={'eager'} />

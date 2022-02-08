@@ -27,10 +27,11 @@
 </style>
 
 <script lang="ts">
-  import { afterUpdate, onMount } from 'svelte';
+  import { afterUpdate } from 'svelte';
 
   export let src: string;
   export let alt: string = '';
+  export let loading: 'eager' | 'lazy' = 'lazy';
   export let className: string = undefined;
   export let containerClassName: string = undefined;
   export let maxSrcWidth: number = 1000;
@@ -94,7 +95,7 @@
       src={tinySrc}
       {alt}
       class={showTiny ? `${className} show` : `${className} hide`}
-      loading={'lazy'} />
+      {loading} />
     <img
       src={realSrc}
       {alt}
@@ -102,6 +103,6 @@
       loading={'lazy'}
       bind:this={finalImgElem} />
   {:else}
-    <img {src} class={className} {alt} loading={'lazy'} />
+    <img {src} class={className} {alt} {loading} />
   {/if}
 </div>

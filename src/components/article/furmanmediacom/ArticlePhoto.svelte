@@ -25,4 +25,5 @@
 <Image
   {src}
   className={`article-photo-image--furmanmediacom`}
-  containerClassName={`article-photo-container--furmanmediacom`} />
+  containerClassName={`article-photo-container--furmanmediacom`}
+  loading={'eager'} />
