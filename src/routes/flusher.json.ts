@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */ // the triple backslash is required for graphql
 import type { EndpointOutput } from '@sveltejs/kit';
 import type { JSONValue } from '@sveltejs/kit/types/helper';
 import type { ServerRequest } from '@sveltejs/kit/types/hooks';

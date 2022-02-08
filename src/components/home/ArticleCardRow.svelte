@@ -7,12 +7,12 @@
   import { insertDate } from '../../utils/insertDate';
 
   export let quantity: [number, number, number, number] = [5, 4, 2, 3]; // breakpoints: largest, medium, small, mobile
-  export let mobilePhotoMultiple: number = 4; // hide every photo on mobile except for any multiple of this number (e.g. 3 shows photos for first photo, fourth photo, seventh photo, etc.)
+  export let mobilePhotoMultiple = 4; // hide every photo on mobile except for any multiple of this number (e.g. 3 shows photos for first photo, fourth photo, seventh photo, etc.)
   export let label: string;
   export let href: string = undefined;
   export let categories: string = undefined;
-  export let gridArea: string = 'auto';
-  export let forceVertical: boolean = false;
+  export let gridArea = 'auto';
+  export let forceVertical = false;
   export let articles: AggregatePaginateResult<IArticle> = undefined;
 
   $: windowWidth = 0;

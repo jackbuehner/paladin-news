@@ -5,8 +5,8 @@
   const tab = {};
   const { registerTab, selectTab, selectedTab } = getContext(TABS);
 
-  export let grow: boolean = false;
-  export let isDefault: boolean = false;
+  export let grow = false;
+  export let isDefault = false;
 
   onMount(() => {
     if (isDefault === true) selectTab(tab);

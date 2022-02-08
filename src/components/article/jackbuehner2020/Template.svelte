@@ -12,8 +12,6 @@
   } from './';
   import type { IArticle } from 'src/interfaces/articles';
   import Container from '/src/components/Container.svelte';
-  import { onMount } from 'svelte';
-  import { title } from '../../../stores/title';
   import Button from '/src/components/Button.svelte';
   import { goto } from '$app/navigation';
   import Comments from './comments/Comments.svelte';

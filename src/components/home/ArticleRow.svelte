@@ -4,7 +4,7 @@
   import { string as smartquotes } from 'smartquotes';
   import Image from '../Image.svelte';
 
-  export let style: string = '';
+  export let style = '';
   export let name: string;
   export let description: string = undefined;
   export let href: string;

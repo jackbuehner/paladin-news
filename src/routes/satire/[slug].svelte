@@ -44,7 +44,7 @@
   import Container from '/src/components/Container.svelte';
   import SatireMeta from '/src/components/article/jackbuehner2020/SatireMeta.svelte';
   import { headerIsSatire } from '../../stores/header';
-  import { beforeUpdate, onDestroy, onMount } from 'svelte';
+  import { onDestroy } from 'svelte';
   import { title } from '../../stores/title';
 
   export let satire: ISatire;

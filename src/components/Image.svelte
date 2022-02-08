@@ -2,11 +2,11 @@
   import { afterUpdate } from 'svelte';
 
   export let src: string;
-  export let alt: string = '';
+  export let alt = '';
   export let loading: 'eager' | 'lazy' = 'lazy';
   export let className: string = undefined;
   export let containerClassName: string = undefined;
-  export let maxSrcWidth: number = 1000;
+  export let maxSrcWidth = 1000;
 
   const ik = 'https://ik.imagekit.io/paladin/';
 

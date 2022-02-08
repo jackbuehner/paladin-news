@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import type { GraphJsonType, Paged } from '.';
 
 const GET_ARTICLES = `
@@ -88,7 +89,7 @@ interface GET_ARTICLES__TYPE {
   articlesPublic?: Paged<GET_ARTICLES__DOC_TYPE>;
 }
 
-interface GET_ARTICLES__JSON extends GraphJsonType<GET_ARTICLES__TYPE> {}
+type GET_ARTICLES__JSON = GraphJsonType<GET_ARTICLES__TYPE>;
 
 export { GET_ARTICLES };
 export type { GET_ARTICLES__JSON, GET_ARTICLES__TYPE, GET_ARTICLES__DOC_TYPE };

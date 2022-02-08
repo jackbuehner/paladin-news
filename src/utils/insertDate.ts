@@ -1,10 +1,10 @@
-type InputType<T = Record<string, any>> = T & {
+type InputType<T = Record<string, unknown>> = T & {
   timestamps: {
     published_at: string; // ISO date
   };
 };
 
-type ReturnType<T = Record<string, any>> = T & {
+type ReturnType<T = Record<string, unknown>> = T & {
   date: {
     day: string;
     month: string;
@@ -25,6 +25,7 @@ type ReturnType<T = Record<string, any>> = T & {
  * }
  * ```
  */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function insertDate<T>(docs: InputType<T>[]) {
   return docs.map((doc) => {
     // initialize a date object

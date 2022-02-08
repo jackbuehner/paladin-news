@@ -6,7 +6,6 @@
   import ArticleCard from '../home/ArticleCard.svelte';
   import { insertDate } from '../../utils/insertDate';
 
-  export let type: 'featured' = 'featured';
   export let articles: AggregatePaginateResult<IArticle> = undefined;
 
   // if articles is undefined, retrieve the featured articles
@@ -19,7 +18,7 @@
   });
 </script>
 
-<div class={'grid'} class:featured={type === 'featured'}>
+<div class={'grid featured'}>
   <h2>Featured articles</h2>
   {#if articles && articles.docs}
     {#each insertDate(Array.from(articles.docs).slice(0, 4)) as article, index}
@@ -35,7 +34,7 @@
         date={article.timestamps.published_at}
         authors={article.people.authors}
         categories={article.categories}
-        isCompact={type === 'featured' ? index === 2 || index === 3 : false}
+        isCompact={index === 2 || index === 3}
       />
 
       {#if index < articles.docs.length - 1}

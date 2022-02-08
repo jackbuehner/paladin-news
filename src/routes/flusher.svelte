@@ -28,7 +28,6 @@
 
 <script lang="ts">
   import Container from '/src/components/Container.svelte';
-  import { onMount } from 'svelte';
   import { title } from '../stores/title';
   import type { IFlush } from 'src/interfaces/flush';
   import ArticleRow from '/src/components/home/ArticleRow.svelte';

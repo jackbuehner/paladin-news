@@ -2,7 +2,7 @@
   //export let type = 'default';
   export let viewBox = '0 0 24 24';
   export let disabled = false;
-  export let isOutlined: boolean = false;
+  export let isOutlined = false;
   export let ariaLabel: string;
   export let href: string = undefined;
   export let color: string = undefined;

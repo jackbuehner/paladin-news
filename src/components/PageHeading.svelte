@@ -3,7 +3,7 @@
 
   export let type: 'block' | 'line' | 'blockCentered' = 'line';
   export let subtitle: string = undefined;
-  export let width: number = 1200;
+  export let width = 1200;
 </script>
 
 {#if type === 'line'}

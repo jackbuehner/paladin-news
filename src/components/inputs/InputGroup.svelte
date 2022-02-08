@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let style: string = '';
+  export let style = '';
 </script>
 
 <div {style}><slot /></div>

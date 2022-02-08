@@ -35,12 +35,6 @@
 </Container>
 
 <style>
-  form > div {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(4, auto);
-    gap: 0 20px;
-  }
   :global(div.kw-alert) {
     font-family: var(--font-detail);
     font-size: 14px;

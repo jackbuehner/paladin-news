@@ -34,7 +34,6 @@
   import ArticleRow from '/src/components/home/ArticleRow.svelte';
   import PageHeading from '/src/components/PageHeading.svelte';
   import Container from '/src/components/Container.svelte';
-  import { onMount } from 'svelte';
   import { title } from '../../stores/title';
   import { insertDate } from '../../utils/insertDate';
 

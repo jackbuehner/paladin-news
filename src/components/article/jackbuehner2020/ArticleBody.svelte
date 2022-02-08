@@ -15,7 +15,7 @@
       for (let i = 0; i < resizableIframeElems.length; i++) {
         const iframeElem = resizableIframeElems[i];
         iframeElem.id = `resizeIframe${i}`;
-        // @ts-ignore
+        // @ts-expect-error iFrameResize is added via a script element
         window.iFrameResize(
           { log: false, autoResize: true, checkOrigin: false, resizeFrom: 'child' },
           `#resizeIframe${i}`
@@ -28,6 +28,7 @@
   // find all figures and add click listeners to maximize them
   onMount(() => {
     // get all figures
+    // eslint-disable-next-line no-undef
     const figures: NodeListOf<HTMLElement> = document.querySelectorAll('figure.widget');
 
     figures.forEach((figure) => {

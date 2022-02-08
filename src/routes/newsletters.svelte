@@ -46,7 +46,6 @@
     const email = localStorage.getItem('email');
     if (email) {
       // find the form element that contains the button
-      const clickedElem = event.target;
       let formElem;
       let formElemProcess = event.target;
       while (!formElem) {
@@ -60,7 +59,6 @@
         }
       }
       // set the email field and submit
-      const submitButtonElem = formElem.querySelector('[type=submit]');
       const emailFormElem = formElem.querySelector('[type=email]');
       emailFormElem.value = email;
       //@ts-expect-error emailOctopus is added to window

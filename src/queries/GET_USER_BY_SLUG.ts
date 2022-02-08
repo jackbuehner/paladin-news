@@ -32,7 +32,7 @@ interface GET_USER_BY_SLUG__DOC_TYPE {
   group: number;
 }
 
-interface GET_USER_BY_SLUG__JSON extends GraphJsonType<GET_USER_BY_SLUG__TYPE> {}
+type GET_USER_BY_SLUG__JSON = GraphJsonType<GET_USER_BY_SLUG__TYPE>;
 
 export { GET_USER_BY_SLUG };
 export type { GET_USER_BY_SLUG__JSON, GET_USER_BY_SLUG__TYPE, GET_USER_BY_SLUG__DOC_TYPE };

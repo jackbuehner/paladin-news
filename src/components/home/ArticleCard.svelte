@@ -4,7 +4,7 @@
   import { string as smartquotes } from 'smartquotes';
   import Image from '../Image.svelte';
 
-  export let style: string = '';
+  export let style = '';
   export let name: string;
   export let description: string = undefined;
   export let href: string;
@@ -12,9 +12,9 @@
   export let photoCredit: string = undefined;
   export let date: string = undefined; // ISO date format
   export let authors: IArticleAuthor[] = [];
-  export let isCompact: boolean = false;
-  export let isCategoryPage: boolean = false;
-  export let isLargerHeadline: boolean = false;
+  export let isCompact = false;
+  export let isCategoryPage = false;
+  export let isLargerHeadline = false;
   export let categories: string[] = undefined;
 
   // modify the names of the categories to match the website sections

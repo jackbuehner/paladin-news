@@ -6,7 +6,7 @@ import type { ServerRequest } from '@sveltejs/kit/types/hooks';
  */
 async function get(request: ServerRequest): Promise<EndpointOutput> {
   // create the headers
-  var headers = new Headers();
+  const headers = new Headers();
   headers.append('Authorization', `Bearer ${request.headers.token}`);
 
   // get the details of the current account

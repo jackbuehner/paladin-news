@@ -9,12 +9,10 @@
   const appId = 'MYSXBURUSK';
   const searchKey = '5dc1852a286a90c74edc560c6f485aae';
 
-  let client, input, query, promise;
-
   onMount(() => {
-    // @ts-ignore
+    // @ts-expect-error algoliasearch is defined in window
     const algoliasearch = window.algoliasearch;
-    // @ts-ignore
+    // @ts-expect-error instantsearch is defined in window
     const instantsearch = window.instantsearch;
 
     const client = algoliasearch(appId, searchKey);
