@@ -3,7 +3,7 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  src: local(''), url(./adamant-bg/Adamant_BG-Regular.woff2) format("woff2"), url(./adamant-bg/Adamant_BG-Regular.otf) format("opentype");
+  src: local(''), url(./fonts/adamant-bg/Adamant_BG-Regular.woff2) format("woff2"), url(./fonts/adamant-bg/Adamant_BG-Regular.otf) format("opentype");
 }
 
 @font-face {
@@ -11,7 +11,7 @@
   font-weight: 400;
   font-style: italic;
   font-display: swap;
-  src: local(''), url(./adamant-bg/Adamant_BG-Italic.woff2) format("woff2"), url(./adamant-bg/Adamant_BG-Italic.otf) format("opentype");
+  src: local(''), url(./fonts/adamant-bg/Adamant_BG-Italic.woff2) format("woff2"), url(./fonts/adamant-bg/Adamant_BG-Italic.otf) format("opentype");
 }
 
 @font-face {
@@ -19,7 +19,7 @@
   font-weight: 700;
   font-style: normal;
   font-display: swap;
-  src: local(''), url(./adamant-bg/Adamant_BG-Bold.woff2) format("woff2"), url(./adamant-bg/Adamant_BG-Bold.otf) format("opentype");
+  src: local(''), url(./fonts/adamant-bg/Adamant_BG-Bold.woff2) format("woff2"), url(./fonts/adamant-bg/Adamant_BG-Bold.otf) format("opentype");
 }
 
 @font-face {
@@ -27,7 +27,7 @@
   font-weight: 700;
   font-style: italic;
   font-display: swap;
-  src: local(''), url(./adamant-bg/Adamant_BG-BoldItalic.woff2) format("woff2"), url(./adamant-bg/Adamant_BG-BoldItalic.otf) format("opentype");
+  src: local(''), url(./fonts/adamant-bg/Adamant_BG-BoldItalic.woff2) format("woff2"), url(./fonts/adamant-bg/Adamant_BG-BoldItalic.otf) format("opentype");
 }
 
 @font-face {
@@ -35,7 +35,7 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  src: local(''), url(./lato/Lato-Regular.woff2) format("woff2"), url(./lato/Lato-Regular.ttf) format("truetype");
+  src: local(''), url(./fonts/lato/Lato-Regular.woff2) format("woff2"), url(./fonts/lato/Lato-Regular.ttf) format("truetype");
 }
 
 @font-face {
@@ -43,7 +43,7 @@
   font-weight: 400;
   font-style: italic;
   font-display: swap;
-  src: local(''), url(./lato/Lato-Italic.woff2) format("woff2"), url(./lato/Lato-Italic.ttf) format("truetype");
+  src: local(''), url(./fonts/lato/Lato-Italic.woff2) format("woff2"), url(./fonts/lato/Lato-Italic.ttf) format("truetype");
 }
 
 @font-face {
@@ -51,7 +51,7 @@
   font-weight: 500;
   font-style: normal;
   font-display: swap;
-  src: local(''), url(./lato/Lato-Medium.woff2) format("woff2"), url(./lato/Lato-Medium.ttf) format("truetype");
+  src: local(''), url(./fonts/lato/Lato-Medium.woff2) format("woff2"), url(./fonts/lato/Lato-Medium.ttf) format("truetype");
 }
 
 @font-face {
@@ -59,7 +59,7 @@
   font-weight: 500;
   font-style: italic;
   font-display: swap;
-  src: local(''), url(./lato/Lato-MediumItalic.woff2) format("woff2"), url(./lato/Lato-MediumItalic.ttf) format("truetype");
+  src: local(''), url(./fonts/lato/Lato-MediumItalic.woff2) format("woff2"), url(./fonts/lato/Lato-MediumItalic.ttf) format("truetype");
 }
 
 @font-face {
@@ -67,7 +67,7 @@
   font-weight: 600;
   font-style: normal;
   font-display: swap;
-  src: local(''), url(./lato/Lato-SemiBold.woff2) format("woff2"), url(./lato/Lato-SemiBold.ttf) format("truetype");
+  src: local(''), url(./fonts/lato/Lato-SemiBold.woff2) format("woff2"), url(./fonts/lato/Lato-SemiBold.ttf) format("truetype");
 }
 
 @font-face {
@@ -75,7 +75,7 @@
   font-weight: 600;
   font-style: italic;
   font-display: swap;
-  src: local(''), url(./lato/Lato-SemiBoldItalic.woff2) format("woff2"), url(./lato/Lato-SemiBoldItalic.ttf) format("truetype");
+  src: local(''), url(./fonts/lato/Lato-SemiBoldItalic.woff2) format("woff2"), url(./fonts/lato/Lato-SemiBoldItalic.ttf) format("truetype");
 }
 
 @font-face {
@@ -83,7 +83,7 @@
   font-weight: 700;
   font-style: normal;
   font-display: swap;
-  src: local(''), url(./lato/Lato-Bold.woff2) format("woff2"), url(./lato/Lato-Bold.ttf) format("truetype");
+  src: local(''), url(./fonts/lato/Lato-Bold.woff2) format("woff2"), url(./fonts/lato/Lato-Bold.ttf) format("truetype");
 }
 
 @font-face {
@@ -91,7 +91,7 @@
   font-weight: 700;
   font-style: italic;
   font-display: swap;
-  src: local(''), url(./lato/Lato-BoldItalic.woff2) format("woff2"), url(./lato/Lato-BoldItalic.ttf) format("truetype");
+  src: local(''), url(./fonts/lato/Lato-BoldItalic.woff2) format("woff2"), url(./fonts/lato/Lato-BoldItalic.ttf) format("truetype");
 }
 
 @font-face {
@@ -99,7 +99,7 @@
   font-weight: 400;
   font-style: italic;
   font-display: swap;
-  src: local(''), url(./merriweather/Merriweather-Italic.woff2) format("woff2"), url(./merriweather/Merriweather-Italic.ttf) format("truetype");
+  src: local(''), url(./fonts/merriweather/Merriweather-Italic.woff2) format("woff2"), url(./fonts/merriweather/Merriweather-Italic.ttf) format("truetype");
 }
 
 @font-face {
@@ -107,7 +107,7 @@
   font-weight: 700;
   font-style: normal;
   font-display: swap;
-  src: local(''), url(./merriweather/Merriweather-Bold.woff2) format("woff2"), url(./merriweather/Merriweather-Bold.ttf) format("truetype");
+  src: local(''), url(./fonts/merriweather/Merriweather-Bold.woff2) format("woff2"), url(./fonts/merriweather/Merriweather-Bold.ttf) format("truetype");
 }
 
 @font-face {
@@ -115,7 +115,7 @@
   font-weight: 900;
   font-style: normal;
   font-display: swap;
-  src: local(''), url(./merriweather/Merriweather-Black.woff2) format("woff2"), url(./merriweather/Merriweather-Black.ttf) format("truetype");
+  src: local(''), url(./fonts/merriweather/Merriweather-Black.woff2) format("woff2"), url(./fonts/merriweather/Merriweather-Black.ttf) format("truetype");
 }
 
 @font-face {
@@ -123,7 +123,7 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  src: local(''), url(./pt-serif/PTSerif-Regular.woff2) format("woff2"), url(./pt-serif/PTSerif-Regular.ttf) format("truetype");
+  src: local(''), url(./fonts/pt-serif/PTSerif-Regular.woff2) format("woff2"), url(./fonts/pt-serif/PTSerif-Regular.ttf) format("truetype");
 }
 
 @font-face {
@@ -131,7 +131,7 @@
   font-weight: 400;
   font-style: italic;
   font-display: swap;
-  src: local(''), url(./pt-serif/PTSerif-Italic.woff2) format("woff2"), url(./pt-serif/PTSerif-Italic.ttf) format("truetype");
+  src: local(''), url(./fonts/pt-serif/PTSerif-Italic.woff2) format("woff2"), url(./fonts/pt-serif/PTSerif-Italic.ttf) format("truetype");
 }
 
 @font-face {
@@ -139,7 +139,7 @@
   font-weight: 700;
   font-style: normal;
   font-display: swap;
-  src: local(''), url(./pt-serif/PTSerif-Bold.woff2) format("woff2"), url(./pt-serif/PTSerif-Bold.ttf) format("truetype");
+  src: local(''), url(./fonts/pt-serif/PTSerif-Bold.woff2) format("woff2"), url(./fonts/pt-serif/PTSerif-Bold.ttf) format("truetype");
 }
 
 @font-face {
@@ -147,5 +147,5 @@
   font-weight: 700;
   font-style: italic;
   font-display: swap;
-  src: local(''), url(./pt-serif/PTSerif-BoldItalic.woff2) format("woff2"), url(./pt-serif/PTSerif-BoldItalic.ttf) format("truetype");
+  src: local(''), url(./fonts/pt-serif/PTSerif-BoldItalic.woff2) format("woff2"), url(./fonts/pt-serif/PTSerif-BoldItalic.ttf) format("truetype");
 }
