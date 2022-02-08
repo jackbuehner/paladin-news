@@ -370,8 +370,9 @@
         <div class={'groups'}>
           <div class={'group'}>
             <img
-              src={'https://paladin-photo-library.s3.us-east-1.amazonaws.com/sunday-summary_logo_banner_background.svg'}
-              alt={'Sunday Summary'} />
+              src={'https://ik.imagekit.io/paladin/sunday-summary_logo_banner_background.svg'}
+              alt={'Sunday Summary'}
+              loading={'lazy'} />
             <div class={'desc'}>
               A newsletter discussing the top articles of the week. Subscribe to recieve it in your
               inbox every Sunday.
