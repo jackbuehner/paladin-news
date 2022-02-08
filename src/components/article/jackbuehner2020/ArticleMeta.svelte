@@ -74,7 +74,7 @@
   </div>
   <div class={'social-buttons'}>
     <SocialButton
-      aria-label="share on Facebook"
+      ariaLabel={'share on Facebook'}
       on:click={() => share('facebook', articleName, articleDescription, articleLocation)}
     >
       <svg viewBox="0 0 7 15"
@@ -87,7 +87,7 @@
       >
     </SocialButton>
     <SocialButton
-      aria-label="share on Twitter"
+      ariaLabel={'share on Twitter'}
       on:click={() => share('twitter', articleName, articleDescription, articleLocation)}
     >
       <svg viewBox="0 0 24 24"
@@ -98,7 +98,7 @@
       >
     </SocialButton>
     <SocialButton
-      aria-label="share via email"
+      ariaLabel={'share via email'}
       on:click={() => share('email', articleName, articleDescription, articleLocation)}
     >
       <svg viewBox="0 0 24 24"
@@ -109,7 +109,7 @@
       >
     </SocialButton>
     <SocialButton
-      aria-label="share on LinkedIn"
+      ariaLabel={'share on LinkedIn'}
       on:click={() => share('linkedin', articleName, articleDescription, articleLocation)}
     >
       <svg viewBox="0 0 24 24"

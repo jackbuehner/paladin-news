@@ -1,9 +1,10 @@
-<script>
+<script lang="ts">
   //export let type = 'default';
   export let disabled = false;
+  export let ariaLabel: string;
 </script>
 
-<button on:click class:disabled>
+<button on:click class:disabled aria-label={ariaLabel}>
   <svg style="width:15px;height:15px">
     <slot />
   </svg>
