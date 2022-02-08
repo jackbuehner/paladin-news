@@ -1,3 +1,16 @@
+<script lang="ts">
+  import Image from '../../Image.svelte';
+
+  export let src: string;
+</script>
+
+<Image
+  {src}
+  className={`article-photo-image--jackbuehner`}
+  containerClassName={`article-photo-container--jackbuehner`}
+  loading={'eager'}
+/>
+
 <style>
   :global(.article-photo-container--jackbuehner) {
     width: 100%;
@@ -21,15 +34,3 @@
     object-fit: cover;
   }
 </style>
-
-<script lang="ts">
-  import Image from '../../Image.svelte';
-
-  export let src: string;
-</script>
-
-<Image
-  {src}
-  className={`article-photo-image--jackbuehner`}
-  containerClassName={`article-photo-container--jackbuehner`}
-  loading={'eager'} />

@@ -1,3 +1,9 @@
+<script lang="ts">
+  export let style: string = '';
+</script>
+
+<div {style}><slot /></div>
+
 <style>
   div {
     margin-block-end: 12px;
@@ -17,9 +23,3 @@
     font-family: var(--font-detail);
   }
 </style>
-
-<script lang="ts">
-  export let style: string = '';
-</script>
-
-<div {style}><slot /></div>

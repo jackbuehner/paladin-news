@@ -1,3 +1,5 @@
+<div><slot /></div>
+
 <style>
   div {
     display: inline;
@@ -8,5 +10,3 @@
     line-height: 20px;
   }
 </style>
-
-<div><slot /></div>

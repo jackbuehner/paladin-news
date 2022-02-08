@@ -8,10 +8,11 @@
   "trailingComma": "es5",
   "bracketSpacing": true,
   "arrowParens": "always",
-  "proseWrap": "preserve",
-  "svelteSortOrder" : "options-styles-scripts-markup",
+  "proseWrap": "always",
+  "endOfLine": "lf",
   "svelteStrictMode": false,
-  "svelteBracketNewLine": false,
   "svelteAllowShorthand": true,
+  "svelteSortOrder": "options-scripts-markup-styles",
+  "bracketSameLine": false,
   "svelteIndentScriptAndStyle": true
 }

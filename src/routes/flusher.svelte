@@ -1,3 +1,77 @@
+<script context="module" lang="ts">
+  import type { LoadInput, LoadOutput } from '@sveltejs/kit';
+
+  /**
+   * @type {import('@sveltejs/kit').Load}
+   */
+  export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
+    const url = `/flusher.json?${page.query.toString()}`;
+    const res = await fetch(url);
+
+    // set the document title
+    title.set('The Royal Flush');
+
+    if (res.ok) {
+      return {
+        props: {
+          flusher: await res.json(),
+        },
+      };
+    }
+
+    return {
+      status: res.status,
+      error: new Error(`Could not load ${url}`),
+    };
+  }
+</script>
+
+<script lang="ts">
+  import Container from '/src/components/Container.svelte';
+  import { onMount } from 'svelte';
+  import { title } from '../stores/title';
+  import type { IFlush } from 'src/interfaces/flush';
+  import ArticleRow from '/src/components/home/ArticleRow.svelte';
+  import { formatISODate } from '../utils/formatISODate';
+  import { insertDate } from '../utils/insertDate';
+
+  export let flusher: IFlush;
+
+  const featuredArticle = flusher.articles.featured
+    ? insertDate([flusher.articles.featured])[0]
+    : null;
+</script>
+
+<h1>The Royal Flush</h1>
+<subtitle>Week of {formatISODate(flusher.timestamps.week)}</subtitle>
+
+<Container>
+  <h2>Featured Article</h2>
+  <ArticleRow
+    name={featuredArticle?.name}
+    href={featuredArticle?.date
+      ? `/articles/${featuredArticle.date.year}/${featuredArticle.date.month}/${featuredArticle.date.day}/${featuredArticle.slug}`
+      : `/articles/${featuredArticle.slug}`}
+    description={featuredArticle?.description}
+    photo={featuredArticle?.photo_path}
+    date={featuredArticle?.timestamps.published_at}
+    authors={featuredArticle?.people.authors.filter((author) => !!author)}
+  />
+
+  <h2>More Articles</h2>
+  <ol>
+    {#each insertDate(flusher.articles.more) as article}
+      <li>
+        <a
+          href={article.date
+            ? `/articles/${article.date.year}/${article.date.month}/${article.date.day}/${article.slug}`
+            : `/articles/${article.slug}`}>{article.name}</a
+        >
+      </li>
+    {/each}
+  </ol>
+</Container>
+
 <style>
   h1 {
     font-family: var(--font-headline);
@@ -57,75 +131,3 @@
     color: var(--color-neutral-light);
   }
 </style>
-
-<script context="module" lang="ts">
-  import type { LoadInput, LoadOutput } from '@sveltejs/kit';
-
-  /**
-   * @type {import('@sveltejs/kit').Load}
-   */
-  export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
-    const url = `/flusher.json?${page.query.toString()}`;
-    const res = await fetch(url);
-
-    // set the document title
-    title.set('The Royal Flush');
-
-    if (res.ok) {
-      return {
-        props: {
-          flusher: await res.json(),
-        },
-      };
-    }
-
-    return {
-      status: res.status,
-      error: new Error(`Could not load ${url}`),
-    };
-  }
-</script>
-
-<script lang="ts">
-  import Container from '/src/components/Container.svelte';
-  import { onMount } from 'svelte';
-  import { title } from '../stores/title';
-  import type { IFlush } from 'src/interfaces/flush';
-  import ArticleRow from '/src/components/home/ArticleRow.svelte';
-  import { formatISODate } from '../utils/formatISODate';
-  import { insertDate } from '../utils/insertDate';
-
-  export let flusher: IFlush;
-
-  const featuredArticle = flusher.articles.featured
-    ? insertDate([flusher.articles.featured])[0]
-    : null;
-</script>
-
-<h1>The Royal Flush</h1>
-<subtitle>Week of {formatISODate(flusher.timestamps.week)}</subtitle>
-
-<Container>
-  <h2>Featured Article</h2>
-  <ArticleRow
-    name={featuredArticle?.name}
-    href={featuredArticle?.date
-      ? `/articles/${featuredArticle.date.year}/${featuredArticle.date.month}/${featuredArticle.date.day}/${featuredArticle.slug}`
-      : `/articles/${featuredArticle.slug}`}
-    description={featuredArticle?.description}
-    photo={featuredArticle?.photo_path}
-    date={featuredArticle?.timestamps.published_at}
-    authors={featuredArticle?.people.authors.filter((author) => !!author)} />
-
-  <h2>More Articles</h2>
-  <ol>
-    {#each insertDate(flusher.articles.more) as article}
-      <li>
-        <a
-          href={article.date
-            ? `/articles/${article.date.year}/${article.date.month}/${article.date.day}/${article.slug}`
-            : `/articles/${article.slug}`}>{article.name}</a>
-      </li>
-    {/each}
-  </ol>
-</Container>

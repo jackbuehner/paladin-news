@@ -1,31 +1,3 @@
-<style>
-  div {
-    position: relative;
-  }
-  img {
-    top: 0;
-  }
-  img.hide {
-    display: none;
-  }
-  img.show {
-    display: block;
-  }
-  img.loaded {
-    animation: imageFadeInAnimation ease-in-out 400ms;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-  }
-  @keyframes imageFadeInAnimation {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-</style>
-
 <script lang="ts">
   import { afterUpdate } from 'svelte';
 
@@ -95,14 +67,44 @@
       src={tinySrc}
       {alt}
       class={showTiny ? `${className} show` : `${className} hide`}
-      {loading} />
+      {loading}
+    />
     <img
       src={realSrc}
       {alt}
       class={showFinal ? `${className} show loaded` : `${className} hide`}
       loading={'lazy'}
-      bind:this={finalImgElem} />
+      bind:this={finalImgElem}
+    />
   {:else}
     <img {src} class={className} {alt} {loading} />
   {/if}
 </div>
+
+<style>
+  div {
+    position: relative;
+  }
+  img {
+    top: 0;
+  }
+  img.hide {
+    display: none;
+  }
+  img.show {
+    display: block;
+  }
+  img.loaded {
+    animation: imageFadeInAnimation ease-in-out 400ms;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+  @keyframes imageFadeInAnimation {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+</style>

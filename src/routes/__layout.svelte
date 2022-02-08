@@ -1,15 +1,3 @@
-<style>
-  div.wrapper {
-    display: flex;
-    flex-direction: column;
-    height: fit-content;
-    min-height: 100%;
-  }
-  div.content {
-    flex-grow: 1;
-  }
-</style>
-
 <script context="module" lang="ts">
   /** @type {import('@sveltejs/kit').Load} */
   export async function load({ page }) {
@@ -103,3 +91,15 @@
 </div>
 
 <Search />
+
+<style>
+  div.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    min-height: 100%;
+  }
+  div.content {
+    flex-grow: 1;
+  }
+</style>

@@ -1,3 +1,48 @@
+<script lang="ts">
+  import { commentsOpen } from '../../../../stores/comments';
+  import { onMount } from 'svelte';
+  import IconButton from '../../../IconButton.svelte';
+
+  export let pageId: string;
+
+  onMount(() => {
+    // create and add the commento script
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.defer = true;
+    script.src = 'https://cdn.commento.io/js/commento.js';
+    script.setAttribute('data-auto-init', 'false');
+    script.setAttribute('data-no-fonts', 'true');
+    script.setAttribute('data-page-id', pageId);
+    document.body.appendChild(script);
+
+    // wait for the comment script to become available
+    script.onload = () => {
+      // @ts-expect-error commento script is loaded on this page
+      const commento = window.commento;
+
+      // initialize commento
+      commento.main();
+    };
+  });
+</script>
+
+<div class={'flyout'}>
+  <div class={'close-button'}>
+    <IconButton ariaLabel={'close'} on:click={() => ($commentsOpen = false)}
+      ><svg style="width:24px;height:24px" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+        />
+      </svg></IconButton
+    >
+  </div>
+  <div class={'heading'}>Comments</div>
+  <!-- comments container -->
+  <div id={'commento'} />
+</div>
+
 <style>
   .flyout {
     position: relative;
@@ -210,46 +255,3 @@
     display: none;
   }
 </style>
-
-<script lang="ts">
-  import { commentsOpen } from '../../../../stores/comments';
-  import { onMount } from 'svelte';
-  import IconButton from '../../../IconButton.svelte';
-
-  export let pageId: string;
-
-  onMount(() => {
-    // create and add the commento script
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.defer = true;
-    script.src = 'https://cdn.commento.io/js/commento.js';
-    script.setAttribute('data-auto-init', 'false');
-    script.setAttribute('data-no-fonts', 'true');
-    script.setAttribute('data-page-id', pageId);
-    document.body.appendChild(script);
-
-    // wait for the comment script to become available
-    script.onload = () => {
-      // @ts-expect-error commento script is loaded on this page
-      const commento = window.commento;
-
-      // initialize commento
-      commento.main();
-    };
-  });
-</script>
-
-<div class={'flyout'}>
-  <div class={'close-button'}>
-    <IconButton ariaLabel={'close'} on:click={() => ($commentsOpen = false)}
-      ><svg style="width:24px;height:24px" viewBox="0 0 24 24">
-        <path
-          fill="currentColor"
-          d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
-      </svg></IconButton>
-  </div>
-  <div class={'heading'}>Comments</div>
-  <!-- comments container -->
-  <div id={'commento'} />
-</div>

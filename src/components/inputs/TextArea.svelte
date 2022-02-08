@@ -1,3 +1,11 @@
+<script lang="ts">
+  export let name: string;
+  export let rows: number;
+  export let rules: string;
+</script>
+
+<textarea {name} {rows} data-kw-rules={rules} />
+
 <style>
   textarea {
     display: block;
@@ -23,11 +31,3 @@
     box-shadow: inset 0 0 0 2px rgb(var(--primary));
   }
 </style>
-
-<script lang="ts">
-  export let name: string;
-  export let rows: number;
-  export let rules: string;
-</script>
-
-<textarea {name} {rows} data-kw-rules={rules} />

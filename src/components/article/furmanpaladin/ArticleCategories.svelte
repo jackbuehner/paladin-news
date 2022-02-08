@@ -1,3 +1,18 @@
+<script lang="ts">
+  export let categories: string[];
+
+  // remove 'uncategorized' from categories unless length === 1
+  if (categories && categories.length > 1) {
+    categories = categories.filter((cat) => cat !== 'uncategorized');
+  }
+</script>
+
+<div>
+  {#each categories as category}
+    <a href={`/section/${category}`}>{category}</a>
+  {/each}
+</div>
+
 <style>
   div {
     margin-top: 60px;
@@ -31,18 +46,3 @@
     background-color: rgba(var(--legacy-primary), 0.16);
   }
 </style>
-
-<script lang="ts">
-  export let categories: string[];
-
-  // remove 'uncategorized' from categories unless length === 1
-  if (categories && categories.length > 1) {
-    categories = categories.filter((cat) => cat !== 'uncategorized');
-  }
-</script>
-
-<div>
-  {#each categories as category}
-    <a href={`/section/${category}`}>{category}</a>
-  {/each}
-</div>

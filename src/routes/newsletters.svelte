@@ -1,55 +1,3 @@
-<style>
-  /* subscription disclaimer */
-  .disclaimer {
-    margin-bottom: 10px;
-    font-family: var(--font-detail);
-    font-size: 14px;
-    color: var(--color-neutral-light);
-  }
-  .disclaimer a {
-    color: var(--color-neutral-light);
-  }
-  .disclaimer a:hover {
-    color: rgb(var(--primary));
-  }
-
-  /* email input */
-  #EMAIL {
-    display: block;
-    width: 100%;
-    height: 38px;
-    padding: 8px 12px;
-    margin-bottom: 10px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #333;
-    border: 0 solid #aaa;
-    border-radius: 2px;
-    background-color: transparent;
-    box-shadow: inset 0 0 0 1px #aaa;
-    transition: box-shadow 0.2s;
-    font-family: Lato, sans-serif;
-  }
-  #EMAIL:hover {
-    box-shadow: inset 0 0 0 1px #333;
-  }
-  #EMAIL:focus {
-    background-color: #fff;
-    box-shadow: inset 0 0 0 2px #722e97;
-  }
-
-  /* newsletter list */
-  .list {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    grid-auto-columns: minmax(240px, 1fr);
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto;
-    gap: 10px;
-  }
-</style>
-
 <script context="module" lang="ts">
   import { title } from '../stores/title';
   /** @type {import('@sveltejs/kit').Load} */
@@ -143,7 +91,8 @@
   type={'block'}
   width={1000}
   subtitle={'Stay up to date by subscribing to our newsletters and email notifications.'}
-  >Newsletters & notifications</PageHeading>
+  >Newsletters & notifications</PageHeading
+>
 
 <div style={'background-color: #f4f4f4; margin: -20px 0; padding: 20px 0'}>
   <Container width={1000}>
@@ -158,7 +107,8 @@
       data-name={'EMAIL'}
       placeholder={'Email address'}
       id={'EMAIL'}
-      on:blur={handleEmailBlur} />
+      on:blur={handleEmailBlur}
+    />
 
     <script src="https://emailoctopus.com/bundles/emailoctopuslist/js/1.6/form-embed.js"></script>
 
@@ -171,7 +121,8 @@
         name={'Sunday Summary'}
         description={`Editor-in-Chief Scotty Bryan's examinations of last week’s biggest stories and expectations for the week ahead.`}
         frequency={`Every Sunday`}
-        on:click={submitForm} />
+        on:click={submitForm}
+      />
       <NewsletterCard
         icon={'https://paladin-photo-library.s3.amazonaws.com/paladin-profiles_logo_square.svg'}
         listId={'f90b09cd-64fe-11eb-a3d0-06b4694bee2a'}
@@ -179,7 +130,8 @@
         description={`Interviews that highlight the important work Paladins past and present are doing 
       to improve diversity and inclusion on campus and beyond.`}
         frequency={`1-4 per semester`}
-        on:click={submitForm} />
+        on:click={submitForm}
+      />
       <NewsletterCard
         icon={'https://paladin-photo-library.s3.amazonaws.com/the-works_logo_square.svg'}
         listId={'95848d45-6500-11eb-a3d0-06b4694bee2a'}
@@ -187,8 +139,61 @@
         description={`The Paladin’s casual newsletter tracking the latest trends sweeping the student body, 
       highlighting creative talent, and shining a light on the best (and worst) aspects of campus culture at Furman.`}
         frequency={`Every Friday`}
-        on:click={submitForm} />
+        on:click={submitForm}
+      />
     </div>
     <div style={'border-bottom: 1px solid var(--border-dark); margin-top: 20px;'} />
   </Container>
 </div>
+
+<style>
+  /* subscription disclaimer */
+  .disclaimer {
+    margin-bottom: 10px;
+    font-family: var(--font-detail);
+    font-size: 14px;
+    color: var(--color-neutral-light);
+  }
+  .disclaimer a {
+    color: var(--color-neutral-light);
+  }
+  .disclaimer a:hover {
+    color: rgb(var(--primary));
+  }
+
+  /* email input */
+  #EMAIL {
+    display: block;
+    width: 100%;
+    height: 38px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    border: 0 solid #aaa;
+    border-radius: 2px;
+    background-color: transparent;
+    box-shadow: inset 0 0 0 1px #aaa;
+    transition: box-shadow 0.2s;
+    font-family: Lato, sans-serif;
+  }
+  #EMAIL:hover {
+    box-shadow: inset 0 0 0 1px #333;
+  }
+  #EMAIL:focus {
+    background-color: #fff;
+    box-shadow: inset 0 0 0 2px #722e97;
+  }
+
+  /* newsletter list */
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    grid-auto-columns: minmax(240px, 1fr);
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+  }
+</style>

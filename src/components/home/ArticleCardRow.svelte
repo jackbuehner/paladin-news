@@ -1,42 +1,3 @@
-<style>
-  section {
-    padding: 30px 0;
-    border-bottom: 1px solid var(--border-dark);
-    height: fit-content;
-  }
-  section.mobile {
-    border-top: 1px solid black;
-  }
-  div {
-    display: flex;
-    flex-direction: row;
-    gap: 16px;
-  }
-  div.mobile,
-  div.vertical {
-    flex-direction: column;
-  }
-  h2 {
-    font-family: var(--font-detail);
-    font-size: 18px;
-    line-height: 18px;
-    text-transform: uppercase;
-    margin: 0 0 16px 0;
-    color: var(--color-neutral-dark);
-  }
-  h2 > a {
-    text-decoration: none;
-    color: var(--color-neutral-dark);
-  }
-  span {
-    display: none;
-  }
-  span.mobile {
-    display: block;
-    border-bottom: 1px solid var(--border-dark);
-  }
-</style>
-
 <script lang="ts">
   import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
   import type { IArticle } from 'src/interfaces/articles';
@@ -107,7 +68,8 @@
           photoCredit={article.photo_credit}
           date={article.timestamps.published_at}
           authors={article.people.authors}
-          isCompact={forceVertical} />
+          isCompact={forceVertical}
+        />
         <span class:mobile={(windowWidth <= 560 || forceVertical) && index < arrayLength - 1} />
       {/each}
     {:else}
@@ -115,3 +77,42 @@
     {/if}
   </div>
 </section>
+
+<style>
+  section {
+    padding: 30px 0;
+    border-bottom: 1px solid var(--border-dark);
+    height: fit-content;
+  }
+  section.mobile {
+    border-top: 1px solid black;
+  }
+  div {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+  }
+  div.mobile,
+  div.vertical {
+    flex-direction: column;
+  }
+  h2 {
+    font-family: var(--font-detail);
+    font-size: 18px;
+    line-height: 18px;
+    text-transform: uppercase;
+    margin: 0 0 16px 0;
+    color: var(--color-neutral-dark);
+  }
+  h2 > a {
+    text-decoration: none;
+    color: var(--color-neutral-dark);
+  }
+  span {
+    display: none;
+  }
+  span.mobile {
+    display: block;
+    border-bottom: 1px solid var(--border-dark);
+  }
+</style>

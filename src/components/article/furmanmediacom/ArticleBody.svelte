@@ -1,3 +1,35 @@
+<script>
+  import { Slicker } from '@rooi/slicker';
+  import { onMount } from 'svelte';
+
+  onMount(() => {
+    const galleryElems = document.querySelectorAll('.gallery');
+    galleryElems.forEach((elem) => {
+      new Slicker(elem, {
+        arrows: true,
+        prevArrow: `<div class="gallery-arrow gallery-arrow__prev"><-</div>`,
+        nextArrow: `<div class="gallery-arrow gallery-arrow__next">-></div>`,
+        dots: true,
+        dotsClass: 'gallery-dots',
+        pauseOnHover: true,
+        pauseOnDotsHover: true,
+        autoplay: true,
+        autoplaySpeed: 2000,
+      });
+    });
+  });
+
+  export let doc;
+</script>
+
+<link rel="stylesheet" href="/gallery/slick.css" />
+<link rel="stylesheet" href="/gallery/slick-theme.css" />
+<link rel="stylesheet" href="/gallery/custom.css" />
+
+<div class={'article-body-furmanmediacom'}>
+  {@html doc}
+</div>
+
 <!-- svelte-ignore css-unused-selector -->
 <style>
   div.article-body-furmanmediacom {
@@ -57,35 +89,3 @@
     --height: 600px;
   }
 </style>
-
-<script>
-  import { Slicker } from '@rooi/slicker';
-  import { onMount } from 'svelte';
-
-  onMount(() => {
-    const galleryElems = document.querySelectorAll('.gallery');
-    galleryElems.forEach((elem) => {
-      new Slicker(elem, {
-        arrows: true,
-        prevArrow: `<div class="gallery-arrow gallery-arrow__prev"><-</div>`,
-        nextArrow: `<div class="gallery-arrow gallery-arrow__next">-></div>`,
-        dots: true,
-        dotsClass: 'gallery-dots',
-        pauseOnHover: true,
-        pauseOnDotsHover: true,
-        autoplay: true,
-        autoplaySpeed: 2000,
-      });
-    });
-  });
-
-  export let doc;
-</script>
-
-<link rel="stylesheet" href="/gallery/slick.css" />
-<link rel="stylesheet" href="/gallery/slick-theme.css" />
-<link rel="stylesheet" href="/gallery/custom.css" />
-
-<div class={'article-body-furmanmediacom'}>
-  {@html doc}
-</div>

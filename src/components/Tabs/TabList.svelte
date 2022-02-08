@@ -1,3 +1,7 @@
+<div class={'tab-list'}>
+  <slot />
+</div>
+
 <style>
   div {
     border-bottom: 1px solid var(--border-light);
@@ -12,7 +16,3 @@
     background-color: white;
   }
 </style>
-
-<div class={'tab-list'}>
-  <slot />
-</div>

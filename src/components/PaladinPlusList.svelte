@@ -1,3 +1,104 @@
+<script lang="ts">
+  import { goto } from '$app/navigation';
+
+  import Button from './Button.svelte';
+
+  const items = [
+    {
+      label: 'Deep Dive News',
+      href: '/newsletters',
+      src: 'https://paladin-photo-library.s3.us-east-1.amazonaws.com/deep-dive_logo_banner_color.svg',
+      description: 'A data-driven newsletter uncovering campus’ biggest stories.',
+      color: 'rgba(114,46,151,.16)',
+    },
+    {
+      label: 'Paladin Profiles',
+      href: '/newsletters',
+      src: 'https://paladin-photo-library.s3.us-east-1.amazonaws.com/paladin-profiles_banner_color.svg',
+      description:
+        'Video interviews that highlight the important work Paladins past and present are doing to improve diversity and inclusion on campus and beyond.',
+      color: 'rgba(114,46,151,.16)',
+    },
+    /*{
+      label: 'Red, White, Blue, & Purple',
+      href: '/newsletters',
+      src: 'https://paladin-photo-library.s3.us-east-1.amazonaws.com/rwbp_logo_banner.svg',
+      description:
+        'Price St. Clair’s podcast-newsletter that covers politics and policy from a Furman Perspective.',
+      color: 'rgba(114,46,151,.86)',
+    },*/
+    {
+      label: 'Sports Roundup',
+      href: '/newsletters',
+      src: 'https://paladin-photo-library.s3.us-east-1.amazonaws.com/sports-roundup_logo_banner_color.svg',
+      description:
+        'A newsletter from the Sports Editor with comprehensive updates on the Paladins and special features including video interviews with Furman athletes.',
+      color: 'rgba(114,46,151,.16)',
+    },
+    {
+      label: 'The Works',
+      href: '/newsletters',
+      src: 'https://paladin-photo-library.s3.us-east-1.amazonaws.com/the-works_logo_banner_color.svg',
+      description:
+        'A casual newsletter tracking the latest trends sweeping the student body, highlighting creative talent, and shining a light on the best (and worst) aspects of campus culture at Furman.',
+      color: 'rgba(114,46,151,.16)',
+    },
+    {
+      label: 'ZoomUni',
+      href: '/newsletters',
+      src: 'https://paladin-photo-library.s3.us-east-1.amazonaws.com/zoomuni_logo_banner_background.svg',
+      description:
+        'The ZoomUni podcast examines how changes in politics and culture are affecting college communities across the country through long-form interviews with a new special guest each week.',
+      color: 'rgba(26,36,145,.36)',
+    },
+    {
+      label: 'Sunday Summary',
+      href: '/newsletters',
+      src: 'https://paladin-photo-library.s3.us-east-1.amazonaws.com/sunday-summary_logo_banner_background.svg',
+      description:
+        'Editor-in-Chief Emeritus Evan Myers’ examinations of last week’s biggest stories, expositions on the best and worst that Furman has to offer, and expectations for the week ahead.',
+      color: 'rgba(114,46,151,.16)',
+    },
+  ];
+
+  $: width = width;
+</script>
+
+<div class={'outer'} bind:offsetWidth={width}>
+  <div class={'inner'}>
+    <h1>Paladin Plus</h1>
+    <div class={'sub'}>
+      A campus-focused subscription service written by students for the Furman community.
+    </div>
+    <div class={'button-row'}>
+      <Button on:click={() => goto('/newsletters')}>Subscribe</Button>
+    </div>
+    <div
+      class={'grid'}
+      style={`grid-template-columns: ${
+        width > 1200
+          ? '1fr 1fr 1fr 1fr'
+          : width > 990
+          ? '1fr 1fr 1fr'
+          : width <= 560
+          ? '1fr'
+          : '1fr 1fr'
+      };`}
+    >
+      {#each items as item}
+        <div>
+          <div class={'card'}>
+            <a href={item.href} aria-label={item.label}>
+              <img src={item.src} alt={''} />
+            </a>
+          </div>
+          <div class={'description'}>{item.description}</div>
+        </div>
+      {/each}
+    </div>
+  </div>
+</div>
+
 <style>
   .outer {
     position: relative;
@@ -53,109 +154,3 @@
     text-align: center;
   }
 </style>
-
-<script lang="ts">
-  import { goto } from '$app/navigation';
-
-  import Button from './Button.svelte';
-
-  const items = [
-    {
-      label: 'Deep Dive News',
-      href: '/newsletters',
-      src:
-        'https://paladin-photo-library.s3.us-east-1.amazonaws.com/deep-dive_logo_banner_color.svg',
-      description: 'A data-driven newsletter uncovering campus’ biggest stories.',
-      color: 'rgba(114,46,151,.16)',
-    },
-    {
-      label: 'Paladin Profiles',
-      href: '/newsletters',
-      src:
-        'https://paladin-photo-library.s3.us-east-1.amazonaws.com/paladin-profiles_banner_color.svg',
-      description:
-        'Video interviews that highlight the important work Paladins past and present are doing to improve diversity and inclusion on campus and beyond.',
-      color: 'rgba(114,46,151,.16)',
-    },
-    /*{
-      label: 'Red, White, Blue, & Purple',
-      href: '/newsletters',
-      src: 'https://paladin-photo-library.s3.us-east-1.amazonaws.com/rwbp_logo_banner.svg',
-      description:
-        'Price St. Clair’s podcast-newsletter that covers politics and policy from a Furman Perspective.',
-      color: 'rgba(114,46,151,.86)',
-    },*/
-    {
-      label: 'Sports Roundup',
-      href: '/newsletters',
-      src:
-        'https://paladin-photo-library.s3.us-east-1.amazonaws.com/sports-roundup_logo_banner_color.svg',
-      description:
-        'A newsletter from the Sports Editor with comprehensive updates on the Paladins and special features including video interviews with Furman athletes.',
-      color: 'rgba(114,46,151,.16)',
-    },
-    {
-      label: 'The Works',
-      href: '/newsletters',
-      src:
-        'https://paladin-photo-library.s3.us-east-1.amazonaws.com/the-works_logo_banner_color.svg',
-      description:
-        'A casual newsletter tracking the latest trends sweeping the student body, highlighting creative talent, and shining a light on the best (and worst) aspects of campus culture at Furman.',
-      color: 'rgba(114,46,151,.16)',
-    },
-    {
-      label: 'ZoomUni',
-      href: '/newsletters',
-      src:
-        'https://paladin-photo-library.s3.us-east-1.amazonaws.com/zoomuni_logo_banner_background.svg',
-      description:
-        'The ZoomUni podcast examines how changes in politics and culture are affecting college communities across the country through long-form interviews with a new special guest each week.',
-      color: 'rgba(26,36,145,.36)',
-    },
-    {
-      label: 'Sunday Summary',
-      href: '/newsletters',
-      src:
-        'https://paladin-photo-library.s3.us-east-1.amazonaws.com/sunday-summary_logo_banner_background.svg',
-      description:
-        'Editor-in-Chief Emeritus Evan Myers’ examinations of last week’s biggest stories, expositions on the best and worst that Furman has to offer, and expectations for the week ahead.',
-      color: 'rgba(114,46,151,.16)',
-    },
-  ];
-
-  $: width = width;
-</script>
-
-<div class={'outer'} bind:offsetWidth={width}>
-  <div class={'inner'}>
-    <h1>Paladin Plus</h1>
-    <div class={'sub'}>
-      A campus-focused subscription service written by students for the Furman community.
-    </div>
-    <div class={'button-row'}>
-      <Button on:click={() => goto('/newsletters')}>Subscribe</Button>
-    </div>
-    <div
-      class={'grid'}
-      style={`grid-template-columns: ${
-        width > 1200
-          ? '1fr 1fr 1fr 1fr'
-          : width > 990
-          ? '1fr 1fr 1fr'
-          : width <= 560
-          ? '1fr'
-          : '1fr 1fr'
-      };`}>
-      {#each items as item}
-        <div>
-          <div class={'card'}>
-            <a href={item.href} aria-label={item.label}>
-              <img src={item.src} alt={''} />
-            </a>
-          </div>
-          <div class={'description'}>{item.description}</div>
-        </div>
-      {/each}
-    </div>
-  </div>
-</div>

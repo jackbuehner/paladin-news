@@ -1,40 +1,3 @@
-<style>
-  div {
-    font-size: 17px;
-    line-height: 1.7;
-    font-weight: 400;
-    color: var(--color-neutral-dark);
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  p {
-    font-family: var(--font-detail);
-    margin-top: 0;
-    margin-bottom: 10px;
-  }
-  h2 {
-    font-family: var(--font-detail);
-    font-size: 24px;
-    line-height: 32px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-  }
-  a {
-    color: rgb(var(--primary-lighter));
-    box-shadow: 0 1px 0 0 rgb(var(--primary));
-    transition: background-color 0.2s, box-shadow 0.1s, color 0.2s;
-    text-decoration: none;
-  }
-  a:hover {
-    box-shadow: 0 2px 0 0 rgb(var(--primary));
-    background-color: rgba(var(--primary), 0.1);
-    color: var(--color-neutral-dark);
-  }
-  a:active {
-    background-color: rgba(var(--primary), 0.16);
-  }
-</style>
-
 <script context="module" lang="ts">
   import { title } from '../stores/title';
   /** @type {import('@sveltejs/kit').Load} */
@@ -85,7 +48,8 @@
     <h2>Use of the Data</h2>
     <p>
       We only use your personal information to provide you&nbsp;services directly related to <em
-        >The Paladin Network</em> or to communicate with you about the Website or the services.
+        >The Paladin Network</em
+      > or to communicate with you about the Website or the services.
     </p>
     <p>
       We employ industry standard techniques to protect against unauthorized access of data about
@@ -157,3 +121,40 @@
     </p>
   </div>
 </Container>
+
+<style>
+  div {
+    font-size: 17px;
+    line-height: 1.7;
+    font-weight: 400;
+    color: var(--color-neutral-dark);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  p {
+    font-family: var(--font-detail);
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-family: var(--font-detail);
+    font-size: 24px;
+    line-height: 32px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  a {
+    color: rgb(var(--primary-lighter));
+    box-shadow: 0 1px 0 0 rgb(var(--primary));
+    transition: background-color 0.2s, box-shadow 0.1s, color 0.2s;
+    text-decoration: none;
+  }
+  a:hover {
+    box-shadow: 0 2px 0 0 rgb(var(--primary));
+    background-color: rgba(var(--primary), 0.1);
+    color: var(--color-neutral-dark);
+  }
+  a:active {
+    background-color: rgba(var(--primary), 0.16);
+  }
+</style>

@@ -1,3 +1,20 @@
+<script lang="ts">
+  export let name: string;
+  export let description: string;
+  export let imgsrc: string;
+  export let href: string;
+  export let compact = false;
+  export let small = false;
+</script>
+
+<a {href} class:compact class:small={compact && small}>
+  <img src={imgsrc} alt={''} />
+  <div class={'label'}>
+    <div class={'name'} class:compact class:small={compact && small}>{name}</div>
+    <div class={'description'} class:compact class:small={compact && small}>{description}</div>
+  </div>
+</a>
+
 <style>
   img {
     width: 48px;
@@ -78,20 +95,3 @@
     display: none;
   }
 </style>
-
-<script lang="ts">
-  export let name: string;
-  export let description: string;
-  export let imgsrc: string;
-  export let href: string;
-  export let compact = false;
-  export let small = false;
-</script>
-
-<a {href} class:compact class:small={compact && small}>
-  <img src={imgsrc} alt={''} />
-  <div class={'label'}>
-    <div class={'name'} class:compact class:small={compact && small}>{name}</div>
-    <div class={'description'} class:compact class:small={compact && small}>{description}</div>
-  </div>
-</a>

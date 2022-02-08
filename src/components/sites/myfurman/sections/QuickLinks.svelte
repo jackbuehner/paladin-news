@@ -1,18 +1,3 @@
-<style>
-  div.quick-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, max-content));
-    gap: 6px;
-  }
-  div.quick-links.compact {
-    grid-template-columns: repeat(auto-fit, 110px);
-    justify-content: space-between;
-  }
-  div.quick-links.small {
-    grid-template-columns: repeat(auto-fit, 60px);
-  }
-</style>
-
 <script lang="ts">
   import { QuickLink, QuickLinkType, SH } from '..';
 
@@ -33,3 +18,18 @@
     {/each}
   </div>
 </div>
+
+<style>
+  div.quick-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, max-content));
+    gap: 6px;
+  }
+  div.quick-links.compact {
+    grid-template-columns: repeat(auto-fit, 110px);
+    justify-content: space-between;
+  }
+  div.quick-links.small {
+    grid-template-columns: repeat(auto-fit, 60px);
+  }
+</style>

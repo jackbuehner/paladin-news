@@ -1,3 +1,16 @@
+<script lang="ts">
+  import Image from '../../Image.svelte';
+
+  export let src: string;
+</script>
+
+<Image
+  {src}
+  className={`article-photo-image--furmanmediacom`}
+  containerClassName={`article-photo-container--furmanmediacom`}
+  loading={'eager'}
+/>
+
 <style>
   :global(.article-photo-container--furmanmediacom) {
     position: relative;
@@ -15,15 +28,3 @@
     grid-area: 1 / 1;
   }
 </style>
-
-<script lang="ts">
-  import Image from '../../Image.svelte';
-
-  export let src: string;
-</script>
-
-<Image
-  {src}
-  className={`article-photo-image--furmanmediacom`}
-  containerClassName={`article-photo-container--furmanmediacom`}
-  loading={'eager'} />

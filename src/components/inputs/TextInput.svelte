@@ -1,3 +1,11 @@
+<script lang="ts">
+  export let type: 'text' | 'email' | 'tel';
+  export let name: string;
+  export let rules: string;
+</script>
+
+<input {type} {name} data-kw-rules={rules} />
+
 <style>
   input {
     display: block;
@@ -23,11 +31,3 @@
     box-shadow: inset 0 0 0 2px rgb(var(--primary));
   }
 </style>
-
-<script lang="ts">
-  export let type: 'text' | 'email' | 'tel';
-  export let name: string;
-  export let rules: string;
-</script>
-
-<input {type} {name} data-kw-rules={rules} />

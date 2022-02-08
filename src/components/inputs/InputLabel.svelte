@@ -1,3 +1,9 @@
+<script lang="ts">
+  export let htmlFor: string;
+</script>
+
+<label for={htmlFor}><slot /></label>
+
 <style>
   label {
     font-family: var(--font-detail);
@@ -7,9 +13,3 @@
     font-weight: 700;
   }
 </style>
-
-<script lang="ts">
-  export let htmlFor: string;
-</script>
-
-<label for={htmlFor}><slot /></label>

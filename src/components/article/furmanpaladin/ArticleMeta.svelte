@@ -1,3 +1,74 @@
+<script lang="ts">
+  import { DateTime } from 'luxon';
+  import { formatISODate } from '../../../utils/formatISODate';
+  import type { IArticleAuthor } from 'src/interfaces/articles';
+  import { slugify } from '../../../utils/slugify';
+
+  export let date: string;
+  export let authors: IArticleAuthor[] = [];
+
+  $: parsed = DateTime.fromISO(date).isValid ? formatISODate(date) : date;
+</script>
+
+<div class={`article-metadata-furmanpaladin`}>
+  <div class={'date'}>
+    Date: {parsed}
+  </div>
+  <div class={'byline'}>
+    <span>By:</span>
+    <!-- display the article authors with the appropriate separators -->
+    {#if authors === []}
+      <!-- hide if undefined -->
+      {''}
+    {:else if authors.length === 1}
+      <!-- show author if only one -->
+      <a
+        href={`/profile/${
+          authors[0].slug ? authors[0].slug : slugify(authors[0].name.replace(' (Provisional)', ''))
+        }`}>{authors[0].name.replace(' (Provisional)', '')}</a
+      >
+    {:else if authors.length === 2}
+      <!-- separate with 'and' if two authors -->
+      <a
+        href={`/profile/${
+          authors[0].slug ? authors[0].slug : slugify(authors[0].name.replace(' (Provisional)', ''))
+        }`}>{authors[0].name.replace(' (Provisional)', '')}</a
+      >
+      <span> and </span>
+      <a
+        href={`/profile/${
+          authors[1].slug ? authors[1].slug : slugify(authors[1].name.replace(' (Provisional)', ''))
+        }`}>{authors[1].name.replace(' (Provisional)', '')}</a
+      >
+    {:else if authors.length > 2}
+      <!-- separate with either a comma or ', and' if more than two authors -->
+      {#each authors as author, index}
+        {#if index === 0}
+          <a
+            href={`/profile/${
+              author.slug ? author.slug : slugify(author.name.replace(' (Provisional)', ''))
+            }`}>{author.name.replace(' (Provisional)', '')}</a
+          >
+        {:else if index === authors.length - 1}
+          <span>, and </span>
+          <a
+            href={`/profile/${
+              author.slug ? author.slug : slugify(author.name.replace(' (Provisional)', ''))
+            }`}>{author.name.replace(' (Provisional)', '')}</a
+          >
+        {:else}
+          <span>, </span>
+          <a
+            href={`/profile/${
+              author.slug ? author.slug : slugify(author.name.replace(' (Provisional)', ''))
+            }`}>{author.name.replace(' (Provisional)', '')}</a
+          >
+        {/if}
+      {/each}
+    {/if}
+  </div>
+</div>
+
 <style>
   .article-metadata-furmanpaladin {
     font-family: var(--legacy-font-body);
@@ -32,68 +103,3 @@
     background-color: rgba(var(--legacy-primary), 0.16);
   }
 </style>
-
-<script lang="ts">
-  import { DateTime } from 'luxon';
-  import { formatISODate } from '../../../utils/formatISODate';
-  import type { IArticleAuthor } from 'src/interfaces/articles';
-  import { slugify } from '../../../utils/slugify';
-
-  export let date: string;
-  export let authors: IArticleAuthor[] = [];
-
-  $: parsed = DateTime.fromISO(date).isValid ? formatISODate(date) : date;
-</script>
-
-<div class={`article-metadata-furmanpaladin`}>
-  <div class={'date'}>
-    Date: {parsed}
-  </div>
-  <div class={'byline'}>
-    <span>By:</span>
-    <!-- display the article authors with the appropriate separators -->
-    {#if authors === []}
-      <!-- hide if undefined -->
-      {''}
-    {:else if authors.length === 1}
-      <!-- show author if only one -->
-      <a
-        href={`/profile/${
-          authors[0].slug ? authors[0].slug : slugify(authors[0].name.replace(' (Provisional)', ''))
-        }`}>{authors[0].name.replace(' (Provisional)', '')}</a>
-    {:else if authors.length === 2}
-      <!-- separate with 'and' if two authors -->
-      <a
-        href={`/profile/${
-          authors[0].slug ? authors[0].slug : slugify(authors[0].name.replace(' (Provisional)', ''))
-        }`}>{authors[0].name.replace(' (Provisional)', '')}</a>
-      <span> and </span>
-      <a
-        href={`/profile/${
-          authors[1].slug ? authors[1].slug : slugify(authors[1].name.replace(' (Provisional)', ''))
-        }`}>{authors[1].name.replace(' (Provisional)', '')}</a>
-    {:else if authors.length > 2}
-      <!-- separate with either a comma or ', and' if more than two authors -->
-      {#each authors as author, index}
-        {#if index === 0}
-          <a
-            href={`/profile/${
-              author.slug ? author.slug : slugify(author.name.replace(' (Provisional)', ''))
-            }`}>{author.name.replace(' (Provisional)', '')}</a>
-        {:else if index === authors.length - 1}
-          <span>, and </span>
-          <a
-            href={`/profile/${
-              author.slug ? author.slug : slugify(author.name.replace(' (Provisional)', ''))
-            }`}>{author.name.replace(' (Provisional)', '')}</a>
-        {:else}
-          <span>, </span>
-          <a
-            href={`/profile/${
-              author.slug ? author.slug : slugify(author.name.replace(' (Provisional)', ''))
-            }`}>{author.name.replace(' (Provisional)', '')}</a>
-        {/if}
-      {/each}
-    {/if}
-  </div>
-</div>

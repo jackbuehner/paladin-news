@@ -1,3 +1,57 @@
+<script lang="ts">
+  import Container from '../components/Container.svelte';
+  import ThePaladinLogo from '../components/svgs/ThePaladinLogo.svelte';
+</script>
+
+<div class={'top'}>
+  <Container>
+    <div class={'content'}>
+      <ThePaladinLogo width={160} height={54} />
+      <div class={'grid'}>
+        <div>
+          <div class={'header'}>Sections</div>
+          <a href={'/section/news'}>News</a>
+          <a href={'/section/opinions'}>Opinions</a>
+          <a href={'/section/sports'}>Sports</a>
+          <a href={'/section/diversity-matters'}>Diversity Matters</a>
+          <a href={'/section/arts-culture'}>Arts, Campus, & Culture</a>
+        </div>
+        <div>
+          <div class={'header'}>More</div>
+          <a href={'/all-articles'}>All articles</a>
+          <a href={'/satire'}>The Horse – Satire</a>
+          <a href={'/flusher'}>The Royal Flush</a>
+          <a href={'/newsletters'}>Newsletters</a>
+          <a href={'/'}>Home</a>
+        </div>
+        <div>
+          <div class={'header'}>About us</div>
+          <a href={'/about'}>Who we are</a>
+          <a href={'/team'}>Our team</a>
+          <a href={'/jobs'}>Jobs</a>
+          <a href={'/contact'}>Contact us</a>
+          <a href={'/privacy-policy'}>Privacy policy</a>
+        </div>
+        <div>
+          <div class={'header'}>Support us</div>
+          <a href={'https://app.mobilecause.com/vf/DinsDonate/team/PaladinNewspaper'}>Donate</a>
+          <a href={'/contact'}>Tip us</a>
+          <a href={'/contact'}>Advertise</a>
+        </div>
+      </div>
+    </div>
+  </Container>
+</div>
+
+<div class={'bottom'}>
+  <Container>
+    <div class={'content'}>
+      <div><b>The Paladin Network</b> ⋅ 3300 Poinsett Highway ⋅ Greenville, SC 29613</div>
+      <div style={'font-size: 14px;'}>Copyright © 2021. All rights reserved.</div>
+    </div>
+  </Container>
+</div>
+
 <style>
   .top {
     background-color: #f4f4f4;
@@ -70,57 +124,3 @@
     text-align: center;
   }
 </style>
-
-<script lang="ts">
-  import Container from '../components/Container.svelte';
-  import ThePaladinLogo from '../components/svgs/ThePaladinLogo.svelte';
-</script>
-
-<div class={'top'}>
-  <Container>
-    <div class={'content'}>
-      <ThePaladinLogo width={160} height={54} />
-      <div class={'grid'}>
-        <div>
-          <div class={'header'}>Sections</div>
-          <a href={'/section/news'}>News</a>
-          <a href={'/section/opinions'}>Opinions</a>
-          <a href={'/section/sports'}>Sports</a>
-          <a href={'/section/diversity-matters'}>Diversity Matters</a>
-          <a href={'/section/arts-culture'}>Arts, Campus, & Culture</a>
-        </div>
-        <div>
-          <div class={'header'}>More</div>
-          <a href={'/all-articles'}>All articles</a>
-          <a href={'/satire'}>The Horse – Satire</a>
-          <a href={'/flusher'}>The Royal Flush</a>
-          <a href={'/newsletters'}>Newsletters</a>
-          <a href={'/'}>Home</a>
-        </div>
-        <div>
-          <div class={'header'}>About us</div>
-          <a href={'/about'}>Who we are</a>
-          <a href={'/team'}>Our team</a>
-          <a href={'/jobs'}>Jobs</a>
-          <a href={'/contact'}>Contact us</a>
-          <a href={'/privacy-policy'}>Privacy policy</a>
-        </div>
-        <div>
-          <div class={'header'}>Support us</div>
-          <a href={'https://app.mobilecause.com/vf/DinsDonate/team/PaladinNewspaper'}>Donate</a>
-          <a href={'/contact'}>Tip us</a>
-          <a href={'/contact'}>Advertise</a>
-        </div>
-      </div>
-    </div>
-  </Container>
-</div>
-
-<div class={'bottom'}>
-  <Container>
-    <div class={'content'}>
-      <div><b>The Paladin Network</b> ⋅ 3300 Poinsett Highway ⋅ Greenville, SC 29613</div>
-      <div style={'font-size: 14px;'}>Copyright © 2021. All rights reserved.</div>
-    </div>
-  </Container>
-</div>

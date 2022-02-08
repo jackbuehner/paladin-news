@@ -1,3 +1,142 @@
+<script context="module" lang="ts">
+  import type { LoadInput, LoadOutput } from '@sveltejs/kit';
+  import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
+  import type { ISatire } from 'src/interfaces/satire';
+
+  /**
+   * @type {import('@sveltejs/kit').Load}
+   */
+  export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
+    const pageNumber = page.query.get('page') || '1';
+    const url = `/satire-${pageNumber}.json`;
+    const res = await fetch(url);
+
+    // set the document title
+    title.set('The Horse (Satire');
+
+    if (res.ok) {
+      return {
+        props: {
+          articles: await res.json(),
+        },
+      };
+    }
+
+    return {
+      status: res.status,
+      error: new Error(`Could not load ${url}`),
+    };
+  }
+</script>
+
+<script lang="ts">
+  import Container from '/src/components/Container.svelte';
+  import { goto } from '$app/navigation';
+  import Button from '/src/components/Button.svelte';
+  import ArticleCard from '/src/components/home/ArticleCard.svelte';
+  import ArticleRow from '/src/components/home/ArticleRow.svelte';
+  import TheHorseLogo from '/src/components/svgs/TheHorseLogo.svelte';
+  import { beforeUpdate, onDestroy } from 'svelte';
+  import { headerIsSatire } from '../../src/stores/header';
+  import { headerNoLogoUntil } from '../../src/stores/header';
+  import { title } from '../stores/title';
+
+  export let articles: AggregatePaginateResult<ISatire>;
+
+  $: windowWidth = 0;
+
+  // set the header to satire
+  beforeUpdate(() => {
+    $headerIsSatire = true;
+    $headerNoLogoUntil = 180;
+  });
+  onDestroy(() => {
+    $headerIsSatire = false;
+    $headerNoLogoUntil = 0;
+  });
+</script>
+
+<svelte:window bind:innerWidth={windowWidth} />
+
+<Container>
+  <div class={'header'}>
+    <TheHorseLogo width={307} height={140} />
+    <p>
+      <em>The Horse</em> is <em>The Paladin</em>'s satire section. Beginning as an annual special
+      issue, <em>The Horse</em> lives on in an all-year, online format.<br />Archives are available
+      <a
+        href="https://cdm16821.contentdm.oclc.org/digital/collection/p16821coll21/search/searchterm/Horse/field/title/mode/all/conn/and/order/date/ad/desc"
+        >on SCDL</a
+      >.
+    </p>
+  </div>
+
+  <div class={'top-grid'} class:hidden={articles.page !== 1}>
+    {#if articles && articles.docs && articles.page === 1}
+      {#each Array.from(articles.docs).slice(0, 4) as article, index}
+        <ArticleCard
+          style={`grid-area: a${index}`}
+          name={article.name}
+          href={`satire/${article.slug}`}
+          description={article.description}
+          photo={article.photo_path}
+          photoCredit={article.photo_credit}
+          date={article.timestamps.published_at}
+          authors={article.people.display_authors.map((author) => {
+            return { name: author };
+          })}
+          isCompact={windowWidth <= 770 ? index > 1 : index > 0}
+          isCategoryPage={true}
+          isLargerHeadline={true}
+        />
+        {#if index < 3}
+          <span style={`grid-area: d${index}`} />
+        {/if}
+      {/each}
+    {/if}
+  </div>
+  <div class={'main-grid'} class:firstPage={articles.page === 1}>
+    {#if articles && articles.docs}
+      {#each Array.from(articles.docs).slice(articles.page === 1 ? 4 : 0, 21) as article, index}
+        {#if index !== 0}
+          <span style={'grid-area: auto / 1 / auto / 3;'} />
+        {:else if articles.page === 1}
+          <span style={'grid-area: auto / 1 / auto / 3;'} />
+        {/if}
+        <ArticleRow
+          style={'grid-area: auto / 1 / auto / 3;'}
+          name={article.name}
+          href={`satire/${article.slug}`}
+          description={article.description}
+          photo={article.photo_path}
+          date={article.timestamps.published_at}
+          authors={article.people.display_authors.map((author) => {
+            return { name: author };
+          })}
+        />
+      {/each}
+    {/if}
+    <span style={'grid-area: auto / 1 / auto / 3;'} />
+    <div class={'navrow'}>
+      {#if articles.hasNextPage || articles.hasPrevPage}
+        Page {articles.page} of {articles.totalPages}
+      {/if}
+      <div class={'buttonrow'}>
+        {#if articles.hasPrevPage}
+          <Button on:click={() => goto(`?page=${articles.prevPage}`)}>Previous</Button>
+        {/if}
+        {#if articles.hasNextPage}
+          <Button on:click={() => goto(`?page=${articles.nextPage}`)}>Next</Button>
+        {/if}
+      </div>
+    </div>
+    <span
+      style={`grid-area: 1 / 3 / -1 / 3; ${windowWidth <= 990 ? 'display: none;' : 'opacity: 0;'}`}
+    />
+    <aside style={`grid-area: 1 / 4 / -1 / 4; ${windowWidth <= 990 ? 'display: none;' : ''}`} />
+  </div>
+</Container>
+
 <style>
   .header {
     margin: 0 0 20px 0;
@@ -127,141 +266,3 @@
     gap: 6px;
   }
 </style>
-
-<script context="module" lang="ts">
-  import type { LoadInput, LoadOutput } from '@sveltejs/kit';
-  import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
-  import type { ISatire } from 'src/interfaces/satire';
-
-  /**
-   * @type {import('@sveltejs/kit').Load}
-   */
-  export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
-    const pageNumber = page.query.get('page') || '1';
-    const url = `/satire-${pageNumber}.json`;
-    const res = await fetch(url);
-
-    // set the document title
-    title.set('The Horse (Satire');
-
-    if (res.ok) {
-      return {
-        props: {
-          articles: await res.json(),
-        },
-      };
-    }
-
-    return {
-      status: res.status,
-      error: new Error(`Could not load ${url}`),
-    };
-  }
-</script>
-
-<script lang="ts">
-  import Container from '/src/components/Container.svelte';
-  import { goto } from '$app/navigation';
-  import Button from '/src/components/Button.svelte';
-  import ArticleCard from '/src/components/home/ArticleCard.svelte';
-  import ArticleRow from '/src/components/home/ArticleRow.svelte';
-  import TheHorseLogo from '/src/components/svgs/TheHorseLogo.svelte';
-  import { beforeUpdate, onDestroy } from 'svelte';
-  import { headerIsSatire } from '../../src/stores/header';
-  import { headerNoLogoUntil } from '../../src/stores/header';
-  import { title } from '../stores/title';
-
-  export let articles: AggregatePaginateResult<ISatire>;
-
-  $: windowWidth = 0;
-
-  // set the header to satire
-  beforeUpdate(() => {
-    $headerIsSatire = true;
-    $headerNoLogoUntil = 180;
-  });
-  onDestroy(() => {
-    $headerIsSatire = false;
-    $headerNoLogoUntil = 0;
-  });
-</script>
-
-<svelte:window bind:innerWidth={windowWidth} />
-
-<Container>
-  <div class={'header'}>
-    <TheHorseLogo width={307} height={140} />
-    <p>
-      <em>The Horse</em> is <em>The Paladin</em>'s satire section. Beginning as an annual special
-      issue, <em>The Horse</em> lives on in an all-year, online format.<br />Archives are available
-      <a
-        href="https://cdm16821.contentdm.oclc.org/digital/collection/p16821coll21/search/searchterm/Horse/field/title/mode/all/conn/and/order/date/ad/desc"
-        >on SCDL</a
-      >.
-    </p>
-  </div>
-
-  <div class={'top-grid'} class:hidden={articles.page !== 1}>
-    {#if articles && articles.docs && articles.page === 1}
-      {#each Array.from(articles.docs).slice(0, 4) as article, index}
-        <ArticleCard
-          style={`grid-area: a${index}`}
-          name={article.name}
-          href={`satire/${article.slug}`}
-          description={article.description}
-          photo={article.photo_path}
-          photoCredit={article.photo_credit}
-          date={article.timestamps.published_at}
-          authors={article.people.display_authors.map((author) => {
-            return { name: author };
-          })}
-          isCompact={windowWidth <= 770 ? index > 1 : index > 0}
-          isCategoryPage={true}
-          isLargerHeadline={true} />
-        {#if index < 3}
-          <span style={`grid-area: d${index}`} />
-        {/if}
-      {/each}
-    {/if}
-  </div>
-  <div class={'main-grid'} class:firstPage={articles.page === 1}>
-    {#if articles && articles.docs}
-      {#each Array.from(articles.docs).slice(articles.page === 1 ? 4 : 0, 21) as article, index}
-        {#if index !== 0}
-          <span style={'grid-area: auto / 1 / auto / 3;'} />
-        {:else if articles.page === 1}
-          <span style={'grid-area: auto / 1 / auto / 3;'} />
-        {/if}
-        <ArticleRow
-          style={'grid-area: auto / 1 / auto / 3;'}
-          name={article.name}
-          href={`satire/${article.slug}`}
-          description={article.description}
-          photo={article.photo_path}
-          date={article.timestamps.published_at}
-          authors={article.people.display_authors.map((author) => {
-            return { name: author };
-          })} />
-      {/each}
-    {/if}
-    <span style={'grid-area: auto / 1 / auto / 3;'} />
-    <div class={'navrow'}>
-      {#if articles.hasNextPage || articles.hasPrevPage}
-        Page {articles.page} of {articles.totalPages}
-      {/if}
-      <div class={'buttonrow'}>
-        {#if articles.hasPrevPage}
-          <Button on:click={() => goto(`?page=${articles.prevPage}`)}>Previous</Button>
-        {/if}
-        {#if articles.hasNextPage}
-          <Button on:click={() => goto(`?page=${articles.nextPage}`)}>Next</Button>
-        {/if}
-      </div>
-    </div>
-    <span
-      style={`grid-area: 1 / 3 / -1 / 3; ${
-        windowWidth <= 990 ? 'display: none;' : 'opacity: 0;'
-      }`} />
-    <aside style={`grid-area: 1 / 4 / -1 / 4; ${windowWidth <= 990 ? 'display: none;' : ''}`} />
-  </div>
-</Container>

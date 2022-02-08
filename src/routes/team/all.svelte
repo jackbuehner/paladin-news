@@ -1,3 +1,68 @@
+<script context="module" lang="ts">
+  import type { LoadInput, LoadOutput } from '@sveltejs/kit';
+  import type { IProfile } from '../../interfaces/profiles';
+
+  /**
+   * @type {import('@sveltejs/kit').Load}
+   */
+  export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
+    const pageNumber = page.query.get('page') || '1';
+    const url = `/team-${pageNumber}.json`;
+    const res = await fetch(url);
+
+    // set the document title
+    title.set('All team members (past and present)');
+
+    if (res.ok) {
+      return {
+        props: {
+          profiles: await res.json(),
+        },
+      };
+    }
+
+    return {
+      status: res.status,
+      error: new Error(`Could not load ${url}`),
+    };
+  }
+</script>
+
+<script lang="ts">
+  import PageHeading from '/src/components/PageHeading.svelte';
+  import Container from '/src/components/Container.svelte';
+  import { title } from '../../stores/title';
+
+  export let profiles: IProfile[];
+</script>
+
+<PageHeading>All current and former employees</PageHeading>
+
+<Container>
+  <div class={'wrapper'}>
+    <div>
+      {#if profiles && profiles.length > 0}
+        <section>
+          {#each profiles as profile}
+            <a href={`/profile/${profile.slug}`} class={'card'}>
+              <img src={profile.photo} alt={''} />
+              <div class={'name'}>{profile.name.replace(' (Provisional)', '')}</div>
+              <div class={'title'}>{profile.current_title}</div>
+            </a>
+          {/each}
+        </section>
+      {/if}
+    </div>
+    <aside class={'sidebar'}>
+      <h2>More team members</h2>
+      <div><a href={'/team'}>Current members of The Board</a></div>
+      <div><a href={'/team/writers'}>Writers and contributors</a></div>
+      <div><a href={'/team'}>Managers, assistant editors, and copy editors</a></div>
+      <div><a href={'/team'}>Photo and video team members</a></div>
+    </aside>
+  </div>
+</Container>
+
 <style>
   div {
     font-size: 17px;
@@ -102,68 +167,3 @@
     }
   }
 </style>
-
-<script context="module" lang="ts">
-  import type { LoadInput, LoadOutput } from '@sveltejs/kit';
-  import type { IProfile } from '../../interfaces/profiles';
-
-  /**
-   * @type {import('@sveltejs/kit').Load}
-   */
-  export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
-    const pageNumber = page.query.get('page') || '1';
-    const url = `/team-${pageNumber}.json`;
-    const res = await fetch(url);
-
-    // set the document title
-    title.set('All team members (past and present)');
-
-    if (res.ok) {
-      return {
-        props: {
-          profiles: await res.json(),
-        },
-      };
-    }
-
-    return {
-      status: res.status,
-      error: new Error(`Could not load ${url}`),
-    };
-  }
-</script>
-
-<script lang="ts">
-  import PageHeading from '/src/components/PageHeading.svelte';
-  import Container from '/src/components/Container.svelte';
-  import { title } from '../../stores/title';
-
-  export let profiles: IProfile[];
-</script>
-
-<PageHeading>All current and former employees</PageHeading>
-
-<Container>
-  <div class={'wrapper'}>
-    <div>
-      {#if profiles && profiles.length > 0}
-        <section>
-          {#each profiles as profile}
-            <a href={`/profile/${profile.slug}`} class={'card'}>
-              <img src={profile.photo} alt={''} />
-              <div class={'name'}>{profile.name.replace(' (Provisional)', '')}</div>
-              <div class={'title'}>{profile.current_title}</div>
-            </a>
-          {/each}
-        </section>
-      {/if}
-    </div>
-    <aside class={'sidebar'}>
-      <h2>More team members</h2>
-      <div><a href={'/team'}>Current members of The Board</a></div>
-      <div><a href={'/team/writers'}>Writers and contributors</a></div>
-      <div><a href={'/team'}>Managers, assistant editors, and copy editors</a></div>
-      <div><a href={'/team'}>Photo and video team members</a></div>
-    </aside>
-  </div>
-</Container>

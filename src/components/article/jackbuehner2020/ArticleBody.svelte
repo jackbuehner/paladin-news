@@ -1,192 +1,3 @@
-<!-- svelte-ignore css-unused-selector -->
-<style>
-  div.article-body {
-    margin: 30px auto 0;
-    font-family: var(--font-body);
-    color: var(--color-neutral-dark);
-    font-size: 17px;
-    line-height: 1.7;
-    font-weight: 400;
-  }
-  :global(.article-body p) {
-    margin-top: 0;
-    margin-bottom: 10px;
-  }
-  :global(.article-body img) {
-    max-width: 100%;
-    width: 100%;
-    height: auto;
-  }
-  :global(.article-body a) {
-    color: rgb(var(--primary-lighter));
-    box-shadow: 0 1px 0 0 rgb(var(--primary));
-    transition: background-color 0.2s, box-shadow 0.1s, color 0.2s;
-    text-decoration: none;
-  }
-  :global(.article-body a:hover) {
-    box-shadow: 0 2px 0 0 rgb(var(--primary));
-    background-color: rgba(var(--primary), 0.1);
-    color: var(--color-neutral-dark);
-  }
-  :global(.article-body a:active) {
-    background-color: rgba(var(--primary), 0.16);
-  }
-
-  /* widget styles */
-  :global(.article-body .widget) {
-    width: 1px;
-    min-width: 100%;
-    border: none;
-    border-top: 1px solid #cccccc;
-    border-bottom: 1px solid #cccccc;
-    margin: 20px 0;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* allow widgets to have special alignment on big-enough screens */
-  @media (min-width: 401px) {
-    /* left aligned widgets use the left 50% of space and have no borders */
-    :global(.article-body .widget.position-left) {
-      width: 50%;
-      min-width: 50%;
-      float: left;
-      margin: 10px 20px 10px 0px;
-      border: none;
-    }
-    /* right aligned widgets use the right 50% of space and have no borders*/
-    :global(.article-body .widget.position-right) {
-      width: 50%;
-      min-width: 50%;
-      float: right;
-      margin: 10px 0px 10px 20px;
-      border: none;
-    }
-  }
-
-  /* no borders for iframes */
-  :global(.article-body iframe) {
-    border: none;
-  }
-
-  /* do not use top and bottom borders for photos/figures */
-  :global(.article-body figure.widget) {
-    border: none;
-  }
-
-  /* insert photo credit after the figure */
-  /*when there is no caption*/
-  :global(.article-body figure .img-wrapper::after) {
-    content: attr(data-photo-credit);
-    display: inline;
-    margin: 0;
-    font-family: var(--font-body);
-    color: var(--color-neutral-lightest);
-    font-size: 13px;
-    line-height: 20px;
-    position: absolute;
-    right: 0;
-    top: 100%;
-  }
-  /*when there is a caption*/
-  :global(.article-body figure figcaption::after) {
-    content: attr(data-photo-credit);
-    display: inline;
-    margin: -4px 0 0 6px;
-    font-family: var(--font-body);
-    color: var(--color-neutral-lightest);
-    font-size: 13px;
-    line-height: 20px;
-  }
-
-  /* expand photos/figures into page margins on smaller screens */
-  @media (max-width: 600px) {
-    :global(.article-body figure.widget:not(.position-left):not(.position-right)) {
-      position: relative;
-      width: calc(100% + 40px);
-      left: -20px;
-    }
-    :global(.article-body figure:not(.position-left):not(.position-right) .img-wrapper::after) {
-      margin: 0 20px;
-    }
-    :global(.article-body figure:not(.position-left):not(.position-right) figcaption) {
-      margin-left: 20px !important;
-      margin-right: 20px !important;
-    }
-  }
-  @media (max-width: 400px) {
-    :global(.article-body figure.widget) {
-      position: relative;
-      width: calc(100% + 40px);
-      left: -20px;
-    }
-    :global(.article-body figure .img-wrapper::after) {
-      margin: 0 20px;
-    }
-    :global(.article-body figure figcaption) {
-      margin-left: 20px !important;
-      margin-right: 20px !important;
-    }
-  }
-
-  /* headings */
-  :global(.article-body h1) {
-    font-family: var(--font-headline);
-    font-size: 24px;
-    font-weight: 400;
-    margin: 10px 0;
-  }
-  :global(.article-body h2) {
-    font-family: var(--font-headline);
-    font-size: 20px;
-    font-weight: 400;
-    margin: 10px 0;
-  }
-  :global(.article-body h3) {
-    font-family: var(--font-headline);
-    font-size: 17px;
-    font-weight: 400;
-    margin: 10px 0;
-  }
-
-  /* title and subtitle */
-  :global(.article-body h1.title) {
-    font-size: 48px;
-    font-weight: 400;
-    margin: 15px 0;
-    text-align: center;
-    line-height: 1.3;
-  }
-  :global(.article-body p.subtitle) {
-    font-size: 18px;
-    text-align: center;
-    margin: 15px 0;
-  }
-  :global(.article-body h1.title + p.subtitle) {
-    font-size: 18px;
-    text-align: center;
-    margin-top: -15px;
-  }
-
-  /* hanging indent paragraph */
-  :global(.article-body p.hanging) {
-    padding-left: 20px;
-    text-indent: -20px;
-  }
-
-  /* divider */
-  :global(.article-body hr::before) {
-    content: '•  •  •';
-    display: flex;
-    justify-content: center;
-    white-space: pre;
-    margin: 10px;
-  }
-  :global(.article-body hr) {
-    border: none;
-  }
-</style>
-
 <script lang="ts">
   import { onMount } from 'svelte';
 
@@ -435,3 +246,192 @@
 <div class={'article-body'}>
   {@html doc}
 </div>
+
+<!-- svelte-ignore css-unused-selector -->
+<style>
+  div.article-body {
+    margin: 30px auto 0;
+    font-family: var(--font-body);
+    color: var(--color-neutral-dark);
+    font-size: 17px;
+    line-height: 1.7;
+    font-weight: 400;
+  }
+  :global(.article-body p) {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  :global(.article-body img) {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+  }
+  :global(.article-body a) {
+    color: rgb(var(--primary-lighter));
+    box-shadow: 0 1px 0 0 rgb(var(--primary));
+    transition: background-color 0.2s, box-shadow 0.1s, color 0.2s;
+    text-decoration: none;
+  }
+  :global(.article-body a:hover) {
+    box-shadow: 0 2px 0 0 rgb(var(--primary));
+    background-color: rgba(var(--primary), 0.1);
+    color: var(--color-neutral-dark);
+  }
+  :global(.article-body a:active) {
+    background-color: rgba(var(--primary), 0.16);
+  }
+
+  /* widget styles */
+  :global(.article-body .widget) {
+    width: 1px;
+    min-width: 100%;
+    border: none;
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* allow widgets to have special alignment on big-enough screens */
+  @media (min-width: 401px) {
+    /* left aligned widgets use the left 50% of space and have no borders */
+    :global(.article-body .widget.position-left) {
+      width: 50%;
+      min-width: 50%;
+      float: left;
+      margin: 10px 20px 10px 0px;
+      border: none;
+    }
+    /* right aligned widgets use the right 50% of space and have no borders*/
+    :global(.article-body .widget.position-right) {
+      width: 50%;
+      min-width: 50%;
+      float: right;
+      margin: 10px 0px 10px 20px;
+      border: none;
+    }
+  }
+
+  /* no borders for iframes */
+  :global(.article-body iframe) {
+    border: none;
+  }
+
+  /* do not use top and bottom borders for photos/figures */
+  :global(.article-body figure.widget) {
+    border: none;
+  }
+
+  /* insert photo credit after the figure */
+  /*when there is no caption*/
+  :global(.article-body figure .img-wrapper::after) {
+    content: attr(data-photo-credit);
+    display: inline;
+    margin: 0;
+    font-family: var(--font-body);
+    color: var(--color-neutral-lightest);
+    font-size: 13px;
+    line-height: 20px;
+    position: absolute;
+    right: 0;
+    top: 100%;
+  }
+  /*when there is a caption*/
+  :global(.article-body figure figcaption::after) {
+    content: attr(data-photo-credit);
+    display: inline;
+    margin: -4px 0 0 6px;
+    font-family: var(--font-body);
+    color: var(--color-neutral-lightest);
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  /* expand photos/figures into page margins on smaller screens */
+  @media (max-width: 600px) {
+    :global(.article-body figure.widget:not(.position-left):not(.position-right)) {
+      position: relative;
+      width: calc(100% + 40px);
+      left: -20px;
+    }
+    :global(.article-body figure:not(.position-left):not(.position-right) .img-wrapper::after) {
+      margin: 0 20px;
+    }
+    :global(.article-body figure:not(.position-left):not(.position-right) figcaption) {
+      margin-left: 20px !important;
+      margin-right: 20px !important;
+    }
+  }
+  @media (max-width: 400px) {
+    :global(.article-body figure.widget) {
+      position: relative;
+      width: calc(100% + 40px);
+      left: -20px;
+    }
+    :global(.article-body figure .img-wrapper::after) {
+      margin: 0 20px;
+    }
+    :global(.article-body figure figcaption) {
+      margin-left: 20px !important;
+      margin-right: 20px !important;
+    }
+  }
+
+  /* headings */
+  :global(.article-body h1) {
+    font-family: var(--font-headline);
+    font-size: 24px;
+    font-weight: 400;
+    margin: 10px 0;
+  }
+  :global(.article-body h2) {
+    font-family: var(--font-headline);
+    font-size: 20px;
+    font-weight: 400;
+    margin: 10px 0;
+  }
+  :global(.article-body h3) {
+    font-family: var(--font-headline);
+    font-size: 17px;
+    font-weight: 400;
+    margin: 10px 0;
+  }
+
+  /* title and subtitle */
+  :global(.article-body h1.title) {
+    font-size: 48px;
+    font-weight: 400;
+    margin: 15px 0;
+    text-align: center;
+    line-height: 1.3;
+  }
+  :global(.article-body p.subtitle) {
+    font-size: 18px;
+    text-align: center;
+    margin: 15px 0;
+  }
+  :global(.article-body h1.title + p.subtitle) {
+    font-size: 18px;
+    text-align: center;
+    margin-top: -15px;
+  }
+
+  /* hanging indent paragraph */
+  :global(.article-body p.hanging) {
+    padding-left: 20px;
+    text-indent: -20px;
+  }
+
+  /* divider */
+  :global(.article-body hr::before) {
+    content: '•  •  •';
+    display: flex;
+    justify-content: center;
+    white-space: pre;
+    margin: 10px;
+  }
+  :global(.article-body hr) {
+    border: none;
+  }
+</style>

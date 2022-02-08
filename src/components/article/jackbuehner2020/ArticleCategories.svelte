@@ -1,3 +1,13 @@
+<script lang="ts">
+  export let categories: string[];
+</script>
+
+<div>
+  {#each categories as category}
+    <a href={`/section/${category}`}>{category}</a>
+  {/each}
+</div>
+
 <style>
   div {
     margin-top: 60px;
@@ -30,13 +40,3 @@
     background-color: rgba(var(--primary), 0.16);
   }
 </style>
-
-<script lang="ts">
-  export let categories: string[];
-</script>
-
-<div>
-  {#each categories as category}
-    <a href={`/section/${category}`}>{category}</a>
-  {/each}
-</div>

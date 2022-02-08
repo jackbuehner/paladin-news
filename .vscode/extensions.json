@@ -2,6 +2,6 @@
   "recommendations": [
     "benjaminbenais.codesandbox-dark",
     "aaron-bond.better-comments",
-    "svelte.svelte-vscode",
+    "svelte.svelte-vscode"
   ]
 }

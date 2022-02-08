@@ -1,38 +1,3 @@
-<style>
-  h2 {
-    font-family: var(--font-detail);
-    color: var(--color-neutral);
-    font-size: 20px;
-    margin: 20px 0 0 0;
-    line-height: 32px;
-  }
-  div.description {
-    font-size: 16px;
-    font-family: var(--font-detail);
-    line-height: 1.3;
-    font-weight: 400;
-    color: var(--color-neutral);
-    margin: 8px 0 10px 0;
-  }
-  div.note {
-    font-size: 14px;
-    font-family: var(--font-detail);
-    line-height: 1.3;
-    font-weight: 400;
-    color: var(--color-neutral);
-    margin: 0px 0 8px 0;
-  }
-  div.applyrow {
-    display: flex;
-    flex-direction: row;
-    gap: 16px;
-    align-items: center;
-    font-size: 13px;
-    font-family: var(--font-detail);
-    color: var(--color-neutral-light);
-  }
-</style>
-
 <script lang="ts">
   import PageHeading from '../components/PageHeading.svelte';
 
@@ -144,3 +109,38 @@
     </div>
   {/each}
 </Container>
+
+<style>
+  h2 {
+    font-family: var(--font-detail);
+    color: var(--color-neutral);
+    font-size: 20px;
+    margin: 20px 0 0 0;
+    line-height: 32px;
+  }
+  div.description {
+    font-size: 16px;
+    font-family: var(--font-detail);
+    line-height: 1.3;
+    font-weight: 400;
+    color: var(--color-neutral);
+    margin: 8px 0 10px 0;
+  }
+  div.note {
+    font-size: 14px;
+    font-family: var(--font-detail);
+    line-height: 1.3;
+    font-weight: 400;
+    color: var(--color-neutral);
+    margin: 0px 0 8px 0;
+  }
+  div.applyrow {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+    font-size: 13px;
+    font-family: var(--font-detail);
+    color: var(--color-neutral-light);
+  }
+</style>

@@ -1,31 +1,3 @@
-<style>
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto auto;
-    gap: 16px;
-  }
-  .grid.narrower {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto;
-  }
-  @media (max-width: 900px) {
-    .grid,
-    .grid.narrower {
-      grid-template-columns: 1fr;
-      grid-template-rows: auto auto auto auto auto;
-    }
-  }
-  h1 {
-    font-family: var(--font-detail);
-    color: var(--color-neutral-dark);
-    font-size: 22px;
-    line-height: 26px;
-    font-weight: 700;
-    margin: 40px 0 20px 0;
-  }
-</style>
-
 <script lang="ts">
   import ArticleCard from '/src/components/home/ArticleCard.svelte';
   import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
@@ -67,8 +39,37 @@
           categories={article.categories}
           date={article.timestamps.published_at}
           authors={article.people.authors}
-          isCompact={windowWidth <= 900} />
+          isCompact={windowWidth <= 900}
+        />
       {/each}
     {/if}
   </div>
 </div>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 16px;
+  }
+  .grid.narrower {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+  }
+  @media (max-width: 900px) {
+    .grid,
+    .grid.narrower {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto auto auto;
+    }
+  }
+  h1 {
+    font-family: var(--font-detail);
+    color: var(--color-neutral-dark);
+    font-size: 22px;
+    line-height: 26px;
+    font-weight: 700;
+    margin: 40px 0 20px 0;
+  }
+</style>

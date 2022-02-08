@@ -1,3 +1,26 @@
+<script lang="ts">
+  import { getContext, onMount } from 'svelte';
+  import { TABS } from './store';
+
+  const tab = {};
+  const { registerTab, selectTab, selectedTab } = getContext(TABS);
+
+  export let grow: boolean = false;
+  export let isDefault: boolean = false;
+
+  onMount(() => {
+    if (isDefault === true) selectTab(tab);
+  });
+
+  registerTab(tab);
+</script>
+
+<div class:selected={$selectedTab === tab} class:grow>
+  <button on:click={() => selectTab(tab)}>
+    <slot />
+  </button>
+</div>
+
 <style>
   button {
     display: inline-flex;
@@ -44,26 +67,3 @@
     color: rgb(var(--primary));
   }
 </style>
-
-<script lang="ts">
-  import { getContext, onMount } from 'svelte';
-  import { TABS } from './store';
-
-  const tab = {};
-  const { registerTab, selectTab, selectedTab } = getContext(TABS);
-
-  export let grow: boolean = false;
-  export let isDefault: boolean = false;
-
-  onMount(() => {
-    if (isDefault === true) selectTab(tab);
-  });
-
-  registerTab(tab);
-</script>
-
-<div class:selected={$selectedTab === tab} class:grow>
-  <button on:click={() => selectTab(tab)}>
-    <slot />
-  </button>
-</div>

@@ -1,3 +1,49 @@
+<script>
+  import { searchOpen } from '../../stores/search';
+  import SearchPanel from './SearchPanel.svelte';
+
+  let isPanelOpen = $searchOpen;
+  $: isPanelWrapperOpen = $searchOpen;
+  $: {
+    // if the panel is open, wait 360 seconds before marking is closed
+    // to give the wrapper transition enough time to hide the panel and wrapper
+    if (isPanelOpen) {
+      setTimeout(() => {
+        isPanelOpen = $searchOpen;
+      }, 360);
+    } else {
+      isPanelOpen = $searchOpen;
+    }
+  }
+</script>
+
+<svelte:head>
+  <div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js"
+      integrity="sha256-EXPXz4W6pQgfYY3yTpnDa3OH8/EPn16ciVsPQ/ypsjk="
+      crossorigin="anonymous"
+      async
+      defer></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js"
+      integrity="sha256-LAGhRRdtVoD6RLo2qDQsU2mp+XVSciKRC8XPOBWmofM="
+      crossorigin="anonymous"
+      async
+      defer></script>
+  </div>
+</svelte:head>
+
+{#if isPanelOpen}
+  <div class={'scrim'} class:isOpen={isPanelWrapperOpen} on:click={() => ($searchOpen = false)} />
+{/if}
+
+<div class={'flyout-wrapper'} class:isOpen={isPanelWrapperOpen}>
+  {#if isPanelOpen}
+    <SearchPanel />
+  {/if}
+</div>
+
 <style>
   .flyout-wrapper {
     position: fixed;
@@ -58,49 +104,3 @@
     }
   }
 </style>
-
-<script>
-  import { searchOpen } from '../../stores/search';
-  import SearchPanel from './SearchPanel.svelte';
-
-  let isPanelOpen = $searchOpen;
-  $: isPanelWrapperOpen = $searchOpen;
-  $: {
-    // if the panel is open, wait 360 seconds before marking is closed
-    // to give the wrapper transition enough time to hide the panel and wrapper
-    if (isPanelOpen) {
-      setTimeout(() => {
-        isPanelOpen = $searchOpen;
-      }, 360);
-    } else {
-      isPanelOpen = $searchOpen;
-    }
-  }
-</script>
-
-<svelte:head>
-  <div>
-    <script
-      src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js"
-      integrity="sha256-EXPXz4W6pQgfYY3yTpnDa3OH8/EPn16ciVsPQ/ypsjk="
-      crossorigin="anonymous"
-      async
-      defer></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js"
-      integrity="sha256-LAGhRRdtVoD6RLo2qDQsU2mp+XVSciKRC8XPOBWmofM="
-      crossorigin="anonymous"
-      async
-      defer></script>
-  </div>
-</svelte:head>
-
-{#if isPanelOpen}
-  <div class={'scrim'} class:isOpen={isPanelWrapperOpen} on:click={() => ($searchOpen = false)} />
-{/if}
-
-<div class={'flyout-wrapper'} class:isOpen={isPanelWrapperOpen}>
-  {#if isPanelOpen}
-    <SearchPanel />
-  {/if}
-</div>

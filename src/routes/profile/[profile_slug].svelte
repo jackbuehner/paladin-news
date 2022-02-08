@@ -1,3 +1,113 @@
+<script context="module" lang="ts">
+  import type { LoadInput, LoadOutput } from '@sveltejs/kit';
+  import ArticleRow from '/src/components/home/ArticleRow.svelte';
+  import Button from '/src/components/Button.svelte';
+
+  /**
+   * @type {import('@sveltejs/kit').Load}
+   */
+  export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
+    const pageNumber = page.query.get('page') || '1';
+    const url = `/profile/${page.params.profile_slug}_${pageNumber}.json`;
+    const res = await fetch(url);
+    const { profile, articles }: { profile: GET_USER_BY_SLUG__TYPE; articles: GET_ARTICLES__TYPE } =
+      await res.json();
+
+    // set the document title
+    if (profile?.userPublicBySlug?.name) title.set(`${profile.userPublicBySlug.name} - Profile`);
+    else title.set(`Profile`);
+
+    if (res.ok) {
+      return {
+        props: {
+          profile: profile?.userPublicBySlug,
+          articles: articles?.articlesPublic,
+        },
+      };
+    }
+
+    return {
+      status: res.status,
+      error: new Error(`Could not load ${url}`),
+    };
+  }
+</script>
+
+<script lang="ts">
+  import { goto } from '$app/navigation';
+  import Container from '/src/components/Container.svelte';
+  import { title } from '../../stores/title';
+  import { insertDate } from '../../utils/insertDate';
+  import type {
+    GET_ARTICLES__DOC_TYPE,
+    GET_ARTICLES__TYPE,
+    GET_USER_BY_SLUG__DOC_TYPE,
+    GET_USER_BY_SLUG__TYPE,
+    Paged,
+  } from '../../queries';
+
+  export let profile: GET_USER_BY_SLUG__DOC_TYPE | undefined;
+  export let articles: Paged<GET_ARTICLES__DOC_TYPE>;
+</script>
+
+<Container>
+  <div class={'header'}>
+    <img src={profile?.photo} alt={''} height={profile?.email ? 90 : 74} />
+    <div>
+      <h1>{profile?.name?.replace(' (Provisional)', '')}</h1>
+      <div class={'detail'}>{profile?.current_title}</div>
+      {#if profile?.email}
+        <a href={`mailto:${profile.email}`} class={'detail email'}>{profile.email}</a>
+      {/if}
+    </div>
+  </div>
+
+  {#if profile?.biography}
+    <h2>About</h2>
+    <p class={'bio'}>{profile?.biography}</p>
+    {#if profile?.twitter && profile?.name}
+      <p class={'bio'}>
+        You can follow {profile.name} on Twitter at
+        <a href={`https://twitter.com/${profile.twitter}`}>@{profile.twitter}</a>.
+      </p>
+    {/if}
+  {/if}
+
+  <h2>Articles</h2>
+  <div class={'articles'}>
+    {#if articles && articles.docs}
+      {#each insertDate(articles.docs) as article, index}
+        <ArticleRow
+          name={article.name}
+          href={article.date
+            ? `/articles/${article.date.year}/${article.date.month}/${article.date.day}/${article.slug}`
+            : `/articles/${article.slug}`}
+          description={article.description}
+          photo={article.photo_path}
+          date={article.timestamps.published_at}
+          authors={article.people.authors}
+          categories={article.categories}
+        />
+        <span />
+      {/each}
+    {/if}
+  </div>
+
+  <div class={'navrow'}>
+    {#if articles?.hasNextPage || articles?.hasPrevPage}
+      Page {articles.page} of {articles.totalPages}
+    {/if}
+    <div class={'buttonrow'}>
+      {#if articles?.hasPrevPage}
+        <Button on:click={() => goto(`?page=${articles?.prevPage}`)}>Previous</Button>
+      {/if}
+      {#if articles?.hasNextPage}
+        <Button on:click={() => goto(`?page=${articles?.nextPage}`)}>Next</Button>
+      {/if}
+    </div>
+  </div>
+</Container>
+
 <style>
   .header {
     display: flex;
@@ -89,112 +199,3 @@
     gap: 6px;
   }
 </style>
-
-<script context="module" lang="ts">
-  import type { LoadInput, LoadOutput } from '@sveltejs/kit';
-  import ArticleRow from '/src/components/home/ArticleRow.svelte';
-  import Button from '/src/components/Button.svelte';
-
-  /**
-   * @type {import('@sveltejs/kit').Load}
-   */
-  export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
-    const pageNumber = page.query.get('page') || '1';
-    const url = `/profile/${page.params.profile_slug}_${pageNumber}.json`;
-    const res = await fetch(url);
-    const { profile, articles }: { profile: GET_USER_BY_SLUG__TYPE; articles: GET_ARTICLES__TYPE } =
-      await res.json();
-
-    // set the document title
-    if (profile?.userPublicBySlug?.name) title.set(`${profile.userPublicBySlug.name} - Profile`);
-    else title.set(`Profile`);
-
-    if (res.ok) {
-      return {
-        props: {
-          profile: profile?.userPublicBySlug,
-          articles: articles?.articlesPublic,
-        },
-      };
-    }
-
-    return {
-      status: res.status,
-      error: new Error(`Could not load ${url}`),
-    };
-  }
-</script>
-
-<script lang="ts">
-  import { goto } from '$app/navigation';
-  import Container from '/src/components/Container.svelte';
-  import { title } from '../../stores/title';
-  import { insertDate } from '../../utils/insertDate';
-  import type {
-    GET_ARTICLES__DOC_TYPE,
-    GET_ARTICLES__TYPE,
-    GET_USER_BY_SLUG__DOC_TYPE,
-    GET_USER_BY_SLUG__TYPE,
-    Paged,
-  } from '../../queries';
-
-  export let profile: GET_USER_BY_SLUG__DOC_TYPE | undefined;
-  export let articles: Paged<GET_ARTICLES__DOC_TYPE>;
-</script>
-
-<Container>
-  <div class={'header'}>
-    <img src={profile?.photo} alt={''} height={profile?.email ? 90 : 74} />
-    <div>
-      <h1>{profile?.name?.replace(' (Provisional)', '')}</h1>
-      <div class={'detail'}>{profile?.current_title}</div>
-      {#if profile?.email}
-        <a href={`mailto:${profile.email}`} class={'detail email'}>{profile.email}</a>
-      {/if}
-    </div>
-  </div>
-
-  {#if profile?.biography}
-    <h2>About</h2>
-    <p class={'bio'}>{profile?.biography}</p>
-    {#if profile?.twitter && profile?.name}
-      <p class={'bio'}>
-        You can follow {profile.name} on Twitter at
-        <a href={`https://twitter.com/${profile.twitter}`}>@{profile.twitter}</a>.
-      </p>
-    {/if}
-  {/if}
-
-  <h2>Articles</h2>
-  <div class={'articles'}>
-    {#if articles && articles.docs}
-      {#each insertDate(articles.docs) as article, index}
-        <ArticleRow
-          name={article.name}
-          href={article.date
-            ? `/articles/${article.date.year}/${article.date.month}/${article.date.day}/${article.slug}`
-            : `/articles/${article.slug}`}
-          description={article.description}
-          photo={article.photo_path}
-          date={article.timestamps.published_at}
-          authors={article.people.authors}
-          categories={article.categories} />
-        <span />
-      {/each}
-    {/if}
-  </div>
-
-  <div class={'navrow'}>
-    {#if articles?.hasNextPage || articles?.hasPrevPage}
-      Page {articles.page} of {articles.totalPages}
-    {/if}
-    <div class={'buttonrow'}>
-      {#if articles?.hasPrevPage}
-        <Button on:click={() => goto(`?page=${articles?.prevPage}`)}>Previous</Button>
-      {/if}
-      {#if articles?.hasNextPage}
-        <Button on:click={() => goto(`?page=${articles?.nextPage}`)}>Next</Button>
-      {/if}
-    </div>
-  </div>
-</Container>

@@ -1,3 +1,39 @@
+<script lang="ts">
+  import Container from '/src/components/Container.svelte';
+
+  export let type: 'block' | 'line' | 'blockCentered' = 'line';
+  export let subtitle: string = undefined;
+  export let width: number = 1200;
+</script>
+
+{#if type === 'line'}
+  <Container {width}>
+    <div class={'line'}><h1><slot /></h1></div>
+  </Container>
+{/if}
+
+{#if type === 'block'}
+  <div class={'block'}>
+    <Container {width}>
+      <h1><slot /></h1>
+      {#if subtitle !== undefined}
+        <p>{@html subtitle}</p>
+      {/if}
+    </Container>
+  </div>
+{/if}
+
+{#if type === 'blockCentered'}
+  <div class={'block centered'}>
+    <Container {width}>
+      <h1><slot /></h1>
+      {#if subtitle !== undefined}
+        <div>{@html subtitle}</div>
+      {/if}
+    </Container>
+  </div>
+{/if}
+
 <style>
   /** styles for line type **/
   .line h1 {
@@ -63,39 +99,3 @@
     background-color: rgba(var(--primary), 0.16);
   }
 </style>
-
-<script lang="ts">
-  import Container from '/src/components/Container.svelte';
-
-  export let type: 'block' | 'line' | 'blockCentered' = 'line';
-  export let subtitle: string = undefined;
-  export let width: number = 1200;
-</script>
-
-{#if type === 'line'}
-  <Container {width}>
-    <div class={'line'}><h1><slot /></h1></div>
-  </Container>
-{/if}
-
-{#if type === 'block'}
-  <div class={'block'}>
-    <Container {width}>
-      <h1><slot /></h1>
-      {#if subtitle !== undefined}
-        <p>{@html subtitle}</p>
-      {/if}
-    </Container>
-  </div>
-{/if}
-
-{#if type === 'blockCentered'}
-  <div class={'block centered'}>
-    <Container {width}>
-      <h1><slot /></h1>
-      {#if subtitle !== undefined}
-        <div>{@html subtitle}</div>
-      {/if}
-    </Container>
-  </div>
-{/if}

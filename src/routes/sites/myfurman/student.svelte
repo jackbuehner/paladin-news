@@ -1,66 +1,3 @@
-<style>
-  div.grid {
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas:
-      'ql  s1'
-      'ql  s2';
-    padding: 30px;
-  }
-
-  @media (max-width: 1100px) {
-    div.grid {
-      grid-template-columns: 1fr;
-      grid-template-areas:
-        'ql'
-        's1'
-        's2';
-    }
-  }
-
-  @media (max-width: 700px) {
-    div.grid {
-      padding: 20px;
-    }
-  }
-
-  p {
-    font-family: var(--font-body);
-    color: var(--on-light);
-  }
-
-  vars {
-    /* colors */
-    --primary-rgb: 88, 44, 131;
-    --primary: rgb(var(--primary-rgb));
-    --secondary-rgb: 32, 21, 71;
-    --secondary: rgb(var(--secondary-rgb));
-    --on-dark: #e0e0e0;
-    --on-light: #212121;
-    --border-light: #e0e0e0;
-
-    /* app bar */
-    --app-bar-background: #ffffff;
-    --app-bar-height: 64px;
-
-    /* fonts */
-    --font-logo: 'abril-fatface';
-    --font-nav: 'brandon-grotesque';
-    --font-heading: 'oswald';
-    --font-body: 'brandon-grotesque';
-    --font-ql-name: var(--font-body);
-    --font-ql-description: var(--font-body);
-
-    /* radius */
-    --radius: 3px;
-    --radius-round: 50%;
-
-    display: block;
-    margin-top: var(--app-bar-height);
-  }
-</style>
-
 <script lang="ts">
   import { onMount } from 'svelte';
   import {
@@ -172,3 +109,66 @@
     </div>
   {/if}
 </vars>
+
+<style>
+  div.grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+      'ql  s1'
+      'ql  s2';
+    padding: 30px;
+  }
+
+  @media (max-width: 1100px) {
+    div.grid {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'ql'
+        's1'
+        's2';
+    }
+  }
+
+  @media (max-width: 700px) {
+    div.grid {
+      padding: 20px;
+    }
+  }
+
+  p {
+    font-family: var(--font-body);
+    color: var(--on-light);
+  }
+
+  vars {
+    /* colors */
+    --primary-rgb: 88, 44, 131;
+    --primary: rgb(var(--primary-rgb));
+    --secondary-rgb: 32, 21, 71;
+    --secondary: rgb(var(--secondary-rgb));
+    --on-dark: #e0e0e0;
+    --on-light: #212121;
+    --border-light: #e0e0e0;
+
+    /* app bar */
+    --app-bar-background: #ffffff;
+    --app-bar-height: 64px;
+
+    /* fonts */
+    --font-logo: 'abril-fatface';
+    --font-nav: 'brandon-grotesque';
+    --font-heading: 'oswald';
+    --font-body: 'brandon-grotesque';
+    --font-ql-name: var(--font-body);
+    --font-ql-description: var(--font-body);
+
+    /* radius */
+    --radius: 3px;
+    --radius-round: 50%;
+
+    display: block;
+    margin-top: var(--app-bar-height);
+  }
+</style>

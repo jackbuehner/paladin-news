@@ -1,3 +1,22 @@
+<script lang="ts">
+  const items = [
+    { href: '/', label: 'Home' },
+    { href: '/section/news', label: 'News' },
+    { href: '/section/opinions', label: 'Opinions' },
+    { href: '/section/sports', label: 'Sports' },
+    { href: '/section/diversity-matters', label: 'Diversity Matters' },
+    { href: '/section/arts-culture', label: 'Arts, Campus, & Culture' },
+    { href: '/satire', label: 'The Horse' },
+    { href: '/contact', label: 'Contact' },
+  ];
+</script>
+
+<nav>
+  {#each items as item}
+    <a href={item.href}>{item.label}</a>
+  {/each}
+</nav>
+
 <style>
   nav {
     height: 46px;
@@ -39,22 +58,3 @@
     box-shadow: var(--button-shadow-active);
   }
 </style>
-
-<script lang="ts">
-  const items = [
-    { href: '/', label: 'Home' },
-    { href: '/section/news', label: 'News' },
-    { href: '/section/opinions', label: 'Opinions' },
-    { href: '/section/sports', label: 'Sports' },
-    { href: '/section/diversity-matters', label: 'Diversity Matters' },
-    { href: '/section/arts-culture', label: 'Arts, Campus, & Culture' },
-    { href: '/satire', label: 'The Horse' },
-    { href: '/contact', label: 'Contact' },
-  ];
-</script>
-
-<nav>
-  {#each items as item}
-    <a href={item.href}>{item.label}</a>
-  {/each}
-</nav>

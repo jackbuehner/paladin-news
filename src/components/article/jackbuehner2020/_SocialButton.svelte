@@ -1,3 +1,14 @@
+<script>
+  //export let type = 'default';
+  export let disabled = false;
+</script>
+
+<button on:click class:disabled>
+  <svg style="width:15px;height:15px">
+    <slot />
+  </svg>
+</button>
+
 <style>
   button {
     display: inline-flex;
@@ -33,14 +44,3 @@
     color: var(--button-color-disabled);
   }
 </style>
-
-<script>
-  //export let type = 'default';
-  export let disabled = false;
-</script>
-
-<button on:click class:disabled>
-  <svg style="width:15px;height:15px">
-    <slot />
-  </svg>
-</button>

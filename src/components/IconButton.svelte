@@ -1,3 +1,53 @@
+<script lang="ts">
+  //export let type = 'default';
+  export let viewBox = '0 0 24 24';
+  export let disabled = false;
+  export let isOutlined: boolean = false;
+  export let ariaLabel: string;
+  export let href: string = undefined;
+  export let color: string = undefined;
+  export let radius: string = undefined;
+  export let background: { base?: string; hover?: string; active?: string } = undefined;
+</script>
+
+{#if href}
+  <a
+    {href}
+    class:disabled
+    class:isOutlined
+    aria-label={ariaLabel}
+    style={`
+    ${color ? `--button-color: ${color};` : ``}
+    ${radius ? `--radius: ${radius};` : ``}
+    ${background?.base ? `--button-bg: ${background.base};` : ``}
+    ${background?.hover ? `--button-bg-hover: ${background.hover};` : ``}
+    ${background?.active ? `--button-bg-active: ${background.active};` : ``}
+  `}
+  >
+    <svg style="width:24px;height:24px" {viewBox}>
+      <slot />
+    </svg>
+  </a>
+{:else}
+  <button
+    on:click
+    class:disabled
+    class:isOutlined
+    aria-label={ariaLabel}
+    style={`
+      ${color ? `--button-color: ${color};` : ``}
+      ${radius ? `--radius: ${radius};` : ``}
+      ${background?.base ? `--button-bg: ${background.base};` : ``}
+      ${background?.hover ? `--button-bg-hover: ${background.hover};` : ``}
+      ${background?.active ? `--button-bg-active: ${background.active};` : ``}
+    `}
+  >
+    <svg style="width:24px;height:24px" {viewBox}>
+      <slot />
+    </svg>
+  </button>
+{/if}
+
 <style>
   button,
   a,
@@ -46,51 +96,3 @@
     color: var(--button-color-disabled);
   }
 </style>
-
-<script lang="ts">
-  //export let type = 'default';
-  export let viewBox = '0 0 24 24';
-  export let disabled = false;
-  export let isOutlined: boolean = false;
-  export let ariaLabel: string;
-  export let href: string = undefined;
-  export let color: string = undefined;
-  export let radius: string = undefined;
-  export let background: { base?: string; hover?: string; active?: string } = undefined;
-</script>
-
-{#if href}
-  <a
-    {href}
-    class:disabled
-    class:isOutlined
-    aria-label={ariaLabel}
-    style={`
-    ${color ? `--button-color: ${color};` : ``}
-    ${radius ? `--radius: ${radius};` : ``}
-    ${background?.base ? `--button-bg: ${background.base};` : ``}
-    ${background?.hover ? `--button-bg-hover: ${background.hover};` : ``}
-    ${background?.active ? `--button-bg-active: ${background.active};` : ``}
-  `}>
-    <svg style="width:24px;height:24px" {viewBox}>
-      <slot />
-    </svg>
-  </a>
-{:else}
-  <button
-    on:click
-    class:disabled
-    class:isOutlined
-    aria-label={ariaLabel}
-    style={`
-      ${color ? `--button-color: ${color};` : ``}
-      ${radius ? `--radius: ${radius};` : ``}
-      ${background?.base ? `--button-bg: ${background.base};` : ``}
-      ${background?.hover ? `--button-bg-hover: ${background.hover};` : ``}
-      ${background?.active ? `--button-bg-active: ${background.active};` : ``}
-    `}>
-    <svg style="width:24px;height:24px" {viewBox}>
-      <slot />
-    </svg>
-  </button>
-{/if}

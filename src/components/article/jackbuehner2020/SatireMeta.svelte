@@ -1,15 +1,3 @@
-<style>
-  .byline {
-    height: 36px;
-    font-family: var(--font-detail);
-    color: var(--color-neutral-dark);
-    font-size: 14px;
-    line-height: 36px;
-    font-weight: 400;
-    margin: -20px 0 20px 0;
-  }
-</style>
-
 <script lang="ts">
   import { DateTime } from 'luxon';
   import { formatISODate } from '../../../utils/formatISODate';
@@ -55,3 +43,15 @@
     {/each}
   {/if}
 </div>
+
+<style>
+  .byline {
+    height: 36px;
+    font-family: var(--font-detail);
+    color: var(--color-neutral-dark);
+    font-size: 14px;
+    line-height: 36px;
+    font-weight: 400;
+    margin: -20px 0 20px 0;
+  }
+</style>

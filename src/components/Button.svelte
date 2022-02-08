@@ -1,3 +1,39 @@
+<script lang="ts">
+  //export let type = 'default';
+  export let disabled = false;
+  export let htmlType: string = undefined;
+  export let width: string = undefined;
+  export let href: string = undefined;
+  export let style: string = undefined;
+</script>
+
+{#if href}
+  <a
+    {href}
+    class:disabled
+    style={style && width
+      ? `width: ${width};${style}`
+      : style
+      ? style
+      : width
+      ? `width: ${width};`
+      : ''}><slot /></a
+  >
+{:else}
+  <button
+    on:click
+    class:disabled
+    type={htmlType}
+    style={style && width
+      ? `width: ${width};${style}`
+      : style
+      ? style
+      : width
+      ? `width: ${width};`
+      : ''}><slot /></button
+  >
+{/if}
+
 <style>
   button,
   a {
@@ -37,37 +73,3 @@
     color: var(--button-color-disabled);
   }
 </style>
-
-<script lang="ts">
-  //export let type = 'default';
-  export let disabled = false;
-  export let htmlType: string = undefined;
-  export let width: string = undefined;
-  export let href: string = undefined;
-  export let style: string = undefined;
-</script>
-
-{#if href}
-  <a
-    {href}
-    class:disabled
-    style={style && width
-      ? `width: ${width};${style}`
-      : style
-      ? style
-      : width
-      ? `width: ${width};`
-      : ''}><slot /></a>
-{:else}
-  <button
-    on:click
-    class:disabled
-    type={htmlType}
-    style={style && width
-      ? `width: ${width};${style}`
-      : style
-      ? style
-      : width
-      ? `width: ${width};`
-      : ''}><slot /></button>
-{/if}

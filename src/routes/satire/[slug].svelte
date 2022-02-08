@@ -1,10 +1,3 @@
-<style>
-  article {
-    max-width: 590px;
-    margin: 32px auto;
-  }
-</style>
-
 <script context="module" lang="ts">
   import type { LoadInput, LoadOutput } from '@sveltejs/kit';
 
@@ -86,3 +79,10 @@
     <ArticleBody doc={satire.body} />
   </article>
 </Container>
+
+<style>
+  article {
+    max-width: 590px;
+    margin: 32px auto;
+  }
+</style>
