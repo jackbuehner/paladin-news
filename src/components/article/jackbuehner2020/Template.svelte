@@ -78,7 +78,7 @@
       <a href={'https://salons.greatclips.com/us/sc/greenville/5052-old-buncombe-rd'}>
         <Image
           src={`https://ik.imagekit.io/paladin/939516b5-05d6-4c7d-ad32-ffad14551d80`}
-          className={`article-adv`}
+          className={`article-adv-img`}
           containerClassName={`article-adv`}
           loading={'eager'}
           maxSrcWidth={600}
@@ -414,10 +414,15 @@
 
   /* article advertisment */
   :global(.article-adv) {
-    width: 600px;
-    height: 150px;
+    width: 100%;
+    max-width: 600px;
+    height: 0;
+    padding: 25% 0 0 0; /* 600px * 25% = 150px height */
   }
-  :global(.article-adv > img) {
+  :global(.article-adv-img) {
     position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 </style>
