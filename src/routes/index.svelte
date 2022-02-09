@@ -71,9 +71,9 @@
 
 <note
   ><Container
-    >We updated our <a href={'/privacy-policy'}>privacy policy</a> on Feb. 2, 2022 to reflect our new
+    >We updated our <a href={'/privacy-policy'}>privacy policy</a> on Feb. 6, 2022 to reflect our new
     analytics provider. To ensure your privacy, we left Google Analytics for Fathom Analytics, which
-    does not track you accross multiple websites.</Container
+    does not track you across multiple websites.</Container
   ></note
 >
 
