@@ -58,7 +58,6 @@
 <slot />
 
 <style>
-  /* wrapper for the topbar */
   .topbar {
     height: 52px;
     display: flex;
@@ -66,6 +65,7 @@
     align-items: center;
     position: relative;
   }
+  /* wrapper for the topbar */
   .topbar-wrapper {
     border-bottom: 1px solid var(--border-light);
     background-color: var(--topbar-bg);
@@ -129,6 +129,14 @@
   }
   @media (max-width: 760px) {
     .label {
+      display: none;
+    }
+  }
+
+  /* hide when printing */
+  @media print {
+    .topbar-wrapper,
+    .sticky-spacer {
       display: none;
     }
   }

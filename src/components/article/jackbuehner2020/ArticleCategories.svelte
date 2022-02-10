@@ -39,4 +39,9 @@
   a:active {
     background-color: rgba(var(--primary), 0.16);
   }
+  @media print {
+    div {
+      margin-top: 0;
+    }
+  }
 </style>

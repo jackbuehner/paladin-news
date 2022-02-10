@@ -19,7 +19,7 @@
     position: relative;
     margin: 0 0 4px 0;
   }
-  @media (max-width: 600px) {
+  @media screen and (max-width: 600px) {
     :global(.article-photo-container--jackbuehner) {
       /* expand into page margins */
       width: calc(100% + 40px);

@@ -72,4 +72,11 @@
     font-weight: 700;
     margin: 40px 0 20px 0;
   }
+
+  /* hide when printing */
+  @media print {
+    div {
+      display: none;
+    }
+  }
 </style>

@@ -17,4 +17,9 @@
   .inner {
     width: var(--width);
   }
+  @media print {
+    .outer {
+      padding: 0;
+    }
+  }
 </style>

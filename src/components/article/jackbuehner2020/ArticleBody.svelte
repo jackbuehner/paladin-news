@@ -350,7 +350,7 @@
   }
 
   /* expand photos/figures into page margins on smaller screens */
-  @media (max-width: 600px) {
+  @media screen and (max-width: 600px) {
     :global(.article-body figure.widget:not(.position-left):not(.position-right)) {
       position: relative;
       width: calc(100% + 40px);
@@ -364,7 +364,7 @@
       margin-right: 20px !important;
     }
   }
-  @media (max-width: 400px) {
+  @media screen and (max-width: 400px) {
     :global(.article-body figure.widget) {
       position: relative;
       width: calc(100% + 40px);

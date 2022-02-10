@@ -123,6 +123,20 @@
         articleDescription={article.description}
       />
 
+      <!-- cover page details -->
+      <div class={'print-details'}>
+        <div>The Paladin Newspaper</div>
+        <div>Rolling Digital Release</div>
+        <div>Vol. {new Date().getFullYear() - 1914}-D, Iss. {new Date().getMonth() + 1}</div>
+        <br />
+        <div>
+          Published {new Date(article.timestamps.published_at).toUTCString()} ({new Date(article.timestamps.published_at).toISOString()})
+        </div>
+        <div>
+          Retrieved {new Date().toUTCString()} ({new Date().toISOString()})
+        </div>
+      </div>
+
       <!-- special content notices -->
       {#if article.tags}
         {#if article.tags.includes('paladin profiles')}
@@ -333,7 +347,7 @@
         }
       </style>
       <MoreArticles />
-      <div>
+      <div class="more-from">
         <h1>More from The Paladin</h1>
         <div class={'groups'}>
           <div class={'group'}>
@@ -424,5 +438,41 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  /* print details */
+  .print-details {
+    display: none;
+    font-family: monospace;
+    font-size: 16px;
+    line-height: 1.3;
+    margin: 34px 0 0 0;
+  }
+
+  /* print styles */
+  @media print {
+    :global(.article-adv),
+    .more-from,
+    .article-footer {
+      display: none;
+    }
+    .print-details {
+      display: block;
+    }
+    article {
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+    }
+    .print-details {
+      page-break-after: always;
+    }
+  }
+  @page {
+    margin: 1in;
+  }
+
+  @page:first {
+    margin: 0.5in 1in;
   }
 </style>

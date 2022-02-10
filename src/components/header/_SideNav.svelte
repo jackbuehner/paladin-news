@@ -187,4 +187,11 @@
     gap: 4px;
     margin: 5px;
   }
+
+  /* hide when printing */
+  @media print {
+    nav {
+      display: none;
+    }
+  }
 </style>

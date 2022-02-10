@@ -123,4 +123,11 @@
     color: #444;
     text-align: center;
   }
+  /* hide when printing */
+  @media print {
+    .top,
+    .bottom {
+      display: none;
+    }
+  }
 </style>

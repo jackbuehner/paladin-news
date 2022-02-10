@@ -173,4 +173,9 @@
     justify-content: flex-end;
     gap: 10px;
   }
+  @media print {
+    .social-buttons {
+      display: none;
+    }
+  }
 </style>
