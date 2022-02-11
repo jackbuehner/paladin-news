@@ -14,6 +14,16 @@ const GET_ARTICLE_BY_SLUG = `
           slug
           photo
         }
+        editors {
+          primary {
+            name
+            slug
+          }
+          copy {
+            name
+            slug
+          }
+        }
       }
       categories
       tags

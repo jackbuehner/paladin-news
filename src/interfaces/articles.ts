@@ -20,6 +20,10 @@ interface IArticle {
   };
   people: {
     authors?: IAuthor[];
+    editors: {
+      primary: IAuthor[];
+      copy: IAuthor[];
+    };
   };
   categories?: string[];
   tags?: string[];
