@@ -19,6 +19,7 @@
   import SocialButton from './_SocialButton.svelte';
   import { share } from '../../../components/article/share';
   import Image from '../../../components/Image.svelte';
+  import CoverPage from './CoverPage.svelte';
 
   export let article: IArticle;
 
@@ -74,6 +75,14 @@
 <Container>
   {#if article}
     <article>
+      <!-- cover page -->
+      <CoverPage
+        publishedAt={article.timestamps.published_at}
+        authors={article.people.authors.map((p) => p.name)}
+        managingEditors={article.people.editors.primary.map((p) => p.name)}
+        copyEditors={article.people.editors.copy.map((p) => p.name)}
+      />
+
       <!-- advertisement -->
       <a href={'https://salons.greatclips.com/us/sc/greenville/5052-old-buncombe-rd'}>
         <Image
@@ -122,20 +131,6 @@
         articleLocation={`https://thepaladin.news/articles/${article.slug}`}
         articleDescription={article.description}
       />
-
-      <!-- cover page details -->
-      <div class={'print-details'}>
-        <div>The Paladin Newspaper</div>
-        <div>Rolling Digital Release</div>
-        <div>Vol. {new Date().getFullYear() - 1914}-D, Iss. {new Date().getMonth() + 1}</div>
-        <br />
-        <div>
-          Published {new Date(article.timestamps.published_at).toUTCString()} ({new Date(article.timestamps.published_at).toISOString()})
-        </div>
-        <div>
-          Retrieved {new Date().toUTCString()} ({new Date().toISOString()})
-        </div>
-      </div>
 
       <!-- special content notices -->
       {#if article.tags}
@@ -440,15 +435,6 @@
     object-fit: cover;
   }
 
-  /* print details */
-  .print-details {
-    display: none;
-    font-family: monospace;
-    font-size: 16px;
-    line-height: 1.3;
-    margin: 34px 0 0 0;
-  }
-
   /* print styles */
   @media print {
     :global(.article-adv),
@@ -456,23 +442,22 @@
     .article-footer {
       display: none;
     }
-    .print-details {
-      display: block;
-    }
     article {
       width: 100%;
       max-width: 100%;
       margin: 0;
     }
-    .print-details {
-      page-break-after: always;
+    :global(.article-body a) {
+      box-shadow: none;
+      text-decoration: underline;
+      color: var(--color-neutral-dark);
+    }
+    :global(.article-body a::after) {
+      content: ' (' attr(href) ') ';
+      word-break: break-all;
     }
   }
   @page {
-    margin: 1in;
-  }
-
-  @page:first {
-    margin: 0.5in 1in;
+    margin: 0.5in;
   }
 </style>

@@ -6,6 +6,7 @@ import ArticleMeta from './ArticleMeta.svelte';
 import ArticlePhoto from './ArticlePhoto.svelte';
 import ArticlePhotoCredit from './ArticlePhotoCredit.svelte';
 import ArticleSubtitle from './ArticleSubtitle.svelte';
+import CoverPage from './CoverPage.svelte';
 import MoreArticles from './MoreArticles.svelte';
 import SatireMeta from './SatireMeta.svelte';
 
@@ -18,6 +19,7 @@ export {
   ArticlePhoto,
   ArticlePhotoCredit,
   ArticleSubtitle,
+  CoverPage,
   MoreArticles,
   SatireMeta,
 };
