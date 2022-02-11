@@ -207,6 +207,7 @@
         >
         <div class={'social-buttons'}>
           <SocialButton
+            ariaLabel={'share on Facebook'}
             on:click={() =>
               share(
                 'facebook',
@@ -229,6 +230,7 @@
             >
           </SocialButton>
           <SocialButton
+            ariaLabel={'share on Twitter'}
             on:click={() =>
               share(
                 'twitter',
@@ -249,6 +251,7 @@
             >
           </SocialButton>
           <SocialButton
+            ariaLabel={'share via Email'}
             on:click={() =>
               share(
                 'email',
@@ -269,6 +272,7 @@
             >
           </SocialButton>
           <SocialButton
+            ariaLabel={'share on LinkedIn'}
             on:click={() =>
               share(
                 'linkedin',
