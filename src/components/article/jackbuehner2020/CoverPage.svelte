@@ -1,4 +1,5 @@
 <script lang="ts">
+  export let name: string;
   export let publishedAt: string;
   export let authors: string[];
   export let managingEditors: string[] = undefined;
@@ -24,6 +25,7 @@
   <div>
     <div class={'header'}><span>The Paladin Network</span><span>thepaladin.news</span></div>
     <div class={'metadata'}>THE PALADIN NEWSPAPER</div>
+    <div class={'metadata'}>“{name.replace(/“/g, `‘`).replace(/”/g, `’`)}”</div>
     <div class={'metadata'}>Author(s): {authors.join(', ')}</div>
     {#if managingEditors && managingEditors.length > 0}
       <div class={'metadata'}>Managing Editor(s): {managingEditors.join(', ')}</div>
@@ -32,10 +34,10 @@
       <div class={'metadata'}>Copy Editor(s): {copyEditors.join(', ')}</div>
     {/if}
     <div class={'metadata'}>
-      Collection: <i>The Paladin Newspaper</i>, ROLLING DIGITAL RELEASE {now
+      Collection: <i>The Paladin Newspaper</i>, {now
         .toLocaleString('default', { month: 'long' })
         .toUpperCase()}
-      {now.getFullYear()}, Vol. {new Date().getFullYear() - 1914}-D, Iss. {new Date().getMonth() +
+      {now.getFullYear()}, ROLLING DIGITAL RELEASE, Vol. {new Date().getFullYear() - 1914}-D, Iss. {new Date().getMonth() +
         1}
     </div>
     <div class={'metadata'}>Published: {toDateString(new Date(publishedAt))}</div>

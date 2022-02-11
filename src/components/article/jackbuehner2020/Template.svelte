@@ -77,6 +77,7 @@
     <article>
       <!-- cover page -->
       <CoverPage
+        name={article.name}
         publishedAt={article.timestamps.published_at}
         authors={article.people.authors.map((p) => p.name)}
         managingEditors={article.people.editors.primary.map((p) => p.name)}
