@@ -79,9 +79,11 @@
       <CoverPage
         name={article.name}
         publishedAt={article.timestamps.published_at}
-        authors={article.people.authors.map((p) => p.name)}
-        managingEditors={article.people.editors.primary.map((p) => p.name)}
-        copyEditors={article.people.editors.copy.map((p) => p.name)}
+        authors={article.people.authors.map((p) => p.name.replace(' (Provisional)', ''))}
+        managingEditors={article.people.editors.primary.map((p) =>
+          p.name.replace(' (Provisional)', '')
+        )}
+        copyEditors={article.people.editors.copy.map((p) => p.name.replace(' (Provisional)', ''))}
       />
 
       <!-- advertisement -->
