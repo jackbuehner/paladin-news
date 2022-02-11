@@ -47,7 +47,7 @@
         affecting the Furman community.
       </p>
       <p>
-        Any opinions do not necessarily reflect the opinion of The Paladin Network, Furman
+        Opinions in this article do not reflect the opinion of The Paladin Network, Furman
         University, or any representatives of Furman.
       </p>
     </div>
