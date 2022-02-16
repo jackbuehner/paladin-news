@@ -77,6 +77,7 @@
     <article>
       <!-- cover page -->
       <CoverPage
+      _id={article._id}
         name={article.name}
         publishedAt={article.timestamps.published_at}
         authors={article.people.authors.map((p) => p.name.replace(' (Provisional)', ''))}

@@ -1,4 +1,5 @@
 <script lang="ts">
+  export let _id: string;
   export let name: string;
   export let publishedAt: string;
   export let authors: string[];
@@ -42,6 +43,7 @@
     </div>
     <div class={'metadata'}>Published: {toDateString(new Date(publishedAt))}</div>
     <div class={'metadata'}>Retrieved: {toDateString(now)}</div>
+    <div class={'metadata'}>Permalink: {`https://thepaladin.news/permalink/articles/${_id}`}</div>
     <div>
       <p>
         The Paladin is Furman University's only independent student news network. Established in
