@@ -1,29 +1,46 @@
 <script context="module" lang="ts">
   import type { LoadInput, LoadOutput } from '@sveltejs/kit';
-  import type { IProfile } from '../interfaces/profiles';
 
   /**
    * @type {import('@sveltejs/kit').Load}
    */
-  export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
-    const pageNumber = page.query.get('page') || '1';
-    const url = `/team-${pageNumber}.json`;
-    const res = await fetch(url);
+  export async function load({ fetch }: LoadInput): Promise<LoadOutput> {
+    const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
 
     // set the document title
     title.set('Our team');
 
+    // request the profiles from the api
+    const res = await fetch(`${hostUrl}/v3`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: GET_PROFILES,
+        variables: {
+          limit: 100,
+          page: 1,
+          filter: JSON.stringify({
+            group: { $lt: 5 },
+          }),
+        },
+      }),
+    });
+
+    // process the response
+    const resJson: GET_PROFILES__JSON = await res.json(); // get the response as JSON
+    const profiles = resJson?.data?.usersPublic; // identify the profiles response
+
     if (res.ok) {
       return {
         props: {
-          profiles: await res.json(),
+          profiles,
         },
       };
     }
 
     return {
       status: res.status,
-      error: new Error(`Could not load ${url}`),
+      error: new Error(`Could not load team profiles`),
     };
   }
 </script>
@@ -31,13 +48,18 @@
 <script lang="ts">
   import PageHeading from '/src/components/PageHeading.svelte';
   import Container from '/src/components/Container.svelte';
+  import { GET_PROFILES } from '../queries';
+  import type { GET_PROFILES__DOC_TYPE, GET_PROFILES__JSON, Paged } from '../queries';
   import { title } from '../stores/title';
+  import { variables } from '../variables';
 
-  export let profiles: IProfile[];
+  export let profiles: Paged<GET_PROFILES__DOC_TYPE>;
 
-  const boardProfiles = profiles.filter((profile) => profile.group >= 1 && profile.group < 2);
-  const managerProfiles = profiles.filter((profile) => profile.group >= 2 && profile.group < 3);
-  const photoVideoSocialProfiles = profiles.filter(
+  const boardProfiles = profiles.docs.filter((profile) => profile.group >= 1 && profile.group < 2);
+  const managerProfiles = profiles.docs.filter(
+    (profile) => profile.group >= 2 && profile.group < 3
+  );
+  const photoVideoSocialProfiles = profiles.docs.filter(
     (profile) => profile.group >= 3 && profile.group < 4
   );
 </script>

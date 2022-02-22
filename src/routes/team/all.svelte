@@ -1,29 +1,56 @@
 <script context="module" lang="ts">
   import type { LoadInput, LoadOutput } from '@sveltejs/kit';
-  import type { IProfile } from '../../interfaces/profiles';
 
   /**
    * @type {import('@sveltejs/kit').Load}
    */
-  export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
-    const pageNumber = page.query.get('page') || '1';
-    const url = `/team-${pageNumber}.json`;
-    const res = await fetch(url);
+  export async function load({ fetch }: LoadInput): Promise<LoadOutput> {
+    const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
 
     // set the document title
-    title.set('All team members (past and present)');
+    title.set('All current and former');
 
-    if (res.ok) {
-      return {
-        props: {
-          profiles: await res.json(),
-        },
-      };
+    // request the profiles from the api
+    let profiles = [];
+    let hasNextPage = true;
+    let nextPage = 1;
+    const getWriters = async (page: number): Promise<GET_PROFILES__DOC_TYPE[]> => {
+      const res = await fetch(`${hostUrl}/v3`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query: GET_PROFILES,
+          variables: {
+            limit: 100,
+            page,
+            sort: JSON.stringify({
+              group: 1,
+              name: 1,
+            }),
+          },
+        }),
+      });
+
+      // process the response
+      const resJson: GET_PROFILES__JSON = await res.json(); // get the response as JSON
+      const profiles = resJson?.data?.usersPublic; // identify the profiles response
+
+      // store if there is a next page
+      hasNextPage = profiles.hasNextPage;
+      nextPage = profiles.nextPage;
+
+      // return the profiles
+      return profiles.docs;
+    };
+    while (hasNextPage) {
+      profiles = [...profiles, ...(await getWriters(nextPage))];
     }
 
+    // return the profiles to the page
     return {
-      status: res.status,
-      error: new Error(`Could not load ${url}`),
+      props: {
+        profiles,
+      },
     };
   }
 </script>
@@ -31,12 +58,15 @@
 <script lang="ts">
   import PageHeading from '/src/components/PageHeading.svelte';
   import Container from '/src/components/Container.svelte';
+  import type { GET_PROFILES__DOC_TYPE, GET_PROFILES__JSON } from '../../queries';
+  import { GET_PROFILES } from '../../queries';
   import { title } from '../../stores/title';
+  import { variables } from '../../variables';
 
-  export let profiles: IProfile[];
+  export let profiles: GET_PROFILES__DOC_TYPE[];
 </script>
 
-<PageHeading>All current and former employees</PageHeading>
+<PageHeading>All current and former</PageHeading>
 
 <Container>
   <div class={'wrapper'}>
