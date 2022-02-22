@@ -40,8 +40,9 @@
   import { headerIsSatire } from '../../src/stores/header';
   import { headerNoLogoUntil } from '../../src/stores/header';
   import { title } from '../stores/title';
+  import type { Paged, GET_SATIRES__DOC_TYPE } from '../queries';
 
-  export let articles: AggregatePaginateResult<ISatire>;
+  export let articles: Paged<GET_SATIRES__DOC_TYPE>;
 
   $: windowWidth = 0;
 
