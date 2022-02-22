@@ -1,19 +1,17 @@
 <script lang="ts">
   import ArticleCard from '/src/components/home/ArticleCard.svelte';
-  import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
-  import type { IArticle } from 'src/interfaces/articles';
-  import { variables } from '../../../variables';
   import { onMount } from 'svelte';
   import { insertDate } from '../../../utils/insertDate';
+  import { fetchMore } from '.';
+  import type { GET_ARTICLES__DOC_TYPE, Paged } from '../../../queries';
 
   onMount(async () => {
-    const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
-    const res = await fetch(`${hostUrl}/api/v2/articles/public?limit=6`);
-    articles = await res.json();
+    const res = await fetchMore([thisObjectId], 5);
+    if (res.ok) articles = res.data;
   });
 
-  export let articles: AggregatePaginateResult<IArticle> = undefined;
-  export let thisSlug: string = undefined;
+  export let articles: Paged<GET_ARTICLES__DOC_TYPE> = undefined;
+  export let thisObjectId: string = undefined;
 
   $: componentWidth = 0;
   $: windowWidth = 0;
@@ -25,9 +23,7 @@
   <h1>More articles</h1>
   <div class={'grid'} bind:clientWidth={componentWidth} class:narrower={componentWidth <= 860}>
     {#if articles && articles.docs}
-      {#each insertDate(articles.docs
-          .filter((article) => article.slug !== thisSlug)
-          .slice(0, 5)) as article}
+      {#each insertDate(articles.docs) as article}
         <ArticleCard
           name={article.name}
           href={article.date

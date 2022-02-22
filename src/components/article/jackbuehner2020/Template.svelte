@@ -77,7 +77,7 @@
     <article>
       <!-- cover page -->
       <CoverPage
-      _id={article._id}
+        _id={article._id}
         name={article.name}
         publishedAt={article.timestamps.published_at}
         authors={article.people.authors.map((p) => p.name.replace(' (Provisional)', ''))}
@@ -349,7 +349,7 @@
           }
         }
       </style>
-      <MoreArticles />
+      <MoreArticles thisObjectId={article._id} />
       <div class="more-from">
         <h1>More from The Paladin</h1>
         <div class={'groups'}>
