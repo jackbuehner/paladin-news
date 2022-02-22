@@ -15,6 +15,14 @@
       };
     }
 
+    // redirect satire category to satire page
+    if (page.path === '/section/Satire') {
+      return {
+        status: 302, // temporary redirect
+        redirect: `/satire`,
+      };
+    }
+
     const pageNumber = page.query.get('page') || '1';
     const url = `${page.path}/${pageNumber}.json`;
     const res = await fetch(url);
