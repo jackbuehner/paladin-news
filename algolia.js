@@ -32,11 +32,6 @@ async function fetchLatestSatire(limit = 10, page = 1) {
             display_authors
           }
           description
-          photo_path
-          photo_caption
-          photo_credit
-          body
-          legacy_html
         }
         totalDocs
         limit
@@ -97,6 +92,7 @@ async function fetchLatest(limit = 10, page = 1) {
         featured: $featured,
       ) {
         docs {
+          _id
           name
           slug
           timestamps {
@@ -104,25 +100,11 @@ async function fetchLatest(limit = 10, page = 1) {
           },
           people {
             authors {
-              _id
               name
-              slug
-              photo
             }
           }
           categories
-          tags
           description
-          photo_path
-          photo_caption
-          photo_credit
-          body
-          legacy_html
-          video_path
-          video_replaces_photo
-          show_comments
-          template
-          layout
         }
         totalDocs
         limit
@@ -206,7 +188,7 @@ const getAlgoliaData = {
     let isMore = true;
     while (isMore) {
       // get a page of articles
-      const { data } = await fetchLatestSatire(100, pageNumber);
+      const { data } = await fetchLatestSatire(50, pageNumber);
       const { docs, hasNextPage } = data;
 
       // set whether there are more satire articles on another page
@@ -244,7 +226,8 @@ const algoliaConfig = {
     },
   ],
   verbosity: 2,
-  partialUpdates: false,
+  partialUpdates: true,
+  matchFields: ['_id'],
 };
 
 if (process.env.ALGOLIA_APP_ID && process.env.ALGOLIA_ADMIN_KEY) {
