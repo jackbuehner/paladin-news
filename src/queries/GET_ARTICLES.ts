@@ -36,6 +36,7 @@ const GET_ARTICLES = `
         photo_path
         photo_caption
         photo_credit
+        body
         legacy_html
         video_path
         video_replaces_photo
@@ -75,6 +76,7 @@ interface GET_ARTICLES__DOC_TYPE {
   photo_path: string;
   photo_caption: string;
   photo_credit: string;
+  body?: string;
   legacy_html: boolean; // true if it is html from the old webflow
   video_path: string;
   video_replaces_photo: boolean;

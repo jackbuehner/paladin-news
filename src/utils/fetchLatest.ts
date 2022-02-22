@@ -1,8 +1,13 @@
 import { GET_ARTICLES } from '../queries';
-import type { GET_ARTICLES__JSON, GET_ARTICLES__DOC_TYPE, Paged } from '../queries';
+import type { GET_ARTICLES__DOC_TYPE, GET_ARTICLES__JSON, Paged } from '../queries';
 import { variables } from '../variables';
 
-async function fetchFeatured(): Promise<{ data: Paged<GET_ARTICLES__DOC_TYPE>; ok: boolean }> {
+/**
+ * Fetch the newest articles.
+ */
+async function fetchLatest(
+  limit = 10
+): Promise<{ data: Paged<GET_ARTICLES__DOC_TYPE>; ok: boolean }> {
   const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
 
   // request the articles from the api
@@ -12,8 +17,13 @@ async function fetchFeatured(): Promise<{ data: Paged<GET_ARTICLES__DOC_TYPE>; o
     body: JSON.stringify({
       query: GET_ARTICLES,
       variables: {
-        limit: 4,
-        featured: true,
+        limit,
+        filter: JSON.stringify({
+          'timestamps.published_at': { $exists: true },
+        }),
+        sort: JSON.stringify({
+          'timestamps.published_at': -1,
+        }),
       },
     }),
   });
@@ -26,4 +36,4 @@ async function fetchFeatured(): Promise<{ data: Paged<GET_ARTICLES__DOC_TYPE>; o
   return { data: articles, ok: res.ok };
 }
 
-export { fetchFeatured };
+export { fetchLatest };

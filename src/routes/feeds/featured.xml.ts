@@ -1,16 +1,13 @@
 import type { ServerRequest } from '@sveltejs/kit/types/hooks';
-import { variables } from '../../variables';
 import { toHTML, toXML } from '../../utils/fetchSectionXml';
 import { insertDate } from '../../utils/insertDate';
-import type { IArticle } from 'src/interfaces/articles';
+import { fetchFeatured } from '../../utils/fetchFeatured';
 
 export async function get(
   request: ServerRequest
 ): Promise<{ headers: Record<string, string>; body: string }> {
-  const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
-  const url = `${hostUrl}/api/v2/articles/public?limit=4`;
-  const res = await (await fetch(`${url}&featured=true`)).json();
-  const docs = insertDate<IArticle>(res.docs);
+  const { data } = await fetchFeatured();
+  const docs = insertDate(data.docs);
 
   const body = toXML(
     docs
