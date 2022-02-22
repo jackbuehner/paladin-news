@@ -1,21 +1,9 @@
 <script lang="ts">
-  import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
-  import type { IArticle } from 'src/interfaces/articles';
-  import { variables } from '../../variables';
-  import { onMount } from 'svelte';
   import ArticleCard from '../home/ArticleCard.svelte';
   import { insertDate } from '../../utils/insertDate';
+  import type { GET_ARTICLES__DOC_TYPE, Paged } from '../../queries';
 
-  export let articles: AggregatePaginateResult<IArticle> = undefined;
-
-  // if articles is undefined, retrieve the featured articles
-  onMount(async () => {
-    if (!articles) {
-      const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
-      const res = await fetch(`${hostUrl}/api/v2/articles/public?limit=4&featured=true`);
-      articles = await res.json();
-    }
-  });
+  export let articles: Paged<GET_ARTICLES__DOC_TYPE>;
 </script>
 
 <div class={'grid featured'}>

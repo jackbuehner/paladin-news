@@ -1,10 +1,7 @@
 <script lang="ts">
-  import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
-  import type { IArticle } from 'src/interfaces/articles';
-  import { onMount } from 'svelte';
   import ArticleCard from './ArticleCard.svelte';
-  import { variables } from '../../variables';
   import { insertDate } from '../../utils/insertDate';
+  import type { GET_ARTICLES__DOC_TYPE, Paged } from '../../queries';
 
   export let quantity: [number, number, number, number] = [5, 4, 2, 3]; // breakpoints: largest, medium, small, mobile
   export let mobilePhotoMultiple = 4; // hide every photo on mobile except for any multiple of this number (e.g. 3 shows photos for first photo, fourth photo, seventh photo, etc.)
@@ -13,7 +10,7 @@
   export let categories: string = undefined;
   export let gridArea = 'auto';
   export let forceVertical = false;
-  export let articles: AggregatePaginateResult<IArticle> = undefined;
+  export let articles: Paged<GET_ARTICLES__DOC_TYPE>;
 
   $: windowWidth = 0;
 
@@ -26,19 +23,6 @@
       : windowWidth > 560
       ? quantity[2]
       : quantity[3];
-
-  // if articles is undefined, retrieve the articles using the categories
-  onMount(async () => {
-    if (!articles) {
-      const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
-      const res = await fetch(
-        `${hostUrl}/api/v2/articles/public?limit=${Math.max(...quantity)}${
-          categories ? categories.split(',').map((category) => `&category=${category}`) : ''
-        }`.replace(',', '')
-      );
-      articles = await res.json();
-    }
-  });
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} />
