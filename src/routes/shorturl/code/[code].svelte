@@ -1,6 +1,5 @@
 <script context="module" lang="ts">
   import type { LoadInput, LoadOutput } from '@sveltejs/kit';
-  import type { IShortURL } from 'src/interfaces/shorturl';
   import { onMount } from 'svelte';
 
   /**
@@ -31,8 +30,9 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { title } from '../../../stores/title';
+  import type { GET_SHORTURL__DOC_TYPE } from '../../../queries';
 
-  export let shortURL: IShortURL;
+  export let shortURL: GET_SHORTURL__DOC_TYPE;
 
   onMount(() => {
     goto(shortURL.original_url, { replaceState: true });

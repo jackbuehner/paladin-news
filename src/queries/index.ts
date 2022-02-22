@@ -10,20 +10,26 @@ export type {
   GET_ARTICLE_BASIC__JSON,
   GET_ARTICLE_BASIC__TYPE,
 } from './GET_ARTICLE_BASIC';
+export { GET_SATIRES } from './GET_SATIRES';
+export type { GET_SATIRES__DOC_TYPE, GET_SATIRES__JSON, GET_SATIRES__TYPE } from './GET_SATIRES';
 export { GET_SATIRE_BY_SLUG } from './GET_SATIRE_BY_SLUG';
 export type {
   GET_SATIRE_BY_SLUG__DOC_TYPE,
   GET_SATIRE_BY_SLUG__JSON,
   GET_SATIRE_BY_SLUG__TYPE,
 } from './GET_SATIRE_BY_SLUG';
+export { GET_SHORTURL } from './GET_SHORTURL';
+export type {
+  GET_SHORTURL__DOC_TYPE,
+  GET_SHORTURL__JSON,
+  GET_SHORTURL__TYPE,
+} from './GET_SHORTURL';
 export { GET_USER_BY_SLUG } from './GET_USER_BY_SLUG';
 export type {
   GET_USER_BY_SLUG__DOC_TYPE,
   GET_USER_BY_SLUG__JSON,
   GET_USER_BY_SLUG__TYPE,
 } from './GET_USER_BY_SLUG';
-export { GET_SATIRES } from './GET_SATIRES';
-export type { GET_SATIRES__JSON, GET_SATIRES__TYPE, GET_SATIRES__DOC_TYPE } from './GET_SATIRES';
 
 export interface GraphJsonType<T> {
   errors?: unknown;
