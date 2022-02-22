@@ -262,6 +262,9 @@
     margin-top: 0;
     margin-bottom: 10px;
   }
+  :global(.article-body li > p) {
+    margin-bottom: 0;
+  }
   :global(.article-body img) {
     max-width: 100%;
     width: 100%;
