@@ -1,3 +1,14 @@
+<script context="module" lang="ts">
+  import { title } from '../stores/title';
+  /** @type {import('@sveltejs/kit').Load} */
+  export async function load() {
+    // set the document title
+    title.set('Jobs');
+
+    return { status: 200 };
+  }
+</script>
+
 <script lang="ts">
   import PageHeading from '../components/PageHeading.svelte';
 
@@ -22,18 +33,25 @@
       formTime: '1-3 minutes',
     },
     {
-      title: 'Sports Editor',
-      note: '4 hours per week; $10.00/hr',
+      title: 'Business Manager',
+      note: 'Flexible schedule; Paid',
       description: `
-        <ul style="margin: 0;">
-          <li>Manage the sports section of <i>The Paladin</i>.</li>
-          <li>Effectively communicate with writers editors to produce articles for the sports section.</i></li>
-          <li>Attend weekly board meetings.</i></li>
-          <li>Must have a general interest in Furman sports.</i></li>
-        </ul>
+        The Business Manager would assist the Editor-in-Chief with putting together the budget and keeping track of expenses and payroll.
+        Candidate qualities should include organizational skills, good communication, money management awareness, and basic Excel capabilities.
       `,
-      form: 'https://forms.office.com/Pages/ResponsePage.aspx?id=2fdi-EbxGEWm-58uqC08gEsJCrlx8F1JqSx6fdQssF5UM1dIWktMOENBS0cxNkUxN0EwWFdSMEwxVyQlQCN0PWcu',
+      form: 'https://forms.office.com/Pages/ResponsePage.aspx?id=2fdi-EbxGEWm-58uqC08gEsJCrlx8F1JqSx6fdQssF5UNzVQUlBQUFJCR1hHMVVMS1gzNVY1VDNHSSQlQCN0PWcu',
       formTime: '< 10 minutes',
+    },
+    {
+      title: 'Copy Editor',
+      note: '2 hours per week; Paid',
+      description: `
+        Copy editors edit articles and provide writers and section editors with feedback.
+        Editing is <a href="https://owl.purdue.edu/owl/subject_specific_writing/journalism_and_journalistic_writing/ap_style.html">AP Style</a>.
+        This position requires grammatical proficiency and editing skills. 
+      `,
+      form: 'https://forms.office.com/Pages/ResponsePage.aspx?id=2fdi-EbxGEWm-58uqC08gEsJCrlx8F1JqSx6fdQssF5UNklERFNaRUxQRUhXNlhaRVJGQlJTWFpBNSQlQCN0PWcu',
+      formTime: '5-10 minutes',
     },
     {
       title: 'Producer, <i>The Royal Flush</i>',
@@ -49,6 +67,16 @@
       `,
       form: 'https://forms.office.com/Pages/ResponsePage.aspx?id=2fdi-EbxGEWm-58uqC08gEsJCrlx8F1JqSx6fdQssF5UNFZDU0JSWFMySExDNlMyUTNVVEMwNkJMMCQlQCN0PWcu',
       formTime: '1-2 minutes',
+    },
+    {
+      title: 'Social Media Assistant',
+      note: '1-2 hours per week; Paid',
+      description: `
+        The social media assistant will work with the Social Media Manager to produce social media content for The Paladin.
+        This position involves learning strategies for successful social media campaigns. <i>The Paladin</i> is on Instagram, Facebook, Twitter, and LinkedIn.
+      `,
+      form: 'https://forms.office.com/Pages/ResponsePage.aspx?id=2fdi-EbxGEWm-58uqC08gEsJCrlx8F1JqSx6fdQssF5UNERWOFdZQzU0VFVUQjU4U0UxWk5DOTkwOCQlQCN0PWcu',
+      formTime: '< 8 minutes',
     },
     {
       title: 'Distributer, <i>The Royal Flush</i> (Male)',
@@ -78,6 +106,8 @@
       title: 'Web Editor',
       note: '4 hours per week; $9.00/hr',
       description: `
+      We are looking for first- and second-year students to fill this position.
+      <br />
       You will be expected to assist the Digital Director with the following responsibilities:
         <ul style="margin: 0 0 6px 0;">
           <li>Manage select website content.</li>
