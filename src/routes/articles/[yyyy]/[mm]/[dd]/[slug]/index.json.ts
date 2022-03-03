@@ -1,4 +1,3 @@
-import type { IArticle } from 'src/interfaces/articles';
 import type { EndpointOutput } from '@sveltejs/kit';
 import type { ServerRequest } from '@sveltejs/kit/types/hooks';
 import type { JSONValue } from '@sveltejs/kit/types/helper';
@@ -8,10 +7,11 @@ import { SweepwidgetWidget } from '../../../../../../pm/render/SweepwidgetWidget
 import { YoutubeWidget } from '../../../../../../pm/render/YoutubeWidget';
 import { PhotoWidget } from '../../../../../../pm/render/PhotoWidget';
 import { insertDate } from '../../../../../../utils/insertDate';
-import { GET_ARTICLE_BY_SLUG } from '../../../../../../queries/GET_ARTICLE_BY_SLUG';
+import { GET_ARTICLE_BY_SLUG, GET_ARTICLE_BY_SLUG__DOC_TYPE } from '../../../../../../queries';
+import type { GET_ARTICLE_BY_SLUG__JSON } from '../../../../../../queries';
 import { string as smartquotes } from 'smartquotes';
 
-interface IArticleOutput extends IArticle {
+interface Output extends GET_ARTICLE_BY_SLUG__DOC_TYPE {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: JSONValue | any;
 }
@@ -19,7 +19,7 @@ interface IArticleOutput extends IArticle {
 /**
  * @type {import('@sveltejs/kit').RequestHandler}
  */
-async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutput>> {
+async function get(request: ServerRequest): Promise<EndpointOutput<Output>> {
   // the `slug` parameter is available because this file
   // is called [slug].json.ts
   const { slug } = request.params;
@@ -42,9 +42,9 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutpu
   });
 
   // get the article from the response
-  const json = await res.json();
+  const json: GET_ARTICLE_BY_SLUG__JSON = await res.json();
   if (json.errors) return { status: 500 };
-  const article: IArticle = json.data?.articleBySlugPublic;
+  const article = json.data?.articleBySlugPublic;
 
   // rename categories (sections) to their full names
   try {

@@ -10,7 +10,6 @@
     ArticleSubtitle,
     MoreArticles,
   } from './';
-  import type { IArticle } from 'src/interfaces/articles';
   import Container from '/src/components/Container.svelte';
   import Button from '/src/components/Button.svelte';
   import { goto } from '$app/navigation';
@@ -20,8 +19,10 @@
   import { share } from '../../../components/article/share';
   import Image from '../../../components/Image.svelte';
   import CoverPage from './CoverPage.svelte';
+  import type { GET_ARTICLE_BY_SLUG__DOC_TYPE } from '../../../queries';
+  import type { PublishedDocWithDate } from '../../../utils/insertDate';
 
-  export let article: IArticle;
+  export let article: PublishedDocWithDate<GET_ARTICLE_BY_SLUG__DOC_TYPE>;
 
   // video embed options
   let video_embed_path: string | null = null;

@@ -52,3 +52,4 @@ function insertDate<T>(docs: InputType<T>[]) {
 }
 
 export { insertDate };
+export type { ReturnType as PublishedDocWithDate };
