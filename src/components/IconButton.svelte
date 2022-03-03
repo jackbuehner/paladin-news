@@ -31,6 +31,15 @@
 {:else}
   <button
     on:click
+    on:mouseup
+    on:mousedown
+    on:mouseenter
+    on:mouseleave
+    on:mouseout
+    on:blur
+    on:mouseover
+    on:focus
+    on:mousemove
     class:disabled
     class:isOutlined
     aria-label={ariaLabel}
