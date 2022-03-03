@@ -1,6 +1,7 @@
 import ArticleBody from './ArticleBody.svelte';
 import ArticleCaption from './ArticleCaption.svelte';
 import ArticleCategories from './ArticleCategories.svelte';
+import ArticleFooter from './ArticleFooter.svelte';
 import ArticleHeading from './ArticleHeading.svelte';
 import ArticleMeta from './ArticleMeta.svelte';
 import ArticlePhoto from './ArticlePhoto.svelte';
@@ -15,6 +16,7 @@ export {
   ArticleBody,
   ArticleCaption,
   ArticleCategories,
+  ArticleFooter,
   ArticleHeading,
   ArticleMeta,
   ArticlePhoto,
