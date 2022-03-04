@@ -13,6 +13,7 @@
   let clickTimer: NodeJS.Timeout;
   let active = false;
   let bubbleTimer: NodeJS.Timeout;
+  let interacted = false;
 
   // track claps
   let claps: Applause;
@@ -57,6 +58,7 @@
       clearTimeout(bubbleTimer);
       clearTimeout(clickTimer);
       clicked = true;
+      interacted = true;
       clickTimer = setTimeout(() => {
         clicked = false;
       }, 250);
@@ -76,6 +78,7 @@
     class:clapped={userClaps > 0}
     class:clicked
     class:active
+    class:interacted
     class:inactive={!active}
   >
     {#if userClaps > 0}
@@ -218,8 +221,8 @@
   /* COUNTER BUBBLE */
   /* hide counter while button is active */
 
-  /* when the button becomes inactive, start the upwards transition */
-  .global-icon-button.clapped.inactive .bubble {
+  /* when the button becomes inactive after an interaction, start the upwards transition */
+  .global-icon-button.clapped.inactive.interacted .bubble {
     animation: bubble 0.55s ease forwards;
   }
 
