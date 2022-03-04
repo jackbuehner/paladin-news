@@ -7,6 +7,9 @@
   export let href: string = undefined;
   export let color: string = undefined;
   export let radius: string = undefined;
+  export let size: string = undefined;
+  export let iconSize: string = undefined;
+  export let className: string = undefined;
   export let background: { base?: string; hover?: string; active?: string } = undefined;
 </script>
 
@@ -15,16 +18,15 @@
     {href}
     class:disabled
     class:isOutlined
+    class={className}
     aria-label={ariaLabel}
-    style={`
-    ${color ? `--button-color: ${color};` : ``}
-    ${radius ? `--radius: ${radius};` : ``}
-    ${background?.base ? `--button-bg: ${background.base};` : ``}
-    ${background?.hover ? `--button-bg-hover: ${background.hover};` : ``}
-    ${background?.active ? `--button-bg-active: ${background.active};` : ``}
-  `}
+    style={`${color ? `--button-color: ${color};` : ``}${radius ? `--radius: ${radius};` : ``}${
+      background?.base ? `--button-bg: ${background.base};` : ``
+    }${background?.hover ? `--button-bg-hover: ${background.hover};` : ``}${
+      background?.active ? `--button-bg-active: ${background.active};` : ``
+    }${size ? `--size: ${size};` : ``}${iconSize ? `--icon-size: ${iconSize};` : ``}`}
   >
-    <svg style="width:24px;height:24px" {viewBox}>
+    <svg {viewBox}>
       <slot />
     </svg>
   </a>
@@ -42,16 +44,15 @@
     on:mousemove
     class:disabled
     class:isOutlined
+    class={className}
     aria-label={ariaLabel}
-    style={`
-      ${color ? `--button-color: ${color};` : ``}
-      ${radius ? `--radius: ${radius};` : ``}
-      ${background?.base ? `--button-bg: ${background.base};` : ``}
-      ${background?.hover ? `--button-bg-hover: ${background.hover};` : ``}
-      ${background?.active ? `--button-bg-active: ${background.active};` : ``}
-    `}
+    style={`${color ? `--button-color: ${color};` : ``}${radius ? `--radius: ${radius};` : ``}${
+      background?.base ? `--button-bg: ${background.base};` : ``
+    }${background?.hover ? `--button-bg-hover: ${background.hover};` : ``}${
+      background?.active ? `--button-bg-active: ${background.active};` : ``
+    }${size ? `--size: ${size};` : ``}${iconSize ? `--icon-size: ${iconSize};` : ``}`}
   >
-    <svg style="width:24px;height:24px" {viewBox}>
+    <svg {viewBox}>
       <slot />
     </svg>
   </button>
@@ -61,9 +62,11 @@
   button,
   a,
   :global(.global-icon-button) {
+    --size: 36px;
+    --icon-size: 24px;
     display: inline-flex;
-    width: 36px;
-    height: 36px;
+    width: var(--size);
+    height: var(--size);
     justify-content: center;
     align-items: center;
     border-radius: var(--radius);
@@ -98,6 +101,8 @@
   svg,
   :global(.global-icon-button svg) {
     fill: currentColor;
+    width: var(--icon-size);
+    height: var(--icon-size);
   }
   button.disabled,
   a.disabled,
