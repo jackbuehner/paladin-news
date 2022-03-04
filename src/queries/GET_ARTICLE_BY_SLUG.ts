@@ -40,6 +40,7 @@ const GET_ARTICLE_BY_SLUG = `
       show_comments
       template
       layout
+      claps
     }
   }
 `;
@@ -82,6 +83,7 @@ interface GET_ARTICLE_BY_SLUG__DOC_TYPE {
   show_comments: boolean; // whether commenting on article should be enabled (for website, not cms)
   template: string;
   layout: string;
+  claps?: number;
 }
 
 interface GET_ARTICLE_BY_SLUG__TYPE {

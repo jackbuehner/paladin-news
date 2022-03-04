@@ -1,9 +1,11 @@
 <script lang="ts">
   import { share } from '../../../components/article/share';
   import Button from '../../../components/Button.svelte';
+  import ApplauseButton from '../../../components/Button/ApplauseButton.svelte';
   import type { GET_ARTICLE_BY_SLUG__DOC_TYPE } from '../../../queries';
   import { commentsOpen } from '../../../stores/comments';
   import type { PublishedDocWithDate } from '../../../utils/insertDate';
+  import { variables } from '../../../variables';
   import Comments from './comments/Comments.svelte';
   import SocialButton from './_SocialButton.svelte';
 
@@ -11,17 +13,63 @@
 
   // keep track of window width
   $: windowWidth = 0;
+
+  /**
+   * Add claps to the article.
+   *
+   * Use this function to keep the database updated with the correct number of claps.
+   */
+  function addClaps(newClaps: number) {
+    if (newClaps === 0) return;
+
+    // create the mutation
+    const mutation = `
+      mutation ArticleAddApplause($_id: ObjectID!, $newClaps: Int!) {
+        articleAddApplause(_id: $_id, newClaps: $newClaps) {
+          claps
+        }
+      }
+    `;
+
+    // configure the url and options
+    const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
+    var opts = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: mutation,
+        variables: {
+          _id: article._id,
+          newClaps,
+        },
+      }),
+    };
+
+    // post the mutation
+    fetch(`${hostUrl}/v3`, opts).catch(console.error);
+  }
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} />
 
 <div class={'article-footer'}>
+  <ApplauseButton
+    id={`article.${article._id}`}
+    initialClaps={article.claps}
+    onDebouncedChange={(claps, newClaps) => addClaps(newClaps)}
+  />
+
   {#if article.show_comments}
     <Button
       on:click={() => ($commentsOpen = true)}
       style={'flex-grow: 1; height: 36px; font-weight: 700; letter-spacing: 0.6px;' +
-        (windowWidth <= 500 ? 'width: 100%' : '')}>READ ALL COMMENTS</Button
+        (windowWidth <= 500 ? 'width: 100%; margin-top: -14px;' : '')}>READ ALL COMMENTS</Button
     >
+  {:else}
+    <div
+      style={'flex-grow: 1; height: 36px; font-weight: 700; letter-spacing: 0.6px;' +
+        (windowWidth <= 500 ? 'display: none' : '')}
+    />
   {/if}
   <div class={'social-buttons'}>
     <SocialButton
