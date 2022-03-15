@@ -10,8 +10,20 @@ export type {
   GET_ARTICLE_BASIC__JSON,
   GET_ARTICLE_BASIC__TYPE,
 } from './GET_ARTICLE_BASIC';
+export { GET_ARTICLE_BY_SLUG } from './GET_ARTICLE_BY_SLUG';
+export type {
+  GET_ARTICLE_BY_SLUG__DOC_TYPE,
+  GET_ARTICLE_BY_SLUG__JSON,
+  GET_ARTICLE_BY_SLUG__TYPE,
+} from './GET_ARTICLE_BY_SLUG';
 export { GET_PROFILE } from './GET_PROFILE';
 export type { GET_PROFILE__DOC_TYPE, GET_PROFILE__JSON, GET_PROFILE__TYPE } from './GET_PROFILE';
+export { GET_PROFILES } from './GET_PROFILES';
+export type {
+  GET_PROFILES__DOC_TYPE,
+  GET_PROFILES__JSON,
+  GET_PROFILES__TYPE,
+} from './GET_PROFILES';
 export { GET_SATIRES } from './GET_SATIRES';
 export type { GET_SATIRES__DOC_TYPE, GET_SATIRES__JSON, GET_SATIRES__TYPE } from './GET_SATIRES';
 export { GET_SATIRE_BY_SLUG } from './GET_SATIRE_BY_SLUG';
@@ -32,12 +44,6 @@ export type {
   GET_USER_BY_SLUG__JSON,
   GET_USER_BY_SLUG__TYPE,
 } from './GET_USER_BY_SLUG';
-export { GET_PROFILES } from './GET_PROFILES';
-export type {
-  GET_PROFILES__JSON,
-  GET_PROFILES__TYPE,
-  GET_PROFILES__DOC_TYPE,
-} from './GET_PROFILES';
 
 export interface GraphJsonType<T> {
   errors?: unknown;
