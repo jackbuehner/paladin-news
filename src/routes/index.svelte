@@ -1,40 +1,27 @@
 <script context="module" lang="ts">
-  import type { LoadOutput } from '@sveltejs/kit';
+  import type { LoadInput, LoadOutput } from '@sveltejs/kit';
 
   /**
    * @type {import('@sveltejs/kit').Load}
    */
-  export async function load(): Promise<LoadOutput> {
+  export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
     // set the document title
     title.set(undefined);
 
     // get the articles
-    const res = {
-      news: await fetchSection('news'),
-      opinion: await fetchSection('opinion'),
-      sports: await fetchSection('sports'),
-      diversity: await fetchSection('diversity'),
-      acc: await fetchSection('arts,campus-culture'),
-      featured: await fetchFeatured(),
-    };
+    const res = await fetch(`/frontpage.json`);
 
-    if (
-      res.news.ok &&
-      res.opinion.ok &&
-      res.sports.ok &&
-      res.diversity.ok &&
-      res.acc.ok &&
-      res.featured.ok
-    ) {
+    if (res.ok) {
+      const { news, opinion, sports, diversity, acc, featured } = await res.json();
       return {
         props: {
           articles: {
-            news: res.news.data,
-            opinion: res.opinion.data,
-            sports: res.sports.data,
-            diversity: res.diversity.data,
-            acc: res.acc.data,
-            featured: res.featured.data,
+            news,
+            opinion,
+            sports,
+            diversity,
+            acc,
+            featured,
           },
         },
       };
@@ -51,20 +38,18 @@
   import Featured from '../components/home/Featured.svelte';
   import ArticleCardRow from '../components/home/ArticleCardRow.svelte';
   import Container from '/src/components/Container.svelte';
-  import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
   import type { IArticle } from 'src/interfaces/articles';
-  import { fetchSection } from '../utils/fetchSection';
-  import { fetchFeatured } from '../utils/fetchFeatured';
   import { title } from '../stores/title';
+  import type { Paged } from '../queries';
 
   // receive the articles from the load function
   interface Iarticles {
-    news: AggregatePaginateResult<IArticle>;
-    opinion: AggregatePaginateResult<IArticle>;
-    sports: AggregatePaginateResult<IArticle>;
-    diversity: AggregatePaginateResult<IArticle>;
-    acc: AggregatePaginateResult<IArticle>;
-    featured: AggregatePaginateResult<IArticle>;
+    news: Paged<IArticle>;
+    opinion: Paged<IArticle>;
+    sports: Paged<IArticle>;
+    diversity: Paged<IArticle>;
+    acc: Paged<IArticle>;
+    featured: Paged<IArticle>;
   }
   export let articles: Iarticles;
 </script>
