@@ -85,17 +85,6 @@
         copyEditors={article.people.editors.copy.map((p) => p.name.replace(' (Provisional)', ''))}
       />
 
-      <!-- advertisement -->
-      <a href={'https://salons.greatclips.com/us/sc/greenville/5052-old-buncombe-rd'}>
-        <Image
-          src={`https://ik.imagekit.io/paladin/939516b5-05d6-4c7d-ad32-ffad14551d80`}
-          className={`article-adv-img`}
-          containerClassName={`article-adv`}
-          loading={'eager'}
-          maxSrcWidth={600}
-        />
-      </a>
-
       <!-- categories -->
       <ArticleCategories categories={article.categories} />
 
