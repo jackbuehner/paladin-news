@@ -27,13 +27,13 @@
 
 <svelte:window bind:innerWidth={windowWidth} />
 
-<section class:mobile={windowWidth <= 560} style={`grid-area: ${gridArea}`}>
+<section class:mobile={windowWidth && windowWidth <= 560} style={`grid-area: ${gridArea}`}>
   {#if href}
     <h2><a {href}>{label}</a></h2>
   {:else}
     <h2>{label}</h2>
   {/if}
-  <div class:mobile={windowWidth <= 560} class:vertical={forceVertical}>
+  <div class:mobile={windowWidth && windowWidth <= 560} class:vertical={forceVertical}>
     {#if articles && articles.docs}
       {#each insertDate(Array.from(articles.docs).slice(0, arrayLength)) as article, index}
         <ArticleCard
@@ -45,7 +45,9 @@
           (windowWidth > 560 && !Number.isInteger(index / mobilePhotoMultiple) && forceVertical)
             ? undefined
             : article.description}
-          photo={(windowWidth <= 560 && !Number.isInteger(index / mobilePhotoMultiple)) ||
+          photo={(windowWidth &&
+            windowWidth <= 560 &&
+            !Number.isInteger(index / mobilePhotoMultiple)) ||
           (windowWidth > 560 && !Number.isInteger(index / mobilePhotoMultiple) && forceVertical)
             ? undefined
             : article.photo_path}
@@ -54,7 +56,10 @@
           authors={article.people.authors}
           isCompact={forceVertical}
         />
-        <span class:mobile={(windowWidth <= 560 || forceVertical) && index < arrayLength - 1} />
+        <span
+          class:mobile={((windowWidth && windowWidth <= 560) || forceVertical) &&
+            index < arrayLength - 1}
+        />
       {/each}
     {:else}
       <p>loading...</p>
@@ -79,6 +84,11 @@
   div.mobile,
   div.vertical {
     flex-direction: column;
+  }
+  @media (max-width: 590px) {
+    div {
+      flex-direction: column;
+    }
   }
   h2 {
     font-family: var(--font-detail);
