@@ -20,7 +20,7 @@
   let userClaps = 0;
 
   onMount(() => {
-    claps = new Applause(id, 50, initialClaps);
+    claps = new Applause(id, 15, initialClaps);
 
     // number of times the current client has clapped
     userClaps = getStore(claps.clientClapsStore);
