@@ -49,7 +49,7 @@
     sports: Paged<IArticle>;
     diversity: Paged<IArticle>;
     acc: Paged<IArticle>;
-    featured: Paged<IArticle>;
+    featured: IArticle[];
   }
   export let articles: Iarticles;
 </script>

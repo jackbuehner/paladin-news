@@ -14,30 +14,23 @@ async function get(): Promise<EndpointOutput> {
       ${section('sports', ['sports'], 3)}
       ${section('diversity', ['diversity'], 3)}
       ${section('acc', ['arts', 'campus-culture'], 3)}
-      featured: articlesPublic(
-        limit: 4
-        page: 1
-        sort: $sort
-        featured: true
-      ) {
-        docs {
-          name
-          slug
-          timestamps {
-            published_at
-          }
-          people {
-            authors {
-              name
-              slug
-              photo
-            }
-          }
-          categories
-          description
-          photo_path
-          photo_credit
+      featured: articleFeaturedDocsPublic {
+        name
+        slug
+        timestamps {
+          published_at
         }
+        people {
+          authors {
+            name
+            slug
+            photo
+          }
+        }
+        categories
+        description
+        photo_path
+        photo_credit
       }
     }
   `;
@@ -52,6 +45,8 @@ async function get(): Promise<EndpointOutput> {
     }),
   });
   const data = (await res.json()).data;
+
+  console.log(data);
 
   // return the content
   if (data) {

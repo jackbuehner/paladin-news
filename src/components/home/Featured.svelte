@@ -3,13 +3,13 @@
   import { insertDate } from '../../utils/insertDate';
   import type { GET_ARTICLES__DOC_TYPE, Paged } from '../../queries';
 
-  export let articles: Paged<GET_ARTICLES__DOC_TYPE>;
+  export let articles: GET_ARTICLES__DOC_TYPE[];
 </script>
 
 <div class={'grid featured'}>
   <h2>Featured articles</h2>
-  {#if articles && articles.docs}
-    {#each insertDate(Array.from(articles.docs).slice(0, 4)) as article, index}
+  {#if articles}
+    {#each insertDate(Array.from(articles).slice(0, 4)) as article, index}
       <ArticleCard
         style={`grid-area: fa-${index}`}
         name={article.name}
@@ -25,7 +25,7 @@
         isCompact={index === 2 || index === 3}
       />
 
-      {#if index < articles.docs.length - 1}
+      {#if index < articles.length - 1}
         <span style={`grid-area: d${index}`} />
       {/if}
     {/each}
