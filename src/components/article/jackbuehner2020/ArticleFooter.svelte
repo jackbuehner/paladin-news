@@ -25,7 +25,7 @@
     // create the mutation
     const mutation = `
       mutation ArticleAddApplause($_id: ObjectID!, $newClaps: Int!) {
-        articleAddApplause(_id: $_id, newClaps: $newClaps) {
+        articleAddApplausePublic(_id: $_id, incClaps: $newClaps) {
           claps
         }
       }
