@@ -46,8 +46,6 @@ async function get(): Promise<EndpointOutput> {
   });
   const data = (await res.json()).data;
 
-  console.log(data);
-
   // return the content
   if (data) {
     return {

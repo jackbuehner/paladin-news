@@ -7,7 +7,7 @@ export async function get(
   request: ServerRequest
 ): Promise<{ headers: Record<string, string>; body: string }> {
   const { data } = await fetchFeatured();
-  const docs = insertDate(data.docs);
+  const docs = insertDate(data);
 
   const body = toXML(
     docs

@@ -82,14 +82,12 @@ async function fetchLatest(limit = 10, page = 1) {
       $limit: Int = 10,
       $sort: JSON = "{\\\"timestamps.published_at\\\":-1}",
       $filter: JSON = null,
-      $featured: Boolean = false,
     ) {
       articlesPublic(
         limit: $limit,
         page: $page,
         sort: $sort,
         filter: $filter,
-        featured: $featured,
       ) {
         docs {
           _id
