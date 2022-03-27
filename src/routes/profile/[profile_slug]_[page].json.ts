@@ -48,7 +48,7 @@ async function get(request: ServerRequest): Promise<EndpointOutput<IOutput>> {
       query: GET_ARTICLES,
       variables: {
         page: parseInt(page),
-        filter: JSON.stringify({ 'people.authors': profile?.userPublicBySlug?._id }),
+        filter: JSON.stringify({ 'people.authors': profile?.userBySlugPublic?._id }),
       },
     }),
   });

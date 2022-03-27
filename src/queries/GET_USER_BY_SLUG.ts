@@ -1,8 +1,8 @@
 import type { GraphJsonType } from '.';
 
 const GET_USER_BY_SLUG = `
-  query userPublicBySlug($slug: String!) {
-    userPublicBySlug(slug: $slug) {
+  query userBySlugPublic($slug: String!) {
+    userBySlugPublic(slug: $slug) {
       _id
       name
       current_title
@@ -17,7 +17,7 @@ const GET_USER_BY_SLUG = `
 `;
 
 interface GET_USER_BY_SLUG__TYPE {
-  userPublicBySlug?: GET_USER_BY_SLUG__DOC_TYPE;
+  userBySlugPublic?: GET_USER_BY_SLUG__DOC_TYPE;
 }
 
 interface GET_USER_BY_SLUG__DOC_TYPE {

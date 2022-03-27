@@ -14,13 +14,13 @@
       await res.json();
 
     // set the document title
-    if (profile?.userPublicBySlug?.name) title.set(`${profile.userPublicBySlug.name} - Profile`);
+    if (profile?.userBySlugPublic?.name) title.set(`${profile.userBySlugPublic.name} - Profile`);
     else title.set(`Profile`);
 
     if (res.ok) {
       return {
         props: {
-          profile: profile?.userPublicBySlug,
+          profile: profile?.userBySlugPublic,
           articles: articles?.articlesPublic,
         },
       };
