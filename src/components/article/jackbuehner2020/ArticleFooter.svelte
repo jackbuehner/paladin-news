@@ -186,4 +186,9 @@
       gap: 18px;
     }
   }
+  @media print {
+    .article-footer {
+      display: none;
+    }
+  }
 </style>
