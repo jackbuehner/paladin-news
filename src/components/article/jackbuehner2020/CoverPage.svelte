@@ -38,8 +38,8 @@
       Collection: <i>The Paladin Newspaper</i>, {now
         .toLocaleString('default', { month: 'long' })
         .toUpperCase()}
-      {now.getFullYear()}, ROLLING DIGITAL RELEASE, Vol. {new Date().getFullYear() - 1914}-D, Iss. {new Date().getMonth() +
-        1}
+      {now.getFullYear()}, ROLLING DIGITAL RELEASE, Vol. {new Date(publishedAt).getFullYear() -
+        1914}-D, Iss. {new Date(publishedAt).getMonth() + 1}
     </div>
     <div class={'metadata'}>Published: {toDateString(new Date(publishedAt))}</div>
     <div class={'metadata'}>Retrieved: {toDateString(now)}</div>
