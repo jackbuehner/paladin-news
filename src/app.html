@@ -58,9 +58,9 @@
 
       :root {
         /* fonts */
-        --font-headline: 'Adamant BG', Georgia, 'Times New Roman', Times, serif;
-        --font-body: Georgia, 'Times New Roman', Times, serif;
-        --font-detail: Lato, Arial, sans-serif;
+        --font-headline: cursive, 'Adamant BG', Georgia, 'Times New Roman', Times, serif;
+        --font-body: cursive, Georgia, 'Times New Roman', Times, serif;
+        --font-detail: cursive, Lato, Arial, sans-serif;
         --legacy-font-headline: 'Merriweather', Georgia, serif;
         --legacy-font-body: Lato, Arial, sans-serif;
         --legacy2-font: 'PT Serif', serif;
@@ -76,8 +76,8 @@
         --color-neutral-lightest: #a7a7a7;
 
         /* borders */
-        --border-light: #eee;
-        --border-dark: #ccc;
+        --border-light: blue;
+        --border-dark: blue;
         --radius: 2px;
 
         /* buttons */
@@ -98,18 +98,18 @@
           rgb(0 0 0 / 11%) 0px 0.15px 0.9px 0px;
 
         /* topbar */
-        --topbar-bg: #ffffff;
-        --topbar-color: #333333;
+        --topbar-bg: #ffffbb;
+        --topbar-color: blue;
         --topbar-scroll-shadow: 0 0 20px 0 rgb(0 0 0 / 16%);
 
         /* sidenav */
-        --sidenav-bg: #ffffff;
+        --sidenav-bg: #ffffbb;
         --sidenav-shadow: 0 0 20px 0 rgb(0 0 0 / 18%);
         --sidenav-width: 280px;
 
         /* backgrounds and surfaces */
-        --background: #ffffff;
-        --surface: #ffffff;
+        --background: #ffffbb;
+        --surface: #ffffbb;
       }
     </style>
     <!-- service worker -->
@@ -119,6 +119,6 @@
   </head>
 
   <body>
-    <div id="svelte">%svelte.body%</div>
+    <div id="svelte" style="background: #ffffbb; color: red">%svelte.body%</div>
   </body>
 </html>

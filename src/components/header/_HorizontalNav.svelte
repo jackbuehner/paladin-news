@@ -57,4 +57,21 @@
     border: 1px solid var(--button-bg-active);
     box-shadow: var(--button-shadow-active);
   }
+  a[href='/satire'] {
+    background: linear-gradient(45deg, #8610e9, #06e2a8);
+    border: none !important;
+    color: white;
+    font-family: monospace;
+    text-shadow: 0 0 10px #0900c5;
+    transition: 200ms;
+    transform: scale(1.2);
+  }
+  a[href='/satire']:hover {
+    background: red;
+    transform: scale(2.5) translateY(-10px);
+  }
+  a[href='/satire']:active {
+    background: yellowgreen;
+    transform: scale(1.5) translateY(-4px);
+  }
 </style>

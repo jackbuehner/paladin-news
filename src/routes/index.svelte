@@ -130,7 +130,7 @@
   .wrapper {
     position: relative;
     /*top: -52px;*/
-    background-color: white;
+    background-color: #ffffbb;
   }
 
   .sections-grid {

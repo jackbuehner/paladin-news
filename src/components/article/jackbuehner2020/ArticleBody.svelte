@@ -253,6 +253,7 @@
   div.article-body {
     margin: 30px auto 0;
     font-family: var(--font-body);
+    font-family: Georgia, Times, 'Times New Roman', serif;
     color: var(--color-neutral-dark);
     font-size: 17px;
     line-height: 1.7;
