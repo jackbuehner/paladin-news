@@ -97,9 +97,6 @@
 <slot />
 
 <style>
-  div.horizontal-nav {
-    transform: rotate3d(1, 1, 1, 1deg);
-  }
   /* wrapper for the topbar */
   .topbar {
     height: 42px;
