@@ -4,6 +4,7 @@
   import type { GET_ARTICLES__DOC_TYPE, Paged } from '../../queries';
 
   export let articles: GET_ARTICLES__DOC_TYPE[];
+  export let hideDate: boolean = false;
 </script>
 
 <div class={'grid featured'}>
@@ -19,7 +20,7 @@
         description={article.description}
         photo={article.photo_path}
         photoCredit={article.photo_credit}
-        date={article.timestamps.published_at}
+        date={hideDate ? undefined : article.timestamps.published_at}
         authors={article.people.authors}
         categories={article.categories}
         isCompact={index === 2 || index === 3}

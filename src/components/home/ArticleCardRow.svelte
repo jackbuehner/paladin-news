@@ -11,6 +11,7 @@
   export let gridArea = 'auto';
   export let forceVertical = false;
   export let articles: Paged<GET_ARTICLES__DOC_TYPE>;
+  export let hideDate: boolean = false;
 
   $: windowWidth = 0;
 
@@ -52,7 +53,7 @@
             ? undefined
             : article.photo_path}
           photoCredit={article.photo_credit}
-          date={article.timestamps.published_at}
+          date={hideDate ? undefined : article.timestamps.published_at}
           authors={article.people.authors}
           isCompact={forceVertical}
         />
