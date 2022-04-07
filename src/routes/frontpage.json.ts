@@ -30,7 +30,6 @@ async function get(): Promise<EndpointOutput> {
         categories
         description
         photo_path
-        photo_credit
       }
     }
   `;
@@ -81,7 +80,6 @@ function section(label: string, categories?: string[], limit = 10) {
       categories
       description
       photo_path
-      photo_credit
     }
   }
   `;

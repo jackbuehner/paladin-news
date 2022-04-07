@@ -76,6 +76,9 @@
     class={'name'}
     class:isLargerHeadline
     class:noMargin={isCompact && description === undefined}
+    class:spaceBetweenHeadlineAndPhoto={categoriesModified.length === 0 &&
+      !photoCredit &&
+      !isCompact}
   >
     {smartquotes(name)}
   </div>
@@ -180,6 +183,9 @@
   .name.isLargerHeadline {
     font-size: 23px;
     line-height: 29px;
+  }
+  .name.spaceBetweenHeadlineAndPhoto {
+    margin-top: 12px;
   }
   .description {
     font-family: var(--font-body);
