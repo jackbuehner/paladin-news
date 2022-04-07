@@ -1,24 +1,25 @@
 <script context="module" lang="ts">
   import type { LoadInput, LoadOutput } from '@sveltejs/kit';
 
-  /**
-   * @type {import('@sveltejs/kit').Load}
-   */
   export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
+    // get data from the flusher endpoint
     const url = `/flusher.json?${page.query.toString()}`;
     const res = await fetch(url);
 
     // set the document title
     title.set('The Royal Flush');
 
+    // if the request was successful, return the data to the component's props
     if (res.ok) {
       return {
         props: {
+          // return it as JSON
           flusher: await res.json(),
         },
       };
     }
 
+    // otherwise, return an error
     return {
       status: res.status,
       error: new Error(`Could not load ${url}`),
@@ -31,41 +32,43 @@
   import { title } from '../stores/title';
   import type { IFlush } from 'src/interfaces/flush';
   import ArticleRow from '/src/components/home/ArticleRow.svelte';
-  import { formatISODate } from '../utils/formatISODate';
-  import { insertDate } from '../utils/insertDate';
+  import { constructArticlePath, insertDate, formatISODate } from '../utils';
 
+  // the flusher document retrieved from the load function (above)
   export let flusher: IFlush;
 
+  // get the featured article and insert date components
+  // (to be used when contructing the URL to the article)
   const featuredArticle = flusher.articles.featured
     ? insertDate([flusher.articles.featured])[0]
     : null;
 </script>
 
+<!-- page title -->
 <h1>The Royal Flush</h1>
+<!-- flusher week formatted in AP style -->
 <subtitle>Week of {formatISODate(flusher.timestamps.week)}</subtitle>
 
 <Container>
-  <h2>Featured Article</h2>
-  <ArticleRow
-    name={featuredArticle?.name}
-    href={featuredArticle?.date
-      ? `/articles/${featuredArticle.date.year}/${featuredArticle.date.month}/${featuredArticle.date.day}/${featuredArticle.slug}`
-      : `/articles/${featuredArticle.slug}`}
-    description={featuredArticle?.description}
-    photo={featuredArticle?.photo_path}
-    date={featuredArticle?.timestamps.published_at}
-    authors={featuredArticle?.people.authors.filter((author) => !!author)}
-  />
+  <!-- include a featured article first (if it is defined) -->
+  {#if featuredArticle}
+    <h2>Featured Article</h2>
+    <ArticleRow
+      name={featuredArticle.name}
+      href={constructArticlePath(featuredArticle.slug, featuredArticle.date)}
+      description={featuredArticle.description}
+      photo={featuredArticle.photo_path}
+      date={featuredArticle.timestamps.published_at}
+      authors={featuredArticle.people.authors.filter((author) => !!author)}
+    />
+  {/if}
 
+  <!-- include the more articles section as an ordered list where each article is a numbered item in the list -->
   <h2>More Articles</h2>
   <ol>
     {#each insertDate(flusher.articles.more) as article}
       <li>
-        <a
-          href={article.date
-            ? `/articles/${article.date.year}/${article.date.month}/${article.date.day}/${article.slug}`
-            : `/articles/${article.slug}`}>{article.name}</a
-        >
+        <a href={constructArticlePath(article.slug, article.date)}>{article.name}</a>
       </li>
     {/each}
   </ol>
