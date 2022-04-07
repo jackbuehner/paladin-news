@@ -1,97 +1,46 @@
-/* eslint-disable no-useless-escape */ // the triple backslash is required for graphql
+/* eslint-disable no-useless-escape */ // graphql needs the quotes to be escaped
 import type { EndpointOutput } from '@sveltejs/kit';
-import type { JSONValue } from '@sveltejs/kit/types/helper';
 import type { ServerRequest } from '@sveltejs/kit/types/hooks';
-import type { AggregatePaginateResult } from 'src/interfaces/aggregatePaginateResult';
-import type { IFlush } from 'src/interfaces/flush';
+import { GET_FLUSHERS, GET_FLUSHERS__JSON } from '../queries';
 import { variables } from '../variables';
 
-interface IArticleOutput extends IFlush {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: JSONValue | any;
-}
-
-/**
- * @type {import('@sveltejs/kit').RequestHandler}
- */
-async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutput>> {
-  // query for latest flusher
-  const GET_LATEST_FLUSHER = `{
-    flushesPublic(
-      ${
-        request.query.has('week')
-          ? `
-              limit: 1,
-              sort: "{ \\\"volume\\\": -1, \\\"issue\\\": -1 }",
-              filter: "{ \\\"$and\\\": [ { \\\"timestamps.week\\\": { \\\"$gte\\\": \\\"${new Date(
-                request.query.get('week')
-              ).toISOString()}\\\" } }, { \\\"timestamps.week\\\": { \\\"$lt\\\": \\\"${new Date(
-              new Date(request.query.get('week')).getTime() + 60 * 60 * 24 * 1000
-            ).toISOString()}\\\" } } ] }"
-            `
-          : `
-              limit: 1,
-              sort: "{ \\\"volume\\\": -1, \\\"issue\\\": -1 }",
-              filter: "{ \\\"timestamps.week\\\": { \\\"$lte\\\": \\\"${new Date().toISOString()}\\\" } }"
-            `
-      } 
-    ) {
-      docs {
-        volume
-        issue
-        events {
-          name
-          date
-          location
-        }
-        articles {
-          featured {
-            slug
-            name
-            description
-            photo_path
-            timestamps {
-              published_at
-            }
-            people {
-              authors {
-                name
-              }
-            }
-          }
-          more {
-            slug
-            name
-            timestamps {
-              published_at
-            }
-          }
-        }
-        timestamps {
-          week
-        }
-      }
-    }
-  }`;
-
-  // get the latest flusher
-  const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
-  const res = await fetch(`${hostUrl}/v3`, {
+async function get(request: ServerRequest): Promise<EndpointOutput> {
+  const res = await fetch(`${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}/v3`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      query: GET_LATEST_FLUSHER,
+      query: GET_FLUSHERS,
+      variables: {
+        // get only one flusher
+        limit: 1,
+        // filter out flushers with uneligible times
+        filter: (() => {
+          // if the query specifies a specific week, get the flusher with the week
+          if (request.query.has('week')) {
+            const week: Date = new Date(request.query.get('week'));
+            const weekPlusOneDay = new Date(week.getTime() + 1000 * 60 * 60 * 24);
+            return `{ 
+                      \"$and\": [
+                        { \"timestamps.week\": { \"$gte\": \"${week.toISOString()}\" } },
+                        { \"timestamps.week\": { \"$lt\": \"${weekPlusOneDay.toISOString()}\" } } 
+                      ] 
+                    }`;
+          }
+          // otherwise, get the newest flusher that has a week that is not in the future
+          return `{ \"timestamps.week\": { \"$lte\": \"${new Date().toISOString()}\" } }`;
+        })(),
+        // prefer the newest filtered flusher with the largest volume and issue number
+        sort: `{ \"timestamps.week\": -1, \"volume\": -1, \"issue\": -1 }`,
+      },
     }),
   });
-  const flusher: AggregatePaginateResult<IFlush> = (await res.json()).data.flushesPublic;
+  const { data }: GET_FLUSHERS__JSON = await res.json();
+  const flusher = data.flushesPublic.docs[0];
 
   // return the flusher
   if (flusher) {
-    return {
-      body: flusher.docs[0],
-    };
+    return { body: JSON.stringify(flusher) };
   }
-  return null;
 }
 
 export { get };
