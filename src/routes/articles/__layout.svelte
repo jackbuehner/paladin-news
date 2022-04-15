@@ -57,6 +57,49 @@
     ArticleTemplateFurmanPaladin,
     ArticleTemplateFurmanMediaCom,
   } from '../../components/article/index';
+  import { onMount, tick } from 'svelte';
+  import { articlePhotoRect } from '../../stores/articlePhotoRect';
+
+  onMount(() => {
+    const photoPos = document
+      .querySelector(`[class^="article-photo-container"]`)
+      .getBoundingClientRect();
+    const pagePos = document
+      .querySelector(`[class^="article-photo-container"]`)
+      .parentElement.parentElement.parentElement.getBoundingClientRect();
+    $articlePhotoRect = {
+      bottom: photoPos.bottom - pagePos.bottom,
+      height: photoPos.height,
+      left: photoPos.left - pagePos.left,
+      right: photoPos.right - pagePos.right,
+      top: photoPos.x - pagePos.top,
+      width: photoPos.width,
+      x: photoPos.x - pagePos.x,
+      y: photoPos.y - pagePos.y,
+      toJSON: () =>
+        JSON.stringify({
+          bottom: photoPos.bottom - pagePos.bottom,
+          height: photoPos.height,
+          left: photoPos.left - pagePos.left,
+          right: photoPos.right - pagePos.right,
+          top: photoPos.x - pagePos.top,
+          width: photoPos.width,
+          x: photoPos.x - pagePos.x,
+          y: photoPos.y - pagePos.y,
+        }),
+    };
+  });
+
+  // if we navigated to this url from elsewhere on the website, scroll to
+  // the top (useful because we navigate to this page with scrolling
+  // disabled )
+  // onMount(async () => {
+  //   await tick(); // wait for mount to finish
+  //   const isFromInternalUrl = new URL(document.referrer).host === window.location.host;
+  //   if (isFromInternalUrl) {
+  //     window.scrollTo(0, 0);
+  //   }
+  // });
 
   export let article: IArticle;
 

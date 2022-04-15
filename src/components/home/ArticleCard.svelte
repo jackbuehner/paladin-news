@@ -3,6 +3,9 @@
   import { formatISODate } from '../../utils/formatISODate';
   import { string as smartquotes } from 'smartquotes';
   import Image from '../Image.svelte';
+  import { cubicInOut, elasticOut, quartOut } from 'svelte/easing';
+  import { fade } from 'svelte/transition';
+  import { articlePhotoRect } from '../../stores/articlePhotoRect';
 
   export let style = '';
   export let name: string;
@@ -38,24 +41,140 @@
       }
     });
   }
+
+  // zoom the photo into place
+  const handleClick = (
+    e: MouseEvent & {
+      currentTarget: EventTarget & HTMLAnchorElement;
+    }
+  ) => {
+    clicked = true;
+
+    const scrim: HTMLDivElement = e.currentTarget.querySelector('.card-scrim');
+
+    // find the photo wrapper and transition wrapper elements
+    const transitionPhoto: HTMLDivElement = e.currentTarget.querySelector('.transition-photo');
+    const photoWrapper = transitionPhoto.firstElementChild as HTMLElement;
+
+    if (transitionPhoto) {
+      let isFirst = true;
+      let timer: NodeJS.Timer = null;
+      articlePhotoRect.subscribe(
+        (rect) => {
+          console.log(rect);
+
+          if (isFirst) {
+            if (rect) {
+              let {
+                x: fromX,
+                y: fromY,
+                width: fromWidth,
+                height: fromHeight,
+              } = transitionPhoto.getBoundingClientRect();
+              let { x: toX, y: toY, width: toWidth, height: toHeight } = rect;
+              fromY += document.documentElement.scrollTop;
+              toY += document.documentElement.scrollTop;
+
+              transitionPhoto.style.willChange = `auto`;
+              transitionPhoto.style.zIndex = `1000000`;
+              transitionPhoto.style.position = `absolute`;
+              transitionPhoto.style.left = `${fromX}px`;
+              transitionPhoto.style.top = `${fromY}px`;
+              transitionPhoto.style.width = `${fromWidth}px`;
+
+              const topNavHeight = 52;
+              const diffX = toX - fromX;
+              const diffY = toY - fromY + topNavHeight;
+              const diffWidth = toWidth - fromWidth;
+              const diffHeight = toHeight - fromHeight;
+
+              const duration = 400;
+              const start = Date.now();
+
+              timer = setInterval(() => {
+                const timeProgress = (Date.now() - start) / duration;
+                const progress = quartOut(timeProgress);
+
+                if (timeProgress >= 1) {
+                  clearInterval(timer); // stop the animation
+                  document.documentElement.scrollTo({ top: 0 });
+                  return;
+                }
+
+                // move the photo
+                if (
+                  fromX !== undefined &&
+                  fromY !== undefined &&
+                  toX !== undefined &&
+                  toY !== undefined
+                ) {
+                  transitionPhoto.style.left = `${fromX + diffX * progress}px`;
+                  transitionPhoto.style.top = `${fromY - topNavHeight + diffY * progress}px`;
+                  transitionPhoto.style.width = `${fromWidth + diffWidth * progress}px`;
+                  if (photoWrapper) {
+                    photoWrapper.style.width = `${fromWidth + diffWidth * progress}px`;
+                    photoWrapper.style.height = `${fromHeight + diffHeight * progress}px`;
+                  }
+                }
+
+                // show the scrim
+                if (scrim) {
+                  scrim.style.cssText = `
+                    position: fixed;
+                    background: white;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    z-index: 10;
+                    opacity: ${progress * 2}; 
+                  `;
+                }
+              }, 10);
+            }
+          }
+        },
+        (rect) => {
+          if (timer) clearInterval(timer);
+          isFirst = !!rect;
+        }
+      );
+    }
+  };
+
+  $: clicked = false;
+  function wait(node, { duration }) {
+    return {
+      duration,
+      tick: (t) => {
+        if (t === 0 && clicked) {
+          document.documentElement.scrollTo({ top: 0 });
+        }
+      },
+    };
+  }
 </script>
 
-<a {href} {style}>
+<a {href} {style} sveltekit:noscroll out:wait={{ duration: 400 }} on:click={handleClick}>
+  <div class={'card-scrim'} />
+
   <!-- photo and credit -->
   {#if photo !== undefined && photo.length > 0 && !isCompact}
-    <div class={'photo-group'}>
-      <div class={'photo-wrapper'} class:isCategoryPage>
-        <Image
-          src={photo}
-          className={`article-card-image`}
-          containerClassName={`article-card-image-container`}
-        />
+    <div class={'transition-photo'}>
+      <div class={'photo-group'}>
+        <div class={'photo-wrapper'} class:isCategoryPage>
+          <Image
+            src={photo}
+            className={`article-card-image`}
+            containerClassName={`article-card-image-container`}
+          />
+        </div>
+        {#if photoCredit === undefined}
+          {''}
+        {:else}
+          <div class={'photo-credit'}>{photoCredit}</div>
+        {/if}
       </div>
-      {#if photoCredit === undefined}
-        {''}
-      {:else}
-        <div class={'photo-credit'}>{photoCredit}</div>
-      {/if}
     </div>
   {/if}
 
@@ -85,12 +204,14 @@
 
   <!-- compact article card photo (only if it is compact) -->
   {#if isCompact && photo}
-    <div class={'photo-wrapper compact'}>
-      <Image
-        src={photo}
-        className={`article-card-image`}
-        containerClassName={`article-card-image-container`}
-      />
+    <div class={'transition-photo compact'}>
+      <div class={'photo-wrapper compact'}>
+        <Image
+          src={photo}
+          className={`article-card-image`}
+          containerClassName={`article-card-image-container`}
+        />
+      </div>
     </div>
   {/if}
 
@@ -235,5 +356,8 @@
     font-size: 13px;
     line-height: 20px;
     text-align: right;
+  }
+  .transition-photo.compact {
+    float: right;
   }
 </style>

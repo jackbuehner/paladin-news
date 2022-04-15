@@ -18,6 +18,7 @@
   import CoverPage from './CoverPage.svelte';
   import type { GET_ARTICLE_BY_SLUG__DOC_TYPE } from '../../../queries';
   import type { PublishedDocWithDate } from '../../../utils/insertDate';
+  import { fade } from 'svelte/transition';
 
   export let article: PublishedDocWithDate<GET_ARTICLE_BY_SLUG__DOC_TYPE>;
 
@@ -48,6 +49,9 @@
 
   // keep track of window width
   $: windowWidth = 0;
+
+  // wait for transition to this page
+  const transitionInDelay = 400;
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} />
@@ -86,13 +90,19 @@
       />
 
       <!-- categories -->
-      <ArticleCategories categories={article.categories} />
+      <div in:fade={{ delay: transitionInDelay }}>
+        <ArticleCategories categories={article.categories} />
+      </div>
 
       <!-- heading -->
-      <ArticleHeading>{article.name}</ArticleHeading>
+      <div in:fade={{ delay: transitionInDelay }}>
+        <ArticleHeading>{article.name}</ArticleHeading>
+      </div>
 
       <!-- subtitle -->
-      <ArticleSubtitle>{article.description}</ArticleSubtitle>
+      <div in:fade={{ delay: transitionInDelay }}>
+        <ArticleSubtitle>{article.description}</ArticleSubtitle>
+      </div>
 
       <!-- video/photo -->
       {#if video_embed_path && article.video_replaces_photo}
@@ -115,62 +125,69 @@
       {/if}
 
       <!-- meta info -->
-      <ArticleMeta
-        date={article.timestamps.published_at}
-        authors={article.people.authors}
-        articleName={article.name}
-        articleLocation={`https://thepaladin.news/articles/${article.slug}`}
-        articleDescription={article.description}
-      />
+      <div in:fade={{ delay: transitionInDelay }}>
+        <ArticleMeta
+          date={article.timestamps.published_at}
+          authors={article.people.authors}
+          articleName={article.name}
+          articleLocation={`https://thepaladin.news/articles/${article.slug}`}
+          articleDescription={article.description}
+        />
+      </div>
 
       <!-- special content notices -->
-      {#if article.tags}
-        {#if article.tags.includes('paladin profiles')}
-          <div class={'paladin-plus-article-prompt'}>
-            This article is part of the <b>Paladin Profiles</b> video interview newsletter. Paladin
-            Profiles highlight the important work Paladins past and present are doing to improve
-            diversity and inclusion on campus and beyond. To receive content like this a week early,
-            <a href={'/newsletters'}>subscribe here</a>!
-          </div>
-        {:else if article.tags.includes('sunday summary')}
-          <div class={'paladin-plus-article-prompt'}>
-            This article is part of the <b>Sunday summary</b> newsletter. To receive more content
-            like this a week early,
-            <a href={'/newsletters'}>subscribe here</a>!
-          </div>
-        {:else if article.tags.includes('rwbp')}
-          <div class={'paladin-plus-article-prompt'}>
-            This article is part of the <b>Red, White, Blue, & Purple</b> podcast-newsletter that
-            covers politics and policy from a Furman Perspective. To receive more content like this
-            a week early,
-            <a href={'/newsletters'}>subscribe here</a>!
-          </div>
-        {:else if article.tags.includes('the works')}
-          <div class={'paladin-plus-article-prompt'}>
-            This article is part of the <b>The Works</b> newsletter. The Works tracks the latest
-            trends sweeping the student body, highlights creative talent, and shines a light on the
-            best (and worst) aspects of campus culture at Furman. To receive more content like this
-            a week early,
-            <a href={'/newsletters'}>subscribe here</a>!
-          </div>
-        {:else if article.tags.includes('deep dive')}
-          <div class={'paladin-plus-article-prompt'}>
-            This article is part of The Paladin’s data-driven newsletter uncovering campus’ biggest
-            stories, <b>Deep Dive</b>. To receive content like this a week early,
-            <a href={'/newsletters'}>subscribe here</a>!
-          </div>
-        {:else if article.tags.includes('sports roundup')}
-          <div class={'paladin-plus-article-prompt'}>
-            This article is part of the <b>Paladin Sports Roundup</b>, a newsletter with
-            comprehensive updates on the Paladins and special features such as video interviews with
-            Furman athletes. To receive content like this a week early,
-            <a href={'/newsletters'}>subscribe here</a>!
-          </div>
+      <div in:fade={{ delay: transitionInDelay }}>
+        {#if article.tags}
+          {#if article.tags.includes('paladin profiles')}
+            <div class={'paladin-plus-article-prompt'}>
+              This article is part of the <b>Paladin Profiles</b> video interview newsletter.
+              Paladin Profiles highlight the important work Paladins past and present are doing to
+              improve diversity and inclusion on campus and beyond. To receive content like this a
+              week early,
+              <a href={'/newsletters'}>subscribe here</a>!
+            </div>
+          {:else if article.tags.includes('sunday summary')}
+            <div class={'paladin-plus-article-prompt'}>
+              This article is part of the <b>Sunday summary</b> newsletter. To receive more content
+              like this a week early,
+              <a href={'/newsletters'}>subscribe here</a>!
+            </div>
+          {:else if article.tags.includes('rwbp')}
+            <div class={'paladin-plus-article-prompt'}>
+              This article is part of the <b>Red, White, Blue, & Purple</b> podcast-newsletter that
+              covers politics and policy from a Furman Perspective. To receive more content like
+              this a week early,
+              <a href={'/newsletters'}>subscribe here</a>!
+            </div>
+          {:else if article.tags.includes('the works')}
+            <div class={'paladin-plus-article-prompt'}>
+              This article is part of the <b>The Works</b> newsletter. The Works tracks the latest
+              trends sweeping the student body, highlights creative talent, and shines a light on
+              the best (and worst) aspects of campus culture at Furman. To receive more content like
+              this a week early,
+              <a href={'/newsletters'}>subscribe here</a>!
+            </div>
+          {:else if article.tags.includes('deep dive')}
+            <div class={'paladin-plus-article-prompt'}>
+              This article is part of The Paladin’s data-driven newsletter uncovering campus’
+              biggest stories, <b>Deep Dive</b>. To receive content like this a week early,
+              <a href={'/newsletters'}>subscribe here</a>!
+            </div>
+          {:else if article.tags.includes('sports roundup')}
+            <div class={'paladin-plus-article-prompt'}>
+              This article is part of the <b>Paladin Sports Roundup</b>, a newsletter with
+              comprehensive updates on the Paladins and special features such as video interviews
+              with Furman athletes. To receive content like this a week early,
+              <a href={'/newsletters'}>subscribe here</a>!
+            </div>
+          {/if}
         {/if}
-      {/if}
+      </div>
 
       <!-- body -->
-      <ArticleBody doc={article.body} />
+      <div in:fade={{ delay: transitionInDelay }}>
+        <ArticleBody doc={article.body} />
+      </div>
 
       <!-- video -->
       {#if video_embed_path && !article.video_replaces_photo}
