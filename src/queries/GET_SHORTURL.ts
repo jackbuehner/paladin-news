@@ -2,7 +2,7 @@ import type { GraphJsonType } from '.';
 
 const GET_SHORTURL = `
   query GetShortUrlBasic($code: String!) {
-    shorturl(code: $code) {
+    shortUrl(code: $code) {
       original_url
       code
       domain
