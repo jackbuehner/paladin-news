@@ -3,8 +3,8 @@
   export let name: string;
   export let publishedAt: string;
   export let authors: string[];
-  export let managingEditors: string[] = undefined;
-  export let copyEditors: string[] = undefined;
+  export let managingEditors: string[] = [];
+  export let copyEditors: string[] = [];
 
   const now = new Date();
 

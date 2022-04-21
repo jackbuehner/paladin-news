@@ -1,17 +1,17 @@
 <script lang="ts">
-  import ArticleCard from '/src/components/home/ArticleCard.svelte';
+  import ArticleCard from '$lib/components/home/ArticleCard.svelte';
+  import type { GET_ARTICLES__DOC_TYPE, Paged } from '$lib/queries';
+  import { insertDate } from '$lib/utils/insertDate';
   import { onMount } from 'svelte';
-  import { insertDate } from '../../../utils/insertDate';
   import { fetchMore } from '.';
-  import type { GET_ARTICLES__DOC_TYPE, Paged } from '../../../queries';
 
+  export let thisObjectId: string;
+
+  let articles: Paged<GET_ARTICLES__DOC_TYPE> | undefined = undefined;
   onMount(async () => {
     const res = await fetchMore([thisObjectId], 5);
-    if (res.ok) articles = res.data;
+    if (res.ok && res.data) articles = res.data;
   });
-
-  export let articles: Paged<GET_ARTICLES__DOC_TYPE> = undefined;
-  export let thisObjectId: string = undefined;
 
   $: componentWidth = 0;
   $: windowWidth = 0;

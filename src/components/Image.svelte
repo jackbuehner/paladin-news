@@ -4,8 +4,8 @@
   export let src: string;
   export let alt = '';
   export let loading: 'eager' | 'lazy' = 'lazy';
-  export let className: string = undefined;
-  export let containerClassName: string = undefined;
+  export let className: string | undefined = undefined;
+  export let containerClassName: string | undefined = undefined;
   export let maxSrcWidth = 1000;
 
   const ik = 'https://ik.imagekit.io/paladin/';
@@ -21,6 +21,7 @@
 
   $: canTransform = src.indexOf(ik) !== -1;
   $: tinySrc = src.replace(ik, `${ik}tr:w-27,bl-5/`);
+  let realSrc: string | undefined;
   $: realSrc = undefined;
 
   // control whether the image is shown

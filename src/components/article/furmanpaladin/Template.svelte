@@ -1,26 +1,29 @@
 <script lang="ts">
-  import type { IArticle } from 'src/interfaces/articles';
-  import Container from '/src/components/Container.svelte';
+  import { browser } from '$app/env';
+  import Container from '$lib/components/Container.svelte';
+  import type { GET_ARTICLE_BY_SLUG__DOC_TYPE } from '$lib/queries';
+  import type { PublishedDocWithDate } from '$lib/utils/insertDate';
   import { onDestroy, onMount } from 'svelte';
   import {
+    ArticleBody,
+    ArticleCaption,
     ArticleCategories,
     ArticleHeading,
-    ArticlePhoto,
-    ArticleCaption,
-    ArticlePhotoCredit,
-    ArticleBody,
     ArticleMeta,
+    ArticlePhoto,
+    ArticlePhotoCredit,
   } from '.';
-  import { browser } from '$app/env';
 
-  export let article: IArticle;
+  export let article: PublishedDocWithDate<GET_ARTICLE_BY_SLUG__DOC_TYPE>;
 
   // keep track of window width
   $: windowWidth = 0;
 
   // set header colors
   onMount(() => {
-    const topbar: HTMLDivElement | undefined = document.querySelector(`.topbar-wrapper`);
+    const topbar: HTMLDivElement | undefined = document.querySelector(
+      `.topbar-wrapper`
+    ) as HTMLDivElement;
     document.body.style.setProperty(`--topbar-bg`, `#26272b`);
     document.body.style.setProperty(`--topbar-color`, `#999999`);
     document.body.style.setProperty(`background-color`, `#f4f4f4`);
@@ -29,7 +32,9 @@
   onDestroy(() => {
     if (browser) {
       // onDestroy runs in SSR, so we need to ensure we are in the browser
-      const topbar: HTMLDivElement | undefined = document.querySelector(`.topbar-wrapper`);
+      const topbar: HTMLDivElement | undefined = document.querySelector(
+        `.topbar-wrapper`
+      ) as HTMLDivElement;
       document.body.style.removeProperty(`--topbar-bg`);
       document.body.style.removeProperty(`--topbar-color`);
       document.body.style.removeProperty(`background-color`);
@@ -77,7 +82,7 @@
   <article>
     <header>
       <!-- categories -->
-      <ArticleCategories categories={article.categories} />
+      <ArticleCategories categories={article.categories || []} />
 
       <!-- heading -->
       <ArticleHeading>{article.name}</ArticleHeading>
@@ -98,7 +103,7 @@
 
     <div class={`columns`}>
       <ArticleMeta authors={article.people.authors} date={article.timestamps.published_at} />
-      <ArticleBody doc={article.body} />
+      <ArticleBody doc={article.body || ''} />
     </div>
   </article>
 </Container>

@@ -1,10 +1,10 @@
 <script lang="ts">
   //export let type = 'default';
   export let disabled = false;
-  export let htmlType: string = undefined;
-  export let width: string = undefined;
-  export let href: string = undefined;
-  export let style: string = undefined;
+  export let htmlType: string | undefined = undefined;
+  export let width: string | undefined = undefined;
+  export let href: string | undefined = undefined;
+  export let style: string | undefined = undefined;
 </script>
 
 {#if href}

@@ -4,13 +4,13 @@
   export let disabled = false;
   export let isOutlined = false;
   export let ariaLabel: string;
-  export let href: string = undefined;
-  export let color: string = undefined;
-  export let radius: string = undefined;
-  export let size: string = undefined;
-  export let iconSize: string = undefined;
-  export let className: string = undefined;
-  export let background: { base?: string; hover?: string; active?: string } = undefined;
+  export let href: string | undefined = undefined;
+  export let color: string | undefined = undefined;
+  export let radius: string | undefined = undefined;
+  export let size: string | undefined = undefined;
+  export let iconSize: string | undefined = undefined;
+  export let className: string | undefined = undefined;
+  export let background: { base?: string; hover?: string; active?: string } | undefined = undefined;
 </script>
 
 {#if href}

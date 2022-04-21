@@ -1,9 +1,9 @@
 <script lang="ts">
+  import { share } from '$lib/components/article/share';
+  import { formatISODate } from '$lib/utils/formatISODate';
+  import { slugify } from '$lib/utils/slugify';
   import { DateTime } from 'luxon';
-  import { formatISODate } from '../../../utils/formatISODate';
   import type { IArticleAuthor } from 'src/interfaces/articles';
-  import { slugify } from '../../../utils/slugify';
-  import { share } from './../share';
   import SocialButton from './_SocialButton.svelte';
 
   export let date: string;

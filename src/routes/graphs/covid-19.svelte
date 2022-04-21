@@ -1,18 +1,11 @@
-<script context="module" lang="ts">
-  /** @type {import('@sveltejs/kit').Load} */
-  export async function load() {
-    // set the document title
-    title.set('COVID-19 on Campus');
-
-    return { status: 200 };
-  }
-</script>
-
 <script>
-  import PageHeading from '/src/components/PageHeading.svelte';
-  import Container from '/src/components/Container.svelte';
-  import { Tabs, TabList, TabPanel, Tab } from '../../components/Tabs';
-  import { title } from '../../stores/title';
+  import Container from '$lib/components/Container.svelte';
+  import PageHeading from '$lib/components/PageHeading.svelte';
+  import { Tab, TabList, TabPanel, Tabs } from '$lib/components/Tabs';
+  import { title } from '$lib/stores/title';
+
+  // set the document title
+  title.set('COVID-19 on Campus');
 </script>
 
 <div style={'height: 0;'}>

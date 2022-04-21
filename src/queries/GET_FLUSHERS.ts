@@ -74,9 +74,9 @@ interface GET_FLUSHERS__DOC_TYPE {
         published_at: string; // ISO string
       };
       people: {
-        authors: {
+        authors: Array<{
           name: string;
-        };
+        } | null>;
       };
     };
     more: Array<{

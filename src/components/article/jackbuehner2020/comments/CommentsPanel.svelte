@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { commentsOpen } from '../../../../stores/comments';
+  import IconButton from '$lib/components/IconButton.svelte';
+  import { commentsOpen } from '$lib/stores/comments';
   import { onMount } from 'svelte';
-  import IconButton from '../../../IconButton.svelte';
 
   export let pageId: string;
 

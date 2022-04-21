@@ -1,10 +1,9 @@
-import type { EndpointOutput } from '@sveltejs/kit';
-import type { ServerRequest } from '@sveltejs/kit/types/hooks';
-import { GET_ARTICLE_BASIC, GET_ARTICLE_BASIC__JSON } from '../../../queries';
-import { insertDate } from '../../../utils/insertDate';
-import { variables } from '../../../variables';
+import { GET_ARTICLE_BASIC, type GET_ARTICLE_BASIC__TYPE } from '$lib/queries';
+import { api } from '$lib/utils/api';
+import { insertDate } from '$lib/utils/insertDate';
+import type { RequestHandler } from '@sveltejs/kit';
 
-async function get(request: ServerRequest): Promise<EndpointOutput> {
+export const get: RequestHandler<{ collection: string; _id: string }> = async (request) => {
   const { collection, _id } = request.params;
   const failureRedirect = {
     status: 302, // temporary redirect
@@ -12,20 +11,14 @@ async function get(request: ServerRequest): Promise<EndpointOutput> {
   };
 
   if (collection === 'articles') {
-    // request the article from the api
-    const res = await fetch(`${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}/v3`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        query: GET_ARTICLE_BASIC,
-        variables: { _id },
-      }),
+    // get the article from the api
+    const { data, error } = await api.query<GET_ARTICLE_BASIC__TYPE>(GET_ARTICLE_BASIC, {
+      variables: { _id },
     });
 
     // get the article from the response
-    const json: GET_ARTICLE_BASIC__JSON = await res.json();
-    if (json.errors) return failureRedirect;
-    const { slug, ...article } = insertDate([json.data.articlePublic])[0];
+    if (!error.errors || !data?.articlePublic) return failureRedirect;
+    const { slug, ...article } = insertDate([data.articlePublic])[0];
     const { year, month, day } = article.date;
 
     return {
@@ -35,6 +28,4 @@ async function get(request: ServerRequest): Promise<EndpointOutput> {
   }
 
   return failureRedirect;
-}
-
-export { get };
+};

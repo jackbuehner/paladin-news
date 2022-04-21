@@ -63,3 +63,9 @@ declare module 'kwesforms' {
   const kwesforms: any;
   export = kwesforms;
 }
+
+declare module 'smartquotes' {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const smartquotes: (str: string) => string;
+  export = smartquotes;
+}

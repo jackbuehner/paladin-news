@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { Slicker } from '@rooi/slicker';
   import { onMount } from 'svelte';
 
@@ -19,7 +19,7 @@
     });
   });
 
-  export let doc;
+  export let doc: string;
 </script>
 
 <link rel="stylesheet" href="/gallery/slick.css" />

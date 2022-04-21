@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
-  export let doc;
+  export let doc: string;
 
   onMount(() => {
     const scriptElem = document.createElement('script');
@@ -50,18 +50,22 @@
       const tooTall = el.getBoundingClientRect().height > window.outerHeight;
       if (tooTall) {
         const img = el.querySelector('img');
-        img.style.width = 'auto';
-        img.style.maxHeight = `${window.outerHeight - 60}px`;
-        img.style.margin = `0 auto`;
+        if (img) {
+          img.style.width = 'auto';
+          img.style.maxHeight = `${window.outerHeight - 60}px`;
+          img.style.margin = `0 auto`;
+        }
 
         // set to row layout only if caption is present
         const figcaption = el.querySelector('figcaption');
-        if (figcaption.textContent.length > 0) {
-          const imgWrapper: HTMLElement = el.querySelector('.img-wrapper');
-          el.style.flexDirection = 'row';
-          imgWrapper.style.flex = '1';
-          figcaption.style.flex = '1';
-          figcaption.style.marginLeft = '10px';
+        if (figcaption && figcaption.textContent && figcaption.textContent.length > 0) {
+          const imgWrapper: HTMLElement | null = el.querySelector('.img-wrapper');
+          if (imgWrapper) {
+            el.style.flexDirection = 'row';
+            imgWrapper.style.flex = '1';
+            figcaption.style.flex = '1';
+            figcaption.style.marginLeft = '10px';
+          }
         }
       }
 
@@ -85,7 +89,7 @@
      * @param topOffset the positive or negative direction for the element's top value (e.g. -145 moves the element 145px up the page)
      * @param time how long to animate in milliseconds
      */
-    function moveFigure(el, topOffset, time = 200, invert = false) {
+    function moveFigure(el: HTMLElement, topOffset: number, time = 200, invert = false) {
       // remember start time
       const start = Date.now();
 
@@ -140,21 +144,23 @@
      */
     function restoreFigure() {
       const img = el.querySelector('img');
-      const imgWrapper: HTMLElement = el.querySelector('.img-wrapper');
+      const imgWrapper: HTMLElement | null = el.querySelector('.img-wrapper');
       const figcaption = el.querySelector('figcaption');
-      el.style.minWidth = ``;
-      el.style.flexDirection = ``;
-      img.style.width = ``;
-      img.style.maxHeight = ``;
-      img.style.margin = ``;
-      imgWrapper.style.flex = ``;
-      figcaption.style.flex = ``;
-      figcaption.style.marginLeft = ``;
-      moveFigure(el, el.style.top.slice(0, -2), 200, true);
-      setTimeout(() => {
-        el.style.zIndex = '';
-        el.style.position = ``;
-      }, 200);
+      if (img && imgWrapper && figcaption) {
+        el.style.minWidth = ``;
+        el.style.flexDirection = ``;
+        img.style.width = ``;
+        img.style.maxHeight = ``;
+        img.style.margin = ``;
+        imgWrapper.style.flex = ``;
+        figcaption.style.flex = ``;
+        figcaption.style.marginLeft = ``;
+        moveFigure(el, parseInt(el.style.top.slice(0, -2)), 200, true);
+        setTimeout(() => {
+          el.style.zIndex = '';
+          el.style.position = ``;
+        }, 200);
+      }
     }
 
     /**

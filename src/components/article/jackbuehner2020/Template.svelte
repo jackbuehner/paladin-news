@@ -1,4 +1,9 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
+  import Button from '$lib/components/Button.svelte';
+  import Container from '$lib/components/Container.svelte';
+  import type { GET_ARTICLE_BY_SLUG__DOC_TYPE } from '$lib/queries';
+  import type { PublishedDocWithDate } from '$lib/utils/insertDate';
   import {
     ArticleBody,
     ArticleCaption,
@@ -11,13 +16,7 @@
     ArticleSubtitle,
     MoreArticles,
   } from './';
-  import Container from '/src/components/Container.svelte';
-  import Button from '/src/components/Button.svelte';
-  import { goto } from '$app/navigation';
-  import Image from '../../../components/Image.svelte';
   import CoverPage from './CoverPage.svelte';
-  import type { GET_ARTICLE_BY_SLUG__DOC_TYPE } from '../../../queries';
-  import type { PublishedDocWithDate } from '../../../utils/insertDate';
 
   export let article: PublishedDocWithDate<GET_ARTICLE_BY_SLUG__DOC_TYPE>;
 
@@ -170,7 +169,7 @@
       {/if}
 
       <!-- body -->
-      <ArticleBody doc={article.body} />
+      <ArticleBody doc={article.body || ''} />
 
       <!-- video -->
       {#if video_embed_path && !article.video_replaces_photo}

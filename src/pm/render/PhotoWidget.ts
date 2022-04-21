@@ -1,4 +1,4 @@
-import Renderer, { DOMOutputSpec } from '@cristata/prosemirror-to-html-js';
+import Renderer, { type DOMOutputSpec } from '@cristata/prosemirror-to-html-js';
 
 interface PhotoWidgetAttrs {
   position?: string;

@@ -1,6 +1,6 @@
-import { GET_ARTICLES } from '../../../queries';
-import type { GET_ARTICLES__DOC_TYPE, GET_ARTICLES__JSON, Paged } from '../../../queries';
-import { variables } from '../../../variables';
+import type { GET_ARTICLES__DOC_TYPE, GET_ARTICLES__JSON, Paged } from '$lib/queries';
+import { GET_ARTICLES } from '$lib/queries';
+import { variables } from '$lib/variables';
 
 /**
  * Fetch more articles to show at the bottom of an article page.
@@ -10,7 +10,7 @@ import { variables } from '../../../variables';
 async function fetchMore(
   exclude: string[],
   limit = 10
-): Promise<{ data: Paged<GET_ARTICLES__DOC_TYPE>; ok: boolean }> {
+): Promise<{ data: Paged<GET_ARTICLES__DOC_TYPE> | null; ok: boolean; status: number }> {
   const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
 
   // request the articles from the api
@@ -34,7 +34,7 @@ async function fetchMore(
   const articles = resJson?.data?.articlesPublic; // identify the articles response
 
   // return the articles
-  return { data: articles, ok: res.ok };
+  return { data: articles || null, ok: res.ok, status: res.status };
 }
 
 export { fetchMore };

@@ -1,43 +1,20 @@
-import type { EndpointOutput } from '@sveltejs/kit';
-import type { JSONValue } from '@sveltejs/kit/types/helper';
-import type { ServerRequest } from '@sveltejs/kit/types/hooks';
-import type { GET_SHORTURL__JSON } from '../../../queries';
-import { GET_SHORTURL, GET_SHORTURL__DOC_TYPE } from '../../../queries';
-import { variables } from '../../../variables';
+import type { GET_SHORTURL__TYPE } from '$lib/queries';
+import { GET_SHORTURL } from '$lib/queries';
+import { api } from '$lib/utils/api';
+import type { RequestHandler } from '@sveltejs/kit';
 
-interface IArticleOutput extends GET_SHORTURL__DOC_TYPE {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: JSONValue | any;
-}
-
-/**
- * @type {import('@sveltejs/kit').RequestHandler}
- */
-async function get(request: ServerRequest): Promise<EndpointOutput<IArticleOutput>> {
+export const get: RequestHandler<{ code: string }> = async (request) => {
   // the `code` parameter is available because this file
-  // is called [code].json.ts
+  // is called [code].ts
   const { code } = request.params;
 
-  if (code === 'pwabuilder-sw.js') return null;
+  if (code === 'pwabuilder-sw.js') return { status: 404 };
 
-  const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
-  const res = await fetch(`${hostUrl}/v3`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      query: GET_SHORTURL,
-      variables: { code },
-    }),
+  const { data, error } = await api.query<GET_SHORTURL__TYPE>(GET_SHORTURL, {
+    variables: { code },
   });
-  const { data }: GET_SHORTURL__JSON = await res.json();
-  const shortURL = data.shorturl;
 
-  if (shortURL && shortURL.hidden !== true && shortURL.code) {
-    return {
-      body: shortURL,
-    };
-  }
-  return null;
-}
-
-export { get };
+  if (error.errors) return { status: 400, body: { errors: JSON.stringify(error.errors) } };
+  else if (data?.shorturl) return { body: { data: JSON.stringify(data.shorturl) } };
+  return { status: error.status };
+};

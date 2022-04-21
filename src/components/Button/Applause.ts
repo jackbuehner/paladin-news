@@ -42,8 +42,8 @@ class Applause {
    * The maximum number of claps allowed per client.
    */
   maxClaps = 5;
-  _holdInterval: NodeJS.Timer;
-  _holdTimeout: NodeJS.Timeout;
+  _holdInterval: NodeJS.Timer | null = null;
+  _holdTimeout: NodeJS.Timeout | null = null;
 
   constructor(id: string, maxClaps?: number, initialClaps?: number) {
     this.id = id;
@@ -118,10 +118,10 @@ class Applause {
    * Clear the timeouts on mouse up.
    */
   onMouseUp() {
-    clearTimeout(this._holdTimeout);
-    clearInterval(this._holdInterval);
-    this._holdTimeout = undefined;
-    this._holdInterval = undefined;
+    if (this._holdTimeout) clearTimeout(this._holdTimeout);
+    if (this._holdInterval) clearInterval(this._holdInterval);
+    this._holdTimeout = null;
+    this._holdInterval = null;
   }
 
   /**

@@ -1,10 +1,12 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { browser } from '$app/env';
+
+  import { beforeUpdate, onMount } from 'svelte';
   import { get as getStore } from 'svelte/store';
   import { Applause } from './Applause';
 
   // component props
-  export let onDebouncedChange = (claps: number, newClaps: number) => {};
+  export let onDebouncedChange = async (claps: number, newClaps: number): Promise<boolean> => false;
   export let initialClaps = 0;
   export let id: string;
 
@@ -16,34 +18,34 @@
   let interacted = false;
 
   // track claps
-  let claps: Applause;
+  $: claps = browser ? new Applause(id, 15, initialClaps) : undefined;
+
+  // number of times the current client has clapped
   let userClaps = 0;
+  $: claps?.clientClapsStore.subscribe((claps) => {
+    userClaps = claps;
+  });
 
-  onMount(() => {
-    claps = new Applause(id, 15, initialClaps);
-
-    // number of times the current client has clapped
-    userClaps = getStore(claps.clientClapsStore);
-    claps.clientClapsStore.subscribe((claps) => {
-      userClaps = claps;
-    });
-
-    // tell parent that the number of claps changed
-    // after it has been three seconds (debounce)
-    let sentClaps = $claps; // keep track of the previous number of claps sent in the onChange function
-    let newClaps = 0; // the number of new claps (claps - sentClaps)
-    let changeTimer: NodeJS.Timer;
-    claps.clapsStore.subscribe((claps) => {
+  // tell parent that the number of claps changed
+  // after it has been three seconds (debounce)
+  let sentClaps = $claps; // keep track of the previous number of claps sent in the onChange function
+  let changeTimer: NodeJS.Timer;
+  $: claps?.clapsStore.subscribe((claps) => {
+    // if sentClaps is undefined, set it to equal the number of
+    // current claps in the store (this will happen as soon as the
+    // store is available -- before the user can interact with
+    // the clap button)
+    if (sentClaps === undefined) sentClaps = claps;
+    else {
       // remove previous timeout if it has not already executed
       clearTimeout(changeTimer);
 
       // send claps after 1.4 seconds
-      changeTimer = setTimeout(() => {
-        newClaps = claps - sentClaps;
-        onDebouncedChange(claps, claps - sentClaps);
-        sentClaps = claps;
+      changeTimer = setTimeout(async () => {
+        const success = await onDebouncedChange(claps, claps - sentClaps!);
+        if (success) sentClaps = claps;
       }, 1400);
-    });
+    }
   });
 
   let randomFloat: number;

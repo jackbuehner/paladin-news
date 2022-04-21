@@ -1,6 +1,6 @@
 <script lang="ts">
+  import { formatISODate } from '$lib/utils/formatISODate';
   import { DateTime } from 'luxon';
-  import { formatISODate } from '../../../utils/formatISODate';
 
   export let date: string;
   export let authors: string[] = [];

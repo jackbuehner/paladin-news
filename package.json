@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "svelte-kit dev --port 4000 --host",
-    "build": "svelte-kit build --verbose && node algolia.js",
+    "build": "npm run build:dir && svelte-kit build --verbose && node algolia.js",
+    "build:dir": "if [ -d build ]; then rm -rf build; fi && mkdir build",
     "preview": "svelte-kit preview --port 4000",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
@@ -11,11 +12,12 @@
     "format": "prettier --write --plugin-search-dir=. ."
   },
   "devDependencies": {
-    "@sveltejs/adapter-netlify": "^1.0.0-next.35",
-    "@sveltejs/kit": "^1.0.0-next.201",
+    "@sveltejs/adapter-netlify": "^1.0.0-next.52",
+    "@sveltejs/kit": "^1.0.0-next.316",
     "@tsconfig/svelte": "^2.0.1",
     "@types/crypto-js": "^4.0.2",
     "@types/luxon": "^1.27.1",
+    "@types/nprogress": "^0.2.0",
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.11.0",
     "dotenv": "^10.0.0",
@@ -25,10 +27,10 @@
     "prettier": "^2.2.1",
     "prettier-plugin-svelte": "^2.3.1",
     "smartquotes": "^2.3.2",
-    "svelte": "^3.34.0",
+    "svelte": "^3.47.0",
     "svelte-algolia": "^0.2.7",
-    "svelte-check": "^2.0.0",
-    "svelte-preprocess": "^4.0.0",
+    "svelte-check": "^2.7.0",
+    "svelte-preprocess": "^4.10.6",
     "tslib": "^2.0.0",
     "typescript": "^4.0.0"
   },
@@ -36,12 +38,13 @@
   "dependencies": {
     "@azure/msal-browser": "^2.20.0",
     "@cristata/prosemirror-to-html-js": "2.2.2",
-    "@rooi/slicker": "^0.0.3",
+    "@rooi/slicker": "0.0.3",
     "crypto-js": "^4.1.1",
     "fathom-client": "^3.4.0",
     "kwesforms": "^2.1.16",
     "luxon": "^2.0.1",
     "node-fetch": "^2.6.1",
-    "nprogress": "^0.2.0"
+    "nprogress": "^0.2.0",
+    "slick-carousel": "^1.8.1"
   }
 }

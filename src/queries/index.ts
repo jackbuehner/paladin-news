@@ -4,6 +4,12 @@ export type {
   GET_ARTICLES__JSON,
   GET_ARTICLES__TYPE,
 } from './GET_ARTICLES';
+export { GET_FRONT_PAGE } from './GET_FRONT_PAGE';
+export type {
+  GET_FRONT_PAGE__DOC_TYPE,
+  GET_FRONT_PAGE__JSON,
+  GET_FRONT_PAGE__TYPE,
+} from './GET_FRONT_PAGE';
 export { GET_ARTICLE_BASIC } from './GET_ARTICLE_BASIC';
 export type {
   GET_ARTICLE_BASIC__DOC_TYPE,

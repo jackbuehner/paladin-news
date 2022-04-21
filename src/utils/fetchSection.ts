@@ -1,7 +1,10 @@
-import { GET_ARTICLES } from '../queries';
-import { variables } from '../variables';
+import { GET_ARTICLES, type GET_ARTICLES__DOC_TYPE, type Paged } from '$lib/queries';
+import { variables } from '$lib/variables';
 
-async function fetchSection(section: string, limit = 10): Promise<{ data: unknown; ok: boolean }> {
+async function fetchSection(
+  section: string,
+  limit = 10
+): Promise<{ data: Paged<GET_ARTICLES__DOC_TYPE>; ok: boolean }> {
   const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
 
   // request the articles from the api

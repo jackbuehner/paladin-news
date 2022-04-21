@@ -1,18 +1,18 @@
-import type { ServerRequest } from '@sveltejs/kit/types/hooks';
-import { toHTML, toXML } from '../../utils/fetchSectionXml';
-import { insertDate } from '../../utils/insertDate';
-import { fetchLatest } from '../../utils/fetchLatest';
+import { fetchLatest } from '$lib/utils/fetchLatest';
+import { toHTML, toXML } from '$lib/utils/fetchSectionXml';
+import { insertDate } from '$lib/utils/insertDate';
+import type { RequestHandler } from '@sveltejs/kit';
 
-export async function get(
-  request: ServerRequest
-): Promise<{ headers: Record<string, string>; body: string }> {
+export const get: RequestHandler = async (request) => {
   const { data } = await fetchLatest();
   const docs = insertDate(data.docs);
 
+  type Post = Parameters<typeof toXML>[0][0];
+
   const body = toXML(
     docs
-      .map((doc) => {
-        if (!doc.timestamps?.published_at) return null;
+      .map((doc): Post | null => {
+        if (!doc.timestamps?.published_at || !doc.body) return null;
         return {
           title: doc.name,
           description: doc.description,
@@ -21,8 +21,8 @@ export async function get(
           html: toHTML(doc.body),
         };
       })
-      .filter((t) => !!t),
-    `https://thepaladin.news${request.path}`
+      .filter((post): post is Post => !!post),
+    `https://thepaladin.news${request.url.pathname}`
   );
 
   const headers = {
@@ -33,4 +33,4 @@ export async function get(
     headers,
     body,
   };
-}
+};

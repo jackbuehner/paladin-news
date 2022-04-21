@@ -1,22 +1,21 @@
+import { PhotoWidget } from '$lib/pm/render/PhotoWidget';
+import { SweepwidgetWidget } from '$lib/pm/render/SweepwidgetWidget';
+import { YoutubeWidget } from '$lib/pm/render/YoutubeWidget';
+import { variables } from '$lib/variables';
 import Renderer from '@cristata/prosemirror-to-html-js';
-import { variables } from '../variables';
-import type { AggregatePaginateResult } from '../interfaces/aggregatePaginateResult';
-import type { IArticle } from '../interfaces/articles';
-import { PhotoWidget } from '../pm/render/PhotoWidget';
-import { SweepwidgetWidget } from '../pm/render/SweepwidgetWidget';
-import { YoutubeWidget } from '../pm/render/YoutubeWidget';
-import { fetchSection } from './fetchSection';
-import { insertDate } from './insertDate';
+import { fetchSection, insertDate } from '.';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 async function fetchSectionXml(section: string, path: string, limit?: number) {
-  const res = (await fetchSection(section, limit)).data as AggregatePaginateResult<IArticle>;
-  const docs = insertDate<IArticle>(res.docs);
+  const res = (await fetchSection(section, limit)).data;
+  const docs = insertDate(res.docs);
+
+  type Post = Parameters<typeof toXML>[0][0];
 
   const body = toXML(
     docs
-      .map((doc) => {
-        if (!doc.timestamps?.published_at) return null;
+      .map((doc): Post | null => {
+        if (!doc.timestamps?.published_at || !doc.body) return null;
         return {
           title: doc.name,
           description: doc.description,
@@ -25,7 +24,7 @@ async function fetchSectionXml(section: string, path: string, limit?: number) {
           html: toHTML(doc.body),
         };
       })
-      .filter((t) => !!t),
+      .filter((post): post is Post => !!post),
     `https://thepaladin.news${path}`
   );
 

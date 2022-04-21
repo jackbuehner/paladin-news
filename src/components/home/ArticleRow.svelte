@@ -1,20 +1,19 @@
 <script lang="ts">
-  import { formatISODate } from '../../utils/formatISODate';
-  import type { IArticleAuthor } from 'src/interfaces/articles';
-  import { string as smartquotes } from 'smartquotes';
-  import Image from '../Image.svelte';
+  import smartquotes from 'smartquotes';
+  import { formatISODate } from '$lib/utils/formatISODate';
+  import Image from '$lib/components/Image.svelte';
 
   export let style = '';
   export let name: string;
-  export let description: string = undefined;
+  export let description: string | undefined = undefined;
   export let href: string;
-  export let photo: string = undefined;
-  export let date: string = undefined; // ISO date format
-  export let authors: IArticleAuthor[] = [];
-  export let categories: string[] = undefined;
+  export let photo: string | undefined = undefined;
+  export let date: string | undefined = undefined; // ISO date format
+  export let authors: { name: string }[] = [];
+  export let categories: string[] = [];
 
   // modify the names of the categories to match the website sections
-  let categoriesModified = [];
+  let categoriesModified: string[] = [];
   if (categories) {
     categories.forEach((category) => {
       switch (category) {

@@ -1,7 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-
-  import Button from './Button.svelte';
+  import Button from '$lib/components/Button.svelte';
 
   const items = [
     {
@@ -61,6 +60,7 @@
     },
   ];
 
+  let width: number | undefined;
   $: width = width;
 </script>
 

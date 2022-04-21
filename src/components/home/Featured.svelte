@@ -1,9 +1,9 @@
 <script lang="ts">
-  import ArticleCard from '../home/ArticleCard.svelte';
-  import { insertDate } from '../../utils/insertDate';
-  import type { GET_ARTICLES__DOC_TYPE, Paged } from '../../queries';
+  import type { GET_FRONT_PAGE__DOC_TYPE } from '$lib/queries';
+  import { insertDate } from '$lib/utils/insertDate';
+  import ArticleCard from '$lib/components/home/ArticleCard.svelte';
 
-  export let articles: GET_ARTICLES__DOC_TYPE[];
+  export let articles: GET_FRONT_PAGE__DOC_TYPE[];
   export let hideDate: boolean = false;
 </script>
 
@@ -19,7 +19,6 @@
           : `/articles/${article.slug}`}
         description={article.description}
         photo={article.photo_path}
-        photoCredit={article.photo_credit}
         date={hideDate ? undefined : article.timestamps.published_at}
         authors={article.people.authors}
         categories={article.categories}

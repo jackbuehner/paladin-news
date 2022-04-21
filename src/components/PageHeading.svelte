@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Container from '/src/components/Container.svelte';
+  import Container from '$lib/components/Container.svelte';
 
   export let type: 'block' | 'line' | 'blockCentered' = 'line';
-  export let subtitle: string = undefined;
+  export let subtitle: string | undefined = undefined;
   export let width = 1200;
 </script>
 

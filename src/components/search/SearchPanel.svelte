@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { formatISODate } from '../../utils/formatISODate';
+  import IconButton from '$lib/components/IconButton.svelte';
+  import { searchOpen } from '$lib/stores/search';
+  import { formatISODate } from '$lib/utils/formatISODate';
   import type { IArticle } from 'src/interfaces/articles';
-  import { searchOpen } from '../../stores/search';
   import { onMount } from 'svelte';
-  import IconButton from '../IconButton.svelte';
 
   // define search ids/keys
   const appId = 'MYSXBURUSK';
@@ -59,7 +59,7 @@
         templates: {
           item(item: IArticle) {
             // modify the names of the categories to match the website sections
-            let categories = [];
+            let categories: string[] = [];
             if (item.categories) {
               item.categories.forEach((category) => {
                 switch (category) {
@@ -117,14 +117,13 @@
                     <span class="search-flyout--hit-card--metadata--item">${published_at}</span>
                     <span class="search-flyout--hit-card--metadata--item">|</span>
                     <span class="search-flyout--hit-card--metadata--item">${
-                      item.people.authors.length === 1
+                      item.people.authors?.length === 1
                         ? item.people.authors[0].name
-                        : item.people.authors.length === 2
+                        : item.people.authors?.length === 2
                         ? `${item.people.authors[0].name} and ${item.people.authors[1].name}`
-                        : item.people.authors.map((author, index) => {
+                        : item.people.authors?.map((author, index, authors) => {
                             if (index === 0) return author.name;
-                            if (index === item.people.authors.length - 1)
-                              return `, and ${author.name}`;
+                            if (index === authors.length - 1) return `, and ${author.name}`;
                             return `, ${author.name}`;
                           })
                     }</span>

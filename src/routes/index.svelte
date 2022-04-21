@@ -1,57 +1,16 @@
-<script context="module" lang="ts">
-  import type { LoadInput, LoadOutput } from '@sveltejs/kit';
-
-  /**
-   * @type {import('@sveltejs/kit').Load}
-   */
-  export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
-    // set the document title
-    title.set(undefined);
-
-    // get the articles
-    const res = await fetch(`/frontpage.json`);
-
-    if (res.ok) {
-      const { news, opinion, sports, diversity, acc, featured } = await res.json();
-      return {
-        props: {
-          articles: {
-            news,
-            opinion,
-            sports,
-            diversity,
-            acc,
-            featured,
-          },
-        },
-      };
-    }
-
-    return {
-      status: 500,
-      error: new Error(`Could not load articles for home page.`),
-    };
-  }
-</script>
-
 <script lang="ts">
-  import Featured from '../components/home/Featured.svelte';
+  import Container from '../components/Container.svelte';
   import ArticleCardRow from '../components/home/ArticleCardRow.svelte';
-  import Container from '/src/components/Container.svelte';
-  import type { IArticle } from 'src/interfaces/articles';
+  import Featured from '../components/home/Featured.svelte';
+  import type { GET_FRONT_PAGE__TYPE } from '../queries';
   import { title } from '../stores/title';
-  import type { Paged } from '../queries';
 
-  // receive the articles from the load function
-  interface Iarticles {
-    news: Paged<IArticle>;
-    opinion: Paged<IArticle>;
-    sports: Paged<IArticle>;
-    diversity: Paged<IArticle>;
-    acc: Paged<IArticle>;
-    featured: IArticle[];
-  }
-  export let articles: Iarticles;
+  // set the document title
+  title.set('');
+
+  // receive the articles from the page endpoint
+  export let data: string | undefined;
+  $: articles = data ? (JSON.parse(data) as GET_FRONT_PAGE__TYPE) : undefined;
 </script>
 
 <!--<note
@@ -64,12 +23,12 @@
 
 <div class={'wrapper'}>
   <Container>
-    <Featured articles={articles.featured} />
+    <Featured articles={articles?.featured || []} />
     <div class={'sections-grid'}>
       <ArticleCardRow
         label={'News'}
         href={'/section/news'}
-        articles={articles.news}
+        articles={articles?.news || []}
         gridArea={'news'}
         quantity={[5, 4, 2, 3]}
       />
@@ -77,7 +36,7 @@
         <ArticleCardRow
           label={'Opinions'}
           href={'/section/opinions'}
-          articles={articles.opinion}
+          articles={articles?.opinion || []}
           quantity={[6, 4, 3, 3]}
           forceVertical={true}
         />
@@ -103,21 +62,21 @@
       <ArticleCardRow
         label={'Sports'}
         href={'/section/sports'}
-        articles={articles.sports}
+        articles={articles?.sports || []}
         gridArea={'sports'}
         quantity={[3, 2, 2, 3]}
       />
       <ArticleCardRow
         label={'Diversity Matters'}
         href={'/section/diversity-matters'}
-        articles={articles.diversity}
+        articles={articles?.diversity || []}
         gridArea={'diversity'}
         quantity={[3, 2, 2, 3]}
       />
       <ArticleCardRow
         label={'Arts, Campus, & Culture'}
         href={'/section/arts-campus-culture'}
-        articles={articles.acc}
+        articles={articles?.acc || []}
         gridArea={'acc'}
         quantity={[3, 2, 2, 3]}
       />
@@ -129,7 +88,6 @@
 <style>
   .wrapper {
     position: relative;
-    /*top: -52px;*/
     background-color: white;
   }
 

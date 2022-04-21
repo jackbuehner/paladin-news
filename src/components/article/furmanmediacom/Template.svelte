@@ -1,16 +1,17 @@
 <script lang="ts">
-  import type { IArticle } from 'src/interfaces/articles';
-  import Container from '/src/components/Container.svelte';
+  import Container from '$lib/components/Container.svelte';
+  import type { GET_ARTICLE_BY_SLUG__DOC_TYPE } from '$lib/queries';
+  import type { PublishedDocWithDate } from '$lib/utils/insertDate';
   import {
-    ArticleHeading,
-    ArticlePhoto,
-    ArticleCaption,
-    ArticlePhotoCredit,
     ArticleBody,
+    ArticleCaption,
+    ArticleHeading,
     ArticleMeta,
+    ArticlePhoto,
+    ArticlePhotoCredit,
   } from '.';
 
-  export let article: IArticle;
+  export let article: PublishedDocWithDate<GET_ARTICLE_BY_SLUG__DOC_TYPE>;
 
   // keep track of window width
   $: windowWidth = 0;
@@ -67,9 +68,9 @@
       <ArticleMeta
         authors={article.people.authors}
         date={article.timestamps.published_at}
-        categories={article.categories}
+        categories={article.categories || []}
       />
-      <ArticleBody doc={article.body} />
+      <ArticleBody doc={article.body || ''} />
     </div>
   </article>
 </Container>

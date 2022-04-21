@@ -3,13 +3,13 @@
   import { writable } from 'svelte/store';
   import { TABS } from './store';
 
-  const tabs = [];
-  const panels = [];
-  const selectedTab = writable(null);
-  const selectedPanel = writable(null);
+  const tabs: {}[] = [];
+  const panels: {}[] = [];
+  const selectedTab = writable<{}>(undefined);
+  const selectedPanel = writable<{}>(undefined);
 
   setContext(TABS, {
-    registerTab: (tab) => {
+    registerTab: (tab: {}) => {
       tabs.push(tab);
       selectedTab.update((current) => current || tab);
 
@@ -22,7 +22,7 @@
       });
     },
 
-    registerPanel: (panel) => {
+    registerPanel: (panel: {}) => {
       panels.push(panel);
       selectedPanel.update((current) => current || panel);
 
@@ -35,7 +35,7 @@
       });
     },
 
-    selectTab: (tab) => {
+    selectTab: (tab: {}) => {
       const i = tabs.indexOf(tab);
       selectedTab.set(tab);
       selectedPanel.set(panels[i]);

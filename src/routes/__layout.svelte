@@ -1,25 +1,27 @@
 <script context="module" lang="ts">
   /** @type {import('@sveltejs/kit').Load} */
-  export async function load({ page }) {
+  export async function load({ url }: LoadInput) {
     // return 204 status when sveltekit tries to load scripts as pages
     // (this happens with embedded scripts and pwabuilder scripts)
-    if (page.path.includes(['/pwa-update.js']) || page.path.includes(['/js/'])) {
+    if (url.pathname.includes('/pwa-update.js') || url.pathname.includes('/js/')) {
       return { status: 204 };
     }
 
     // return the page path to the page
-    return { props: { path: page.path } };
+    return { props: { path: url.pathname } };
   }
 </script>
 
 <script lang="ts">
-  import { title } from '../../src/stores/title';
-  import Footer from '../components/Footer.svelte';
-  import Header from '../components/header/Header.svelte';
-  import Search from '/src/components/search/Search.svelte';
+  import { title } from '$lib/stores/title';
+  import Footer from '$lib/components/Footer.svelte';
+  import Header from '$lib/components/header/Header.svelte';
+  import Search from '$lib/components/search/Search.svelte';
   import NProgress from 'nprogress';
   import * as Fathom from 'fathom-client';
   import { onMount, afterUpdate } from 'svelte';
+  import type { LoadInput } from '@sveltejs/kit';
+  import { afterNavigate, beforeNavigate } from '$app/navigation';
 
   // keep track of the page path
   export let path: string;
@@ -29,37 +31,35 @@
   });
 
   // determine the header type based on path
-  let headerType: 'compact' | 'full' = path === '/' ? 'full' : (undefined as 'full' | undefined); // full only when on home page
-  afterUpdate(() => {
-    headerType = path === '/' ? 'full' : (undefined as 'full' | undefined); // full only when on home page
+  let headerType: 'full' | 'compact';
+  $: headerType = path === '/' ? 'full' : 'compact'; // full only when on home page
+  onMount(() => {
+    window.addEventListener('sveltekit:navigation-end', () => {
+      headerType = path === '/' ? 'full' : 'compact'; // full only when on home page
+    });
   });
 
   // create the document title
-  let title_: string = $title || path !== '/' ? `${$title} - The Paladin` : 'The Paladin';
-  afterUpdate(() => {
-    title_ = $title || path !== '/' ? `${$title} - The Paladin` : 'The Paladin';
+  $: title_ = $title || path !== '/' ? `${$title} - The Paladin` : 'The Paladin';
+
+  // configure the navigation progress bar
+  NProgress.configure({
+    parent: 'body',
+    easing: 'ease',
+    speed: 500,
+    trickle: true,
+    trickleSpeed: 200,
+    showSpinner: false,
   });
 
-  onMount(() => {
-    // configure the navigation progress bar
-    NProgress.configure({
-      parent: 'body',
-      easing: 'ease',
-      speed: 500,
-      trickle: true,
-      trickleSpeed: 200,
-      showSpinner: false,
-    });
+  // show progress bar on page navigate
+  beforeNavigate(() => {
+    NProgress.start();
+  });
 
-    // show progress bar on page navigate
-    window.addEventListener('sveltekit:navigation-start', () => {
-      NProgress.start();
-    });
-
-    // hide progress bar on navigation end
-    window.addEventListener('sveltekit:navigation-end', () => {
-      NProgress.done();
-    });
+  // hide progress bar on navigation end
+  afterNavigate(() => {
+    NProgress.done();
   });
 
   // fathom analytics

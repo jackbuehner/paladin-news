@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Container from '../components/Container.svelte';
-  import ThePaladinLogo from '../components/svgs/ThePaladinLogo.svelte';
+  import Container from '$lib/components/Container.svelte';
+  import ThePaladinLogo from '$lib/components/svgs/ThePaladinLogo.svelte';
 </script>
 
 <div class={'top'}>

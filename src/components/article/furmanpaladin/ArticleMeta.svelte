@@ -1,8 +1,8 @@
 <script lang="ts">
+  import type { IArticleAuthor } from '$lib/interfaces/articles';
+  import { formatISODate } from '$lib/utils/formatISODate';
+  import { slugify } from '$lib/utils/slugify';
   import { DateTime } from 'luxon';
-  import { formatISODate } from '../../../utils/formatISODate';
-  import type { IArticleAuthor } from 'src/interfaces/articles';
-  import { slugify } from '../../../utils/slugify';
 
   export let date: string;
   export let authors: IArticleAuthor[] = [];

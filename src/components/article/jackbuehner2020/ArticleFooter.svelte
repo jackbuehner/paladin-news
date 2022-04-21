@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { share } from '../../../components/article/share';
-  import Button from '../../../components/Button.svelte';
-  import ApplauseButton from '../../../components/Button/ApplauseButton.svelte';
-  import type { GET_ARTICLE_BY_SLUG__DOC_TYPE } from '../../../queries';
-  import { commentsOpen } from '../../../stores/comments';
-  import type { PublishedDocWithDate } from '../../../utils/insertDate';
-  import { variables } from '../../../variables';
+  import { share } from '$lib/components/article/share';
+  import Button from '$lib/components/Button.svelte';
+  import ApplauseButton from '$lib/components/Button/ApplauseButton.svelte';
+  import type { GET_ARTICLE_BY_SLUG__DOC_TYPE } from '$lib/queries';
+  import { commentsOpen } from '$lib/stores/comments';
+  import type { PublishedDocWithDate } from '$lib/utils/insertDate';
+  import { variables } from '$lib/variables';
   import Comments from './comments/Comments.svelte';
   import SocialButton from './_SocialButton.svelte';
 
@@ -19,8 +19,8 @@
    *
    * Use this function to keep the database updated with the correct number of claps.
    */
-  function addClaps(newClaps: number) {
-    if (newClaps === 0) return;
+  async function addClaps(newClaps: number) {
+    if (newClaps === 0) return false;
 
     // create the mutation
     const mutation = `
@@ -46,7 +46,9 @@
     };
 
     // post the mutation
-    fetch(`${hostUrl}/v3`, opts).catch(console.error);
+    return await fetch(`${hostUrl}/v3`, opts)
+      .then(() => true)
+      .catch(() => false);
   }
 </script>
 

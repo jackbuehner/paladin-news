@@ -8,5 +8,11 @@
   "editor.fontFamily": "'Dank Mono', Consolas, 'Courier New', monospace",
   "editor.tabSize": 2,
   "debug.console.fontFamily": "'Dank Mono', default",
-  "window.title": "${dirty}[website] ${activeEditorShort}"
+  "window.title": "${dirty}[website] ${activeEditorShort}",
+  "svelte.plugin.svelte.defaultScriptLanguage": "ts",
+  "svelte.enable-ts-plugin": true,
+  "svelte.ask-to-enable-ts-plugin": true,
+  "svelte.plugin.css.globals": "'src/static/variables.css'",
+  "svelte.plugin.svelte.format.config.singleQuote": true,
+  "workbench.editor.labelFormat": "short"
 }

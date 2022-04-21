@@ -1,64 +1,61 @@
 <script context="module" lang="ts">
-  import type { LoadInput, LoadOutput } from '@sveltejs/kit';
-
-  /**
-   * @type {import('@sveltejs/kit').Load}
-   */
-  export async function load({ page, fetch }: LoadInput): Promise<LoadOutput> {
+  export const load: Load = async ({ params, fetch }) => {
     // build date string from date params
-    const date = {
+    const date: Record<'year' | 'month' | 'day' | 'path', string | undefined> = {
       year: undefined,
       month: undefined,
       day: undefined,
       path: undefined,
     };
-    if (
-      page.params.yyyy &&
-      parseInt(page.params.yyyy) >= 1000 &&
-      parseInt(page.params.yyyy) < 10000
-    )
-      date.year = page.params.yyyy;
-    if (page.params.mm && parseInt(page.params.mm) > 0 && parseInt(page.params.mm) <= 12)
-      date.month = page.params.mm.padStart(2, '0'); // ensure it is always two digits
-    if (page.params.dd && parseInt(page.params.dd) > 0 && parseInt(page.params.dd) <= 31)
-      date.day = page.params.dd.padStart(2, '0'); // ensure it is always two digits
+    if (params.yyyy && parseInt(params.yyyy) >= 1000 && parseInt(params.yyyy) < 10000)
+      date.year = params.yyyy;
+    if (params.mm && parseInt(params.mm) > 0 && parseInt(params.mm) <= 12)
+      date.month = params.mm.padStart(2, '0'); // ensure it is always two digits
+    if (params.dd && parseInt(params.dd) > 0 && parseInt(params.dd) <= 31)
+      date.day = params.dd.padStart(2, '0'); // ensure it is always two digits
     if (date.year && date.month && date.day) {
       date.path = '/' + date.year + '/' + date.month + '/' + date.day;
     }
 
     // fetch the data
-    const url = `/articles${date.path || '/_/_/_'}/${page.params.slug}.json`;
-    const res = await fetch(url);
-    const article = await res.json();
+    const endpoint = `/articles${date.path || '/_/_/_'}/${params.slug}.json`;
+    const res = await fetch(endpoint);
+    const { data }: GraphResponse<string> = await res.json();
 
-    // set the document title
-    title.set(article.name);
+    if (res.ok && data) {
+      const article: GET_ARTICLE_BY_SLUG__DOC_TYPE = JSON.parse(data);
 
-    if (res.ok) {
+      // set the document title
+      title.set(article.name);
+
       return {
         props: {
-          article,
+          article: insertDate([article])[0],
         },
       };
     }
 
     return {
       status: res.status,
-      error: new Error(`Could not load ${url}`),
+      error: new Error(`Could not load ${endpoint}`),
     };
-  }
+  };
 </script>
 
 <script lang="ts">
-  import type { IArticle } from 'src/interfaces/articles';
-  import { title } from '../../stores/title';
+  import type { GET_ARTICLE_BY_SLUG__DOC_TYPE } from '$lib/queries';
+  import { insertDate } from '$lib/utils';
+  import type { GraphResponse } from '$lib/utils/api';
+  import type { PublishedDocWithDate } from '$lib/utils/insertDate';
+  import type { Load } from '@sveltejs/kit';
   import {
-    ArticleTemplateJackBuehner2020,
-    ArticleTemplateFurmanPaladin,
     ArticleTemplateFurmanMediaCom,
-  } from '../../components/article/index';
+    ArticleTemplateFurmanPaladin,
+    ArticleTemplateJackBuehner2020,
+  } from '$lib/components/article/index';
+  import { title } from '$lib/stores/title';
 
-  export let article: IArticle;
+  export let article: PublishedDocWithDate<GET_ARTICLE_BY_SLUG__DOC_TYPE>;
 
   /**
    * Opens the article in Cristata when ALT + C is pressed.
