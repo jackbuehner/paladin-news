@@ -63,7 +63,7 @@
   const openInCMS = (event: KeyboardEvent) => {
     if (event.altKey && event.key === 'c') {
       window.open(
-        `https://thepaladin.cristata.app/cms/item/articles/${article._id}?fs=force&props=1`,
+        `https://thepaladin.cristata.app/cms/collection/articles/${article._id}?fs=1&props=1`,
         '_blank'
       );
     }
