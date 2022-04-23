@@ -1,23 +1,26 @@
 <script lang="ts">
   export let _id: string;
   export let name: string;
-  export let publishedAt: string;
+  export let week: string;
+  export let volume: number;
+  export let issue: number;
   export let authors: string[];
   export let managingEditors: string[] = [];
-  export let copyEditors: string[] = [];
+
+  const isTheRoyalFlush = new Date(week) < new Date('2022-04-20');
 
   const now = new Date();
 
-  function toDateString(date: Date) {
+  function toDateString(date: Date, showTime = true) {
     return date.toLocaleString('en-US', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
       day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-      timeZone: 'EST',
-      timeZoneName: 'short',
+      hour: showTime ? 'numeric' : undefined,
+      minute: showTime ? 'numeric' : undefined,
+      timeZone: showTime ? 'EST' : undefined,
+      timeZoneName: showTime ? 'short' : undefined,
     });
   }
 </script>
@@ -27,23 +30,17 @@
     <div class={'header'}><span>The Paladin Network</span><span>thepaladin.news</span></div>
     <div class={'metadata'}>THE PALADIN NEWSPAPER</div>
     <div class={'metadata'}>“{name.replace(/“/g, `‘`).replace(/”/g, `’`)}”</div>
-    <div class={'metadata'}>Author(s): {authors.join(', ')}</div>
+    <div class={'metadata'}>Contributor(s): {authors.join(', ')}</div>
     {#if managingEditors && managingEditors.length > 0}
       <div class={'metadata'}>Managing Editor(s): {managingEditors.join(', ')}</div>
     {/if}
-    {#if copyEditors && copyEditors.length > 0}
-      <div class={'metadata'}>Copy Editor(s): {copyEditors.join(', ')}</div>
-    {/if}
     <div class={'metadata'}>
-      Collection: <i>The Paladin Newspaper</i>, {new Date(publishedAt)
-        .toLocaleString('default', { month: 'long' })
-        .toUpperCase()}
-      {now.getFullYear()}, ROLLING DIGITAL RELEASE, Vol. {new Date(publishedAt).getFullYear() -
-        1914}-D, Iss. {new Date(publishedAt).getMonth() + 1}
+      Collection: <i>{isTheRoyalFlush ? 'The Royal Flush' : 'The Flusher'}</i>, PRINT RELEASE, Vol. {volume},
+      Iss. {issue}
     </div>
-    <div class={'metadata'}>Published: {toDateString(new Date(publishedAt))}</div>
+    <div class={'metadata'}>First Release: {toDateString(new Date(week), false)}</div>
     <div class={'metadata'}>Retrieved: {toDateString(now)}</div>
-    <div class={'metadata'}>Permalink: {`https://thepaladin.news/permalink/articles/${_id}`}</div>
+    <div class={'metadata'}>Permalink: {`https://thepaladin.news/permalink/flusher/${_id}`}</div>
     <div>
       <p>
         The Paladin is Furman University's only independent student news network. Established in
@@ -140,7 +137,7 @@
     font-variant-numeric: lining-nums;
     font-size: 16px;
     line-height: 1;
-    margin: 0;
+    margin: 0.5in;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;

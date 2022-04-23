@@ -10,12 +10,18 @@ const GET_FLUSHERS = `
   ) {
     flushesPublic(limit: $limit, page: $page, sort: $sort, filter: $filter) {
       docs {
+        _id
         volume
         issue
         events {
           name
           date
           location
+        }
+        people {
+          modified_by {
+            name
+          }
         }
         articles {
           featured {
@@ -31,8 +37,11 @@ const GET_FLUSHERS = `
                 name
               }
             }
+            categories
+            body
           }
           more {
+            _id
             slug
             name
             timestamps {
@@ -43,6 +52,7 @@ const GET_FLUSHERS = `
         timestamps {
           week
         }
+        left_advert_photo_url
       }
       totalDocs
       limit
@@ -57,6 +67,7 @@ const GET_FLUSHERS = `
 `;
 
 interface GET_FLUSHERS__DOC_TYPE {
+  _id: string;
   volume: number;
   issue: number;
   events: {
@@ -64,6 +75,11 @@ interface GET_FLUSHERS__DOC_TYPE {
     date: string; // ISO string
     location: string;
   }[];
+  people: {
+    modified_by: Array<{
+      name: string;
+    } | null>;
+  };
   articles: {
     featured: {
       slug: string;
@@ -78,8 +94,11 @@ interface GET_FLUSHERS__DOC_TYPE {
           name: string;
         } | null>;
       };
+      categories: string[];
+      body: string;
     };
     more: Array<{
+      _id: string;
       slug: string;
       name: string;
       timestamps: {
@@ -90,6 +109,7 @@ interface GET_FLUSHERS__DOC_TYPE {
   timestamps: {
     week: string; // ISO string
   };
+  left_advert_photo_url?: string;
 }
 
 interface GET_FLUSHERS__TYPE {

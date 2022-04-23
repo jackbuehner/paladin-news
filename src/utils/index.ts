@@ -5,5 +5,6 @@ export { fetchLatest } from './fetchLatest';
 export { fetchSection } from './fetchSection';
 export { fetchSectionXml } from './fetchSectionXml';
 export { formatISODate } from './formatISODate';
+export { hasProperty } from './hasProperty';
 export { insertDate } from './insertDate';
 export { slugify } from './slugify';

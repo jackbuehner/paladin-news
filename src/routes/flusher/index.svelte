@@ -1,16 +1,28 @@
 <script lang="ts">
+  import Button from '$lib/components/Button.svelte';
   import Container from '$lib/components/Container.svelte';
   import ArticleRow from '$lib/components/home/ArticleRow.svelte';
   import type { GET_FLUSHERS__DOC_TYPE } from '$lib/queries';
   import { title } from '$lib/stores/title';
   import { constructArticlePath, formatISODate, insertDate } from '$lib/utils';
-
-  // set the document title
-  title.set('The Royal Flush');
+  import { DateTime } from 'luxon';
+  import { romanize } from 'romans';
 
   // the flusher document retrieved from the page endpoint
   export let data: string;
   $: flusher = data ? (JSON.parse(data) as GET_FLUSHERS__DOC_TYPE) : undefined;
+
+  // set the document title
+  $: isTheRoyalFlush = new Date(flusher?.timestamps.week || Date.now()) < new Date('2022-04-20');
+  $: {
+    if (flusher)
+      title.set(
+        isTheRoyalFlush
+          ? `The Royal Flush – Vol. ${romanize(flusher.volume)}, Iss. ${flusher.issue}`
+          : `The Flusher – Vol. ${romanize(flusher.volume)}, Iss. ${flusher.issue}`
+      );
+    else title.set(`The Flusher`);
+  }
 
   // get the featured article and insert date components
   // (to be used when contructing the URL to the article)
@@ -19,10 +31,28 @@
     : undefined;
   $: featuredArticleAuthors =
     featuredArticle?.people.authors.filter((author): author is { name: string } => !!author) || [];
+
+  /**
+   * Opens the document in Cristata when ALT + C is pressed.
+   */
+  const openInCMS = (event: KeyboardEvent) => {
+    if (event.altKey && event.key === 'c' && flusher?._id) {
+      window.open(
+        `https://thepaladin.cristata.app/cms/collection/flushes/${flusher._id}`,
+        '_blank'
+      );
+    }
+  };
 </script>
 
+<svelte:window on:keydown={openInCMS} />
+
 <!-- page title -->
-<h1>The Royal Flush</h1>
+{#if isTheRoyalFlush}
+  <h1>The Royal Flush</h1>
+{:else}
+  <h1>The Flusher</h1>
+{/if}
 <!-- flusher week formatted in AP style -->
 {#if flusher}
   <subtitle>Week of {formatISODate(flusher.timestamps.week)}</subtitle>
@@ -52,6 +82,15 @@
         </li>
       {/each}
     </ol>
+  {/if}
+
+  {#if flusher?.timestamps?.week}
+    <br />
+    <br />
+    <br />
+    <Button href={`/flusher/${DateTime.fromISO(flusher.timestamps.week).toISODate()}/print`}
+      >View print edition</Button
+    >
   {/if}
 </Container>
 
