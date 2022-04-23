@@ -31,8 +31,11 @@ const GET_FLUSHERS = `
                 name
               }
             }
+            categories
+            body
           }
           more {
+            _id
             slug
             name
             timestamps {
@@ -43,6 +46,7 @@ const GET_FLUSHERS = `
         timestamps {
           week
         }
+        left_advert_photo_url
       }
       totalDocs
       limit
@@ -78,8 +82,11 @@ interface GET_FLUSHERS__DOC_TYPE {
           name: string;
         } | null>;
       };
+      categories: string[];
+      body: string;
     };
     more: Array<{
+      _id: string;
       slug: string;
       name: string;
       timestamps: {
@@ -90,6 +97,7 @@ interface GET_FLUSHERS__DOC_TYPE {
   timestamps: {
     week: string; // ISO string
   };
+  left_advert_photo_url?: string;
 }
 
 interface GET_FLUSHERS__TYPE {

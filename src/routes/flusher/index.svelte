@@ -1,9 +1,11 @@
 <script lang="ts">
+  import Button from '$lib/components/Button.svelte';
   import Container from '$lib/components/Container.svelte';
   import ArticleRow from '$lib/components/home/ArticleRow.svelte';
   import type { GET_FLUSHERS__DOC_TYPE } from '$lib/queries';
   import { title } from '$lib/stores/title';
   import { constructArticlePath, formatISODate, insertDate } from '$lib/utils';
+  import { DateTime } from 'luxon';
   import { romanize } from 'romans';
 
   // the flusher document retrieved from the page endpoint
@@ -66,6 +68,15 @@
         </li>
       {/each}
     </ol>
+  {/if}
+
+  {#if flusher?.timestamps?.week}
+    <br />
+    <br />
+    <br />
+    <Button href={`/flusher/${DateTime.fromISO(flusher.timestamps.week).toISODate()}/print`}
+      >View print edition</Button
+    >
   {/if}
 </Container>
 
