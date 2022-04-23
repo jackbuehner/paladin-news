@@ -13,6 +13,7 @@ export const get: RequestHandler<never> = async (request) => {
 
   if (json) {
     const flusher: Flusher = {
+      _id: typeof json._id === 'string' ? json._id : '',
       volume: typeof json.volume === 'number' ? json.volume : 0,
       issue: typeof json.issue === 'number' ? json.issue : 0,
       timestamps: {
@@ -85,6 +86,19 @@ export const get: RequestHandler<never> = async (request) => {
             ? json.articles.more
             : [],
       },
+      people: {
+        contributors:
+          hasProperty(json, 'people') &&
+          hasProperty(json.people, 'modified_by') &&
+          Array.isArray(json.people.modified_by)
+            ? json.people.modified_by
+                .filter((person): person is { name: string } => !!person)
+                .map((person) => {
+                  console.log(person);
+                  return person.name;
+                })
+            : [],
+      },
     };
 
     return { body: { data: JSON.stringify(flusher) } };
@@ -121,6 +135,7 @@ export const get: RequestHandler<never> = async (request) => {
       const doc = data.flushesPublic.docs[0];
       const { more, featured } = doc.articles;
       const flusher: Flusher = {
+        _id: doc._id,
         articles: {
           featured: {
             body: featured.body,
@@ -138,6 +153,11 @@ export const get: RequestHandler<never> = async (request) => {
         volume: doc.volume,
         timestamps: { week: doc.timestamps.week },
         leftAdvertPhoto: doc.left_advert_photo_url,
+        people: {
+          contributors: doc.people.modified_by
+            .filter((person): person is { name: string } => !!person)
+            .map((person) => person.name),
+        },
       };
 
       return { body: { data: JSON.stringify(flusher) } };

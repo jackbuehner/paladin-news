@@ -1,4 +1,5 @@
 interface Flusher {
+  _id: string;
   volume: number;
   issue: number;
   timestamps: {
@@ -6,6 +7,9 @@ interface Flusher {
   };
   events: Array<Event | null>;
   leftAdvertPhoto?: string;
+  people: {
+    contributors: string[];
+  };
   articles: {
     featured?: {
       categories: string[];

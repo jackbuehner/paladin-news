@@ -1,20 +1,40 @@
 <script lang="ts">
+  import { romanize } from 'romans';
   import {
-    Masthead,
+    Advertisement,
+    CoverPage,
+    FeaturedArticle,
+    Footer,
     InfoLine,
+    Masthead,
+    MoreArticles,
     UpcomingEvents,
     type Flusher,
-    Advertisement,
-    FeaturedArticle,
-    MoreArticles,
-    Footer,
   } from '.';
   import type { FlusherEvent } from './types';
 
   export let flusher: Flusher;
 
   $: events = flusher.events.filter((event): event is FlusherEvent => !!event);
+  $: isTheRoyalFlush = new Date(flusher?.timestamps.week) < new Date('2022-04-20');
 </script>
+
+{#if flusher}
+  <!-- cover page -->
+  <CoverPage
+    _id={flusher._id}
+    name={isTheRoyalFlush
+      ? `The Royal Flush – Vol. ${romanize(flusher.volume)}, Iss. ${flusher.issue}`
+      : `The Flusher – Vol. ${romanize(flusher.volume)}, Iss. ${flusher.issue}`}
+    week={flusher.timestamps.week}
+    authors={Array.from(
+      new Set(flusher.people.contributors.map((p) => p.replace(' (Provisional)', '')))
+    )}
+    managingEditors={[`Jack Buehner`]}
+    volume={flusher.volume}
+    issue={flusher.issue}
+  />
+{/if}
 
 <div class={'background'}>
   <div class={'page'}>

@@ -8,4 +8,5 @@ export { default as Advertisement } from './Advertisement.svelte';
 export { default as FeaturedArticle } from './FeaturedArticle.svelte';
 export { default as MoreArticles } from './MoreArticles.svelte';
 export { default as Footer } from './Footer.svelte';
+export { default as CoverPage } from './CoverPage.svelte';
 export type { Flusher, FlusherEvent } from './types';
