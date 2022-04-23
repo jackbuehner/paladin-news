@@ -35,7 +35,7 @@
       <div class={'metadata'}>Copy Editor(s): {copyEditors.join(', ')}</div>
     {/if}
     <div class={'metadata'}>
-      Collection: <i>The Paladin Newspaper</i>, {now
+      Collection: <i>The Paladin Newspaper</i>, {new Date(publishedAt)
         .toLocaleString('default', { month: 'long' })
         .toUpperCase()}
       {now.getFullYear()}, ROLLING DIGITAL RELEASE, Vol. {new Date(publishedAt).getFullYear() -
