@@ -22,7 +22,7 @@
       <Masthead week={flusher.timestamps.week} />
       <InfoLine {flusher} />
       <UpcomingEvents {events} />
-      <Advertisement />
+      <Advertisement src={flusher.leftAdvertPhoto} />
       {#if flusher.articles.featured}
         <FeaturedArticle
           categories={flusher.articles.featured.categories}
