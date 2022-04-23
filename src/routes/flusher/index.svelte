@@ -4,13 +4,23 @@
   import type { GET_FLUSHERS__DOC_TYPE } from '$lib/queries';
   import { title } from '$lib/stores/title';
   import { constructArticlePath, formatISODate, insertDate } from '$lib/utils';
-
-  // set the document title
-  title.set('The Royal Flush');
+  import { romanize } from 'romans';
 
   // the flusher document retrieved from the page endpoint
   export let data: string;
   $: flusher = data ? (JSON.parse(data) as GET_FLUSHERS__DOC_TYPE) : undefined;
+
+  // set the document title
+  $: isTheRoyalFlush = new Date(flusher?.timestamps.week || Date.now()) < new Date('2022-04-20');
+  $: {
+    if (flusher)
+      title.set(
+        isTheRoyalFlush
+          ? `The Royal Flush – Vol. ${romanize(flusher.volume)}, Iss. ${flusher.issue}`
+          : `The Flusher – Vol. ${romanize(flusher.volume)}, Iss. ${flusher.issue}`
+      );
+    else title.set(`The Flusher`);
+  }
 
   // get the featured article and insert date components
   // (to be used when contructing the URL to the article)
@@ -22,7 +32,11 @@
 </script>
 
 <!-- page title -->
-<h1>The Royal Flush</h1>
+{#if isTheRoyalFlush}
+  <h1>The Royal Flush</h1>
+{:else}
+  <h1>The Flusher</h1>
+{/if}
 <!-- flusher week formatted in AP style -->
 {#if flusher}
   <subtitle>Week of {formatISODate(flusher.timestamps.week)}</subtitle>
