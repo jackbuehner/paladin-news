@@ -93,10 +93,7 @@ export const get: RequestHandler<never> = async (request) => {
           Array.isArray(json.people.modified_by)
             ? json.people.modified_by
                 .filter((person): person is { name: string } => !!person)
-                .map((person) => {
-                  console.log(person);
-                  return person.name;
-                })
+                .map((person) => person.name)
             : [],
       },
     };
