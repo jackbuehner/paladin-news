@@ -17,7 +17,7 @@ export const get: RequestHandler<{ collection: string; _id: string }> = async (r
     });
 
     // get the article from the response
-    if (!error.errors || !data?.articlePublic) return failureRedirect;
+    if (error.errors || !data?.articlePublic) return failureRedirect;
     const { slug, ...article } = insertDate([data.articlePublic])[0];
     const { year, month, day } = article.date;
 
