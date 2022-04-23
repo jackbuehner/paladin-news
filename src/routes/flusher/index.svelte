@@ -31,7 +31,21 @@
     : undefined;
   $: featuredArticleAuthors =
     featuredArticle?.people.authors.filter((author): author is { name: string } => !!author) || [];
+
+  /**
+   * Opens the document in Cristata when ALT + C is pressed.
+   */
+  const openInCMS = (event: KeyboardEvent) => {
+    if (event.altKey && event.key === 'c' && flusher?._id) {
+      window.open(
+        `https://thepaladin.cristata.app/cms/collection/flushes/${flusher._id}`,
+        '_blank'
+      );
+    }
+  };
 </script>
+
+<svelte:window on:keydown={openInCMS} />
 
 <!-- page title -->
 {#if isTheRoyalFlush}
