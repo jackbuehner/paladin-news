@@ -55,11 +55,11 @@
 <svelte:window bind:innerWidth={windowWidth} />
 
 <div class={'article-footer'}>
-  <ApplauseButton
+  <!-- <ApplauseButton
     id={`article.${article._id}`}
     initialClaps={article.claps}
     onDebouncedChange={(claps, newClaps) => addClaps(newClaps)}
-  />
+  /> -->
 
   {#if article.show_comments}
     <Button
