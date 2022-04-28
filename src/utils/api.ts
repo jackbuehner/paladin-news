@@ -1,5 +1,5 @@
 import { variables } from '$lib/variables';
-const API_URL = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}/v3`;
+const API_URL = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}/v3/paladin-news`;
 
 interface GraphResponse<T = unknown> {
   data?: T | null;

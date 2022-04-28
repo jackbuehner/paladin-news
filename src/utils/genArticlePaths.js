@@ -50,7 +50,7 @@ async function generate() {
     const getBatch = async () => {
       // request the articles from the api
       const hostUrl = `${process.env.VITE_SERVER_PROTOCOL}://${process.env.VITE_SERVER_URL}`;
-      const res = await fetch(`${hostUrl}/v3`, {
+      const res = await fetch(`${hostUrl}/v3/paladin-news`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

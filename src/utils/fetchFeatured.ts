@@ -5,7 +5,7 @@ async function fetchFeatured(): Promise<{ data: GET_ARTICLES__DOC_TYPE[]; ok: bo
   const hostUrl = `${variables.SERVER_PROTOCOL}://${variables.SERVER_URL}`;
 
   // request the articles from the api
-  const res = await fetch(`${hostUrl}/v3`, {
+  const res = await fetch(`${hostUrl}/v3/paladin-news`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

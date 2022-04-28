@@ -46,7 +46,7 @@
     };
 
     // post the mutation
-    return await fetch(`${hostUrl}/v3`, opts)
+    return await fetch(`${hostUrl}/v3/paladin-news`, opts)
       .then(() => true)
       .catch(() => false);
   }

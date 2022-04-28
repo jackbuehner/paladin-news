@@ -46,7 +46,7 @@ async function fetchLatestSatire(limit = 10, page = 1) {
   `;
 
   // request the satires from the api
-  const res = await fetch(`${hostUrl}/v3`, {
+  const res = await fetch(`${hostUrl}/v3/paladin-news`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -117,7 +117,7 @@ async function fetchLatest(limit = 10, page = 1) {
   `;
 
   // request the articles from the api
-  const res = await fetch(`${hostUrl}/v3`, {
+  const res = await fetch(`${hostUrl}/v3/paladin-news`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
