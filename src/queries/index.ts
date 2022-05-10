@@ -1,15 +1,15 @@
+export { CREATE_SUDOKU } from './CREATE_SUDOKU';
+export type {
+  CREATE_SUDOKU__DOC_TYPE,
+  CREATE_SUDOKU__JSON,
+  CREATE_SUDOKU__TYPE,
+} from './CREATE_SUDOKU';
 export { GET_ARTICLES } from './GET_ARTICLES';
 export type {
   GET_ARTICLES__DOC_TYPE,
   GET_ARTICLES__JSON,
   GET_ARTICLES__TYPE,
 } from './GET_ARTICLES';
-export { GET_FRONT_PAGE } from './GET_FRONT_PAGE';
-export type {
-  GET_FRONT_PAGE__DOC_TYPE,
-  GET_FRONT_PAGE__JSON,
-  GET_FRONT_PAGE__TYPE,
-} from './GET_FRONT_PAGE';
 export { GET_ARTICLE_BASIC } from './GET_ARTICLE_BASIC';
 export type {
   GET_ARTICLE_BASIC__DOC_TYPE,
@@ -28,6 +28,12 @@ export type {
   GET_FLUSHERS__JSON,
   GET_FLUSHERS__TYPE,
 } from './GET_FLUSHERS';
+export { GET_FRONT_PAGE } from './GET_FRONT_PAGE';
+export type {
+  GET_FRONT_PAGE__DOC_TYPE,
+  GET_FRONT_PAGE__JSON,
+  GET_FRONT_PAGE__TYPE,
+} from './GET_FRONT_PAGE';
 export { GET_PROFILE } from './GET_PROFILE';
 export type { GET_PROFILE__DOC_TYPE, GET_PROFILE__JSON, GET_PROFILE__TYPE } from './GET_PROFILE';
 export { GET_PROFILES } from './GET_PROFILES';
@@ -50,6 +56,8 @@ export type {
   GET_SHORTURL__JSON,
   GET_SHORTURL__TYPE,
 } from './GET_SHORTURL';
+export { GET_SUDOKU } from './GET_SUDOKU';
+export type { GET_SUDOKU__DOC_TYPE, GET_SUDOKU__JSON, GET_SUDOKU__TYPE } from './GET_SUDOKU';
 export { GET_USER_BY_SLUG } from './GET_USER_BY_SLUG';
 export type {
   GET_USER_BY_SLUG__DOC_TYPE,
