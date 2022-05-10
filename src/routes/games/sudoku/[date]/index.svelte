@@ -3,8 +3,14 @@
   import Container from '$lib/components/Container.svelte';
   import { SudokuBoard } from '$lib/components/sudoku';
   import type { GET_SUDOKU__DOC_TYPE } from '$lib/queries';
+  import { title } from '$lib/stores/title';
+  import { headerLabel } from '$lib/stores/header';
   import { formatISODate } from '$lib/utils';
   import { DateTime } from 'luxon';
+
+  // set the document and header title
+  title.set('Sudoku - Games');
+  headerLabel.set('Games');
 
   // the sudoku puzzle object retrieved from the page endpoint
   export let data: string;
