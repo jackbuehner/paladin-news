@@ -8,11 +8,13 @@
   export let difficulty: 'normal' | 'challenge' = 'normal';
   export let date: string;
 
+  let values: number[][] | undefined;
   $: values = $sudoku?.[date]?.[difficulty];
-  $: addInitialValuesToStore();
+  $: addInitialValuesToStore(values, date);
 
-  function addInitialValuesToStore() {
-    if (browser && !values) {
+  function addInitialValuesToStore(values: number[][] | undefined, date: string) {
+    if (browser && $sudoku && !values) {
+      console.log(values);
       $sudoku = {
         ...($sudoku || {}),
         [date]: { ...($sudoku?.[date] || {}), [difficulty]: puzzle },
