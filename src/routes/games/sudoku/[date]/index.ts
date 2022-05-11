@@ -46,7 +46,7 @@ export const get: RequestHandler<{ date: string }> = async (request) => {
     CREATE_SUDOKU,
     {
       variables: { date, normalPuzzle, normalSolution, challengePuzzle, challengeSolution },
-      headers: { Authorization: 'app-token hi' },
+      headers: { Authorization: `app-token ${variables.API_TOKEN}` },
     }
   );
 
