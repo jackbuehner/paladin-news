@@ -5,6 +5,7 @@
     return {
       props: {
         status,
+        error,
       },
     };
   }
@@ -14,6 +15,7 @@
   import Container from '$lib/components/Container.svelte';
 
   export let status: number;
+  export let error: Error | null;
 </script>
 
 <Container>
@@ -24,13 +26,21 @@
       <p>
         <a href={'/games/sudoku/latest'}>Try playing the latest puzzle instead.</a>
       </p>
-    {:else}
+    {:else if status === 418}
       <img src="/images/blobs/blobwizard.png" alt="blobaww" />
       <h1>We're still working on this one</h1>
       <p>
         You cannot view puzzles from the future. In the meantime,
         <a href={'/games/sudoku/latest'}>try playing our latest puzzle.</a>
       </p>
+    {:else}
+      <img src="/images/blobs/blobscream.png" alt="blobaww" />
+      <h1>Something went wrong ({status})</h1>
+      <p>
+        We encountered an unexpected error.
+        <a href={'/games/sudoku/latest'}>Return to the latest puzzle.</a>
+      </p>
+      <code>{error?.stack}</code>
     {/if}
   </div>
 </Container>
@@ -77,5 +87,10 @@
   }
   a:active {
     background-color: rgba(var(--primary), 0.16);
+  }
+
+  code {
+    white-space: break-spaces;
+    word-break: break-all;
   }
 </style>
