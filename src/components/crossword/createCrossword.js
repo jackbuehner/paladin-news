@@ -21,8 +21,8 @@ const printPuzzle = (m, gridSize) => {
   console.log(str);
 };
 
-const placeInPuzzle = ({ x, y, wordToPlace, orientation, puzzle }) => {
-  if (orientation === 'horizontal') {
+const placeInPuzzle = ({ x, y, wordToPlace, direction, puzzle }) => {
+  if (direction === 'across') {
     for (let i = 0; i < wordToPlace.length; i++) {
       puzzle[y][x + i] = wordToPlace.charAt(i);
     }
@@ -40,7 +40,7 @@ const generatePuzzle = (inputWords, gridSize) => {
   let intersecctions = 0;
 
   const getRandomPoint = () => Math.floor(Math.random() * gridSize); // returns a random integer from 0 to gridSize - 1
-  const getRandomOrientation = () => (Math.random() < 0.5 ? 'horizontal' : 'vertical');
+  const getRandomDirection = () => (Math.random() < 0.5 ? 'across' : 'down');
 
   //Sort all the words by length, descending
   inputWords = inputWords.sort((a, b) => a.word.length - b.word.length);
@@ -56,15 +56,15 @@ const generatePuzzle = (inputWords, gridSize) => {
         //Insert in random position
         const x = getRandomPoint();
         const y = getRandomPoint();
-        const orientation = getRandomOrientation();
-        if (orientation === 'horizontal') {
+        const direction = getRandomDirection();
+        if (direction === 'across') {
           if (x + wordToPlace.word.length <= gridSize) {
             //place word
             placed = true;
-            //placeInPuzzle({ x, y, wordToPlace, orientation });
+            //placeInPuzzle({ x, y, wordToPlace, direction });
             wordsInPuzzle.push({
               word: wordToPlace.word,
-              orientation,
+              direction,
               x,
               y,
               clue: wordToPlace.clue,
@@ -74,10 +74,10 @@ const generatePuzzle = (inputWords, gridSize) => {
           if (y + wordToPlace.word.length <= gridSize) {
             //place word
             placed = true;
-            //placeInPuzzle({ x, y, wordToPlace, orientation });
+            //placeInPuzzle({ x, y, wordToPlace, direction });
             wordsInPuzzle.push({
               word: wordToPlace.word,
-              orientation,
+              direction,
               x,
               y,
               clue: wordToPlace.clue,
@@ -96,7 +96,7 @@ const generatePuzzle = (inputWords, gridSize) => {
               //There is an intersection
               let intersectionValid = true;
               //try to place word without colliding with other
-              if (word.orientation == 'horizontal') {
+              if (word.direction == 'across') {
                 //Try to place word vertically
                 const letterIndexWordToPlace = wordToPlace.word.indexOf(currentLetter);
                 //Check upper bounds
@@ -126,7 +126,7 @@ const generatePuzzle = (inputWords, gridSize) => {
                   const wordToCheckCollision = wordsInPuzzle[k];
                   if (k !== i) {
                     //dont check collisions for same word with intersecction
-                    if (wordToCheckCollision.orientation === 'vertical') {
+                    if (wordToCheckCollision.direction === 'down') {
                       for (let m = 0; m < wordToCheckCollision.word.length; m++) {
                         if (
                           wordToPlaceCoordinates.has(
@@ -154,10 +154,10 @@ const generatePuzzle = (inputWords, gridSize) => {
                 if (intersectionValid) {
                   intersecctions++;
                   //If all all above has been succesfull word can be placed
-                  //placeInPuzzle({ x: wordToPlaceXi, y: wordToPlaceYi, wordToPlace, orientation: 'vertical' });
+                  //placeInPuzzle({ x: wordToPlaceXi, y: wordToPlaceYi, wordToPlace, direction: 'down' });
                   wordsInPuzzle.push({
                     word: wordToPlace.word,
-                    orientation: 'vertical',
+                    direction: 'down',
                     x: wordToPlaceXi,
                     y: wordToPlaceYi,
                     clue: wordToPlace.clue,
@@ -195,7 +195,7 @@ const generatePuzzle = (inputWords, gridSize) => {
                   const wordToCheckCollision = wordsInPuzzle[k];
                   if (k !== i) {
                     //dont check collisions for same word with intersecction
-                    if (wordToCheckCollision.orientation === 'vertical') {
+                    if (wordToCheckCollision.direction === 'down') {
                       for (let m = 0; m < wordToCheckCollision.word.length; m++) {
                         if (
                           wordToPlaceCoordinates.has(
@@ -223,10 +223,10 @@ const generatePuzzle = (inputWords, gridSize) => {
                 if (intersectionValid) {
                   intersecctions++;
                   //If all all above has been succesfull word can be placed
-                  //placeInPuzzle({ x: wordToPlaceXi, y: wordToPlaceYi, wordToPlace, orientation: 'horizontal' });
+                  //placeInPuzzle({ x: wordToPlaceXi, y: wordToPlaceYi, wordToPlace, direction: 'across' });
                   wordsInPuzzle.push({
                     word: wordToPlace.word,
-                    orientation: 'horizontal',
+                    direction: 'across',
                     x: wordToPlaceXi,
                     y: wordToPlaceYi,
                     clue: wordToPlace.clue,
@@ -261,7 +261,7 @@ const generatePuzzle = (inputWords, gridSize) => {
             for (let i = 0; i < wordsInPuzzle.length; i++) {
               const wordToCheckCollision = wordsInPuzzle[i];
               if (collitionFound) break;
-              if (wordToCheckCollision.orientation === 'vertical') {
+              if (wordToCheckCollision.direction === 'down') {
                 for (let m = 0; m < wordToCheckCollision.word.length; m++) {
                   if (
                     wordToPlaceCoordinates.has(
@@ -289,10 +289,10 @@ const generatePuzzle = (inputWords, gridSize) => {
             }
             if (collitionFound) continue;
             //If all all above has been succesfull word can be placed
-            //placeInPuzzle({ x, y, wordToPlace, orientation: 'vertical' });
+            //placeInPuzzle({ x, y, wordToPlace, direction: 'down' });
             wordsInPuzzle.push({
               word: wordToPlace.word,
-              orientation: 'vertical',
+              direction: 'down',
               x,
               y,
               clue: wordToPlace.clue,
@@ -323,7 +323,7 @@ const generatePuzzle = (inputWords, gridSize) => {
             for (let i = 0; i < wordsInPuzzle.length; i++) {
               const wordToCheckCollision = wordsInPuzzle[i];
               if (collitionFound) break;
-              if (wordToCheckCollision.orientation === 'vertical') {
+              if (wordToCheckCollision.direction === 'down') {
                 for (let m = 0; m < wordToCheckCollision.word.length; m++) {
                   if (
                     wordToPlaceCoordinates.has(
@@ -351,10 +351,10 @@ const generatePuzzle = (inputWords, gridSize) => {
             }
             if (collitionFound) continue;
             //If all all above has been succesfull word can be placed
-            //placeInPuzzle({ x, y, wordToPlace, orientation: 'horizontal' });
+            //placeInPuzzle({ x, y, wordToPlace, direction: 'across' });
             wordsInPuzzle.push({
               word: wordToPlace.word,
-              orientation: 'horizontal',
+              direction: 'across',
               x,
               y,
               clue: wordToPlace.clue,
@@ -386,7 +386,7 @@ const generatePuzzle = (inputWords, gridSize) => {
  * @param {number} input.gridSize
  * @param {boolean | undefined} input.print
  * @param {number | undefined} input.tries
- * @returns {{ word: string, clue: string, x: number, y: number, orientation: 'horizontal' | 'vertical' }[]}
+ * @returns {{ word: string, clue: string, x: number, y: number, direction: 'across' | 'down' }[]}
  */
 const getBestPuzzle = ({ words, gridSize, tries, print }) => {
   if (words.length < 1) return false;
@@ -419,7 +419,7 @@ const getBestPuzzle = ({ words, gridSize, tries, print }) => {
         x: w.x,
         y: w.y,
         wordToPlace: w.word,
-        orientation: w.orientation,
+        direction: w.direction,
         puzzle: finalPuzzle,
       });
     });
@@ -430,7 +430,7 @@ const getBestPuzzle = ({ words, gridSize, tries, print }) => {
       word: w.word,
       x: w.x,
       y: w.y,
-      orientation: w.orientation,
+      direction: w.direction,
       clue: w.clue,
     };
   });
