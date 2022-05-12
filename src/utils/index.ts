@@ -7,4 +7,6 @@ export { fetchSectionXml } from './fetchSectionXml';
 export { formatISODate } from './formatISODate';
 export { hasProperty } from './hasProperty';
 export { insertDate } from './insertDate';
+export { listOxford } from './listOxford';
+export { replaceLast } from './replaceLast';
 export { slugify } from './slugify';
