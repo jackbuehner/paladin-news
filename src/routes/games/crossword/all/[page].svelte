@@ -3,11 +3,17 @@
   import Container from '$lib/components/Container.svelte';
   import PageHeading from '$lib/components/PageHeading.svelte';
   import type { GET_CROSSWORDS__DOC_TYPE, Paged } from '$lib/queries';
+  import { headerLabel } from '$lib/stores/header';
   import { title } from '$lib/stores/title';
   import { formatISODate, listOxford } from '$lib/utils';
+  import { onDestroy } from 'svelte';
 
-  // set document title
+  // set document and header title
   title.set('All crossword puzzles');
+  headerLabel.set('Games');
+
+  // unset the header label on destroy
+  onDestroy(() => ($headerLabel = ''));
 
   // get crossword puzzles
   export let data: string | undefined;
