@@ -50,6 +50,7 @@
     "nprogress": "^0.2.0",
     "romans": "^2.0.7",
     "sanitize-html": "^2.7.0",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "svelte-crossword": "^0.3.4"
   }
 }
