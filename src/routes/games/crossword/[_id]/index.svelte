@@ -21,11 +21,7 @@
   // get the crossword puzzle
   export let data: string | undefined;
   $: crossword = data ? (JSON.parse(data) as GET_CROSSWORD__DOC_TYPE) : undefined;
-  $: puzzle = crossword?.words
-    ? createCrossword({ words: crossword.words, tries: 75, print: false, gridSize: 9 }).map(
-        ({ clue, direction, word, x, y }) => ({ clue, direction, answer: word, x, y })
-      )
-    : undefined;
+  $: puzzle = crossword?.words ? createCrossword({ words: crossword.words }) : undefined;
 
   // whether the puzzle has been updated
   let updated = false;

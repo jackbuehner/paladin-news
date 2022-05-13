@@ -41,6 +41,7 @@
     "@azure/msal-browser": "^2.20.0",
     "@cristata/prosemirror-to-html-js": "2.2.2",
     "@rooi/slicker": "0.0.3",
+    "crossword-layout-generator": "^0.1.1",
     "crypto-js": "^4.1.1",
     "fathom-client": "^3.4.0",
     "jsoncrush": "^1.1.6",

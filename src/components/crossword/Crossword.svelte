@@ -1,4 +1,5 @@
 <script lang="ts">
+  // @ts-expect-error svelte-crossword is available, but the typechecker cannot see it for some reason
   import Crossword from 'svelte-crossword';
   import Button from '../Button.svelte';
 
