@@ -1,5 +1,12 @@
-import { GET_CROSSWORD, type GET_CROSSWORD__TYPE } from '$lib/queries';
+import { createCrossword } from '$lib/components/crossword';
+import {
+  GET_CROSSWORD,
+  type GET_CROSSWORD__TYPE,
+  type MUTATE_CROSSWORD_LAYOUT__TYPE,
+} from '$lib/queries';
+import { MUTATE_CROSSWORD_LAYOUT } from '$lib/queries/MUTATE_CROSSWORD_LAYOUT';
 import { api } from '$lib/utils/api';
+import { variables } from '$lib/variables';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const get: RequestHandler<{ _id: string }> = async (request) => {
@@ -9,6 +16,45 @@ export const get: RequestHandler<{ _id: string }> = async (request) => {
   });
 
   if (error.errors) return { status: 400, body: { errors: JSON.stringify(error.errors) } };
-  else if (data?.crosswordPublic) return { body: { data: JSON.stringify(data.crosswordPublic) } };
-  return { status: error.status };
+  else if (!data?.crosswordPublic?.words) return { status: 400 };
+  else if (
+    // check that the layout is available
+    data?.crosswordPublic?.layout
+  ) {
+    const answers = data.crosswordPublic.words.map((item) => item.word);
+    const clues = data.crosswordPublic.words.map((item) => item.clue);
+
+    // check that the layout is updated with the most recent words and clues
+    if (
+      data.crosswordPublic.layout.every(
+        (val) => answers.includes(val.answer) && clues.includes(val.clue)
+      )
+    ) {
+      return { body: { data: JSON.stringify(data.crosswordPublic) } };
+    }
+  }
+
+  // the exact crossword layout was not available or was out-of-date, so create a
+  // new layout from the words and add it to the database
+  const crosswordLayout = createCrossword({ words: data.crosswordPublic.words });
+
+  const { data: mData, error: mError } = await api.mutate<MUTATE_CROSSWORD_LAYOUT__TYPE>(
+    MUTATE_CROSSWORD_LAYOUT,
+    {
+      variables: { _id: data.crosswordPublic._id, layout: crosswordLayout },
+      headers: { Authorization: `app-token ${variables.API_TOKEN}` },
+    }
+  );
+
+  if (mError.errors) return { status: 400, body: { errors: JSON.stringify(mError.errors) } };
+  else if (mData?.crosswordModify?.layout)
+    return {
+      body: {
+        data: JSON.stringify({
+          ...data.crosswordPublic,
+          layout: data.crosswordPublic.layout,
+        }),
+      },
+    };
+  return { status: mError.status };
 };
