@@ -13,6 +13,13 @@ const GET_CROSSWORD = `
         clue
         word
       }
+      layout {
+        answer
+        clue
+        direction
+        x
+        y
+      }
       people {
         authors {
           name
@@ -37,6 +44,13 @@ interface GET_CROSSWORD__DOC_TYPE {
   words: Array<{
     word: string;
     clue: string;
+  }>;
+  layout?: Array<{
+    answer: string;
+    clue: string;
+    direction: string;
+    x: number;
+    y: number;
   }>;
   people: {
     authors: Array<{ name: string }>;
