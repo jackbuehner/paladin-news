@@ -29,7 +29,7 @@ interface CreateCrosswordInput {
 
 type CreateCrosswordOutput = Array<{
   clue: string;
-  direction: 'across' | 'down';
+  direction: 'across' | 'down' | 'none';
   answer: string;
   x: number;
   y: number;
@@ -37,7 +37,7 @@ type CreateCrosswordOutput = Array<{
 
 type CrosswordLayout = Array<{
   clue: string;
-  orientation: 'across' | 'down';
+  orientation: 'across' | 'down' | 'none';
   answer: string;
   startx: number;
   starty: number;

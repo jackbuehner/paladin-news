@@ -15,7 +15,7 @@
     /**
      * "across" or "down"
      */
-    direction: 'across' | 'down';
+    direction: 'across' | 'down' | 'none';
     /**
      * starting x position (column) of clue
      */
@@ -34,7 +34,12 @@
 </script>
 
 <div>
-  <Crossword data={puzzle} showConfetti={false} revealDuration={240} showCompleteMessage={false}>
+  <Crossword
+    data={puzzle.filter(({ direction }) => direction !== 'none')}
+    showConfetti={false}
+    revealDuration={240}
+    showCompleteMessage={false}
+  >
     <div class="toolbar" slot="toolbar" let:onClear let:onReveal>
       <Button on:click={onClear}>Clear puzzle</Button>
       <Button on:click={onReveal}>Show answers</Button>

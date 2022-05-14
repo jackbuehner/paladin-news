@@ -21,7 +21,14 @@
   // get the crossword puzzle
   export let data: string | undefined;
   $: crossword = data ? (JSON.parse(data) as GET_CROSSWORD__DOC_TYPE) : undefined;
-  $: puzzle = crossword?.words ? createCrossword({ words: crossword.words }) : undefined;
+  $: puzzle = crossword?.layout
+    ? crossword.layout.filter(
+        (item): item is LayoutItem =>
+          (item.direction === 'across' || item.direction === 'down') &&
+          typeof item.x === 'number' &&
+          typeof item.y === 'number'
+      )
+    : [];
 
   // whether the puzzle has been updated
   let updated = false;
@@ -36,6 +43,12 @@
   afterNavigate((navigaton) => {
     previousPage = navigaton.from?.pathname;
   });
+
+  interface LayoutItem extends Omit<Required<GET_CROSSWORD__DOC_TYPE>['layout'][0], 'direction'> {
+    direction: 'across' | 'down';
+    x: number;
+    y: number;
+  }
 </script>
 
 <Container width={800}>

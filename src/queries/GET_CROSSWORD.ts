@@ -49,8 +49,8 @@ interface GET_CROSSWORD__DOC_TYPE {
     answer: string;
     clue: string;
     direction: string;
-    x: number;
-    y: number;
+    x?: number;
+    y?: number;
   }>;
   people: {
     authors: Array<{ name: string }>;

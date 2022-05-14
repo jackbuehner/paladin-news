@@ -19,8 +19,8 @@ interface MUTATE_CROSSWORD_LAYOUT__DOC_TYPE {
     answer: string;
     clue: string;
     direction: string;
-    x: number;
-    y: number;
+    x?: number;
+    y?: number;
   }>;
 }
 
