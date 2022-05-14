@@ -52,7 +52,7 @@ export const get: RequestHandler<{ _id: string }> = async (request) => {
       body: {
         data: JSON.stringify({
           ...data.crosswordPublic,
-          layout: data.crosswordPublic.layout,
+          layout: mData.crosswordModify.layout,
         }),
       },
     };
