@@ -1,13 +1,31 @@
-// @ts-expect-error no type definitions are available
-import clg from 'crossword-layout-generator';
+import {
+  computeDimension,
+  initTable,
+  generateTable,
+  removeIsolatedWords,
+  trimTable,
+  assignPositions,
+  // @ts-expect-error no type definitions are available
+} from 'crossword-layout-generator';
+import type { DateTime } from 'luxon';
 
 /**
  * Create a crossword puzzle from a given set of clues and answers.
  */
 function createCrossword(input: CreateCrosswordInput): CreateCrosswordOutput {
   const parsedInput = input.words.map(({ word, clue }) => ({ answer: word, clue }));
-  const layout = clg.generateLayout(parsedInput);
-  const result: CrosswordLayout = layout.result;
+
+  let rows = computeDimension(parsedInput, 3);
+  // if this is a modern crossword that is stored in cristata, limit the dimension to 24x24
+  if (input.date && input.date.year > 2020 && rows > 24) rows = 24;
+  const cols = rows;
+  const blankTable = initTable(rows, cols);
+  const table = generateTable(blankTable, rows, cols, parsedInput, [0.7, 0.15, 0.1, 0.05]);
+  const newTable = removeIsolatedWords(table);
+  const finalTable = trimTable(newTable);
+  assignPositions(finalTable.result);
+
+  const result: CrosswordLayout = finalTable.result;
 
   const puzzle = result.map(({ clue, orientation, answer, startx, starty }) => ({
     clue,
@@ -25,6 +43,7 @@ interface CreateCrosswordInput {
     word: string;
     clue: string;
   }>;
+  date?: DateTime;
 }
 
 type CreateCrosswordOutput = Array<{

@@ -8,6 +8,7 @@ import { MUTATE_CROSSWORD_LAYOUT } from '$lib/queries/MUTATE_CROSSWORD_LAYOUT';
 import { api } from '$lib/utils/api';
 import { variables } from '$lib/variables';
 import type { RequestHandler } from '@sveltejs/kit';
+import { DateTime } from 'luxon';
 
 export const get: RequestHandler<{ _id: string }> = async (request) => {
   // query the crossword puzzle from the api
@@ -36,7 +37,10 @@ export const get: RequestHandler<{ _id: string }> = async (request) => {
 
   // the exact crossword layout was not available or was out-of-date, so create a
   // new layout from the words and add it to the database
-  const crosswordLayout = createCrossword({ words: data.crosswordPublic.words });
+  const crosswordLayout = createCrossword({
+    words: data.crosswordPublic.words,
+    date: DateTime.fromISO(data.crosswordPublic.timestamps.published_at),
+  });
 
   const { data: mData, error: mError } = await api.mutate<MUTATE_CROSSWORD_LAYOUT__TYPE>(
     MUTATE_CROSSWORD_LAYOUT,
