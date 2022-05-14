@@ -62,7 +62,7 @@
         {/if}
       </p>
       <p class={'instructions'}>
-        Fill each empty space such that no number is repeated in any square or row.
+        Use the hints to fill each row and column with the correct word.
         <br />
         <span>By {listOxford(crossword.people.authors.map(({ name }) => name))}</span>
       </p>
