@@ -29,7 +29,8 @@ export const get: RequestHandler<{ _id: string }> = async (request) => {
     if (
       data.crosswordPublic.layout.every(
         (val) => answers.includes(val.answer) && clues.includes(val.clue)
-      )
+      ) &&
+      data.crosswordPublic.layout.length === data.crosswordPublic.words.length
     ) {
       return { body: { data: JSON.stringify(data.crosswordPublic) } };
     }
