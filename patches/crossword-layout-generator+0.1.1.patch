@@ -1,0 +1,13 @@
+diff --git a/node_modules/crossword-layout-generator/src/layout_generator.js b/node_modules/crossword-layout-generator/src/layout_generator.js
+index cc7620a..d2030fb 100644
+--- a/node_modules/crossword-layout-generator/src/layout_generator.js
++++ b/node_modules/crossword-layout-generator/src/layout_generator.js
+@@ -75,7 +75,7 @@ function addWord(best, words, table){
+ 	}
+ 	words[index].orientation = "down";
+     }
+-    console.log(word + ", " + bestScore);
++    //console.log(word + ", " + bestScore);
+ }
+ 
+ function assignPositions(words){

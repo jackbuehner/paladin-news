@@ -23,7 +23,7 @@ const api = {
   async query<T>(
     query: string,
     options?: {
-      variables?: Record<string, string | number | undefined | string[] | number[]>;
+      variables?: VariableType;
       headers?: Record<string, string>;
     }
   ): Promise<{
@@ -72,7 +72,7 @@ const api = {
   async mutate<T>(
     mutation: string,
     options?: {
-      variables?: Record<string, string | number | undefined | string[] | number[]>;
+      variables?: VariableType;
       headers?: Record<string, string>;
     }
   ): Promise<{
@@ -112,6 +112,10 @@ const api = {
       },
     };
   },
+};
+
+type VariableType = {
+  [key: string]: string | number | undefined | string[] | number[] | VariableType | VariableType[];
 };
 
 export { api };
