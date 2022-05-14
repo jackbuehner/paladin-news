@@ -51,7 +51,7 @@
   }
 </script>
 
-<Container width={800}>
+<Container width={1200}>
   {#if crossword && puzzle}
     <article>
       <h1>{crossword.name}</h1>
@@ -130,6 +130,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-left: 40px;
   }
 
   article {
@@ -153,19 +154,9 @@
     background-color: rgba(var(--primary), 0.16);
   }
 
-  .mode-print-only {
-    display: none;
-    font-style: italic;
-    margin-top: 3px;
-    font-size: 15px;
-  }
-
   @media print {
     a {
       display: none;
-    }
-    .mode-print-only {
-      display: block;
     }
   }
 </style>
