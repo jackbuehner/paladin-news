@@ -152,10 +152,10 @@
     }
 
     :global(.svelte-crossword .play.is-loaded) {
-      flex-direction: column-reverse !important;
+      flex-direction: column !important;
     }
     :global(.svelte-crossword .play.is-loaded.stacked) {
-      flex-direction: column !important;
+      flex-direction: column-reverse !important;
     }
 
     :global(.svelte-crossword .play > section) {
