@@ -105,6 +105,7 @@
     font-size: 32px;
     font-weight: 600;
     margin: 32px 0 10px 0;
+    text-align: center;
   }
 
   p {
