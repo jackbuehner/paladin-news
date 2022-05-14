@@ -1,5 +1,6 @@
 <script lang="ts">
   import { afterNavigate } from '$app/navigation';
+  import { page } from '$app/stores';
   import Container from '$lib/components/Container.svelte';
   import { createCrossword, Crossword } from '$lib/components/crossword';
   import type { GET_CROSSWORD__DOC_TYPE } from '$lib/queries';
@@ -49,7 +50,21 @@
     x: number;
     y: number;
   }
+
+  /**
+   * Opens the crossword in Cristata when ALT + C is pressed.
+   */
+  const openInCMS = (event: KeyboardEvent) => {
+    if (event.altKey && event.key === 'c') {
+      window.open(
+        `https://cristata.app/paladin-news/cms/collection/crosswords/${$page.params._id}`,
+        '_blank'
+      );
+    }
+  };
 </script>
+
+<svelte:window on:keydown={openInCMS} />
 
 <Container width={1200}>
   {#if crossword && puzzle}
