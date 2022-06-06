@@ -1,4 +1,5 @@
 import { PhotoWidget } from '$lib/pm/render/PhotoWidget';
+import { PullQuote } from '$lib/pm/render/PullQuote';
 import { SweepwidgetWidget } from '$lib/pm/render/SweepwidgetWidget';
 import { YoutubeWidget } from '$lib/pm/render/YoutubeWidget';
 import { GET_ARTICLE_BY_SLUG, type GET_ARTICLE_BY_SLUG__TYPE } from '$lib/queries';
@@ -50,6 +51,7 @@ export const get: RequestHandler<Record<'slug' | 'yyyy' | 'mm' | 'dd', string>> 
         renderer.addNode(SweepwidgetWidget);
         renderer.addNode(YoutubeWidget);
         renderer.addNode(PhotoWidget);
+        renderer.addNode(PullQuote);
         article.body = renderer.render({
           type: 'doc',
           content: JSON.parse(article.body),
