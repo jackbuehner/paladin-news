@@ -13,15 +13,12 @@
 </script>
 
 <script lang="ts">
-  import { title } from '$lib/stores/title';
   import Footer from '$lib/components/Footer.svelte';
   import Header from '$lib/components/header/Header.svelte';
   import Search from '$lib/components/search/Search.svelte';
-  import NProgress from 'nprogress';
-  import * as Fathom from 'fathom-client';
-  import { onMount, afterUpdate } from 'svelte';
+  import { title } from '$lib/stores/title';
   import type { LoadInput } from '@sveltejs/kit';
-  import { afterNavigate, beforeNavigate } from '$app/navigation';
+  import { afterUpdate, onMount } from 'svelte';
 
   // keep track of the page path
   export let path: string;
@@ -41,39 +38,6 @@
 
   // create the document title
   $: title_ = $title || path !== '/' ? `${$title} - The Paladin` : 'The Paladin';
-
-  // configure the navigation progress bar
-  NProgress.configure({
-    parent: 'body',
-    easing: 'ease',
-    speed: 500,
-    trickle: true,
-    trickleSpeed: 200,
-    showSpinner: false,
-  });
-
-  // show progress bar on page navigate
-  beforeNavigate(() => {
-    NProgress.start();
-  });
-
-  // hide progress bar on navigation end
-  afterNavigate(() => {
-    NProgress.done();
-  });
-
-  // fathom analytics
-  onMount(() => {
-    // load on page load
-    Fathom.load(import.meta.env.VITE_FATHOM_ID as string, {
-      url: import.meta.env.VITE_FATHOM_URL as string,
-    });
-
-    // track page view after each new navigation
-    window.addEventListener('sveltekit:navigation-end', () => {
-      Fathom.trackPageview();
-    });
-  });
 </script>
 
 <svelte:head>
