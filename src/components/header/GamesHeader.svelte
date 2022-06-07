@@ -20,7 +20,7 @@
 {/if}
 
 <div class="topbar-wrapper compact-header" class:scrolled={windowScrollY > 0}>
-  <Container width={$page.url.pathname === '/games' ? '100%' : undefined}>
+  <Container width={$page.url.pathname === '/games' ? '100%' : '1200px'}>
     <div class="topbar" class:scrolled={windowScrollY > 0}>
       <div class="left">
         <IconButton ariaLabel={'menu'} on:click={() => (isSideNavOpen = !isSideNavOpen)} {color}
