@@ -15,12 +15,14 @@
           <a href={'/section/sports'}>Sports</a>
           <a href={'/section/diversity-matters'}>Diversity Matters</a>
           <a href={'/section/arts-culture'}>Arts, Campus, & Culture</a>
+          <a href={'/all-articles'}>All articles</a>
         </div>
         <div>
           <div class={'header'}>More</div>
-          <a href={'/all-articles'}>All articles</a>
           <a href={'/satire'}>The Horse – Satire</a>
           <a href={'/flusher'}>The Royal Flush</a>
+          <a href={'/games'}>Games</a>
+          <a href={'/https://www.youtube.com/channel/UC3UaWOCIldF5_qWnCYEt0RQ'}>Videos</a>
           <a href={'/newsletters'}>Newsletters</a>
           <a href={'/'}>Home</a>
         </div>

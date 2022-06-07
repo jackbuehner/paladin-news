@@ -21,6 +21,7 @@
       { href: '/flusher', label: 'The Royal Flush' },
     ],
     [
+      { href: '/games', label: 'Games' },
       {
         href: 'https://www.youtube.com/channel/UC3UaWOCIldF5_qWnCYEt0RQ',
         label: 'Videos',
