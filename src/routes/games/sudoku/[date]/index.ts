@@ -15,7 +15,7 @@ export const get: RequestHandler<{ date: string }> = async (request) => {
   let date = request.params.date;
   if (date === 'latest' || date === 'today') date = new Date().toISOString().split('T')[0];
 
-  if (new Date(date) > new Date(DateTime.now().toISODate())) return { status: 418 };
+  if (new Date(date) > new Date(DateTime.now().toISODate().split('T')[0])) return { status: 418 };
   if (new Date(date) < new Date('2022-05-01')) return { status: 404 };
 
   // request the puzzle from the api
