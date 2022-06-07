@@ -10,7 +10,7 @@
 
   // set document and header title
   title.set('All crossword puzzles');
-  headerLabel.set('Games');
+  headerLabel.set('Crossword');
 
   // unset the header label on destroy
   onDestroy(() => ($headerLabel = ''));

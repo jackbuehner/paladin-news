@@ -10,8 +10,8 @@
   import { onDestroy } from 'svelte';
 
   // set document and header title
-  title.set(`Crossword - Games`);
-  headerLabel.set('Games');
+  title.set(`Crossword`);
+  headerLabel.set('Crossword');
   $: {
     if (crossword) title.set(`${crossword.name} - Crossword - Games`);
   }

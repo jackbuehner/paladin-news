@@ -9,8 +9,8 @@
   import { DateTime } from 'luxon';
 
   // set the document and header title
-  title.set('Sudoku - Games');
-  headerLabel.set('Games');
+  title.set('Sudoku');
+  headerLabel.set('Sudoku');
 
   // the sudoku puzzle object retrieved from the page endpoint
   export let data: string;
