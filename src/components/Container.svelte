@@ -1,11 +1,17 @@
 <script lang="ts">
-  export let width = 1200;
+  export let width: string | number = 1200;
 </script>
 
 <div class="outer">
-  <div class="inner" style={`--width: ${width}px`}>
-    <slot />
-  </div>
+  {#if typeof width === 'number'}
+    <div class="inner" style={`--width: ${width}px`}>
+      <slot />
+    </div>
+  {:else}
+    <div class="inner" style={`--width: ${width}`}>
+      <slot />
+    </div>
+  {/if}
 </div>
 
 <style>
