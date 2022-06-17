@@ -62,10 +62,19 @@
       formTime: '1-2 minutes',
     },
     {
-      title: 'Social Media Assistant',
-      note: '1-2 hours per week; Paid',
+      title: 'Social Media Manager',
+      note: 'Paid Position',
       description: `
-        The social media assistant will work with the Social Media Manager to produce social media content for The Paladin.
+      The Social Media Manager will strategize <i>The Paladin</i>'s social media presence across multiple platforms and produce social media content for <i>The Paladin</i>. Our main platforms include Instagram, Twitter, LinkedIn, and Facebook. 
+      `,
+      form: 'https://forms.office.com/Pages/ResponsePage.aspx?id=2fdi-EbxGEWm-58uqC08gEsJCrlx8F1JqSx6fdQssF5UOElHQkhCWDZWNktHRFk0REpMTlFNM01YNiQlQCN0PWcu',
+      formTime: '< 8 minutes',
+    },
+    {
+      title: 'Social Media Assistant',
+      note: 'Paid Position',
+      description: `
+        The social media assistant will work with the Social Media Manager to produce social media content for <i>The Paladin</i>.
         This position involves learning strategies for successful social media campaigns. <i>The Paladin</i> is on Instagram, Facebook, Twitter, and LinkedIn.
       `,
       form: 'https://forms.office.com/Pages/ResponsePage.aspx?id=2fdi-EbxGEWm-58uqC08gEsJCrlx8F1JqSx6fdQssF5UNERWOFdZQzU0VFVUQjU4U0UxWk5DOTkwOCQlQCN0PWcu',
