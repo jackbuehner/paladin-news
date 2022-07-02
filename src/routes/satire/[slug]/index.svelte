@@ -14,6 +14,7 @@
   import { headerIsSatire } from '$lib/stores/header';
   import { title } from '$lib/stores/title';
   import { onDestroy } from 'svelte';
+  import { send, receive } from '../../../utils/crossfade.js';
 
   export let data: string | undefined;
   $: satire = data ? (JSON.parse(data) as GET_SATIRE_BY_SLUG__DOC_TYPE) : undefined;
@@ -48,7 +49,9 @@
       <ArticleHeading>{satire.name}</ArticleHeading>
       <ArticleSubtitle>{satire.description}</ArticleSubtitle>
       <SatireMeta authors={satire.people.display_authors} date={satire.timestamps.published_at} />
-      <ArticlePhoto src={satire.photo_path} />
+      <div in:receive={{ key: `photo-article-${satire._id}`, duration: 400 }}>
+        <ArticlePhoto src={satire.photo_path} />
+      </div>
       {#if satire.photo_caption}
         <ArticleCaption>{satire.photo_caption}</ArticleCaption>
       {/if}

@@ -10,6 +10,7 @@
   import TheHorseLogo from '$lib/components/svgs/TheHorseLogo.svelte';
   import type { GET_SATIRES__DOC_TYPE, Paged } from '$lib/queries';
   import { title } from '$lib/stores/title';
+  import { send, receive } from '../../utils/crossfade.js';
 
   // set the document title
   title.set('The Horse (Satire)');
@@ -50,6 +51,7 @@
     {#if articles && articles.docs && articles.page === 1}
       {#each Array.from(articles.docs).slice(0, 4) as article, index}
         <ArticleCard
+          _id={article._id}
           style={`grid-area: a${index}`}
           name={article.name}
           href={`/satire/${article.slug}`}

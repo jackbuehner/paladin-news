@@ -2,8 +2,10 @@
   import smartquotes from 'smartquotes';
   import { formatISODate } from '$lib/utils/formatISODate';
   import Image from '$lib/components/Image.svelte';
+  import { send, receive } from '../../utils/crossfade.js';
 
   export let style = '';
+  export let _id: string | undefined = undefined;
   export let name: string;
   export let description: string | undefined = undefined;
   export let href: string;
@@ -43,7 +45,11 @@
   <!-- photo and credit -->
   {#if photo !== undefined && photo.length > 0 && !isCompact}
     <div class={'photo-group'}>
-      <div class={'photo-wrapper'} class:isCategoryPage>
+      <div
+        class={'photo-wrapper'}
+        class:isCategoryPage
+        out:send={{ key: `photo-article-${_id}`, duration: 400 }}
+      >
         <Image
           src={photo}
           className={`article-card-image`}
@@ -84,7 +90,7 @@
 
   <!-- compact article card photo (only if it is compact) -->
   {#if isCompact && photo}
-    <div class={'photo-wrapper compact'}>
+    <div class={'photo-wrapper compact'} out:send={{ key: `photo-article-${_id}`, duration: 400 }}>
       <Image
         src={photo}
         className={`article-card-image`}

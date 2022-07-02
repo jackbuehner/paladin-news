@@ -65,5 +65,15 @@
   }
   div.content {
     flex-grow: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    overflow: auto;
+  }
+  div.content > :global(*) {
+    z-index: 0;
+    grid-row: 1;
+    grid-column: 1;
+    background-color: var(--background);
   }
 </style>
