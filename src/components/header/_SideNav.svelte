@@ -22,11 +22,7 @@
     ],
     [
       { href: '/games', label: 'Games' },
-      {
-        href: 'https://www.youtube.com/channel/UC3UaWOCIldF5_qWnCYEt0RQ',
-        label: 'Videos',
-        external: true,
-      },
+      { href: '/section/video', label: 'Videos' },
       { href: '/newsletters', label: 'Newsletters' },
     ],
     [

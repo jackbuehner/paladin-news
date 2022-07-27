@@ -22,7 +22,7 @@
           <a href={'/satire'}>The Horse – Satire</a>
           <a href={'/flusher'}>The Royal Flush</a>
           <a href={'/games'}>Games</a>
-          <a href={'/https://www.youtube.com/channel/UC3UaWOCIldF5_qWnCYEt0RQ'}>Videos</a>
+          <a href={'/section/video'}>Videos</a>
           <a href={'/newsletters'}>Newsletters</a>
           <a href={'/'}>Home</a>
         </div>

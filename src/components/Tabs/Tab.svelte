@@ -7,6 +7,7 @@
 
   export let grow = false;
   export let isDefault = false;
+  export let href: string | undefined = undefined;
 
   onMount(() => {
     if (isDefault === true) selectTab(tab);
@@ -16,15 +17,48 @@
 </script>
 
 <div class:selected={$selectedTab === tab} class:grow>
-  <button on:click={() => selectTab(tab)}>
-    <slot />
-  </button>
+  {#if href}
+    <a
+      {href}
+      on:click
+      on:mouseup
+      on:mousedown
+      on:mouseenter
+      on:mouseleave
+      on:mouseout
+      on:blur
+      on:mouseover
+      on:focus
+      on:mousemove
+      on:click={() => selectTab(tab)}
+    >
+      <slot />
+    </a>
+  {:else}
+    <button
+      on:click
+      on:mouseup
+      on:mousedown
+      on:mouseenter
+      on:mouseleave
+      on:mouseout
+      on:blur
+      on:mouseover
+      on:focus
+      on:mousemove
+      on:click={() => selectTab(tab)}
+    >
+      <slot />
+    </button>
+  {/if}
 </div>
 
 <style>
-  button {
+  button,
+  a {
     display: inline-flex;
-    min-width: 80px;
+    /* min-width: 80px; */
+    padding: 0 20px;
     height: 36px;
     justify-content: center;
     align-items: center;
@@ -36,18 +70,21 @@
     transition: 200ms;
     color: var(--button-color);
     font-family: var(--font-detail);
-    text-transform: uppercase;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 500;
     white-space: nowrap;
     letter-spacing: 0.17px;
     width: 100%;
+    text-decoration: none;
   }
-  button:hover:not(.disabled) {
+  button:hover:not(.disabled),
+  a:hover:not(.disabled) {
     background-color: var(--button-bg-hover);
     border: 1px solid var(--button-bg-hover);
     box-shadow: var(--button-shadow-hover);
   }
-  button:active:not(.disabled) {
+  button:active:not(.disabled),
+  a:active:not(.disabled) {
     background-color: var(--button-bg-active);
     border: 1px solid var(--button-bg-active);
     box-shadow: var(--button-shadow-active);
@@ -61,7 +98,7 @@
   }
 
   .selected {
-    box-shadow: 0 2px 0 0 rgb(var(--primary));
+    box-shadow: inset 0 -2px 0 0 rgb(var(--primary));
   }
   .selected button {
     color: rgb(var(--primary));

@@ -1,4 +1,12 @@
-<div class={'tab-list'}>
+<script lang="ts">
+  export let justify: 'left' | 'center' | 'right' = 'center';
+</script>
+
+<div
+  class={'tab-list'}
+  class:justifyLeft={justify === 'left'}
+  class:justifyRight={justify === 'right'}
+>
   <slot />
 </div>
 
@@ -14,5 +22,13 @@
     position: relative;
     z-index: 10;
     background-color: white;
+  }
+
+  div.justifyLeft {
+    justify-content: flex-start;
+  }
+
+  div.justifyRight {
+    justify-content: flex-end;
   }
 </style>
