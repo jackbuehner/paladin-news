@@ -24,6 +24,7 @@
       { href: '/games', label: 'Games' },
       { href: '/section/video', label: 'Videos' },
       { href: '/newsletters', label: 'Newsletters' },
+      { href: '/podcasts', label: 'Podcasts' },
     ],
     [
       { href: '/about', label: 'Who we are' },

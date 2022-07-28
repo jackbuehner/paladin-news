@@ -51,5 +51,6 @@
 
   /* backgrounds and surfaces */
   --background: #ffffff;
+  --background-tinted: #f4f4f4;
   --surface: #ffffff;
 }

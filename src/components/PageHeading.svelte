@@ -4,6 +4,7 @@
   export let type: 'block' | 'line' | 'blockCentered' = 'line';
   export let subtitle: string | undefined = undefined;
   export let width = 1200;
+  export let photo: string | undefined = undefined;
 </script>
 
 {#if type === 'line'}
@@ -15,10 +16,17 @@
 {#if type === 'block'}
   <div class={'block'}>
     <Container {width}>
-      <h1><slot /></h1>
-      {#if subtitle !== undefined}
-        <p>{@html subtitle}</p>
-      {/if}
+      <div style={'display: flex; flex-direction: row; align-items: center;'}>
+        {#if photo}
+          <img src={photo} alt={''} />
+        {/if}
+        <div>
+          <h1><slot /></h1>
+          {#if subtitle !== undefined}
+            <p>{@html subtitle}</p>
+          {/if}
+        </div>
+      </div>
     </Container>
   </div>
 {/if}
@@ -97,5 +105,13 @@
   }
   :global(.block a:active) {
     background-color: rgba(var(--primary), 0.16);
+  }
+  img {
+    margin-right: 20px;
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
   }
 </style>

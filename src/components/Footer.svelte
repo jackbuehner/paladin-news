@@ -24,6 +24,7 @@
           <a href={'/games'}>Games</a>
           <a href={'/section/video'}>Videos</a>
           <a href={'/newsletters'}>Newsletters</a>
+          <a href={'/podcasts'}>Podcasts</a>
           <a href={'/'}>Home</a>
         </div>
         <div>
