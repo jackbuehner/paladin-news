@@ -24,6 +24,8 @@
   let realSrc: string | undefined;
   $: realSrc = undefined;
 
+  let renderWidth = 0;
+
   // control whether the image is shown
   $: showTiny = canTransform ? true : false; // only show if the image was transformed
   let showFinal = false;
@@ -46,7 +48,11 @@
     if (srcChanged && canTransform && finalImgElem) {
       // cache the image src in a separate image element
       const img = new Image();
-      img.src = src.replace(ik, `${ik}tr:w-${maxSrcWidth}/`);
+      img.src = src.replace(
+        ik,
+        `${ik}tr:w-${renderWidth < maxSrcWidth ? renderWidth : maxSrcWidth}/`
+      );
+
       img.onload = () => {
         // once the image is cached, show the final image
         realSrc = img.src;
@@ -62,7 +68,7 @@
   });
 </script>
 
-<div class={containerClassName}>
+<div class={containerClassName} bind:clientWidth={renderWidth}>
   {#if canTransform}
     <img
       src={tinySrc}
