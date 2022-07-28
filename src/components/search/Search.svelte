@@ -18,20 +18,18 @@
 </script>
 
 <svelte:head>
-  <div>
-    <script
-      src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js"
-      integrity="sha256-EXPXz4W6pQgfYY3yTpnDa3OH8/EPn16ciVsPQ/ypsjk="
-      crossorigin="anonymous"
-      async
-      defer></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js"
-      integrity="sha256-LAGhRRdtVoD6RLo2qDQsU2mp+XVSciKRC8XPOBWmofM="
-      crossorigin="anonymous"
-      async
-      defer></script>
-  </div>
+  <script
+    src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js"
+    integrity="sha256-EXPXz4W6pQgfYY3yTpnDa3OH8/EPn16ciVsPQ/ypsjk="
+    crossorigin="anonymous"
+    async
+    defer></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js"
+    integrity="sha256-LAGhRRdtVoD6RLo2qDQsU2mp+XVSciKRC8XPOBWmofM="
+    crossorigin="anonymous"
+    async
+    defer></script>
 </svelte:head>
 
 {#if isPanelOpen}
