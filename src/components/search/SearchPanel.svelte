@@ -9,94 +9,112 @@
   const appId = 'MYSXBURUSK';
   const searchKey = '5dc1852a286a90c74edc560c6f485aae';
 
-  onMount(() => {
-    // @ts-expect-error algoliasearch is defined in window
-    const algoliasearch = window.algoliasearch;
-    // @ts-expect-error instantsearch is defined in window
-    const instantsearch = window.instantsearch;
+  let algoliasearchScript: HTMLScriptElement | undefined;
+  let algoliasearch: any;
+  $: {
+    if (algoliasearchScript) {
+      algoliasearchScript.onload = () => {
+        // @ts-expect-error algoliasearch is defined in window
+        algoliasearch = window.algoliasearch;
+      };
+    }
+  }
 
-    const client = algoliasearch(appId, searchKey);
+  let instantsearchScript: HTMLScriptElement | undefined;
+  let instantsearch: any;
+  $: {
+    if (instantsearchScript) {
+      instantsearchScript.onload = () => {
+        // @ts-expect-error instantsearch is defined in window
+        instantsearch = window.instantsearch;
+      };
+    }
+  }
 
-    // start instantsearch with the indices
-    const search = instantsearch({
-      indexName: 'articles',
-      searchClient: client,
-    });
+  $: {
+    if (algoliasearch && instantsearch) {
+      const client = algoliasearch(appId, searchKey);
 
-    // add search widgets
-    search.addWidgets([
-      instantsearch.widgets.searchBox({
-        container: '#searchbox',
-        placeholder: 'Search articles',
-        searchAsYouType: true,
-        showReset: false,
-        showSubmit: false,
-        showLoadingIndicator: false,
-        queryHook: (query: string, search: (query: string) => void) => {
-          // if query is empty string, do not search
-          search(query);
+      // start instantsearch with the indices
+      const search = instantsearch({
+        indexName: 'articles',
+        searchClient: client,
+      });
 
-          // ensure the previous search is cancelled if a new one is made
-          // (useful since `searchAsYouType` is `true`)
-          const timerId = setTimeout(() => search(query), 500); // search if the user has not typed within 500ms
-          clearTimeout(timerId);
-        },
-      }),
-      instantsearch.widgets.stats({
-        container: '#searchstats',
-        templates: {
-          text(data: { query: string; processingTimeMS: number; nbHits: number }) {
-            return `<span role="img" aria-label="emoji">⚡️</span> <strong>${
-              data.nbHits
-            }</strong> results found ${
-              data.query !== '' ? `for <strong>"${data.query}"</strong>` : ``
-            } in <strong>${data.processingTimeMS}ms</strong>`;
+      // add search widgets
+      search.addWidgets([
+        instantsearch.widgets.searchBox({
+          container: '#searchbox',
+          placeholder: 'Search articles',
+          searchAsYouType: true,
+          showReset: false,
+          showSubmit: false,
+          showLoadingIndicator: false,
+          queryHook: (query: string, search: (query: string) => void) => {
+            // if query is empty string, do not search
+            search(query);
+
+            // ensure the previous search is cancelled if a new one is made
+            // (useful since `searchAsYouType` is `true`)
+            const timerId = setTimeout(() => search(query), 500); // search if the user has not typed within 500ms
+            clearTimeout(timerId);
           },
-        },
-      }),
-      instantsearch.widgets.hits({
-        container: '#searchhits',
-        templates: {
-          item(item: IArticle) {
-            // modify the names of the categories to match the website sections
-            let categories: string[] = [];
-            if (item.categories) {
-              item.categories.forEach((category) => {
-                switch (category) {
-                  case 'sports':
-                    categories.push('Sports');
-                    break;
-                  case 'arts-culture':
-                    categories.push('Arts & Culture');
-                    break;
-                  case 'campus-culture':
-                    categories.push('Campus');
-                    break;
-                  case 'arts':
-                    categories.push('Arts');
-                    break;
-                  case 'diversity':
-                    categories.push('Diversity Matters');
-                    break;
-                  case 'news':
-                    categories.push('News');
-                    break;
-                  case 'opinion':
-                    categories.push('Opinion');
-                    break;
-                  default:
-                    // if category is missing from this switch, push it anyway
-                    categories.push(category);
-                    break;
-                }
-              });
-            }
+        }),
+        instantsearch.widgets.stats({
+          container: '#searchstats',
+          templates: {
+            text(data: { query: string; processingTimeMS: number; nbHits: number }) {
+              return `<span role="img" aria-label="emoji">⚡️</span> <strong>${
+                data.nbHits
+              }</strong> results found ${
+                data.query !== '' ? `for <strong>"${data.query}"</strong>` : ``
+              } in <strong>${data.processingTimeMS}ms</strong>`;
+            },
+          },
+        }),
+        instantsearch.widgets.hits({
+          container: '#searchhits',
+          templates: {
+            item(item: IArticle) {
+              // modify the names of the categories to match the website sections
+              let categories: string[] = [];
+              if (item.categories) {
+                item.categories.forEach((category) => {
+                  switch (category) {
+                    case 'sports':
+                      categories.push('Sports');
+                      break;
+                    case 'arts-culture':
+                      categories.push('Arts & Culture');
+                      break;
+                    case 'campus-culture':
+                      categories.push('Campus');
+                      break;
+                    case 'arts':
+                      categories.push('Arts');
+                      break;
+                    case 'diversity':
+                      categories.push('Diversity Matters');
+                      break;
+                    case 'news':
+                      categories.push('News');
+                      break;
+                    case 'opinion':
+                      categories.push('Opinion');
+                      break;
+                    default:
+                      // if category is missing from this switch, push it anyway
+                      categories.push(category);
+                      break;
+                  }
+                });
+              }
 
-            // format the date
-            const published_at = formatISODate(item.timestamps.published_at);
+              // format the date
+              const published_at = formatISODate(item.timestamps.published_at);
 
-            // return the article card
-            return `
+              // return the article card
+              return `
               <a href="https://thepaladin.news/articles/${
                 item.slug
               }" class="search-flyout--hit-card-link-block">
@@ -131,24 +149,42 @@
                 </div>
               </a>
             `;
+            },
           },
-        },
-      }),
-      instantsearch.widgets.pagination({
-        container: '#searchpagination',
-        showFirst: true,
-        showLast: true,
-        showNext: true,
-        showPrevious: true,
-        padding: 2,
-        scrollTo: '#searchstats',
-      }),
-    ]);
+        }),
+        instantsearch.widgets.pagination({
+          container: '#searchpagination',
+          showFirst: true,
+          showLast: true,
+          showNext: true,
+          showPrevious: true,
+          padding: 2,
+          scrollTo: '#searchstats',
+        }),
+      ]);
 
-    // start search
-    search.start();
-  });
+      // start search
+      search.start();
+    }
+  }
 </script>
+
+<svelte:head>
+  <script
+    src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js"
+    integrity="sha256-EXPXz4W6pQgfYY3yTpnDa3OH8/EPn16ciVsPQ/ypsjk="
+    crossorigin="anonymous"
+    bind:this={algoliasearchScript}
+    async
+    defer></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js"
+    integrity="sha256-LAGhRRdtVoD6RLo2qDQsU2mp+XVSciKRC8XPOBWmofM="
+    crossorigin="anonymous"
+    bind:this={instantsearchScript}
+    async
+    defer></script>
+</svelte:head>
 
 <div class={'flyout'}>
   <div class={'close-button'}>
