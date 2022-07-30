@@ -1,22 +1,47 @@
 <script lang="ts">
-  import IconButton from '../IconButton.svelte';
-  import ThePaladinLogo from '../svgs/ThePaladinLogo.svelte';
-  import TheHorseLogo from '../svgs/TheHorseLogo.svelte';
-  import HorizontalNav from './_HorizontalNav.svelte';
-  import SideNav from './_SideNav.svelte';
+  import { DateTime } from 'luxon';
   import { searchOpen } from '../../stores/search';
   import Container from '../Container.svelte';
+  import IconButton from '../IconButton.svelte';
+  import ThePaladinLogoAlt from '../svgs/ThePaladinLogoAlt.svelte';
+  import HorizontalNav from './_HorizontalNav.svelte';
+  import SideNav from './_SideNav.svelte';
 
   $: windowWidth = 0;
   $: windowScrollY = 0;
 
   let isSideNavOpen = false;
-  export let isSatire = false;
   const color = `var(--topbar-color)`;
+
+  function ordinal(n: number) {
+    var s = ['th', 'st', 'nd', 'rd'];
+    var v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+  }
+
+  const todayDateTime = DateTime.fromISO(new Date().toISOString(), { zone: 'utc' });
+  const today =
+    todayDateTime.toFormat('EEEE, LLLL ') +
+    ordinal(parseInt(todayDateTime.toFormat('d'))) +
+    todayDateTime.toFormat(', yyyy');
 </script>
 
 <svelte:window bind:innerWidth={windowWidth} bind:scrollY={windowScrollY} />
 
+<Container>
+  <div class="quick-links">
+    <div>
+      <a href="/about">About</a>
+      <a href="/contact">Ads</a>
+      <a href="/contact">Tips</a>
+      <a href="/contact">Submit Work</a>
+    </div>
+    <div>{today}</div>
+    <div>
+      <a href="/jobs">Jobs</a>
+    </div>
+  </div>
+</Container>
 <div class="topbar-wrapper" class:scrolled={windowScrollY > 0}>
   <div class="topbar" class:scrolled={windowScrollY > 0}>
     <div class="left">
@@ -32,13 +57,7 @@
       {/if}
     </div>
     <div class="logo" class:hidden={windowScrollY < 180}>
-      {#if isSatire}
-        <a href={'/satire'} aria-label={'satire home'}
-          ><TheHorseLogo width={'100%'} height={46} /></a
-        >
-      {:else}
-        <a href={'/'} aria-label={'home'}><ThePaladinLogo width={'100%'} height={46} /></a>
-      {/if}
+      <a href={'/'} aria-label={'home'}><ThePaladinLogoAlt width={'100%'} height={15} /></a>
     </div>
     <div class="right">
       {#if windowWidth > 760}
@@ -82,11 +101,7 @@
 </div>
 <Container>
   <div class="logo-wrapper">
-    {#if isSatire}
-      <a href={'/satire'} aria-label={'satire home'}><TheHorseLogo width={307} height={120} /></a>
-    {:else}
-      <a href={'/'} aria-label={'home'}><ThePaladinLogo width={416} height={120} /></a>
-    {/if}
+    <a href={'/'} aria-label={'home'}><ThePaladinLogoAlt width={416} height={36} /></a>
   </div>
   <div class={`horizontal-nav`}>
     <HorizontalNav />
@@ -108,10 +123,16 @@
   .topbar-wrapper {
     background-color: var(--topbar-bg);
     transition: box-shadow 200ms;
-    padding: 0 20px;
+    padding: 0 13px;
     margin: 0 auto;
-    max-width: 1200px;
+    max-width: 1214px;
     width: 100%;
+    box-sizing: content-box;
+  }
+  @media (max-width: 1214px) {
+    .topbar-wrapper {
+      box-sizing: border-box;
+    }
   }
   @media (max-width: 990px) {
     .topbar {
@@ -136,7 +157,7 @@
 
   /* wrapper for the logo */
   .logo-wrapper {
-    padding: 10px 0 4px 0;
+    padding: 26px 0 24px 0;
     margin-top: -42px;
     display: flex;
     justify-content: center;
@@ -180,5 +201,50 @@
     div.horizontal-nav {
       display: none;
     }
+  }
+
+  /* links row at top */
+  .quick-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 30px;
+    align-items: center;
+    border-bottom: 1px solid #e6e6e6;
+    font-size: 13px;
+    font-family: var(--font-detail);
+  }
+
+  @media (max-width: 990px) {
+    .quick-links {
+      display: none;
+    }
+  }
+
+  .quick-links > div:nth-of-type(2) {
+    justify-content: center;
+  }
+
+  .quick-links > div:nth-of-type(3) {
+    justify-content: end;
+  }
+
+  .quick-links > div {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+  }
+
+  .quick-links a {
+    color: var(--color-neutral-dark);
+    text-decoration: none;
+    transition: background-color 0.2s, box-shadow 0.1s;
+  }
+  .quick-links a:hover {
+    color: rgb(var(--primary));
+    background-color: rgba(var(--primary), 0.1);
+    box-shadow: 0 2px 0 0 rgb(var(--primary));
+  }
+  .quick-links a:active {
+    background-color: rgba(var(--primary), 0.16);
   }
 </style>

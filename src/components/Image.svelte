@@ -25,6 +25,7 @@
   $: realSrc = undefined;
 
   let renderWidth = 0;
+  let renderHeight = 0;
 
   // control whether the image is shown
   $: showTiny = canTransform ? true : false; // only show if the image was transformed
@@ -50,7 +51,9 @@
       const img = new Image();
       img.src = src.replace(
         ik,
-        `${ik}tr:w-${renderWidth < maxSrcWidth ? renderWidth : maxSrcWidth}/`
+        `${ik}tr:w-${renderWidth < maxSrcWidth ? renderWidth : maxSrcWidth},h-${
+          renderHeight ? renderHeight : 'auto'
+        }/`
       );
 
       img.onload = () => {
@@ -68,7 +71,7 @@
   });
 </script>
 
-<div class={containerClassName} bind:clientWidth={renderWidth}>
+<div class={containerClassName} bind:clientWidth={renderWidth} bind:clientHeight={renderHeight}>
   {#if canTransform}
     <img
       src={tinySrc}
@@ -77,10 +80,10 @@
       {loading}
     />
     <img
-      src={realSrc}
+      src={realSrc || tinySrc}
       {alt}
       class={showFinal ? `${className} show loaded` : `${className} hide`}
-      loading={'lazy'}
+      {loading}
       bind:this={finalImgElem}
     />
   {:else}

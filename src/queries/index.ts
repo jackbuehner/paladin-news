@@ -46,6 +46,8 @@ export type {
   GET_FRONT_PAGE__JSON,
   GET_FRONT_PAGE__TYPE,
 } from './GET_FRONT_PAGE';
+export { GET_FRONT_PAGE_2022 } from './GET_FRONT_PAGE_2022';
+export type { GET_FRONT_PAGE_2022__JSON, GET_FRONT_PAGE_2022__TYPE } from './GET_FRONT_PAGE_2022';
 export { GET_PLAYLIST } from './GET_PLAYLIST';
 export type {
   GET_PLAYLIST__DOC_TYPE,

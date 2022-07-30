@@ -1,13 +1,17 @@
 <script lang="ts">
   const items = [
-    { href: '/', label: 'Home' },
     { href: '/section/news', label: 'News' },
     { href: '/section/opinions', label: 'Opinions' },
     { href: '/section/sports', label: 'Sports' },
-    { href: '/section/diversity-matters', label: 'Diversity Matters' },
     { href: '/section/arts-culture', label: 'Arts, Campus, & Culture' },
+    { href: '/section/video', label: 'Videos' },
+    { href: '/games', label: 'Games' },
+    { href: '/podcasts', label: 'Podcasts' },
     { href: '/satire', label: 'The Horse' },
-    { href: '/contact', label: 'Contact' },
+    {
+      href: 'https://cdm16821.contentdm.oclc.org/digital/collection/p16821coll21',
+      label: 'Archive',
+    },
   ];
 </script>
 
@@ -16,13 +20,14 @@
     <a href={item.href}>{item.label}</a>
   {/each}
 </nav>
+<span />
 
 <style>
   nav {
-    height: 46px;
+    height: 36px;
     width: 100%;
-    border-top: 1px solid #000000;
-    border-bottom: 1px solid #000000;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid var(--color-neutral-light);
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -30,16 +35,20 @@
     gap: 2px;
     flex-wrap: wrap;
   }
+  span {
+    border-bottom: 1px solid var(--color-neutral-light);
+    display: flex;
+    margin-top: 1px;
+  }
   a {
     font-family: var(--font-detail);
-    font-size: 14px;
+    font-size: 15px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: 1px;
-    color: #222222;
-    text-transform: uppercase;
+    color: var(--color-neutral-dark);
     text-decoration: none;
-    padding: 6px 10px;
+    padding: 2.5px 10px 4px 10px;
     background-color: var(--button-bg);
     border: 1px solid transparent;
     transition: 200ms;

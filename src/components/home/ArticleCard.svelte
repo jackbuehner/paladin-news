@@ -4,6 +4,7 @@
   import Image from '$lib/components/Image.svelte';
 
   export let style = '';
+  export let metaStyle: string | undefined = undefined;
   export let name: string;
   export let description: string | undefined = undefined;
   export let href: string;
@@ -14,7 +15,11 @@
   export let isCompact = false;
   export let isCategoryPage = false;
   export let isLargerHeadline = false;
+  export let isSmallerHeadline = false;
   export let categories: string[] = [];
+  export let isOpinion: boolean = false;
+  export let hasVideo: boolean = false;
+  export let lazyLoad: boolean = true;
 
   // modify the names of the categories to match the website sections
   let categoriesModified: string[] = [];
@@ -44,10 +49,24 @@
   {#if photo !== undefined && photo.length > 0 && !isCompact}
     <div class={'photo-group'}>
       <div class={'photo-wrapper'} class:isCategoryPage>
+        {#if hasVideo}
+          <svg
+            style="position: absolute; right: 10px; top: 10px; z-index: 1; filter: drop-shadow(0px 0px 1px rgb(255, 255, 255, 0.9));"
+            xmlns="http://www.w3.org/2000/svg"
+            height="20px"
+            viewBox="0 0 24 24"
+            width="20px"
+            fill="currentColor"
+            ><path d="M0 0h24v24H0V0z" fill="none" /><path
+              d="M5.76 10H20v8H4V6.47M22 4h-4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4z"
+            /></svg
+          >
+        {/if}
         <Image
           src={photo}
           className={`article-card-image`}
           containerClassName={`article-card-image-container`}
+          loading={lazyLoad ? 'lazy' : 'eager'}
         />
       </div>
       {#if photoCredit === undefined}
@@ -74,7 +93,10 @@
   <div
     class={'name'}
     class:isLargerHeadline
-    class:noMargin={isCompact && description === undefined}
+    class:isSmallerHeadline
+    class:isOpinion
+    class:noMargin={(isCompact && description === undefined) ||
+      (!isCompact && description === undefined)}
     class:spaceBetweenHeadlineAndPhoto={categoriesModified.length === 0 &&
       !photoCredit &&
       !isCompact}
@@ -101,7 +123,7 @@
   {/if}
 
   <!-- article meta info (date and authors) -->
-  <div class={'meta'} class:noMargin={isCompact && description === undefined}>
+  <div class={'meta'} class:noMargin={isCompact && description === undefined} style={metaStyle}>
     <!-- article date -->
     {#if date === undefined || date === 'Dec. 31, 0000'}
       {''}
@@ -183,8 +205,16 @@
     font-size: 23px;
     line-height: 29px;
   }
+  .name.isSmallerHeadline {
+    font-size: 17px;
+    line-height: 22px;
+  }
   .name.spaceBetweenHeadlineAndPhoto {
     margin-top: 12px;
+  }
+  .name.isOpinion {
+    font-weight: 400;
+    text-shadow: 0 0 0.2px var(--color-neutral-dark);
   }
   .description {
     font-family: var(--font-body);

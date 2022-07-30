@@ -14,6 +14,7 @@
         src={thumbnail}
         className="video-card-thumbnail"
         containerClassName="video-card-thumbnail-container"
+        alt={`Thumbnail for video titled: ${name}`}
       />
     </div>
   </a>
