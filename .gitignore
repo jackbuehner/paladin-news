@@ -6,3 +6,5 @@ build
 functions
 .env
 .netlify
+.vercel
+.vercel_build_output

@@ -1,5 +1,5 @@
 import preprocess from 'svelte-preprocess';
-import netlify from '@sveltejs/adapter-netlify';
+import vercel from '@sveltejs/adapter-vercel';
 import 'dotenv/config';
 
 const DEV_SERVER_PORT = 4000;
@@ -12,7 +12,11 @@ const config = {
 
   kit: {
     // optimize the build for netlify
-    adapter: netlify(),
+    adapter: vercel({
+      edge: false,
+      external: [],
+      split: false,
+    }),
     files: {
       lib: 'src',
     },
