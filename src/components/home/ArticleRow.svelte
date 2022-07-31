@@ -1,7 +1,7 @@
 <script lang="ts">
   import smartquotes from 'smartquotes';
   import { formatISODate } from '$lib/utils/formatISODate';
-  import Image from '$lib/components/Image.svelte';
+  import { Image } from '$lib/components/Image';
 
   export let style = '';
   export let name: string;

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { marked } from 'marked';
   import SvelteMarkdown from 'svelte-markdown';
-  import Image from '../Image.svelte';
+  import { Image } from '../Image';
   export let thumbnail: string;
   export let name: string;
   export let href: string;

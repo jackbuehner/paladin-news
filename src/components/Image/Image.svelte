@@ -1,5 +1,6 @@
 <script lang="ts">
   import { afterUpdate } from 'svelte';
+  import IntersectionObserver from './IntersectionObserver.svelte';
 
   export let src: string;
   export let alt = '';
@@ -9,6 +10,7 @@
   export let maxSrcWidth = 1000;
 
   const ik = 'https://ik.imagekit.io/paladin/';
+  const ikp = 'https://ik.imagekit.io/paladin/proxy/';
 
   if (src.indexOf('https://paladin-photo-library') === 0 && src.indexOf('%') === -1) {
     src = src
@@ -19,16 +21,22 @@
       );
   }
 
-  $: canTransform = src.indexOf(ik) !== -1;
-  $: tinySrc = src.replace(ik, `${ik}tr:w-27,bl-5/`);
+  let isProxied = false;
+  if (src.indexOf(ik) === -1) {
+    src = `${ikp}${src}`;
+    isProxied = true;
+  }
+
+  $: tinySrc = src.replace(isProxied ? ikp : ik, `${isProxied ? ikp : ik}tr:w-27,bl-5/`);
   let realSrc: string | undefined;
   $: realSrc = undefined;
 
   let renderWidth = 0;
   let renderHeight = 0;
+  let intersecting = false;
 
   // control whether the image is shown
-  $: showTiny = canTransform ? true : false; // only show if the image was transformed
+  let showTiny = true;
   let showFinal = false;
 
   // reference the final image element
@@ -40,18 +48,18 @@
 
   afterUpdate(() => {
     // when the image src changes, switch back to the tiny image
-    if (srcChanged && canTransform) {
+    if (srcChanged) {
       showTiny = true;
       showFinal = false;
     }
 
-    // once the component has loaded, start loading the full-size images
-    if (srcChanged && canTransform && finalImgElem) {
+    // once the component has loaded and it is visible, start loading the full-size images
+    if (srcChanged && finalImgElem && intersecting) {
       // cache the image src in a separate image element
       const img = new Image();
       img.src = src.replace(
-        ik,
-        `${ik}tr:w-${renderWidth < maxSrcWidth ? renderWidth : maxSrcWidth},h-${
+        isProxied ? ikp : ik,
+        `${isProxied ? ikp : ik}tr:w-${renderWidth < maxSrcWidth ? renderWidth : maxSrcWidth},h-${
           renderHeight ? renderHeight : 'auto'
         }/`
       );
@@ -71,30 +79,23 @@
   });
 </script>
 
-<div class={containerClassName} bind:clientWidth={renderWidth} bind:clientHeight={renderHeight}>
-  {#if canTransform}
-    <img
-      src={tinySrc}
-      {alt}
-      class={showTiny ? `${className} show` : `${className} hide`}
-      {loading}
-    />
-    <img
-      src={realSrc || tinySrc}
-      {alt}
-      class={showFinal ? `${className} show loaded` : `${className} hide`}
-      {loading}
-      bind:this={finalImgElem}
-    />
-  {:else}
-    <img {src} class={className} {alt} {loading} />
-  {/if}
-</div>
+<IntersectionObserver
+  bind:intersecting
+  bind:clientWidth={renderWidth}
+  bind:clientHeight={renderHeight}
+  className={containerClassName}
+>
+  <img src={tinySrc} {alt} class={showTiny ? `${className} show` : `${className} hide`} {loading} />
+  <img
+    src={realSrc || tinySrc}
+    {alt}
+    class={showFinal ? `${className} show loaded` : `${className} hide`}
+    {loading}
+    bind:this={finalImgElem}
+  />
+</IntersectionObserver>
 
 <style>
-  div {
-    position: relative;
-  }
   img {
     top: 0;
   }

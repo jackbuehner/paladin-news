@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Image from '../Image.svelte';
+  import { Image } from '../Image';
 
   export let thumbnail: string;
   export let name: string;
