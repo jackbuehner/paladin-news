@@ -270,8 +270,10 @@
     padding-bottom: 12px;
   }
 
-  .grid:nth-of-type(2) .section-inner {
-    border-bottom: none;
+  @media (min-width: 601px) {
+    .grid:nth-of-type(2) .section-inner {
+      border-bottom: none;
+    }
   }
 
   .grid:nth-of-type(2) {
@@ -316,8 +318,8 @@
       grid-template-columns: 1fr;
       grid-template-rows: auto auto auto;
       grid-template-areas:
-        'c0'
         'c1'
+        'c0'
         'c2';
     }
   }
@@ -332,6 +334,10 @@
     border-left: 1px solid var(--border-dark);
   }
   @media (max-width: 760px) {
+    .col-left {
+      padding-right: 0;
+      border-right: none;
+    }
     .col-right {
       padding-left: 0;
       border-left: none;
