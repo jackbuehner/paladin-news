@@ -13,7 +13,10 @@
 </script>
 
 <script lang="ts">
+  import { browser } from '$app/env';
   import { afterNavigate, beforeNavigate } from '$app/navigation';
+  import { page } from '$app/stores';
+  import { webVitals } from '$lib/utils/vitals';
   import type { LoadEvent } from '@sveltejs/kit';
   import * as Fathom from 'fathom-client';
   import NProgress from 'nprogress';
@@ -51,6 +54,16 @@
       Fathom.trackPageview();
     });
   });
+
+  // vercel analytics
+  let analyticsId = import.meta.env.VERCEL_ANALYTICS_ID; // exposed by vercel during build
+  $: if (browser && analyticsId) {
+    webVitals({
+      path: $page.url.pathname,
+      params: $page.params,
+      analyticsId,
+    });
+  }
 </script>
 
 <slot />

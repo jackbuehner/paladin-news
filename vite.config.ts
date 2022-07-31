@@ -5,6 +5,9 @@ const DEV_SERVER_PORT = 4000;
 
 const config: UserConfig = {
   plugins: [sveltekit()],
+  define: {
+    'import.meta.env.VERCEL_ANALYTICS_ID': JSON.stringify(process.env.VERCEL_ANALYTICS_ID),
+  },
   server: {
     port: DEV_SERVER_PORT,
     strictPort: true, // exit if port already in use
