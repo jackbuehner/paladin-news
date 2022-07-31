@@ -51,25 +51,45 @@
           <div class="featured">
             {#each insertDate(endpointData?.featured || []) as { name, slug, date, timestamps, photo_path, description, categories }, index}
               {#if index < 3}
-                <ArticleCard
-                  {name}
-                  {categories}
-                  href={`/articles/${date.year}/${date.month}/${date.day}/${slug}`}
-                  date={timestamps.published_at}
-                  photo={photo_path}
-                  description={index === 0 || (index > 0 && windowWidth <= 960)
-                    ? description
-                    : undefined}
-                  style={`grid-area: c${index}`}
-                  isLargerHeadline={index === 0}
-                  isSmallerHeadline={index > 0}
-                  isCompact={index > 0 && windowWidth <= 960}
-                  isOpinion={categories.some(
-                    (cat) => cat === 'opinion' || cat === 'campus' || cat === 'campus-culture'
-                  )}
-                  lazyLoad={false}
-                  defaultPhotoSrcWidth={index === 0 ? 570 : 280}
-                />
+                <div style={`grid-area: c${index}`} class={index > 0 ? 'hide-mobile' : undefined}>
+                  <ArticleCard
+                    {name}
+                    {categories}
+                    href={`/articles/${date.year}/${date.month}/${date.day}/${slug}`}
+                    date={timestamps.published_at}
+                    photo={photo_path}
+                    description={index === 0 || (index > 0 && windowWidth <= 960)
+                      ? description
+                      : undefined}
+                    isLargerHeadline={index === 0}
+                    isSmallerHeadline={index > 0}
+                    isCompact={index > 0 && windowWidth <= 960}
+                    isOpinion={categories.some(
+                      (cat) => cat === 'opinion' || cat === 'campus' || cat === 'campus-culture'
+                    )}
+                    lazyLoad={false}
+                    defaultPhotoSrcWidth={index === 0 ? 570 : 280}
+                  />
+                </div>
+                {#if index > 0}
+                  <div style={`grid-area: c${index}`} class="hide-desktop">
+                    <ArticleCard
+                      {name}
+                      {categories}
+                      href={`/articles/${date.year}/${date.month}/${date.day}/${slug}`}
+                      date={timestamps.published_at}
+                      photo={photo_path}
+                      {description}
+                      isSmallerHeadline
+                      isCompact
+                      isOpinion={categories.some(
+                        (cat) => cat === 'opinion' || cat === 'campus' || cat === 'campus-culture'
+                      )}
+                      lazyLoad={false}
+                      defaultPhotoSrcWidth={100}
+                    />
+                  </div>
+                {/if}
               {/if}
             {/each}
           </div>
@@ -273,6 +293,17 @@
   @media (min-width: 601px) {
     .grid:nth-of-type(2) .section-inner {
       border-bottom: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .hide-mobile {
+      display: none;
+    }
+  }
+  @media (min-width: 601px) {
+    .hide-desktop {
+      display: none;
     }
   }
 
