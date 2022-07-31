@@ -11,7 +11,7 @@ import {
 import { variables } from '$lib/variables';
 import { DateTime } from 'luxon';
 
-export const get: RequestHandler<{ date: string }> = async (request) => {
+export const GET: RequestHandler<{ date: string }> = async (request) => {
   let date = request.params.date;
   if (date === 'latest' || date === 'today') date = DateTime.now().setZone('UTC').toISODate();
 

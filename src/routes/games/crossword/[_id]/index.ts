@@ -10,7 +10,7 @@ import { variables } from '$lib/variables';
 import type { RequestHandler } from '@sveltejs/kit';
 import { DateTime } from 'luxon';
 
-export const get: RequestHandler<{ _id: string }> = async (request) => {
+export const GET: RequestHandler<{ _id: string }> = async (request) => {
   // query the crossword puzzle from the api
   const { data, error } = await api.query<GET_CROSSWORD__TYPE>(GET_CROSSWORD, {
     variables: { _id: request.params._id },

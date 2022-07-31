@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
   /** @type {import('@sveltejs/kit').Load} */
-  export async function load({ url }: LoadInput) {
+  export async function load({ url }: LoadEvent) {
     // return 204 status when sveltekit tries to load scripts as pages
     // (this happens with embedded scripts and pwabuilder scripts)
     if (url.pathname.includes('/pwa-update.js') || url.pathname.includes('/js/')) {
@@ -17,7 +17,7 @@
   import Header from '$lib/components/header/Header.svelte';
   import Search from '$lib/components/search/Search.svelte';
   import { title } from '$lib/stores/title';
-  import type { LoadInput } from '@sveltejs/kit';
+  import type { LoadEvent } from '@sveltejs/kit';
   import { afterUpdate, onMount } from 'svelte';
 
   // keep track of the page path

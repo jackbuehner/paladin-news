@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-escape */
 import 'dotenv/config';
-import fetch from 'node-fetch';
+import { fetch } from 'undici';
 
 const hostUrl = 'https://api.thepaladin.cristata.app';
 
@@ -204,31 +204,31 @@ const getAlgoliaData = {
   },
 };
 
-const algoliaConfig = {
-  appId: process.env.ALGOLIA_APP_ID,
-  apiKey: process.env.ALGOLIA_ADMIN_KEY,
-  indices: [
-    {
-      name: 'articles',
-      getData: getAlgoliaData.articles,
-      settings: {
-        searchableAttributes: ['name', 'description', 'people.authors.name', 'body'],
-      },
-    },
-    {
-      name: 'satire',
-      getData: getAlgoliaData.satire,
-      settings: {
-        searchableAttributes: ['name', 'description', 'people.display_authors', 'body'],
-      },
-    },
-  ],
-  verbosity: 2,
-  partialUpdates: true,
-  matchFields: ['_id'],
-};
-
 if (process.env.ALGOLIA_APP_ID && process.env.ALGOLIA_ADMIN_KEY) {
-  const { indexAlgolia } = await import(`svelte-algolia/main.js`);
+  const algoliaConfig = {
+    appId: process.env.ALGOLIA_APP_ID,
+    apiKey: process.env.ALGOLIA_ADMIN_KEY,
+    indices: [
+      {
+        name: 'articles',
+        getData: getAlgoliaData.articles,
+        settings: {
+          searchableAttributes: ['name', 'description', 'people.authors.name', 'body'],
+        },
+      },
+      {
+        name: 'satire',
+        getData: getAlgoliaData.satire,
+        settings: {
+          searchableAttributes: ['name', 'description', 'people.display_authors', 'body'],
+        },
+      },
+    ],
+    verbosity: 2,
+    partialUpdates: true,
+    matchFields: ['_id'],
+  };
+
+  const { indexAlgolia } = await import(`svelte-algolia/server-side`);
   indexAlgolia(algoliaConfig);
 }

@@ -8,7 +8,7 @@ import Renderer from '@cristata/prosemirror-to-html-js';
 import type { RequestHandler } from '@sveltejs/kit';
 import smartquotes from 'smartquotes';
 
-export const get: RequestHandler<Record<'slug' | 'yyyy' | 'mm' | 'dd', string>> = async (
+export const GET: RequestHandler<Record<'slug' | 'yyyy' | 'mm' | 'dd', string>> = async (
   request
 ) => {
   // the `slug` parameter is available because this file

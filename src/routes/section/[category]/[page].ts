@@ -3,7 +3,7 @@ import { capitalize } from '$lib/utils';
 import { api } from '$lib/utils/api';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const get: RequestHandler<{ category: string; page: string }> = async (request) => {
+export const GET: RequestHandler<{ category: string; page: string }> = async (request) => {
   if (request.params.category === 'pwabuilder-sw.js') return { status: 404 };
 
   // remove special characters and redirect

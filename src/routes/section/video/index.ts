@@ -8,7 +8,7 @@ import { api } from '$lib/utils/api';
 import { variables } from '$lib/variables';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const get: RequestHandler<never> = async () => {
+export const GET: RequestHandler<never> = async () => {
   const res = await api.query<GET_VIDEO_PAGE_SETTING__TYPE>(GET_VIDEO_PAGE_SETTING, {
     headers: { Authorization: `app-token ${variables.API_TOKEN}` },
   });

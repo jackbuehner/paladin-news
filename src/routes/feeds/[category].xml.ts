@@ -1,7 +1,7 @@
 import { fetchSectionXml } from '$lib/utils/fetchSectionXml';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const get: RequestHandler<{ category: string }> = async (request) => {
+export const GET: RequestHandler<{ category: string }> = async (request) => {
   const body = await fetchSectionXml(request.params.category, request.url.pathname, 20);
 
   const headers = {

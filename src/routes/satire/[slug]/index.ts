@@ -3,7 +3,7 @@ import { api } from '$lib/utils/api';
 import Renderer from '@cristata/prosemirror-to-html-js';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const get: RequestHandler<{ slug: string }> = async (request) => {
+export const GET: RequestHandler<{ slug: string }> = async (request) => {
   // the `slug` parameter is available because this file
   // is called [slug].ts
   const { slug } = request.params;

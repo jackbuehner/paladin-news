@@ -9,7 +9,7 @@ import { insertDate } from '$lib/utils/insertDate';
 import type { RequestHandler } from '@sveltejs/kit';
 import { DateTime } from 'luxon';
 
-export const get: RequestHandler<{ collection: string; _id: string }> = async (request) => {
+export const GET: RequestHandler<{ collection: string; _id: string }> = async (request) => {
   const { collection, _id } = request.params;
   const failureRedirect = {
     status: 302, // temporary redirect

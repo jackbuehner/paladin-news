@@ -2,7 +2,7 @@ import { GET_ARTICLES, type GET_ARTICLES__TYPE } from '$lib/queries';
 import { api } from '$lib/utils/api';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const get: RequestHandler<{ page: string }> = async (request) => {
+export const GET: RequestHandler<{ page: string }> = async (request) => {
   // define the variables for the query
   const limit = 10;
   const page = parseInt(request.params.page);

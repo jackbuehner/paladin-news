@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
-  import type { LoadInput, LoadOutput } from '@sveltejs/kit';
-  export async function load({ url }: LoadInput): Promise<LoadOutput> {
+  import type { LoadEvent, LoadOutput } from '@sveltejs/kit';
+  export async function load({ url }: LoadEvent): Promise<LoadOutput> {
     const res = await fetch(`${url.protocol}//${url.hostname}${url.pathname}/all/1/__data.json`);
     const { data } = await res.json();
     if (data) {

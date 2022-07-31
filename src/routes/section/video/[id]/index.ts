@@ -2,7 +2,7 @@ import { GET_VIDEO, type GET_VIDEO__TYPE } from '$lib/queries';
 import { api } from '$lib/utils/api';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const get: RequestHandler<{ id: string }> = async (request) => {
+export const GET: RequestHandler<{ id: string }> = async (request) => {
   const { data, error } = await api.query<GET_VIDEO__TYPE>(GET_VIDEO, {
     variables: { _id: request.params.id },
   });

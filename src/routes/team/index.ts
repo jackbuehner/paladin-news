@@ -2,7 +2,7 @@ import { GET_PROFILES, type GET_PROFILES__TYPE } from '$lib/queries';
 import { api } from '$lib/utils/api';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const get: RequestHandler<never> = async () => {
+export const GET: RequestHandler<never> = async () => {
   // define the variables for the query
   const limit = 100;
   const page = 1;

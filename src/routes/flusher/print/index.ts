@@ -6,7 +6,7 @@ import { api } from '$lib/utils/api';
 import type { RequestHandler } from '@sveltejs/kit';
 import JSONCrush from 'jsoncrush';
 
-export const get: RequestHandler<never> = async (request) => {
+export const GET: RequestHandler<never> = async (request) => {
   const json: Record<string, unknown> = request.url.searchParams.has('data')
     ? JSON.parse(JSONCrush.uncrush(request.url.searchParams.get('data') as string))
     : null;

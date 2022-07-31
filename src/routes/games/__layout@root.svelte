@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
   /** @type {import('@sveltejs/kit').Load} */
-  export async function load({ url }: LoadInput) {
+  export async function load({ url }: LoadEvent) {
     // return the page path to the page
     return { props: { path: url.pathname } };
   }
@@ -9,7 +9,7 @@
 <script lang="ts">
   import GamesHeader from '$lib/components/header/GamesHeader.svelte';
   import { title } from '$lib/stores/title';
-  import type { LoadInput } from '@sveltejs/kit';
+  import type { LoadEvent } from '@sveltejs/kit';
   import { afterUpdate } from 'svelte';
 
   // keep track of the page path

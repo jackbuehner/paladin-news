@@ -2,7 +2,7 @@ import { GET_PLAYLISTS, type GET_PLAYLISTS__TYPE } from '$lib/queries';
 import { api } from '$lib/utils/api';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const get: RequestHandler<never> = async () => {
+export const GET: RequestHandler<never> = async () => {
   const { data, error } = await api.query<GET_PLAYLISTS__TYPE>(GET_PLAYLISTS, {
     variables: { limit: 100, sort: JSON.stringify({ 'timestamps.modified_at': -1 }) },
   });

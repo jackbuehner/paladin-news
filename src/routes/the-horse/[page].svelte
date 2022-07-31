@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import type { LoadInput, LoadOutput } from '@sveltejs/kit';
+  import type { LoadEvent, LoadOutput } from '@sveltejs/kit';
   import { beforeUpdate, onDestroy } from 'svelte';
   import { headerIsSatire, headerNoLogoUntil } from '$lib/stores/header';
   import Button from '$lib/components/Button.svelte';

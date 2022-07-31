@@ -3,7 +3,7 @@ import { api } from '$lib/utils/api';
 import type { RequestHandler } from '@sveltejs/kit';
 import { GET_FLUSHERS, type GET_FLUSHERS__TYPE } from '../../queries';
 
-export const get: RequestHandler<never> = async (request) => {
+export const GET: RequestHandler<never> = async (request) => {
   // define the variables for the query:
   // get only one flusher
   const limit = 1;

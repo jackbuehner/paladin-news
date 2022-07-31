@@ -2,7 +2,7 @@ import { GET_VIDEOS, type GET_VIDEOS__TYPE } from '$lib/queries';
 import { api } from '$lib/utils/api';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const get: RequestHandler<never> = async () => {
+export const GET: RequestHandler<never> = async () => {
   const { data, error } = await api.query<GET_VIDEOS__TYPE>(GET_VIDEOS, {
     variables: { limit: 100, sort: JSON.stringify({ 'timestamps.published_at': -1 }) },
   });

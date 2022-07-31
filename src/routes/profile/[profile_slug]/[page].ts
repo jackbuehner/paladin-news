@@ -7,7 +7,7 @@ import {
 import { api } from '$lib/utils/api';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const get: RequestHandler<{ profile_slug: string; page: string }> = async (request) => {
+export const GET: RequestHandler<{ profile_slug: string; page: string }> = async (request) => {
   const { profile_slug, page } = request.params;
   if (profile_slug === 'pwabuilder-sw.js') return { status: 404 };
 

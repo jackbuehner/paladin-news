@@ -3,7 +3,7 @@ import { toHTML, toXML } from '$lib/utils/fetchSectionXml';
 import { insertDate } from '$lib/utils/insertDate';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const get: RequestHandler = async (request) => {
+export const GET: RequestHandler = async (request) => {
   const { data } = await fetchFeatured();
   const docs = insertDate(data);
 

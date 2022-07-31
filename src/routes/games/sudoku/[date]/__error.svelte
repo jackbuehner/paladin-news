@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
-  import type { LoadInput, LoadOutput } from '@sveltejs/kit';
+  import type { LoadEvent, LoadOutput } from '@sveltejs/kit';
 
-  export function load({ error, status }: LoadInput): LoadOutput {
+  export function load({ error, status }: LoadEvent): LoadOutput {
     return {
       props: {
         status,

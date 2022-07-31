@@ -3,7 +3,7 @@ import { GET_SHORTURL } from '$lib/queries';
 import { api } from '$lib/utils/api';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const get: RequestHandler<{ code: string }> = async (request) => {
+export const GET: RequestHandler<{ code: string }> = async (request) => {
   // the `code` parameter is available because this file
   // is called [code].ts
   const { code } = request.params;
