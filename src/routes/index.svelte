@@ -14,7 +14,9 @@
 
   // receive the data from the page endpoint
   export let data: string | undefined;
-  $: endpointData = data ? (JSON.parse(data) as GET_FRONT_PAGE_2022__TYPE)?.articleFrontPagePublic?.[0] : undefined;
+  $: endpointData = data
+    ? (JSON.parse(data) as GET_FRONT_PAGE_2022__TYPE)?.articleFrontPagePublic?.[0]
+    : undefined;
 
   let windowWidth: number = 1200;
 </script>
@@ -37,6 +39,7 @@
                 photo={showPhoto ? photo_path : undefined}
                 isSmallerHeadline
                 lazyLoad={false}
+                defaultPhotoSrcWidth={220}
               />
             </div>
           {/each}
@@ -47,7 +50,7 @@
           <h2>Featured</h2>
           <div class="featured">
             {#each insertDate(endpointData?.featured || []) as { name, slug, date, timestamps, photo_path, description, categories }, index}
-            {#if index < 3}
+              {#if index < 3}
                 <ArticleCard
                   {name}
                   {categories}
@@ -61,8 +64,11 @@
                   isLargerHeadline={index === 0}
                   isSmallerHeadline={index > 0}
                   isCompact={index > 0 && windowWidth <= 960}
-                  isOpinion={categories.some(cat => cat === 'opinion' || cat === 'campus' || cat === 'campus-culture')}
+                  isOpinion={categories.some(
+                    (cat) => cat === 'opinion' || cat === 'campus' || cat === 'campus-culture'
+                  )}
                   lazyLoad={false}
+                  defaultPhotoSrcWidth={index === 0 ? 570 : 280}
                 />
               {/if}
             {/each}
@@ -95,6 +101,8 @@
               })()}
               h={3}
               href={`/section/video/${endpointData.videos[0]._id}`}
+              lazyLoad={false}
+              defaultPhotoSrcWidth={360}
             />
           {/if}
           <p class="line">
@@ -125,7 +133,9 @@
                 date={timestamps.published_at}
                 photo={showPhoto ? photo_path : undefined}
                 isSmallerHeadline
-                isOpinion={categories.some(cat => cat === 'opinion' || cat === 'campus' || cat === 'campus-culture')}
+                isOpinion={categories.some(
+                  (cat) => cat === 'opinion' || cat === 'campus' || cat === 'campus-culture'
+                )}
               />
             </div>
           {/each}
@@ -133,7 +143,9 @@
       </section>
       <section style="grid-area: c1">
         <div class="section-inner">
-          <h2><a href="/section/arts">Arts</a>, <a href="/section/campus">Campus, &amp; Culture</a></h2>
+          <h2>
+            <a href="/section/arts">Arts</a>, <a href="/section/campus">Campus, &amp; Culture</a>
+          </h2>
           <div class="featured">
             {#each insertDate(endpointData?.acc || []) as { name, slug, date, timestamps, photo_path, description, categories }, index}
               {#if index < 3}
@@ -150,7 +162,9 @@
                   isLargerHeadline={index === 0}
                   isSmallerHeadline={index > 0}
                   isCompact={index > 0 && windowWidth <= 960}
-                  isOpinion={categories.some(cat => cat === 'opinion' || cat === 'campus' || cat === 'campus-culture')}
+                  isOpinion={categories.some(
+                    (cat) => cat === 'opinion' || cat === 'campus' || cat === 'campus-culture'
+                  )}
                 />
               {/if}
             {/each}
@@ -167,7 +181,9 @@
                 href={`/articles/${date.year}/${date.month}/${date.day}/${slug}`}
                 date={timestamps.published_at}
                 isSmallerHeadline
-                isOpinion={categories.some(cat => cat === 'opinion' || cat === 'campus' || cat === 'campus-culture')}
+                isOpinion={categories.some(
+                  (cat) => cat === 'opinion' || cat === 'campus' || cat === 'campus-culture'
+                )}
               />
             </div>
           {/each}
@@ -175,7 +191,9 @@
           {#each endpointData?.crimeincidents || [] as brief}
             <div class="side-col-item">
               <h3 class="brief-name">{brief.name}</h3>
-              <div class="brief-location">{brief.location} | {formatISODate(brief.reported_at)}</div>
+              <div class="brief-location">
+                {brief.location} | {formatISODate(brief.reported_at)}
+              </div>
             </div>
           {/each}
           <h2><a href="/podcasts">Podcasts</a> &amp; <a href="/newsletters">Newsletters</a></h2>
@@ -184,8 +202,8 @@
               src="https://ik.imagekit.io/paladin/sunday-summary_logo_banner_background.svg"
               alt="Sunday Summary"
               loading="lazy"
-              width=306.72
-              height=103
+              width="306.72"
+              height="103"
               style="width: 100%;"
             />
             <div class="desc">
@@ -211,18 +229,16 @@
       <h2><a href="/the-horse">The Horse (Satire)</a></h2>
     </SatireRow>
     <ArticleHomeRow
-      excludeSlugs={
-        endpointData
-          ? [
-            ...endpointData.news.map(({slug}) => slug ),
-            ...endpointData.opinion.map(({slug}) => slug ),
-            ...endpointData.sports.map(({slug}) => slug ),
-            ...endpointData.acc.map(({slug}) => slug ),
-            ...endpointData.featured.map(({slug}) => slug ),
-            ...endpointData.diversity.map(({slug}) => slug ),
-            ]
-          : []
-      }
+      excludeSlugs={endpointData
+        ? [
+            ...endpointData.news.map(({ slug }) => slug),
+            ...endpointData.opinion.map(({ slug }) => slug),
+            ...endpointData.sports.map(({ slug }) => slug),
+            ...endpointData.acc.map(({ slug }) => slug),
+            ...endpointData.featured.map(({ slug }) => slug),
+            ...endpointData.diversity.map(({ slug }) => slug),
+          ]
+        : []}
     />
     <a href="/all-articles">View all articles</a>
   </Container>

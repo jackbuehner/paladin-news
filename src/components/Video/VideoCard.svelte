@@ -5,6 +5,8 @@
   export let name: string;
   export let href: string | undefined = undefined;
   export let h: 2 | 3 | 4 = 2;
+  export let lazyLoad: boolean = true;
+  export let defaultPhotoSrcWidth: number | undefined = undefined;
 </script>
 
 <article>
@@ -15,6 +17,8 @@
         className="video-card-thumbnail"
         containerClassName="video-card-thumbnail-container"
         alt={`Thumbnail for video titled: ${name}`}
+        loading={lazyLoad ? 'lazy' : 'eager'}
+        defaultSrcWidth={defaultPhotoSrcWidth}
       />
     </div>
   </a>

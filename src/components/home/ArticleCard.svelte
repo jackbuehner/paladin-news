@@ -20,6 +20,7 @@
   export let isOpinion: boolean = false;
   export let hasVideo: boolean = false;
   export let lazyLoad: boolean = true;
+  export let defaultPhotoSrcWidth: number | undefined = undefined;
 
   // modify the names of the categories to match the website sections
   let categoriesModified: string[] = [];
@@ -67,6 +68,7 @@
           className={`article-card-image`}
           containerClassName={`article-card-image-container`}
           loading={lazyLoad ? 'lazy' : 'eager'}
+          defaultSrcWidth={defaultPhotoSrcWidth}
         />
       </div>
       {#if photoCredit === undefined}
@@ -111,6 +113,8 @@
         src={photo}
         className={`article-card-image`}
         containerClassName={`article-card-image-container`}
+        loading={lazyLoad ? 'lazy' : 'eager'}
+        defaultSrcWidth={defaultPhotoSrcWidth}
       />
     </div>
   {/if}

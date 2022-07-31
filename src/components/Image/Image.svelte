@@ -8,6 +8,7 @@
   export let className: string | undefined = undefined;
   export let containerClassName: string | undefined = undefined;
   export let maxSrcWidth = 1000;
+  export let defaultSrcWidth = 100;
 
   const ik = 'https://ik.imagekit.io/paladin/';
   const ikp = 'https://ik.imagekit.io/paladin/proxy/';
@@ -28,8 +29,15 @@
   }
 
   $: tinySrc = src.replace(isProxied ? ikp : ik, `${isProxied ? ikp : ik}tr:w-27,bl-5/`);
-  let realSrc: string | undefined;
-  $: realSrc = undefined;
+  $: realSrc =
+    loading === 'eager'
+      ? src.replace(
+          isProxied ? ikp : ik,
+          `${isProxied ? ikp : ik}tr:w-${
+            renderWidth < maxSrcWidth ? renderWidth || defaultSrcWidth : maxSrcWidth
+          },h-${renderHeight ? renderHeight : 'auto'}/`
+        )
+      : undefined;
 
   let renderWidth = 0;
   let renderHeight = 0;
@@ -79,21 +87,38 @@
   });
 </script>
 
-<IntersectionObserver
-  bind:intersecting
-  bind:clientWidth={renderWidth}
-  bind:clientHeight={renderHeight}
-  className={containerClassName}
->
-  <img src={tinySrc} {alt} class={showTiny ? `${className} show` : `${className} hide`} {loading} />
-  <img
-    src={realSrc || tinySrc}
-    {alt}
-    class={showFinal ? `${className} show loaded` : `${className} hide`}
-    {loading}
-    bind:this={finalImgElem}
-  />
-</IntersectionObserver>
+{#if loading === 'lazy'}
+  <IntersectionObserver
+    bind:intersecting
+    bind:clientWidth={renderWidth}
+    bind:clientHeight={renderHeight}
+    className={containerClassName}
+  >
+    <img
+      src={tinySrc}
+      {alt}
+      class={showTiny ? `${className} show` : `${className} hide`}
+      {loading}
+    />
+    <img
+      src={realSrc || tinySrc}
+      {alt}
+      class={showFinal ? `${className} show loaded` : `${className} hide`}
+      {loading}
+      bind:this={finalImgElem}
+    />
+  </IntersectionObserver>
+{:else}
+  <div class={containerClassName} bind:clientWidth={renderWidth} bind:clientHeight={renderHeight}>
+    <img
+      src={realSrc || tinySrc}
+      {alt}
+      class={`${className} show`}
+      {loading}
+      bind:this={finalImgElem}
+    />
+  </div>
+{/if}
 
 <style>
   img {
