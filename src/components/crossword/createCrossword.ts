@@ -1,13 +1,15 @@
-import {
+// @ts-expect-error no type definitions are available
+import crosswordLayoutGeneratorPkg from 'crossword-layout-generator';
+import type { DateTime } from 'luxon';
+
+const {
   computeDimension,
   initTable,
   generateTable,
   removeIsolatedWords,
   trimTable,
   assignPositions,
-  // @ts-expect-error no type definitions are available
-} from 'crossword-layout-generator';
-import type { DateTime } from 'luxon';
+} = crosswordLayoutGeneratorPkg;
 
 /**
  * Create a crossword puzzle from a given set of clues and answers.
