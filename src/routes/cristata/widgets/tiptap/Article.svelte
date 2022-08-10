@@ -64,8 +64,6 @@
         }
       } catch (error) {}
 
-      console.log(message);
-
       if (isFieldsUpdate(message)) {
         fields = message.fields;
       }

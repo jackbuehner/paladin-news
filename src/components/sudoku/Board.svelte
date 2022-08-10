@@ -14,7 +14,6 @@
 
   function addInitialValuesToStore(values: number[][] | undefined, date: string) {
     if (browser && $sudoku && !values) {
-      console.log(values);
       $sudoku = {
         ...($sudoku || {}),
         [date]: { ...($sudoku?.[date] || {}), [difficulty]: puzzle },

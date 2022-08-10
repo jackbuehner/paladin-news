@@ -30,8 +30,6 @@
 
 <svelte:window
   on:resize={(e) => {
-    console.log(descriptionElem?.scrollHeight);
-    console.log(descriptionElem?.clientHeight);
     isTextClamped = (descriptionElem?.scrollHeight || 0) > (descriptionElem?.clientHeight || 0);
   }}
 />
