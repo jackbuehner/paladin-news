@@ -24,6 +24,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
   }
 
   h3 {
