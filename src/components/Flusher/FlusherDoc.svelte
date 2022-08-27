@@ -28,7 +28,7 @@
       : `The Flusher – Vol. ${romanize(flusher.volume)}, Iss. ${flusher.issue}`}
     week={flusher.timestamps.week}
     authors={Array.from(
-      new Set(flusher.people.contributors.map((p) => p.replace(' (Provisional)', '')))
+      new Set(flusher.people.contributors.map((p) => p?.replace(' (Provisional)', '')))
     )}
     managingEditors={[`Jack Buehner`]}
     volume={flusher.volume}
