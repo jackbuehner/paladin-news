@@ -47,9 +47,9 @@ export const GET: RequestHandler<never> = async (request) => {
                   ? json.articles.featured.categories
                   : [],
               name:
-                hasProperty(json.articles.featured, 'name') &&
-                typeof json.articles.featured.name === 'string'
-                  ? json.articles.featured.name
+                hasProperty(json.articles.featured, 'label') &&
+                typeof json.articles.featured.label === 'string'
+                  ? json.articles.featured.label
                   : '',
               authors:
                 hasProperty(json.articles.featured, 'people') &&
@@ -77,13 +77,13 @@ export const GET: RequestHandler<never> = async (request) => {
           hasProperty(json.articles, 'more') &&
           Array.isArray(json.articles.more) &&
           json.articles.more.every(
-            (article): article is { name: string; _id: string } =>
-              hasProperty(article, 'name') &&
-              typeof article.name === 'string' &&
+            (article): article is { label: string; _id: string } =>
+              hasProperty(article, 'label') &&
+              typeof article.label === 'string' &&
               hasProperty(article, '_id') &&
               typeof article._id === 'string'
           )
-            ? json.articles.more
+            ? json.articles.more.map(({ _id, label }) => ({ _id, name: label }))
             : [],
       },
       people: {
