@@ -54,6 +54,7 @@
     ArticleTemplateJackBuehner2020,
   } from '$lib/components/article/index';
   import { title } from '$lib/stores/title';
+  import QuickEscape from '$lib/components/QuickEscape.svelte';
 
   export let article: PublishedDocWithDate<GET_ARTICLE_BY_SLUG__DOC_TYPE>;
 
@@ -78,4 +79,8 @@
   <ArticleTemplateFurmanMediaCom {article} />
 {:else if article.template === 'furmanpaladin'}
   <ArticleTemplateFurmanPaladin {article} />
+{/if}
+
+{#if article.show_quick_escape === true}
+  <QuickEscape />
 {/if}

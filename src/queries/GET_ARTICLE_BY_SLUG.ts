@@ -41,6 +41,7 @@ const GET_ARTICLE_BY_SLUG = `
       template
       layout
       claps
+      show_quick_escape
     }
   }
 `;
@@ -84,6 +85,7 @@ interface GET_ARTICLE_BY_SLUG__DOC_TYPE {
   template: string;
   layout: string;
   claps?: number;
+  show_quick_escape?: boolean;
 }
 
 interface GET_ARTICLE_BY_SLUG__TYPE {
