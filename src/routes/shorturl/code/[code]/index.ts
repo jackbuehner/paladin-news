@@ -17,6 +17,6 @@ export const GET: RequestHandler<{ code: string }> = async (request) => {
   });
 
   if (error.errors) return { status: 400, body: { errors: JSON.stringify(error.errors) } };
-  else if (data?.shorturl) return { body: { data: JSON.stringify(data.shorturl) } };
+  else if (data?.shortUrl) return { body: { data: JSON.stringify(data.shortUrl) } };
   return { status: error.status };
 };

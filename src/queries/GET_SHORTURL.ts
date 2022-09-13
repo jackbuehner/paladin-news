@@ -19,7 +19,7 @@ interface GET_SHORTURL__DOC_TYPE {
 }
 
 interface GET_SHORTURL__TYPE {
-  shorturl?: GET_SHORTURL__DOC_TYPE;
+  shortUrl?: GET_SHORTURL__DOC_TYPE;
 }
 
 type GET_SHORTURL__JSON = GraphJsonType<GET_SHORTURL__TYPE>;
