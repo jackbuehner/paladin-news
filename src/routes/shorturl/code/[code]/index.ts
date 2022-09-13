@@ -1,6 +1,7 @@
 import type { GET_SHORTURL__TYPE } from '$lib/queries';
 import { GET_SHORTURL } from '$lib/queries';
 import { api } from '$lib/utils/api';
+import { variables } from '$lib/variables';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler<{ code: string }> = async (request) => {
@@ -12,6 +13,7 @@ export const GET: RequestHandler<{ code: string }> = async (request) => {
 
   const { data, error } = await api.query<GET_SHORTURL__TYPE>(GET_SHORTURL, {
     variables: { code },
+    headers: { Authorization: `app-token ${variables.API_TOKEN}` },
   });
 
   if (error.errors) return { status: 400, body: { errors: JSON.stringify(error.errors) } };
