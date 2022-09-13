@@ -47,30 +47,6 @@
       formTime: '5-10 minutes',
     },
     {
-      title: 'Producer, <i>The Royal Flush</i>',
-      note: '1 hour per week; $9.00/hr',
-      description: `
-        <ul style="margin: 0;">
-          <li>Produce <i>The Royal Flush</i>, our weekly restroom newsletter.</li>
-          <li>Aggregate upcoming campus events and identify top articles from The Paladin Newspaper.</i></li>
-          <li>Coordinate advertisement space with the Ads Manager</i>.</li>
-          <li>Submit <i>The Royal Flush</i> to press by Friday morning of each week.</li>
-          <li>Provide printed copies of <i>The Royal Flush</i> to the distribution team.</i></li>
-        </ul>
-      `,
-      form: 'https://forms.office.com/Pages/ResponsePage.aspx?id=2fdi-EbxGEWm-58uqC08gEsJCrlx8F1JqSx6fdQssF5UNFZDU0JSWFMySExDNlMyUTNVVEMwNkJMMCQlQCN0PWcu',
-      formTime: '1-2 minutes',
-    },
-    {
-      title: 'Social Media Manager',
-      note: 'Paid Position',
-      description: `
-      The Social Media Manager will strategize <i>The Paladin</i>'s social media presence across multiple platforms and produce social media content for <i>The Paladin</i>. Our main platforms include Instagram, Twitter, LinkedIn, and Facebook. 
-      `,
-      form: 'https://forms.office.com/Pages/ResponsePage.aspx?id=2fdi-EbxGEWm-58uqC08gEsJCrlx8F1JqSx6fdQssF5UOElHQkhCWDZWNktHRFk0REpMTlFNM01YNiQlQCN0PWcu',
-      formTime: '< 8 minutes',
-    },
-    {
       title: 'Social Media Assistant',
       note: 'Paid Position',
       description: `
