@@ -77,13 +77,13 @@ export const GET: RequestHandler<never> = async (request) => {
           hasProperty(json.articles, 'more') &&
           Array.isArray(json.articles.more) &&
           json.articles.more.every(
-            (article): article is { label: string; _id: string } =>
+            (article): article is { label: string; value: string } =>
               hasProperty(article, 'label') &&
               typeof article.label === 'string' &&
-              hasProperty(article, '_id') &&
-              typeof article._id === 'string'
+              hasProperty(article, 'value') &&
+              typeof article.value === 'string'
           )
-            ? json.articles.more.map(({ _id, label }) => ({ _id, name: label }))
+            ? json.articles.more.map(({ value, label }) => ({ _id: value, name: label }))
             : [],
       },
       people: {
