@@ -2,6 +2,7 @@
   import { goto } from '$app/navigation';
   import Button from '$lib/components/Button.svelte';
   import Container from '$lib/components/Container.svelte';
+  import Image from '$lib/components/Image/Image.svelte';
   import type { GET_ARTICLE_BY_SLUG__DOC_TYPE } from '$lib/queries';
   import type { PublishedDocWithDate } from '$lib/utils/insertDate';
   import {
@@ -83,6 +84,15 @@
         )}
         copyEditors={article.people.editors.copy.map((p) => p.name.replace(' (Provisional)', ''))}
       />
+
+      <!-- advertisement -->
+      <a href={'https://staygvl.com'} style="box-shadow: none;">
+        <img
+          src="https://ik.imagekit.io/paladin/56850068-3edc-42c7-85d9-f7165f5e565a"
+          alt=""
+          style="width: 100%; height: 150px;"
+        />
+      </a>
 
       <!-- categories -->
       <ArticleCategories categories={article.categories} />
