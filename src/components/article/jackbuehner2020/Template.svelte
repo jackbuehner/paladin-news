@@ -90,7 +90,9 @@
         <img
           src="https://ik.imagekit.io/paladin/56850068-3edc-42c7-85d9-f7165f5e565a"
           alt=""
-          style="width: 100%; height: 150px;"
+          width="600"
+          height="150"
+          style="max-width: 100%; height: auto;"
         />
       </a>
 
