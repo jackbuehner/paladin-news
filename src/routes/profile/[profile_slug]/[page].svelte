@@ -65,10 +65,10 @@
     {/if}
     <div class={'buttonrow'}>
       {#if articles?.hasPrevPage}
-        <Button on:click={() => goto(`?page=${articles?.prevPage}`)}>Previous</Button>
+        <Button href={`./${articles.prevPage}`}>Previous</Button>
       {/if}
       {#if articles?.hasNextPage}
-        <Button on:click={() => goto(`?page=${articles?.nextPage}`)}>Next</Button>
+        <Button href={`./${articles.nextPage}`}>Next</Button>
       {/if}
     </div>
   </div>
