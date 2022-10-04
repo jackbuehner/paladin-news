@@ -78,11 +78,15 @@
         _id={article._id}
         name={article.name}
         publishedAt={article.timestamps.published_at}
-        authors={article.people.authors.map((p) => p.name.replace(' (Provisional)', ''))}
-        managingEditors={article.people.editors.primary.map((p) =>
-          p.name.replace(' (Provisional)', '')
-        )}
-        copyEditors={article.people.editors.copy.map((p) => p.name.replace(' (Provisional)', ''))}
+        authors={article.people.authors
+          .filter((p) => !!p)
+          .map((p) => p.name.replace(' (Provisional)', ''))}
+        managingEditors={article.people.editors.primary
+          .filter((p) => !!p)
+          .map((p) => p.name.replace(' (Provisional)', ''))}
+        copyEditors={article.people.editors.copy
+          .filter((p) => !!p)
+          .map((p) => p.name.replace(' (Provisional)', ''))}
       />
 
       <!-- advertisement -->
@@ -128,7 +132,7 @@
       <!-- meta info -->
       <ArticleMeta
         date={article.timestamps.published_at}
-        authors={article.people.authors}
+        authors={article.people.authors.filter((p) => !!p)}
         articleName={article.name}
         articleLocation={`https://thepaladin.news/articles/${article.slug}`}
         articleDescription={article.description}
