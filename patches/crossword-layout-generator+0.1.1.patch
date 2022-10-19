@@ -1,5 +1,5 @@
 diff --git a/node_modules/crossword-layout-generator/src/layout_generator.js b/node_modules/crossword-layout-generator/src/layout_generator.js
-index cc7620a..d2030fb 100644
+index cc7620a..89ffcc1 100644
 --- a/node_modules/crossword-layout-generator/src/layout_generator.js
 +++ b/node_modules/crossword-layout-generator/src/layout_generator.js
 @@ -75,7 +75,7 @@ function addWord(best, words, table){
@@ -11,3 +11,15 @@ index cc7620a..d2030fb 100644
  }
  
  function assignPositions(words){
+@@ -480,5 +480,10 @@ function generateLayout(words_json){
+ 
+ // The following was added to support Node.js
+ if(typeof module !== 'undefined'){
+-    module.exports = { generateLayout };
++    module.exports = { computeDimension,
++        initTable,
++        generateTable,
++        removeIsolatedWords,
++        trimTable,
++        assignPositions };
+ }
