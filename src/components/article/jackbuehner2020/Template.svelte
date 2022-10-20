@@ -90,7 +90,7 @@
       />
 
       <!-- advertisement -->
-      <a href={'https://staygvl.com'} style="box-shadow: none;">
+      <!-- <a href={'https://staygvl.com'} style="box-shadow: none;">
         <img
           src="https://ik.imagekit.io/paladin/56850068-3edc-42c7-85d9-f7165f5e565a"
           alt=""
@@ -98,7 +98,7 @@
           height="150"
           style="max-width: 100%; height: auto;"
         />
-      </a>
+      </a> -->
 
       <!-- categories -->
       <ArticleCategories categories={article.categories} />
