@@ -5,9 +5,13 @@
     ArticleTemplateJackBuehner2020,
   } from '$lib/components/article/index';
   import QuickEscape from '$lib/components/QuickEscape.svelte';
+  import { title } from '$lib/stores/title';
   import type { LayoutData } from './$types';
 
   export let data: LayoutData;
+
+  // set the document title
+  title.set(data.name);
 
   /**
    * Opens the article in Cristata when ALT + C is pressed.

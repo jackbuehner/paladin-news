@@ -30,9 +30,6 @@ export const load: LayoutServerLoad = async (a) => {
   const article: GET_ARTICLE_BY_SLUG__DOC_TYPE = await res.json();
 
   if (res.ok && article) {
-    // set the document title
-    title.set(article.name);
-
     return insertDate([article])[0];
   }
 
