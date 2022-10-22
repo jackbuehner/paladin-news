@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { browser } from '$app/env';
+  import { browser } from '$app/environment';
   import Container from '$lib/components/Container.svelte';
   import type { GET_ARTICLE_BY_SLUG__DOC_TYPE } from '$lib/queries';
   import type { PublishedDocWithDate } from '$lib/utils/insertDate';

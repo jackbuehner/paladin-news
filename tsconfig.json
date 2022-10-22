@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
-    "module": "es2020",
-    "lib": ["es2020"],
-    "target": "es2019",
+    "module": "es2022",
+    "lib": ["es2022"],
+    "target": "es2022",
     "resolveJsonModule": true,
     /**
 			To have warnings/errors of the Svelte compiler at the correct position,

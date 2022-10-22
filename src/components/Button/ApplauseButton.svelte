@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { browser } from '$app/env';
+  import { browser } from '$app/environment';
 
   import { beforeUpdate, onMount } from 'svelte';
   import { get as getStore } from 'svelte/store';
