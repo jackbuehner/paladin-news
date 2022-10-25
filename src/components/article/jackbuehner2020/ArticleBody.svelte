@@ -444,4 +444,34 @@
   :global(.article-body hr) {
     border: none;
   }
+
+  /* tables */
+  :global(.article-body table) {
+    border-collapse: collapse;
+    margin: 0;
+    overflow: hidden;
+    table-layout: fixed;
+    width: 100%;
+  }
+  :global(.article-body table td),
+  :global(.article-body table th) {
+    border: 2px solid #ced4da;
+    box-sizing: border-box;
+    min-width: 1em;
+    padding: 3px 5px;
+    position: relative;
+    vertical-align: top;
+  }
+  :global(.article-body table td > *),
+  :global(.article-body table th > *) {
+    margin-bottom: 0;
+  }
+  :global(.article-body table th) {
+    background-color: #f1f3f5;
+    font-weight: bold;
+    text-align: left;
+  }
+  :global(.article-body table p) {
+    margin: 0;
+  }
 </style>
