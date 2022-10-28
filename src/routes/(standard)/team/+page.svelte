@@ -25,7 +25,9 @@
         <section>
           {#each data.board as profile}
             <a href={`/profile/${profile.slug}`} class={'card'}>
-              <img src={profile.photo} alt={''} />
+              <div class="img-wrapper">
+                <img src={profile.photo} alt={''} />
+              </div>
               <div class={'name'}>{profile.name.replace(' (Provisional)', '')}</div>
               <div class={'title'}>{profile.current_title}</div>
             </a>
@@ -38,13 +40,24 @@
         <section>
           {#each data.managers as profile}
             <a href={`/profile/${profile.slug}`} class={'card'}>
+              <div class="img-wrapper">
+                <img src={profile.photo} alt={''} />
+              </div>
+              <div class={'name'}>{profile.name.replace(' (Provisional)', '')}</div>
+              <div class={'title'}>{profile.current_title}</div>
+            </a>
+          {/each}
+        </section>
+      {/if}
 
       {#if data.copy && data.copy.length > 0}
         <h2>Copy editors</h2>
         <section>
           {#each data.copy as profile}
             <a href={`/profile/${profile.slug}`} class={'card'}>
-              <img src={profile.photo} alt={''} />
+              <div class="img-wrapper">
+                <img src={profile.photo} alt={''} />
+              </div>
               <div class={'name'}>{profile.name.replace(' (Provisional)', '')}</div>
               <div class={'title'}>{profile.current_title}</div>
             </a>
@@ -57,7 +70,9 @@
         <section>
           {#each data.photoVideo as profile}
             <a href={`/profile/${profile.slug}`} class={'card'}>
-              <img src={profile.photo} alt={''} />
+              <div class="img-wrapper">
+                <img src={profile.photo} alt={''} />
+              </div>
               <div class={'name'}>{profile.name.replace(' (Provisional)', '')}</div>
               <div class={'title'}>{profile.current_title}</div>
             </a>
@@ -156,10 +171,24 @@
     width: 100%;
     box-shadow: none;
   }
-  img {
+
+  .img-wrapper {
+    background-color: #00000024;
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+  }
+
+  .img-wrapper img {
     width: 100%;
     border-radius: var(--radius);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
   }
+
   .card .name {
     font-family: var(--font-detail);
     color: var(--color-neutral-dark);
