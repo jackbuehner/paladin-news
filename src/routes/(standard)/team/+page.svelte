@@ -8,12 +8,6 @@
   title.set('Our team');
 
   export let data: PageData;
-
-  $: boardProfiles = data.docs?.filter((profile) => profile.group >= 1 && profile.group < 2) || [];
-  $: managerProfiles =
-    data.docs?.filter((profile) => profile.group >= 2 && profile.group < 3) || [];
-  $: photoVideoSocialProfiles =
-    data.docs?.filter((profile) => profile.group >= 3 && profile.group < 4) || [];
 </script>
 
 <PageHeading>Team</PageHeading>
@@ -26,10 +20,10 @@
         Below are some of the people currently invloved.
       </p>
 
-      {#if boardProfiles && boardProfiles.length > 0}
+      {#if data.board && data.board.length > 0}
         <h2>The Board</h2>
         <section>
-          {#each boardProfiles as profile}
+          {#each data.board as profile}
             <a href={`/profile/${profile.slug}`} class={'card'}>
               <img src={profile.photo} alt={''} />
               <div class={'name'}>{profile.name.replace(' (Provisional)', '')}</div>
@@ -39,10 +33,16 @@
         </section>
       {/if}
 
-      {#if managerProfiles && managerProfiles.length > 0}
-        <h2>Managers, assistant editors, and copy editors</h2>
+      {#if data.managers && data.managers.length > 0}
+        <h2>Directors, managers, and assistant editors</h2>
         <section>
-          {#each managerProfiles as profile}
+          {#each data.managers as profile}
+            <a href={`/profile/${profile.slug}`} class={'card'}>
+
+      {#if data.copy && data.copy.length > 0}
+        <h2>Copy editors</h2>
+        <section>
+          {#each data.copy as profile}
             <a href={`/profile/${profile.slug}`} class={'card'}>
               <img src={profile.photo} alt={''} />
               <div class={'name'}>{profile.name.replace(' (Provisional)', '')}</div>
@@ -52,10 +52,10 @@
         </section>
       {/if}
 
-      {#if photoVideoSocialProfiles && photoVideoSocialProfiles.length > 0}
+      {#if data.photoVideo && data.photoVideo.length > 0}
         <h2>Photo and video</h2>
         <section>
-          {#each photoVideoSocialProfiles as profile}
+          {#each data.photoVideo as profile}
             <a href={`/profile/${profile.slug}`} class={'card'}>
               <img src={profile.photo} alt={''} />
               <div class={'name'}>{profile.name.replace(' (Provisional)', '')}</div>
