@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { GET_ARTICLES, type GET_ARTICLES__TYPE, type GET_ARTICLES__DOC_TYPE } from '$lib/queries';
+  import { GET_ARTICLES, type GET_ARTICLES__DOC_TYPE, type GET_ARTICLES__TYPE } from '$lib/queries';
+  import { insertDate } from '$lib/utils';
   import { api } from '$lib/utils/api';
   import { onMount } from 'svelte';
   import ArticleCard from './ArticleCard.svelte';
@@ -33,11 +34,11 @@
 <section class:hide={articles.length === 0}>
   <slot />
   <div>
-    {#each articles.slice(0, windowWidth > 960 ? 15 : windowWidth <= 600 ? 5 : 12) as { name, slug, people, photo_path, categories }}
+    {#each insertDate(articles.slice(0, windowWidth > 960 ? 15 : windowWidth <= 600 ? 5 : 12)) as { name, slug, people, photo_path, categories, date }}
       <ArticleCard
         {name}
         {categories}
-        href={`/satire/${slug}`}
+        href={`/articles/${date.year}/${date.month}/${date.day}/${slug}`}
         photo={windowWidth <= 600 ? undefined : photo_path}
         authors={people.authors}
         isSmallerHeadline
