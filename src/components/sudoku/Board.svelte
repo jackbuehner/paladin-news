@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { browser } from '$app/env';
+  import { browser } from '$app/environment';
   import { sudoku } from '$lib/stores/sudoku';
   import { onMount } from 'svelte';
   import { Space } from '.';
