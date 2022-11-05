@@ -54,6 +54,8 @@ export type {
 } from './GET_FRONT_PAGE';
 export { GET_FRONT_PAGE_2022 } from './GET_FRONT_PAGE_2022';
 export type { GET_FRONT_PAGE_2022__JSON, GET_FRONT_PAGE_2022__TYPE } from './GET_FRONT_PAGE_2022';
+export { GET_JOBS } from './GET_JOBS';
+export type { GET_JOBS__DOC_TYPE, GET_JOBS__JSON, GET_JOBS__TYPE } from './GET_JOBS';
 export { GET_PLAYLIST } from './GET_PLAYLIST';
 export type {
   GET_PLAYLIST__DOC_TYPE,
