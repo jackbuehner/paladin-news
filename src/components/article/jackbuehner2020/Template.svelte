@@ -90,15 +90,19 @@
       />
 
       <!-- advertisement -->
-      <!-- <a href={'https://staygvl.com'} style="box-shadow: none;">
+      <a
+        href="https://levelupforchange.org/youth/?utm_source=Paladin&utm_medium=banner&utm_campaign=Prev22&utm_id=Furman"
+        style="box-shadow: none;"
+        rel="noopener noreferrer"
+      >
         <img
-          src="https://ik.imagekit.io/paladin/56850068-3edc-42c7-85d9-f7165f5e565a"
+          src="https://ik.imagekit.io/paladin/66583b09-aaa7-440d-ae97-6c9ec848ba01"
           alt=""
           width="600"
           height="150"
           style="max-width: 100%; height: auto;"
         />
-      </a> -->
+      </a>
 
       <!-- categories -->
       <ArticleCategories categories={article.categories} />
