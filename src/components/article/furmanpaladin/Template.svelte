@@ -12,6 +12,7 @@
     ArticleMeta,
     ArticlePhoto,
     ArticlePhotoCredit,
+    LegacyHeader,
   } from '.';
 
   export let article: PublishedDocWithDate<GET_ARTICLE_BY_SLUG__DOC_TYPE>;
@@ -63,20 +64,14 @@
   {/if}
 </svelte:head>
 
-<note
-  ><Container
-    >This article was migrated from the original furmanpaladin.com. <a href={`/contact`}
-      >Contact us</a
-    > if you notice missing information.</Container
-  ></note
->
-
-<div class={`header`}>
+<note>
   <Container>
-    <h2><a href={`/`}>The Paladin</a></h2>
-    <h4>Serving the Furman Community</h4>
+    This article was migrated from the original furmanpaladin.com. <a href="/contact">Contact us</a>
+    if you notice missing information.
   </Container>
-</div>
+</note>
+
+<LegacyHeader />
 
 <Container>
   <article>
@@ -170,35 +165,6 @@
       width: 100%;
     }
   }
-  .header {
-    background-color: #222222;
-    padding: 40px 0;
-  }
-  h2 {
-    font-size: 1.5em;
-    font-weight: 900;
-    letter-spacing: 2px;
-    text-shadow: 0 1px 0 #111111;
-    text-transform: uppercase;
-    font-family: var(--legacy-font-body);
-    margin: 0;
-  }
-  h2 > a {
-    color: #ffffff;
-    text-decoration: none;
-  }
-  h2 > a:hover {
-    color: rgb(var(--legacy-primary));
-  }
-  h4 {
-    color: #999;
-    font-family: var(--legacy-font-headline);
-    font-size: 0.9em;
-    font-style: italic;
-    line-height: 115%;
-    margin: 11px 0 0;
-    font-weight: 400;
-  }
   note {
     display: block;
     background-color: rgb(var(--legacy-primary-darker));
@@ -206,6 +172,9 @@
     font-size: 12px;
     padding: 4px 0;
     letter-spacing: 0.3px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
   note a {
     color: #e0e0e0;
