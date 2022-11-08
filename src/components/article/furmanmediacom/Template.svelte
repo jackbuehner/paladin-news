@@ -9,6 +9,7 @@
     ArticleMeta,
     ArticlePhoto,
     ArticlePhotoCredit,
+    LegacyHeader,
   } from '.';
 
   export let article: PublishedDocWithDate<GET_ARTICLE_BY_SLUG__DOC_TYPE>;
@@ -43,6 +44,8 @@
     is missing.</Container
   ></note
 >
+
+<LegacyHeader />
 
 <Container>
   <article>

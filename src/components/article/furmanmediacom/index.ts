@@ -4,6 +4,7 @@ import ArticleHeading from './ArticleHeading.svelte';
 import ArticleMeta from './ArticleMeta.svelte';
 import ArticlePhoto from './ArticlePhoto.svelte';
 import ArticlePhotoCredit from './ArticlePhotoCredit.svelte';
+import LegacyHeader from './LegacyHeader.svelte';
 
 export {
   ArticleBody,
@@ -12,4 +13,5 @@ export {
   ArticleMeta,
   ArticlePhoto,
   ArticlePhotoCredit,
+  LegacyHeader,
 };
