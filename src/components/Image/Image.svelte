@@ -9,6 +9,7 @@
   export let containerClassName: string | undefined = undefined;
   export let maxSrcWidth = 1000;
   export let defaultSrcWidth = 100;
+  export let disableTransform: boolean = false;
 
   const ik = 'https://ik.imagekit.io/paladin/';
   const ikp = 'https://ik.imagekit.io/paladin/proxy/';
@@ -33,9 +34,13 @@
     loading === 'eager'
       ? src.replace(
           isProxied ? ikp : ik,
-          `${isProxied ? ikp : ik}tr:w-${
-            renderWidth < maxSrcWidth ? renderWidth || defaultSrcWidth : maxSrcWidth
-          },h-${renderHeight ? renderHeight : 'auto'}/`
+          `${isProxied ? ikp : ik}${
+            !disableTransform
+              ? `tr:w-${
+                  renderWidth < maxSrcWidth ? renderWidth || defaultSrcWidth : maxSrcWidth
+                },h-${renderHeight ? renderHeight : 'auto'}/`
+              : ''
+          }`
         )
       : undefined;
 
@@ -67,9 +72,13 @@
       const img = new Image();
       img.src = src.replace(
         isProxied ? ikp : ik,
-        `${isProxied ? ikp : ik}tr:w-${renderWidth < maxSrcWidth ? renderWidth : maxSrcWidth},h-${
-          renderHeight ? renderHeight : 'auto'
-        }/`
+        `${isProxied && !disableTransform ? ikp : ik}${
+          !disableTransform
+            ? `tr:w-${renderWidth < maxSrcWidth ? renderWidth : maxSrcWidth},h-${
+                renderHeight ? renderHeight : 'auto'
+              }/`
+            : ''
+        }`
       );
 
       img.onload = () => {

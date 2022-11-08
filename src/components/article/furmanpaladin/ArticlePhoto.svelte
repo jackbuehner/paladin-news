@@ -9,6 +9,7 @@
   className={`article-photo-image--furmanpaladin`}
   containerClassName={`article-photo-container--furmanpaladin`}
   loading={'eager'}
+  disableTransform
 />
 
 <style>
@@ -24,6 +25,6 @@
     height: 100%;
     position: absolute;
     top: 0px;
-    object-fit: cover;
+    object-fit: contain;
   }
 </style>

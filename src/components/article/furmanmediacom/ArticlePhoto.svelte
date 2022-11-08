@@ -9,6 +9,7 @@
   className={`article-photo-image--furmanmediacom`}
   containerClassName={`article-photo-container--furmanmediacom`}
   loading={'eager'}
+  disableTransform
 />
 
 <style>
