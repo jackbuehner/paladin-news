@@ -1,7 +1,7 @@
 import { GET_ARTICLES, type GET_ARTICLES__TYPE } from '$lib/queries';
 import { capitalize } from '$lib/utils';
 import { api } from '$lib/utils/api';
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (request) => {
@@ -9,8 +9,8 @@ export const load: PageServerLoad = async (request) => {
 
   // remove special characters and redirect
   if (request.params.category.indexOf(' ') !== -1 || request.params.category.indexOf('&') !== -1) {
-    throw error(
-      302, // temporary redirect
+    throw redirect(
+      307, // temporary redirect
       `/section/${request.params.category.replace(/\s&/gm, '').replace(/\s/gm, '-')}`
     );
   }
@@ -24,6 +24,7 @@ export const load: PageServerLoad = async (request) => {
   let categories = [];
   if (request.params.category === 'diversity-matters') categories = ['diversity'];
   else if (request.params.category === 'opinions') categories = ['opinion'];
+  else if (request.params.category === 'sports-photos') categories = ['sportsphotos'];
   else if (request.params.category === 'arts-culture') categories = ['arts', 'campus-culture'];
   else if (request.params.category === 'arts-campus-culture')
     categories = ['arts', 'campus-culture'];
@@ -31,11 +32,12 @@ export const load: PageServerLoad = async (request) => {
 
   // format the name of the category
   const pagePathToTitle = (string: string): string => {
-    string.replace('/', ''); // remove and slashes
-    if (string === 'diversity-matters') return 'Diversity Matters';
-    else if (string === 'arts-culture') return 'Arts, Campus, & Culture';
-    else if (string === 'arts-campus-culture') return 'Arts, Campus, & Culture';
-    else if (string === 'campus-culture') return 'Campus & Culture';
+    string = string.replaceAll('/', '');
+    string = string.replaceAll('-', ' ');
+    if (string === 'diversity matters') return 'Diversity Matters';
+    else if (string === 'arts culture') return 'Arts, Campus, & Culture';
+    else if (string === 'arts campus culture') return 'Arts, Campus, & Culture';
+    else if (string === 'campus culture') return 'Campus & Culture';
     else return capitalize(string, true);
   };
 
