@@ -1,5 +1,4 @@
 import type { GET_ARTICLE_BY_SLUG__DOC_TYPE } from '$lib/queries';
-import { title } from '$lib/stores/title';
 import { insertDate } from '$lib/utils';
 import { error } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
