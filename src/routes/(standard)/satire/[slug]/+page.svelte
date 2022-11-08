@@ -19,7 +19,7 @@
 
   // set the document title
   $: {
-    if (data) title.set(`${data.name} - Satire`);
+    if (data) title.set(`${data.name}`);
   }
 
   // set the header to satire

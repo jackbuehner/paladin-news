@@ -22,8 +22,16 @@
     });
   });
 
+  $: isSatireHome = path.indexOf('/the-horse') === 0;
+  $: isSatire = isSatireHome || path.indexOf('/satire') === 0;
+
   // create the document title
-  $: title_ = $title || path !== '/' ? `${$title} - The Paladin` : 'The Paladin';
+  $: title_ = (() => {
+    if (path === '/') return 'The Paladin';
+    if (isSatireHome) return 'The Horse';
+    if (isSatire) return `${$title} - The Horse`;
+    return `${$title} - The Paladin`;
+  })();
 </script>
 
 <svelte:head>
@@ -36,7 +44,11 @@
     <slot />
   </div>
 
-  <Footer />
+  {#if isSatire}
+    <span />
+  {:else}
+    <Footer />
+  {/if}
 </div>
 
 <Search />
