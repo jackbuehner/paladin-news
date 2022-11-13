@@ -36,6 +36,9 @@
     <div class={'metadata'}>Published: {toDateString(new Date(data.timestamps.published_at))}</div>
     <div class={'metadata'}>Retrieved: {toDateString(now)}</div>
     <div class={'metadata'}>
+      Access: {`https://furmanecho.com/${data.type}/${data.date.year}/${data.date.month}/${data.date.day}/${data.slug}`}
+    </div>
+    <div class={'metadata'}>
       Permalink: {`https://thepaladin.news/permalink/magazine/${data._id}`}
     </div>
     <div>
