@@ -23,7 +23,7 @@
   <p>
     Want to see <i>The Echo</i> firsthand? Drop by the English lounge to browse the collection of
     past issues, or access them online:
-    <a href="https://scholarexchange.furman.edu/echo">https://scholarexchange.furman.edu/echo</a>.
+    <a href="/magazine">https://furmanecho.com</a>.
   </p>
   <p>
     Follow us on Instagram for behind the scenes content, upcoming event details, and more <a
