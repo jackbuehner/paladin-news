@@ -30,7 +30,7 @@
       href="https://www.instagram.com/furman.echo/">@furman.echo</a
     >
   </p>
-  <figure>
+  <figure style="display: none;">
     <img src="https://ik.imagekit.io/paladin/tr:w-840/2018/08/echo-2.jpg" alt="" />
     <figcaption>The 2017-2018 Editorial Board</figcaption>
   </figure>
