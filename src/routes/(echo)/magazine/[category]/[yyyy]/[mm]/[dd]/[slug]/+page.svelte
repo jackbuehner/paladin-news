@@ -3,6 +3,7 @@
   import { capitalize, listOxford, toIK } from '$lib/utils';
   import type { PageData } from './$types';
   import CoverPage from './CoverPage.svelte';
+  import SocialButtons from './SocialButtons.svelte';
 
   export let data: PageData;
 
@@ -69,10 +70,12 @@
   {@html data.body}
 </article>
 
+<SocialButtons {data} />
+
 <style>
   article {
     max-width: 590px;
-    margin: 0 auto 60px auto;
+    margin: 0 auto;
     padding: 20px;
   }
 
