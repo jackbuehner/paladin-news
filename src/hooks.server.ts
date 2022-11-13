@@ -16,5 +16,14 @@ export const handle: Handle = async ({ event, resolve }) => {
     response.headers.set('cache-control', `public, max-age=1, stale-while-revalidate=${oneWeek}`);
   }
 
+  // redirect requests to furmanecho.com to thepaladin.news/magazine
+  // with path forwarding
+  if (event.url.hostname === 'redirect-echo.furmanecho.com') {
+    return new Response('Redirect', {
+      status: 307,
+      headers: { Location: 'https://thepaladin.news/magazine' + event.url.pathname },
+    });
+  }
+
   return response;
 };
