@@ -149,3 +149,43 @@
   font-display: swap;
   src: local(''), url(./fonts/pt-serif/PTSerif-BoldItalic.woff2) format("woff2"), url(./fonts/pt-serif/PTSerif-BoldItalic.ttf) format("truetype");
 }
+
+@font-face {
+  font-family: "Bodoni72";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: local(''), url(./fonts/bodoni72/Bodoni72.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Bodoni72";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: local(''), url(./fonts/bodoni72/Bodoni72-Bold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Pala";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: local(''), url(./fonts/pala/Pala.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Pala";
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  src: local(''), url(./fonts/pala/Pala-Italic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Pala";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: local(''), url(./fonts/pala/Pala-Bold.ttf) format("truetype");
+}

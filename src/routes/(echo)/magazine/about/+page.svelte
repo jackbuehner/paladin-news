@@ -2,16 +2,11 @@
   import Container from '$lib/components/Container.svelte';
   import { title } from '$lib/stores/title';
 
-  title.set('The Echo');
+  title.set('About');
 </script>
 
-<Container>
-  <h1>The Echo</h1>
-  <img
-    class="logo"
-    src="https://ik.imagekit.io/paladin/2018/08/19436780_1929537007261182_1345695034309083136_n-e1534793823853.jpg?w=150&zoom=2"
-    alt="The Echo. Furman University's Literary Magazine."
-  />
+<Container width="800px">
+  <h1>About <i>The Echo</i></h1>
   <p>
     Since its birth in 1893, <i>The Echo</i> has developed a rich history, serving the Furman
     community not only as an esteemed publication of student literary and art works but also, and
@@ -22,7 +17,8 @@
   </p>
   <p>
     If you’d like to become involved in <i>The Echo</i>, be sure to look out for the Editorial Board
-    application this fall on SyncDin or contact us at furman.echo@gmail.com.
+    application this fall on SyncDin or contact us at
+    <a href="mailto:furman.echo@gmail.com">furman.echo@gmail.com</a>.
   </p>
   <p>
     Want to see <i>The Echo</i> firsthand? Drop by the English lounge to browse the collection of
@@ -35,11 +31,11 @@
     >
   </p>
   <figure>
-    <img src="https://ik.imagekit.io/paladin/2018/08/echo-2.jpg" alt="" />
+    <img src="https://ik.imagekit.io/paladin/tr:w-840/2018/08/echo-2.jpg" alt="" />
     <figcaption>The 2017-2018 Editorial Board</figcaption>
   </figure>
   <img
-    src="https://ik.imagekit.io/paladin/2018/08/24327437_921237631378639_7720734452258701312_n.jpg"
+    src="https://ik.imagekit.io/paladin/tr:w-840/2018/08/24327437_921237631378639_7720734452258701312_n.jpg"
     alt="A close side view of a table with on old copy of The Echo, an Underwood typewriter, and a mug with The Echo's logo."
   />
 </Container>
@@ -48,6 +44,7 @@
   figure,
   img {
     display: block;
+    width: 100%;
     max-width: 840px;
     margin: 0 auto;
   }
@@ -56,21 +53,16 @@
     margin-bottom: 20px;
   }
   figcaption {
-    font-family: var(--legacy2-font);
-    font-size: 16px;
+    font-family: var(--echo-font-body);
+    font-size: 17px;
     font-weight: 700;
   }
-  img.logo {
-    width: 150px;
-    height: 150px;
-    margin-bottom: 1.75em;
-  }
   h1 {
-    font-family: var(--legacy2-font);
-    font-size: 28px;
+    font-family: var(--echo-font-heading);
+    font-size: 38px;
     line-height: 1.225;
-    margin-top: 3em;
-    margin-bottom: 1.05em;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
   }
   p,
   h1 {
@@ -80,8 +72,8 @@
     color: var(--color-neutral-dark);
   }
   p {
-    font-family: var(--legacy2-font);
-    font-size: 16px;
+    font-family: var(--echo-font-body);
+    font-size: 17px;
     line-height: 1.75;
   }
 </style>

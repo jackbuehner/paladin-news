@@ -1,3 +1,8 @@
+import { HardBreak } from '$lib/pm/render/HardBreak';
+import { PhotoWidget } from '$lib/pm/render/PhotoWidget';
+import { PullQuote } from '$lib/pm/render/PullQuote';
+import { SweepwidgetWidget } from '$lib/pm/render/SweepwidgetWidget';
+import { YoutubeWidget } from '$lib/pm/render/YoutubeWidget';
 import { GET_SATIRE_BY_SLUG, type GET_SATIRE_BY_SLUG__TYPE } from '$lib/queries';
 import { api } from '$lib/utils/api';
 import Renderer from '@cristata/prosemirror-to-html-js';
@@ -26,6 +31,11 @@ export const load: PageServerLoad = async (request) => {
     if (satire.satireBySlugPublic.body && satire.satireBySlugPublic.legacy_html !== true) {
       try {
         const renderer = new Renderer.Renderer();
+        renderer.addNode(HardBreak);
+        renderer.addNode(SweepwidgetWidget);
+        renderer.addNode(YoutubeWidget);
+        renderer.addNode(PhotoWidget);
+        renderer.addNode(PullQuote);
         satire.satireBySlugPublic.body = renderer.render({
           type: 'doc',
           content: JSON.parse(satire.satireBySlugPublic.body),

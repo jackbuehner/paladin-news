@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { toIK } from '$lib/utils';
   import { afterUpdate } from 'svelte';
   import IntersectionObserver from './IntersectionObserver.svelte';
 
@@ -14,14 +15,7 @@
   const ik = 'https://ik.imagekit.io/paladin/';
   const ikp = 'https://ik.imagekit.io/paladin/proxy/';
 
-  if (src.indexOf('https://paladin-photo-library') === 0 && src.indexOf('%') === -1) {
-    src = src
-      .replace('https://paladin-photo-library.s3.amazonaws.com/', 'https://ik.imagekit.io/paladin/')
-      .replace(
-        'https://paladin-photo-library.s3.us-east-1.amazonaws.com/',
-        'https://ik.imagekit.io/paladin/'
-      );
-  }
+  src = toIK(src);
 
   let isProxied = false;
   if (src.indexOf(ik) === -1) {

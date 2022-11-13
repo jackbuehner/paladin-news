@@ -1,4 +1,6 @@
+import { HardBreak } from '$lib/pm/render/HardBreak';
 import { PhotoWidget } from '$lib/pm/render/PhotoWidget';
+import { PullQuote } from '$lib/pm/render/PullQuote';
 import { SweepwidgetWidget } from '$lib/pm/render/SweepwidgetWidget';
 import { YoutubeWidget } from '$lib/pm/render/YoutubeWidget';
 import { variables } from '$lib/variables';
@@ -43,9 +45,11 @@ const toHTML = (str: string): string => {
   // if the body is not html, convert json to html (check with closing p tag)
   if (!str.includes('</p>')) {
     const renderer = new Renderer.Renderer();
+    renderer.addNode(HardBreak);
     renderer.addNode(SweepwidgetWidget);
     renderer.addNode(YoutubeWidget);
     renderer.addNode(PhotoWidget);
+    renderer.addNode(PullQuote);
     return renderer.render({
       type: 'doc',
       content: JSON.parse(str),

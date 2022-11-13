@@ -8,6 +8,7 @@
   export let color: string | undefined = undefined;
   export let radius: string | undefined = undefined;
   export let size: string | undefined = undefined;
+  export let padding = '6px';
   export let iconSize: string | undefined = undefined;
   export let className: string | undefined = undefined;
   export let background: { base?: string; hover?: string; active?: string } | undefined = undefined;
@@ -20,11 +21,13 @@
     class:isOutlined
     class={className}
     aria-label={ariaLabel}
-    style={`${color ? `--button-color: ${color};` : ``}${radius ? `--radius: ${radius};` : ``}${
-      background?.base ? `--button-bg: ${background.base};` : ``
-    }${background?.hover ? `--button-bg-hover: ${background.hover};` : ``}${
-      background?.active ? `--button-bg-active: ${background.active};` : ``
-    }${size ? `--size: ${size};` : ``}${iconSize ? `--icon-size: ${iconSize};` : ``}`}
+    style={`--padding: ${padding}; ${color ? `--button-color: ${color};` : ``}${
+      radius ? `--radius: ${radius};` : ``
+    }${background?.base ? `--button-bg: ${background.base};` : ``}${
+      background?.hover ? `--button-bg-hover: ${background.hover};` : ``
+    }${background?.active ? `--button-bg-active: ${background.active};` : ``}${
+      size ? `--size: ${size};` : ``
+    }${iconSize ? `--icon-size: ${iconSize};` : ``}`}
   >
     <svg {viewBox}>
       <slot />
@@ -46,11 +49,13 @@
     class:isOutlined
     class={className}
     aria-label={ariaLabel}
-    style={`${color ? `--button-color: ${color};` : ``}${radius ? `--radius: ${radius};` : ``}${
-      background?.base ? `--button-bg: ${background.base};` : ``
-    }${background?.hover ? `--button-bg-hover: ${background.hover};` : ``}${
-      background?.active ? `--button-bg-active: ${background.active};` : ``
-    }${size ? `--size: ${size};` : ``}${iconSize ? `--icon-size: ${iconSize};` : ``}`}
+    style={`--padding: ${padding}; ${color ? `--button-color: ${color};` : ``}${
+      radius ? `--radius: ${radius};` : ``
+    }${background?.base ? `--button-bg: ${background.base};` : ``}${
+      background?.hover ? `--button-bg-hover: ${background.hover};` : ``
+    }${background?.active ? `--button-bg-active: ${background.active};` : ``}${
+      size ? `--size: ${size};` : ``
+    }${iconSize ? `--icon-size: ${iconSize};` : ``}`}
   >
     <svg {viewBox}>
       <slot />
@@ -77,7 +82,7 @@
     transition: 200ms;
     color: var(--button-color);
     margin: 0;
-    padding: 6px;
+    padding: var(--padding);
   }
   button.isOutlined,
   a.isOutlined,

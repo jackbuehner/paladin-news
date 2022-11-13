@@ -1,5 +1,6 @@
 export { capitalize } from './capitalize';
 export { constructArticlePath } from './constructArticlePath';
+export { dateAtTimeZero } from './dateAtTimeZero';
 export { fetchFeatured } from './fetchFeatured';
 export { fetchLatest } from './fetchLatest';
 export { fetchSection } from './fetchSection';
@@ -10,3 +11,4 @@ export { insertDate } from './insertDate';
 export { listOxford } from './listOxford';
 export { replaceLast } from './replaceLast';
 export { slugify } from './slugify';
+export { toIK } from './toIK';

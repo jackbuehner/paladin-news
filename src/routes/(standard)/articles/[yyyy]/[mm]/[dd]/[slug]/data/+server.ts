@@ -1,3 +1,4 @@
+import { HardBreak } from '$lib/pm/render/HardBreak';
 import { PhotoWidget } from '$lib/pm/render/PhotoWidget';
 import { PullQuote } from '$lib/pm/render/PullQuote';
 import { SweepwidgetWidget } from '$lib/pm/render/SweepwidgetWidget';
@@ -52,6 +53,7 @@ export const GET: RequestHandler = async (request) => {
         // if the body is not html, convert json to html (check with closing p tag)
         if (!article.body.includes('</p>')) {
           const renderer = new Renderer.Renderer();
+          renderer.addNode(HardBreak);
           renderer.addNode(SweepwidgetWidget);
           renderer.addNode(YoutubeWidget);
           renderer.addNode(PhotoWidget);

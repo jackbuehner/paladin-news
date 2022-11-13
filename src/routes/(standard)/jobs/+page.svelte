@@ -40,7 +40,7 @@
 <style>
   h2 {
     font-family: var(--font-detail);
-    color: var(--color-neutral);
+    color: var(--color-neutral-dark);
     font-size: 20px;
     margin: 20px 0 0 0;
     line-height: 32px;
@@ -54,7 +54,7 @@
     font-family: var(--font-detail);
     line-height: 1.3;
     font-weight: 400;
-    color: var(--color-neutral);
+    color: var(--color-neutral-dark);
     margin: 8px 0 10px 0;
   }
 
@@ -75,7 +75,7 @@
     font-family: var(--font-detail);
     line-height: 1.3;
     font-weight: 400;
-    color: var(--color-neutral);
+    color: var(--color-neutral-dark);
     margin: 0px 0 8px 0;
   }
   div.applyrow {

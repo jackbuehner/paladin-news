@@ -8,6 +8,7 @@
     { href: '/games', label: 'Games' },
     { href: '/podcasts', label: 'Podcasts' },
     { href: '/satire', label: 'The Horse' },
+    { href: '/magazine', label: 'The Echo' },
     {
       href: 'https://cdm16821.contentdm.oclc.org/digital/collection/p16821coll21',
       label: 'Archive',

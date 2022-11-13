@@ -17,8 +17,9 @@
       { href: '/section/arts-culture', label: 'Arts, Campus, & Culture' },
     ],
     [
-      { href: '/satire', label: 'The Horse [Satire]' },
-      { href: '/flusher', label: 'The Royal Flush' },
+      { href: '/satire', label: 'The Horse', sublabel: 'Satire' },
+      { href: '/flusher', label: 'The Flusher', sublabel: 'Restroom newsletter' },
+      { href: '/magazine', label: 'The Echo', sublabel: 'Literary & arts magazine' },
     ],
     [
       { href: '/games', label: 'Games' },
@@ -83,8 +84,14 @@
         target={item.external ? '_blank' : undefined}
         rel="noreferrer"
         on:click={() => (isOpen = false)}
+        class:withSubLabel={!!item.sublabel}
       >
-        <span>{item.label}</span>
+        <span class="label">
+          <span>{item.label}</span>
+          {#if item.sublabel}
+            <span>{item.sublabel}</span>
+          {/if}
+        </span>
         {#if item.external}
           <svg style="width:12px;height:12px" viewBox="0 0 24 24">
             <path
@@ -118,6 +125,18 @@
   }
   nav.isOpen {
     transform: translateX(var(--sidenav-width));
+  }
+
+  /* label and sublabel */
+  span.label {
+    display: flex;
+    flex-direction: column;
+  }
+
+  span.label > span:nth-of-type(2) {
+    font-size: 11px;
+    color: #424242;
+    font-style: italic;
   }
 
   /* padding for logo */
@@ -158,6 +177,11 @@
     justify-self: start;
     justify-content: space-between;
   }
+
+  a.withSubLabel {
+    height: 48px;
+  }
+
   a:hover {
     background-color: var(--button-bg-hover);
     border: 1px solid var(--button-bg-hover);
