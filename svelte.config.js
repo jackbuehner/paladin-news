@@ -21,7 +21,7 @@ const config = {
     prerender: {
       crawl: true,
       enabled: true,
-      onError: 'continue', //TODO: investigate the best prerender options
+      handleHttpError: 'warn', //TODO: investigate the best prerender options
       entries: ['*'],
     },
   },
