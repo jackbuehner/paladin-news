@@ -74,6 +74,7 @@
 
 <style>
   article {
+    width: 100%;
     max-width: 590px;
     margin: 0 auto;
     padding: 20px;
