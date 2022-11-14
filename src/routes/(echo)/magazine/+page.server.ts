@@ -10,7 +10,7 @@ import { variables } from '$lib/variables';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ setHeaders }) => {
   const choice = await (async () => {
     const { data, error: err } = await api.query<GET_ECHO_EC__TYPE>(GET_ECHO_EC, {
       variables: { filter: JSON.stringify({ type: 'studio-art' }), limit: 5 },
@@ -144,6 +144,12 @@ export const load: PageServerLoad = async () => {
 
     throw error(err.status);
   })();
+
+  // cache for one week
+  const oneWeek = 3600 * 24 * 7;
+  setHeaders({
+    'cache-control': `public, max-age=1, stale-while-revalidate=${oneWeek}`,
+  });
 
   return {
     choice,
