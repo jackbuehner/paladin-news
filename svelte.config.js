@@ -18,12 +18,6 @@ const config = {
     files: {
       lib: 'src',
     },
-    prerender: {
-      crawl: true,
-      enabled: true,
-      handleHttpError: 'warn',
-      entries: ['*'],
-    },
   },
 };
 
