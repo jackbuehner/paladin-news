@@ -9,6 +9,7 @@ export { formatISODate } from './formatISODate';
 export { hasProperty } from './hasProperty';
 export { insertDate } from './insertDate';
 export { listOxford } from './listOxford';
+export { notEmpty } from './notEmpty';
 export { replaceLast } from './replaceLast';
 export { slugify } from './slugify';
 export { toIK } from './toIK';
