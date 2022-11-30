@@ -90,7 +90,7 @@
       />
 
       <!-- advertisement -->
-      <a
+      <!-- <a
         href="https://levelupforchange.org/youth/?utm_source=Paladin&utm_medium=banner&utm_campaign=Prev22&utm_id=Furman"
         style="box-shadow: none;"
         rel="noopener noreferrer"
@@ -102,7 +102,7 @@
           height="150"
           style="max-width: 100%; height: auto;"
         />
-      </a>
+      </a> -->
 
       <!-- categories -->
       <ArticleCategories categories={article.categories} />
