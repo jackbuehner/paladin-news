@@ -2,6 +2,7 @@
   import smartquotes from 'smartquotes';
   import { formatISODate } from '$lib/utils/formatISODate';
   import { Image } from '$lib/components/Image';
+  import { listOxford, notEmpty } from '$lib/utils';
 
   export let style = '';
   export let name: string;
@@ -85,30 +86,15 @@
       {/if}
 
       <!-- display the article authors with the appropriate separators -->
-      {#if authors === undefined}
+      {#if (authors || []).filter(notEmpty) === undefined}
         <!-- hide if undefined -->
         {''}
-      {:else if authors.length === 1}
-        <!-- show author if only one -->
-        <span>By {authors[0].name.replace(' (Provisional)', '')}</span>
-      {:else if authors.length === 2}
-        <!-- separate with 'and' if two authors -->
-        <span>By {authors[0].name.replace(' (Provisional)', '')}</span>
-        <span> and </span>
-        <span>{authors[1].name.replace(' (Provisional)', '')}</span>
-      {:else if authors.length > 2}
-        <!-- separate with either a comma or ', and' if more than two authors -->
-        {#each authors as author, index}
-          {#if index === 0}
-            <span>By {author.name.replace(' (Provisional)', '')}</span>
-          {:else if index === authors.length - 1}
-            <span>, and </span>
-            <span>{author.name.replace(' (Provisional)', '')}</span>
-          {:else}
-            <span>, </span>
-            <span>{author.name.replace(' (Provisional)', '')}</span>
-          {/if}
-        {/each}
+      {:else}
+        <span>
+          By {listOxford(
+            authors.filter(notEmpty).map((author) => author.name.replace(' (Provisional)', ''))
+          )}
+        </span>
       {/if}
     </div>
   </div>
