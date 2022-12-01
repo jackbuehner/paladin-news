@@ -4,10 +4,14 @@ function toIK(src: string, transform?: string) {
   const ik = 'https://ik.imagekit.io/paladin/';
   const ikp = 'https://ik.imagekit.io/paladin/proxy/';
 
-  if (srcStr.indexOf('https://paladin-photo-library') === 0 && srcStr.indexOf('%') === -1) {
+  if (
+    srcStr.indexOf('https://paladin-photo-library') === 0 ||
+    (srcStr.includes('/paladin-photo-library/') && srcStr.indexOf('%') === -1)
+  ) {
     srcStr = srcStr
       .replace('https://paladin-photo-library.s3.amazonaws.com/', ik)
-      .replace('https://paladin-photo-library.s3.us-east-1.amazonaws.com/', ik);
+      .replace('https://paladin-photo-library.s3.us-east-1.amazonaws.com/', ik)
+      .replace('https://s3.us-east-1.amazonaws.com/paladin-photo-library/', ik);
     if (transform) srcStr = srcStr.replace(ik, `${ik}${transform}/`);
   } else {
     srcStr = ikp + srcStr;
