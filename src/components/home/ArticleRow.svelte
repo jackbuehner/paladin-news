@@ -81,15 +81,12 @@
       {/if}
 
       <!-- only show divider if date and authors are both defined-->
-      {#if date !== undefined && date !== 'Dec. 31, 0000' && authors.length > 0}
+      {#if date !== undefined && date !== 'Dec. 31, 0000' && (authors || []).filter(notEmpty).length > 0}
         <span> | </span>
       {/if}
 
       <!-- display the article authors with the appropriate separators -->
-      {#if (authors || []).filter(notEmpty) === undefined}
-        <!-- hide if undefined -->
-        {''}
-      {:else}
+      {#if (authors || []).filter(notEmpty).length > 0}
         <span>
           By {listOxford(
             authors.filter(notEmpty).map((author) => author.name.replace(' (Provisional)', ''))
