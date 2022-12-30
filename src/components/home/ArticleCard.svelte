@@ -22,6 +22,7 @@
   export let hasVideo: boolean = false;
   export let lazyLoad: boolean = true;
   export let defaultPhotoSrcWidth: number | undefined = undefined;
+  let imageHidden: boolean = false;
 
   // modify the names of the categories to match the website sections
   let categoriesModified: string[] = [];
@@ -48,7 +49,7 @@
 
 <a {href} {style}>
   <!-- photo and credit -->
-  {#if photo !== undefined && photo.length > 0 && !isCompact}
+  {#if photo !== undefined && photo.length > 0 && !isCompact && !imageHidden}
     <div class={'photo-group'}>
       <div class={'photo-wrapper'} class:isCategoryPage>
         {#if hasVideo}
@@ -70,6 +71,7 @@
           containerClassName={`article-card-image-container`}
           loading={lazyLoad ? 'lazy' : 'eager'}
           defaultSrcWidth={defaultPhotoSrcWidth}
+          bind:hidden={imageHidden}
         />
       </div>
       {#if photoCredit === undefined}

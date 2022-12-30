@@ -11,6 +11,7 @@
   export let maxSrcWidth = 1000;
   export let defaultSrcWidth = 100;
   export let disableTransform: boolean = false;
+  export let hidden: boolean = false;
 
   const ik = 'https://ik.imagekit.io/paladin/';
   const ikp = 'https://ik.imagekit.io/paladin/proxy/';
@@ -84,13 +85,18 @@
           showTiny = false;
         }, 4000);
       };
+
+      img.onerror = () => {
+        hidden = true;
+      };
+
       // set the oldSrc to be the same as the current src
       lastSrc = src;
     }
   });
 </script>
 
-{#if loading === 'lazy'}
+{#if loading === 'lazy' && hidden === false}
   <IntersectionObserver
     bind:intersecting
     bind:clientWidth={renderWidth}
@@ -102,6 +108,7 @@
       {alt}
       class={showTiny ? `${className} show` : `${className} hide`}
       {loading}
+      on:error={() => (hidden = true)}
     />
     <img
       src={realSrc || tinySrc}
@@ -109,9 +116,10 @@
       class={showFinal ? `${className} show loaded` : `${className} hide`}
       {loading}
       bind:this={finalImgElem}
+      on:error={() => (hidden = true)}
     />
   </IntersectionObserver>
-{:else}
+{:else if hidden === false}
   <div class={containerClassName} bind:clientWidth={renderWidth} bind:clientHeight={renderHeight}>
     <img
       src={realSrc || tinySrc}
@@ -119,6 +127,7 @@
       class={`${className} show`}
       {loading}
       bind:this={finalImgElem}
+      on:error={() => (hidden = true)}
     />
   </div>
 {/if}

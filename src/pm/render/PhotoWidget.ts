@@ -13,6 +13,46 @@ class PhotoWidget extends Renderer.Node<PhotoWidgetAttrs> {
   }
   toDOM(): DOMOutputSpec {
     const position: string = this.node.attrs.position || 'center';
+
+    if (this.node.attrs.showCaption) {
+      return [
+        'figure',
+        {
+          class: `widget photo position-${position}`,
+        },
+        [
+          'div',
+          {
+            class: 'img-wrapper',
+            'data-photo-credit': '',
+            style: '',
+          },
+          [
+            'img',
+            {
+              src: this.node.attrs.photoUrl,
+              alt: '',
+            },
+          ],
+        ],
+        [
+          'figcaption',
+          {
+            'data-photo-credit': this.node.attrs.photoCredit || '',
+            style: `
+              display: block;
+              text-align: center;
+              margin: 10px 0 10px 0;
+              color: #666;
+              font-size: 90%;
+              text-align: center;
+            `,
+          },
+          0,
+        ],
+      ];
+    }
+
     return [
       'figure',
       {
@@ -22,8 +62,8 @@ class PhotoWidget extends Renderer.Node<PhotoWidgetAttrs> {
         'div',
         {
           class: 'img-wrapper',
-          'data-photo-credit': !this.node.attrs.showCaption ? this.node.attrs.photoCredit : '',
-          style: `margin: 0; display: flex; position: relative; align-items: start;`,
+          'data-photo-credit': this.node.attrs.photoCredit || '',
+          style: '',
         },
         [
           'img',
@@ -36,27 +76,16 @@ class PhotoWidget extends Renderer.Node<PhotoWidgetAttrs> {
       [
         'figcaption',
         {
-          'data-photo-credit': this.node.attrs.showCaption ? this.node.attrs.photoCredit : '',
+          'data-photo-credit': '',
           style: `
-            ${
-              this.node.attrs.showCaption
-                ? `
-                  display: block;
-                  text-align: center;
-                  margin: 10px 0 10px 0;
-                `
-                : `
-                  display: block;
-                  text-align: right;
-                  margin: -26px 0 10px 0;
-                `
-            }
+            display: block;
+            text-align: right;
+            margin: -26px 0 10px 0;
             color: #666;
             font-size: 90%;
             text-align: center;
           `,
         },
-        this.node.attrs.showCaption ? 0 : undefined,
       ],
     ];
   }
