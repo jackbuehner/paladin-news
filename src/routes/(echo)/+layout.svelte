@@ -39,7 +39,9 @@
           </IconButton>
         </div>
         <div class="center">
-          <TheEchoLogo size={140} />
+          <a href="/magazine">
+            <TheEchoLogo size={140} />
+          </a>
         </div>
         <div class="right">
           <IconButton
@@ -188,6 +190,10 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+  }
+
+  a[href='/magazine'] {
+    color: inherit;
   }
 
   @media print {
