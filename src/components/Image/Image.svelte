@@ -19,7 +19,7 @@
   src = toIK(src);
 
   let isProxied = false;
-  if (src.indexOf(ik) === -1) {
+  if (src.indexOf(ikp) === 0) {
     src = `${ikp}${src}`;
     isProxied = true;
   }
