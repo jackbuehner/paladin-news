@@ -61,7 +61,7 @@
     <figure class="main">
       <img
         src={toIK(data.photo.photo_url, 'tr:w-600')}
-        style="aspect-ratio: {data.photo.dimensions.x / data.photo.dimensions.y};"
+        style="aspect-ratio: {data.photo.width / data.photo.height};"
         alt=""
       />
       <figcaption data-photo-credit={data.photo.people.photo_created_by} class:noCaption={true} />

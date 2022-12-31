@@ -14,7 +14,7 @@
         <a {href}>
           <img
             src={toIK(photo.photo_url, 'tr:h-240')}
-            style="aspect-ratio: {photo.dimensions.x / photo.dimensions.y};"
+            style="aspect-ratio: {photo.width / photo.height};"
             alt=""
           />
         </a>

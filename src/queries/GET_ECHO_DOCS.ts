@@ -21,10 +21,8 @@ const GET_ECHO_DOCS = `
         slug
         photo {
           photo_url
-          dimensions {
-            x
-            y
-          }
+          width
+          height
         }
         authored_by {
           name
@@ -52,7 +50,8 @@ interface GET_ECHO_DOCS__DOC_TYPE {
   type: string;
   photo?: {
     photo_url: string;
-    dimensions: { x: number; y: number };
+    width: number;
+    height: number;
   };
   authored_by: { name: string }[];
   timestamps: { published_at: string };

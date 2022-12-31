@@ -21,10 +21,8 @@ const GET_ECHO_DOCS_FULL = `
         slug
         photo {
           photo_url
-          dimensions {
-            x
-            y
-          }
+          width
+          height
           people {
             photo_created_by
           }
@@ -61,7 +59,8 @@ interface GET_ECHO_DOCS_FULL__DOC_TYPE {
   type: string;
   photo?: {
     photo_url: string;
-    dimensions: { x: number; y: number };
+    width: number;
+    height: number;
     people: {
       photo_created_by?: string;
     };
