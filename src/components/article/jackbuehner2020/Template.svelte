@@ -90,19 +90,19 @@
       />
 
       <!-- advertisement -->
-      <!-- <a
+      <a
         href="https://levelupforchange.org/youth/?utm_source=Paladin&utm_medium=banner&utm_campaign=Prev22&utm_id=Furman"
         style="box-shadow: none;"
         rel="noopener noreferrer"
       >
         <img
-          src="https://ik.imagekit.io/paladin/66583b09-aaa7-440d-ae97-6c9ec848ba01"
+          src="https://ik.imagekit.io/paladin/proxy/https://server.cristata.app/photo/paladin-news/63ce990b5626bfb9941b7710"
           alt=""
           width="600"
           height="150"
           style="max-width: 100%; height: auto;"
         />
-      </a> -->
+      </a>
 
       <!-- categories -->
       <ArticleCategories categories={article.categories} />
