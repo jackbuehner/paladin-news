@@ -148,6 +148,13 @@
 {/if}
 
 <div class="content">
+  {#if fields?.people && (!fields.people.editors?.primary || fields.people.editors.primary.length === 0)}
+    <div class="warning">
+      This article is missing it's managing editor(s)! Please add an editor who is responsible for
+      this article to the <i>Managing editors</i> field.
+    </div>
+  {/if}
+
   <div class="tiptap-top-article-jackbuehner2020" id={'preview'}>
     {#if fields}
       <!-- categories -->
@@ -253,5 +260,17 @@
 
   :global(div.tiptap-top-article-jackbuehner2020 > div:first-of-type) {
     margin-top: 0;
+  }
+
+  div.warning {
+    background-color: rgb(200, 0, 0);
+    grid-column-start: 1;
+    grid-column-end: 4;
+    margin: 0 0 0 -10px;
+    width: calc(100% + 30px);
+    padding: 4px 20px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    color: white;
   }
 </style>
