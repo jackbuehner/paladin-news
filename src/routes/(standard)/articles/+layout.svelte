@@ -2,7 +2,7 @@
   import {
     ArticleTemplateFurmanMediaCom,
     ArticleTemplateFurmanPaladin,
-    ArticleTemplateJackBuehner2020,
+    ArticleTemplateJackBuehner2020
   } from '$lib/components/article/index';
   import QuickEscape from '$lib/components/QuickEscape.svelte';
   import { title } from '$lib/stores/title';
@@ -19,7 +19,7 @@
   const openInCMS = (event: KeyboardEvent) => {
     if (event.altKey && event.key === 'c') {
       window.open(
-        `https://thepaladin.cristata.app/cms/collection/articles/${data._id}?fs=1&props=1`,
+        `https://cristata.app/paladin-news/cms/collection/articles/${data._id}?fs=1&props=1`,
         '_blank'
       );
     }

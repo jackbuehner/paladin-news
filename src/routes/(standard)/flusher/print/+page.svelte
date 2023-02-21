@@ -2,8 +2,8 @@
   import Button from '$lib/components/Button.svelte';
   import { FlusherDoc, type Flusher } from '$lib/components/Flusher';
   import { title } from '$lib/stores/title';
-  import type { PageData } from './$types';
   import { romanize } from 'romans';
+  import type { PageData } from './$types';
 
   export let data: PageData;
 
@@ -23,7 +23,7 @@
    */
   const openInCMS = (event: KeyboardEvent) => {
     if (event.altKey && event.key === 'c' && data?._id) {
-      window.open(`https://thepaladin.cristata.app/cms/collection/flushes/${data._id}`, '_blank');
+      window.open(`https://cristata.app/paladin-news/cms/collection/flushes/${data._id}`, '_blank');
     }
   };
 </script>

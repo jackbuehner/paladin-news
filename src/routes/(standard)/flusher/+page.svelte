@@ -5,9 +5,9 @@
   import type { GET_FLUSHERS__DOC_TYPE } from '$lib/queries';
   import { title } from '$lib/stores/title';
   import { constructArticlePath, formatISODate, insertDate } from '$lib/utils';
-  import type { PageData } from './$types';
   import { DateTime } from 'luxon';
   import { romanize } from 'romans';
+  import type { PageData } from './$types';
 
   // the flusher document retrieved from the page endpoint
   export let data: PageData;
@@ -37,7 +37,7 @@
    */
   const openInCMS = (event: KeyboardEvent) => {
     if (event.altKey && event.key === 'c' && data?._id) {
-      window.open(`https://thepaladin.cristata.app/cms/collection/flushes/${data._id}`, '_blank');
+      window.open(`https://cristata.app/paladin-news/cms/collection/flushes/${data._id}`, '_blank');
     }
   };
 </script>
