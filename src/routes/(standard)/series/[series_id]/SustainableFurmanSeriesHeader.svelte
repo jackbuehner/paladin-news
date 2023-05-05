@@ -64,7 +64,7 @@
 
   .brand {
     font-size: 20px;
-    margin-bottom: -50px;
+    margin-bottom: -45px;
     z-index: 9;
     font-weight: 600;
   }
@@ -73,6 +73,7 @@
     font-family: var(--font-headline);
     font-weight: 600;
     font-size: 24px;
+    max-width: 1200px;
   }
 
   .scroll-note {
