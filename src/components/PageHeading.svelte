@@ -5,6 +5,7 @@
   export let subtitle: string | undefined = undefined;
   export let width = 1200;
   export let photo: string | undefined = undefined;
+  export let blockStyle = '';
 </script>
 
 {#if type === 'line'}
@@ -14,7 +15,7 @@
 {/if}
 
 {#if type === 'block'}
-  <div class={'block'}>
+  <div class={'block'} style={blockStyle}>
     <Container {width}>
       <div style={'display: flex; flex-direction: row; align-items: center;'}>
         {#if photo}
@@ -32,7 +33,7 @@
 {/if}
 
 {#if type === 'blockCentered'}
-  <div class={'block centered'}>
+  <div class={'block centered'} style={blockStyle}>
     <Container {width}>
       <h1><slot /></h1>
       {#if subtitle !== undefined}
