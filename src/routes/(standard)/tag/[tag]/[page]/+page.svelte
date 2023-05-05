@@ -1,9 +1,9 @@
 <script lang="ts">
   import Button from '$lib/components/Button.svelte';
   import Container from '$lib/components/Container.svelte';
+  import PageHeading from '$lib/components/PageHeading.svelte';
   import ArticleCard from '$lib/components/home/ArticleCard.svelte';
   import ArticleRow from '$lib/components/home/ArticleRow.svelte';
-  import PageHeading from '$lib/components/PageHeading.svelte';
   import { headerLabel } from '$lib/stores/header';
   import { title } from '$lib/stores/title';
   import { insertDate } from '$lib/utils/insertDate';
@@ -17,7 +17,7 @@
   $: {
     if (pageTitle) {
       title.set(pageTitle);
-      headerLabel.set(pageTitle);
+      headerLabel.set(pageTitle.length < 14 ? pageTitle : 'tag');
     }
   }
 
@@ -33,7 +33,11 @@
 
 {#if articles}
   <Container>
-    <div class={'top-grid'} class:hidden={articles.page !== 1}>
+    <div
+      class={'top-grid'}
+      class:hidden={articles.page !== 1}
+      class:noLineAfter={articles.docs.length <= 4}
+    >
       {#if articles && articles.docs && articles.page === 1}
         {#each insertDate(Array.from(articles.docs).slice(0, 4)) as article, index}
           <ArticleCard
@@ -44,85 +48,85 @@
               : `/articles/${article.slug}`}
             description={article.description}
             photo={article.photo_path}
-            photoCredit={article.photo_credit}
             date={article.timestamps.published_at}
             authors={article.people.authors}
             isCompact={windowWidth <= 770 && windowWidth > 560 ? index > 1 : index > 0}
             isCategoryPage={true}
             isLargerHeadline={true}
           />
-          {#if index < 3}
+          {#if index < 3 && index < articles.docs.length - 1}
             <span style={`grid-area: d${index}`} />
           {/if}
         {/each}
       {/if}
     </div>
-    <div class={'main-grid'} class:firstPage={articles.page === 1}>
-      {#if articles && articles.docs && articles.page === 1}
-        {#each insertDate(Array.from(articles.docs).slice(4, 12)) as article, index}
-          {#if windowWidth <= 560 && windowWidth > 0}
-            <span style={'grid-area: auto / 1 / auto / 3;'} />
-          {/if}
-          <ArticleCard
-            name={article.name}
-            href={article.date
-              ? `/articles/${article.date.year}/${article.date.month}/${article.date.day}/${article.slug}`
-              : `/articles/${article.slug}`}
-            description={article.description}
-            photo={article.photo_path}
-            photoCredit={article.photo_credit}
-            date={article.timestamps.published_at}
-            authors={article.people.authors}
-            isCompact={windowWidth <= 560 && windowWidth > 0}
-            style={windowWidth <= 560 && windowWidth > 0 ? 'grid-area: auto / 1 / auto / 3;' : ''}
-          />
-        {/each}
-      {/if}
-      {#if articles && articles.docs}
-        {#each insertDate(Array.from(articles.docs).slice(articles.page === 1 ? 12 : 0, 26)) as article, index}
-          {#if index !== 0}
-            <span style={'grid-area: auto / 1 / auto / 3;'} />
-          {:else if articles.page === 1}
-            <span style={'grid-area: auto / 1 / auto / 3;'} />
-          {/if}
-          <ArticleRow
-            style={'grid-area: auto / 1 / auto / 3;'}
-            name={article.name}
-            href={article.date
-              ? `/articles/${article.date.year}/${article.date.month}/${article.date.day}/${article.slug}`
-              : `/articles/${article.slug}`}
-            description={article.description}
-            photo={article.photo_path}
-            date={article.timestamps.published_at}
-            authors={article.people.authors}
-          />
-        {/each}
-      {/if}
-      <span style={'grid-area: auto / 1 / auto / 3;'} />
-      <div class={'navrow'}>
-        {#if articles.hasNextPage || articles.hasPrevPage}
-          Page {articles.page} of {articles.totalPages}
+    {#if articles.docs.length > 4 || articles.page !== 1}
+      <div class={'main-grid'} class:firstPage={articles.page === 1}>
+        {#if articles && articles.docs && articles.page === 1}
+          {#each insertDate(Array.from(articles.docs).slice(4, 12)) as article, index}
+            {#if windowWidth <= 560 && windowWidth > 0}
+              <span style={'grid-area: auto / 1 / auto / 3;'} />
+            {/if}
+            <ArticleCard
+              name={article.name}
+              href={article.date
+                ? `/articles/${article.date.year}/${article.date.month}/${article.date.day}/${article.slug}`
+                : `/articles/${article.slug}`}
+              description={article.description}
+              photo={article.photo_path}
+              date={article.timestamps.published_at}
+              authors={article.people.authors}
+              isCompact={windowWidth <= 560 && windowWidth > 0}
+              style={windowWidth <= 560 && windowWidth > 0 ? 'grid-area: auto / 1 / auto / 3;' : ''}
+            />
+          {/each}
         {/if}
-        <div class={'buttonrow'}>
-          {#if articles.hasPrevPage}
-            <Button href={`./${articles.prevPage}`}>Previous</Button>
+        {#if articles && articles.docs}
+          {#each insertDate(Array.from(articles.docs).slice(articles.page === 1 ? 12 : 0, 26)) as article, index}
+            {#if index !== 0}
+              <span style={'grid-area: auto / 1 / auto / 3;'} />
+            {:else if articles.page === 1}
+              <span style={'grid-area: auto / 1 / auto / 3;'} />
+            {/if}
+            <ArticleRow
+              style={'grid-area: auto / 1 / auto / 3;'}
+              name={article.name}
+              href={article.date
+                ? `/articles/${article.date.year}/${article.date.month}/${article.date.day}/${article.slug}`
+                : `/articles/${article.slug}`}
+              description={article.description}
+              photo={article.photo_path}
+              date={article.timestamps.published_at}
+              authors={article.people.authors}
+            />
+          {/each}
+        {/if}
+        <span style={'grid-area: auto / 1 / auto / 3;'} />
+        <div class={'navrow'}>
+          {#if articles.hasNextPage || articles.hasPrevPage}
+            Page {articles.page} of {articles.totalPages}
           {/if}
-          {#if articles.hasNextPage}
-            <Button href={`./${articles.nextPage}`}>Next</Button>
-          {/if}
+          <div class={'buttonrow'}>
+            {#if articles.hasPrevPage}
+              <Button href={`./${articles.prevPage}`}>Previous</Button>
+            {/if}
+            {#if articles.hasNextPage}
+              <Button href={`./${articles.nextPage}`}>Next</Button>
+            {/if}
+          </div>
         </div>
+        <span
+          style={`grid-area: 1 / 3 / -1 / 3; ${
+            windowWidth <= 990 && windowWidth > 0 ? 'display: none;' : ''
+          }`}
+        />
+        <aside
+          style={`grid-area: 1 / 4 / -1 / 4;  ${
+            windowWidth <= 990 && windowWidth > 0 ? 'display: none;' : ''
+          }`}
+        />
       </div>
-      <span
-        style={`grid-area: 1 / 3 / -1 / 3; ${
-          windowWidth <= 990 && windowWidth > 0 ? 'display: none;' : ''
-        }`}
-      />
-      <aside
-        style={`grid-area: 1 / 4 / -1 / 4;  ${
-          windowWidth <= 990 && windowWidth > 0 ? 'display: none;' : ''
-        }`}
-      />
-    </div>
+    {/if}
   </Container>
 {/if}
 
@@ -141,6 +145,9 @@
     margin-top: 24px;
     padding-bottom: 48px;
     border-bottom: 1px solid var(--border-dark);
+  }
+  .top-grid.noLineAfter {
+    border-bottom-color: transparent;
   }
   @media (max-width: 990px) {
     .top-grid {

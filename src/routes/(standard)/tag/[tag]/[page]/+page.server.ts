@@ -5,18 +5,29 @@ import { error, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (request) => {
-  // remove special characters and redirect
+  // remove special characters (including spaces) and redirect
   if (request.params.tag.indexOf(' ') !== -1 || request.params.tag.indexOf('&') !== -1) {
     throw redirect(
       307, // temporary redirect
-      `/section/${request.params.tag.replace(/\s&/gm, '').replace(/\s/gm, '-')}`
+      `/tag/${request.params.tag.replace(/\s&/gm, '').replace(/\s/gm, '-')}`
     );
   }
 
   // generate the tags for the query
   let tags = [];
   if (request.params.tag === 'influential-paladin') tags = ['influentialpaladin'];
-  else tags = [request.params.tag];
+  // handle variants in spaces, hypthens, captilization
+  else
+    tags = [
+      request.params.tag,
+      request.params.tag.replaceAll('-', ' '),
+      request.params.tag.replaceAll('-', ''),
+      request.params.tag.toLocaleLowerCase(),
+      request.params.tag.toLocaleLowerCase().replaceAll('-', ' '),
+      request.params.tag.toLocaleLowerCase().replaceAll('-', ''),
+    ];
+
+  console.log(tags);
 
   // format the name of the tag
   const pagePathToTitle = (string: string): string => {
