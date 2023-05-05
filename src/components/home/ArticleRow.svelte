@@ -40,7 +40,7 @@
   }
 </script>
 
-<a {href} {style} class:photoFirst>
+<a {href} {style} class:photoFirst class:verticallyCenterText>
   <!-- photo -->
   {#if photo !== undefined && photo.length > 0}
     <div class={'photo-wrapper'} class:isCompact>
@@ -52,60 +52,58 @@
     </div>
   {/if}
 
-  <div class="text-wrapper" class:verticallyCenterText>
-    <div class={`text`}>
-      <!-- article categories -->
-      {#if categoriesModified.length > 0}
-        <div class={'categories'} class:isCompact>
-          {categoriesModified
-            .map((cat, index) => {
-              if (index < categoriesModified.length - 1) return `${cat}  |  `;
-              return cat;
-            })
-            .join('')}
-        </div>
-      {/if}
-
-      <!-- article name -->
-      <div
-        class={'name'}
-        class:isSmallerHeadline
-        class:noMargin={(isCompact && description === undefined) ||
-          (!isCompact && description === undefined)}
-      >
-        {smartquotes(name)}
+  <div class="text" class:verticallyCenterText>
+    <!-- article categories -->
+    {#if categoriesModified.length > 0}
+      <div class={'categories'} class:isCompact>
+        {categoriesModified
+          .map((cat, index) => {
+            if (index < categoriesModified.length - 1) return `${cat}  |  `;
+            return cat;
+          })
+          .join('')}
       </div>
+    {/if}
 
-      <!-- article description -->
-      {#if description === undefined || description === ''}
+    <!-- article name -->
+    <div
+      class={'name'}
+      class:isSmallerHeadline
+      class:noMargin={(isCompact && description === undefined) ||
+        (!isCompact && description === undefined)}
+    >
+      {smartquotes(name)}
+    </div>
+
+    <!-- article description -->
+    {#if description === undefined || description === ''}
+      {''}
+    {:else}
+      <div class={'description'}>{smartquotes(description)}</div>
+    {/if}
+
+    <!-- article meta info (date and authors) -->
+    <div class={'meta'} class:noMargin={isCompact && description === undefined}>
+      <!-- article date -->
+      {#if date === undefined || date === 'Dec. 31, 0000'}
         {''}
       {:else}
-        <div class={'description'}>{smartquotes(description)}</div>
+        <span>{formatISODate(date)}</span>
       {/if}
 
-      <!-- article meta info (date and authors) -->
-      <div class={'meta'} class:noMargin={isCompact && description === undefined}>
-        <!-- article date -->
-        {#if date === undefined || date === 'Dec. 31, 0000'}
-          {''}
-        {:else}
-          <span>{formatISODate(date)}</span>
-        {/if}
+      <!-- only show divider if date and authors are both defined-->
+      {#if date !== undefined && date !== 'Dec. 31, 0000' && (authors || []).filter(notEmpty).length > 0}
+        <span> | </span>
+      {/if}
 
-        <!-- only show divider if date and authors are both defined-->
-        {#if date !== undefined && date !== 'Dec. 31, 0000' && (authors || []).filter(notEmpty).length > 0}
-          <span> | </span>
-        {/if}
-
-        <!-- display the article authors with the appropriate separators -->
-        {#if (authors || []).filter(notEmpty).length > 0}
-          <span>
-            By {listOxford(
-              authors.filter(notEmpty).map((author) => author.name.replace(' (Provisional)', ''))
-            )}
-          </span>
-        {/if}
-      </div>
+      <!-- display the article authors with the appropriate separators -->
+      {#if (authors || []).filter(notEmpty).length > 0}
+        <span>
+          By {listOxford(
+            authors.filter(notEmpty).map((author) => author.name.replace(' (Provisional)', ''))
+          )}
+        </span>
+      {/if}
     </div>
   </div>
 </a>
@@ -133,12 +131,11 @@
   div.text {
     width: 100%;
   }
-  div.text-wrapper {
+  div.text.verticallyCenterText {
     display: flex;
-    width: 100%;
-  }
-  div.text-wrapper.verticallyCenterText {
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
   }
   .categories {
     font-family: var(--font-detail);
@@ -203,7 +200,7 @@
   }
   /* on small screens, render article rows like cmpact cards */
   @media (max-width: 560px) {
-    a {
+    a:not(.verticallyCenterText) {
       display: block;
     }
     .photo-wrapper {
@@ -211,6 +208,9 @@
       height: 62.6px;
       float: right;
       margin-left: 10px;
+    }
+    .verticallyCenterText .photo-wrapper {
+      display: none;
     }
   }
 </style>
