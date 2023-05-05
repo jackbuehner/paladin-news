@@ -46,6 +46,10 @@ const GET_ARTICLE_BY_SLUG = `
       claps
       show_quick_escape
       contributions_note
+      series {
+        _id
+        name
+      }
     }
   }
 `;
@@ -94,6 +98,10 @@ interface GET_ARTICLE_BY_SLUG__DOC_TYPE {
   claps?: number;
   show_quick_escape?: boolean;
   contributions_note?: string;
+  series?: {
+    _id: string;
+    name: string;
+  };
 }
 
 interface GET_ARTICLE_BY_SLUG__TYPE {

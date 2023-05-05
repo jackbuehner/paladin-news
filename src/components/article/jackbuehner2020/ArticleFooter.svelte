@@ -174,6 +174,17 @@
     <div class="note">{article.contributions_note}</div>
   {/if}
 
+  <!-- article series note -->
+  {#if article.series}
+    <div
+      class="paladin-plus-article-prompt"
+      class:noContributionsNote={!article.contributions_note}
+    >
+      This article is part of the <b>{article.series.name}</b> series.
+      <a href="/series/{article.series._id}">View all articles in this series.</a>
+    </div>
+  {/if}
+
   {#if article.tags}
     <div class="tags-group">
       <div>Tags:</div>
@@ -216,6 +227,7 @@
     font-family: var(--font-detail);
     font-size: 16px;
     color: var(--color-neutral-dark);
+    line-height: 1.38;
   }
 
   .article-footer--buttons {
@@ -238,8 +250,11 @@
   }
 
   @media print {
-    .article-footer {
+    .article-footer--buttons {
       display: none;
+    }
+    .article-footer {
+      max-width: 100%;
     }
   }
 
@@ -253,6 +268,7 @@
     display: flex;
     flex-direction: row;
     gap: 6px;
+    line-height: normal;
   }
   .tags {
     display: flex;
@@ -279,5 +295,18 @@
   .author-bio {
     margin-left: 40px;
     margin-bottom: 4px;
+  }
+
+  .paladin-plus-article-prompt {
+    padding: 20px;
+    border: 1px solid var(--border-dark);
+    font-family: var(--font-detail);
+    color: var(--color-neutral-dark);
+    font-size: 15px;
+    line-height: 21px;
+    /* font-style: italic; */
+  }
+  .paladin-plus-article-prompt.noContributionsNote {
+    margin-bottom: 18px;
   }
 </style>

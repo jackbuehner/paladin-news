@@ -188,6 +188,14 @@
         {/if}
       {/if}
 
+      <!-- article series note -->
+      {#if article.series}
+        <div class="paladin-plus-article-prompt">
+          This article is part of the <b>{article.series.name}</b> series.
+          <a href="/series/{article.series._id}">View all articles in this series.</a>
+        </div>
+      {/if}
+
       <!-- body -->
       <ArticleBody doc={article.body || ''} />
 
@@ -300,9 +308,10 @@
     padding: 20px;
     border: 1px solid var(--border-dark);
     font-family: var(--font-detail);
+    color: var(--color-neutral-dark);
     font-size: 15px;
     line-height: 21px;
-    font-style: italic;
+    /* font-style: italic; */
   }
   a {
     color: rgb(var(--primary));
