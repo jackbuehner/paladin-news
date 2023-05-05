@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Container from '$lib/components/Container.svelte';
   import PageHeading from '$lib/components/PageHeading.svelte';
   import ThePaladinLogoAlt from '$lib/components/svgs/ThePaladinLogoAlt.svelte';
 </script>
@@ -32,6 +33,14 @@
 </div>
 
 <PageHeading>Sustainable Furman?</PageHeading>
+
+<Container>
+  <article>
+    <div class="message">Coming Soon</div>
+    <h2 class="name">Does Furman have a Culture of Sustainability?</h2>
+    <div class="description">Academically? Yes. Everything else? It’s complicated…</div>
+  </article>
+</Container>
 
 <style>
   .header {
@@ -120,5 +129,35 @@
     .scroll-note {
       font-size: 16px;
     }
+  }
+
+  article {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid var(--border-dark);
+    font-family: var(--font-detail);
+    color: var(--color-neutral-dark);
+    font-size: 15px;
+    line-height: 21px;
+  }
+  .message {
+    background-color: #ffb300;
+    padding: 2px 5px;
+    margin: -10px 0 10px 0;
+    color: black;
+    display: inline-block;
+  }
+  .name {
+    margin: 0px;
+    font-family: var(--font-headline);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 26px;
+    letter-spacing: -0.017em;
+  }
+  .description {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 22px;
   }
 </style>
