@@ -7,6 +7,7 @@
   import { title } from '$lib/stores/title';
   import { insertDate } from '$lib/utils/insertDate';
   import { onDestroy } from 'svelte';
+  import SustainableFurmanSeriesHeader from '../SustainableFurmanSeriesHeader.svelte';
   import type { PageData } from './$types';
 
   export let data: PageData;
@@ -28,13 +29,17 @@
 
 <svelte:window bind:innerWidth={windowWidth} />
 
-<PageHeading
-  type="block"
-  blockStyle="background: rgba(var(--primary), 0.12);"
-  subtitle="Article series"
->
-  {pageTitle}
-</PageHeading>
+{#if data.params.series_id === '64545157d626e3eaca3d56b1'}
+  <SustainableFurmanSeriesHeader />
+{:else}
+  <PageHeading
+    type="block"
+    blockStyle="background: rgba(var(--primary), 0.12);"
+    subtitle="Article series"
+  >
+    {pageTitle}
+  </PageHeading>
+{/if}
 
 {#if articles}
   <Container>

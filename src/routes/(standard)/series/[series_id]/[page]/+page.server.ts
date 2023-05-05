@@ -40,6 +40,7 @@ export const load: PageServerLoad = async (request) => {
     return {
       articles: data.articlesPublic,
       pageTitle: seriesData?.articleStreamPublic?.name || 'Series',
+      params: request.params,
     };
   }
 

@@ -1,13 +1,11 @@
 <script lang="ts">
-  import IconButton from '../IconButton.svelte';
-  import Container from '../Container.svelte';
-  import ThePaladinLogo from '../svgs/ThePaladinLogo.svelte';
-  import TheHorseLogo from '../svgs/TheHorseLogo.svelte';
-  import SideNav from './_SideNav.svelte';
-  import { headerLabel } from '../../stores/header';
-  import { headerIsSatire } from '../../stores/header';
-  import { headerNoLogoUntil } from '../../stores/header';
+  import { headerIsSatire, headerLabel, headerNoLogoUntil } from '../../stores/header';
   import { searchOpen } from '../../stores/search';
+  import Container from '../Container.svelte';
+  import IconButton from '../IconButton.svelte';
+  import TheHorseLogo from '../svgs/TheHorseLogo.svelte';
+  import ThePaladinLogo from '../svgs/ThePaladinLogo.svelte';
+  import SideNav from './_SideNav.svelte';
 
   $: windowWidth = 0;
   $: windowScrollY = 0;
@@ -30,7 +28,7 @@
           ><path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" /></IconButton
         >
         {#if $headerLabel}
-          <div class={'label'}>{$headerLabel}</div>
+          <div class={'label'} style="color: {color};">{$headerLabel}</div>
         {/if}
       </div>
       <div class="logo" class:hidden={windowScrollY < $headerNoLogoUntil}>
@@ -67,7 +65,7 @@
   }
   /* wrapper for the topbar */
   .topbar-wrapper {
-    border-bottom: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--topbar-border-color, var(--border-light));
     background-color: var(--topbar-bg);
     transition: box-shadow 200ms;
   }
