@@ -170,7 +170,9 @@
 {/if}
 
 <div class="article-footer article-footer--extra">
-  <!-- <div class="note">Jack Buehner contributed reporting.</div> -->
+  {#if article.contributions_note}
+    <div class="note">{article.contributions_note}</div>
+  {/if}
 
   {#if article.tags}
     <div class="tags-group">
