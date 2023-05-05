@@ -104,6 +104,8 @@ export type {
   GET_SATIRE_BY_SLUG__JSON,
   GET_SATIRE_BY_SLUG__TYPE,
 } from './GET_SATIRE_BY_SLUG';
+export { GET_SERIES } from './GET_SERIES';
+export type { GET_SERIES__DOC_TYPE, GET_SERIES__JSON, GET_SERIES__TYPE } from './GET_SERIES';
 export { GET_SHORTURL } from './GET_SHORTURL';
 export type {
   GET_SHORTURL__DOC_TYPE,
