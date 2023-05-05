@@ -2,16 +2,18 @@
   import Button from '$lib/components/Button.svelte';
   import ApplauseButton from '$lib/components/Button/ApplauseButton.svelte';
   import { share } from '$lib/components/article/share';
-  import type { GET_ARTICLE_BY_SLUG__DOC_TYPE } from '$lib/queries';
+  import ArticleCard from '$lib/components/home/ArticleCard.svelte';
+  import ArticleRow from '$lib/components/home/ArticleRow.svelte';
+  import type { RespondedArticle } from '$lib/routes/(standard)/articles/+layout';
   import { commentsOpen } from '$lib/stores/comments';
   import { notEmpty } from '$lib/utils';
-  import type { PublishedDocWithDate } from '$lib/utils/insertDate';
+  import { insertDate, type PublishedDocWithDate } from '$lib/utils/insertDate';
   import { isVowel } from '$lib/utils/isVowel';
   import { variables } from '$lib/variables';
   import SocialButton from './_SocialButton.svelte';
   import Comments from './comments/Comments.svelte';
 
-  export let article: PublishedDocWithDate<GET_ARTICLE_BY_SLUG__DOC_TYPE>;
+  export let article: PublishedDocWithDate<RespondedArticle>;
 
   // keep track of window width
   $: windowWidth = 0;
@@ -176,13 +178,32 @@
 
   <!-- article series note -->
   {#if article.series}
-    <div
-      class="paladin-plus-article-prompt"
-      class:noContributionsNote={!article.contributions_note}
-    >
-      This article is part of the <b>{article.series.name}</b> series.
-      <a href="/series/{article.series._id}">View all articles in this series.</a>
-    </div>
+    {#if article.series.articles}
+      <div class="series-article-list" class:noContributionsNote={!article.contributions_note}>
+        {#each insertDate(article.series.articles.filter(notEmpty)) as seriesArticle}
+          <ArticleRow
+            name={seriesArticle.name}
+            photo={seriesArticle.photo_path}
+            href={seriesArticle.date
+              ? `/articles/${seriesArticle.date.year}/${seriesArticle.date.month}/${seriesArticle.date.day}/${seriesArticle.slug}`
+              : `/articles/${seriesArticle.slug}`}
+            isSmallerHeadline
+            photoFirst
+            isCompact
+            verticallyCenterText
+            date={seriesArticle.timestamps.published_at}
+          />
+        {/each}
+      </div>
+    {:else}
+      <div
+        class="paladin-plus-article-prompt"
+        class:noContributionsNote={!article.contributions_note}
+      >
+        This article is part of the <b>{article.series.name}</b> series.
+        <a href="/series/{article.series._id}">View all articles in this series.</a>
+      </div>
+    {/if}
   {/if}
 
   {#if article.tags}
@@ -297,7 +318,8 @@
     margin-bottom: 4px;
   }
 
-  .paladin-plus-article-prompt {
+  .paladin-plus-article-prompt,
+  .series-article-list {
     padding: 20px;
     border: 1px solid var(--border-dark);
     font-family: var(--font-detail);
@@ -306,7 +328,13 @@
     line-height: 21px;
     /* font-style: italic; */
   }
-  .paladin-plus-article-prompt.noContributionsNote {
+  .paladin-plus-article-prompt.noContributionsNote,
+  .series-article-list.noContributionsNote {
     margin-bottom: 18px;
+  }
+  .series-article-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 </style>

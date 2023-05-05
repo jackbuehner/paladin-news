@@ -1,17 +1,30 @@
 <script lang="ts">
   import ArticleCard from '$lib/components/home/ArticleCard.svelte';
   import type { GET_ARTICLES__DOC_TYPE, Paged } from '$lib/queries';
-  import { insertDate } from '$lib/utils/insertDate';
-  import { onMount } from 'svelte';
+  import type { RespondedArticle } from '$lib/routes/(standard)/articles/+layout';
+  import { notEmpty } from '$lib/utils';
+  import { insertDate, type PublishedDocWithDate } from '$lib/utils/insertDate';
+  import { beforeUpdate, onMount } from 'svelte';
   import { fetchMore } from '.';
 
-  export let thisObjectId: string;
+  export let article: PublishedDocWithDate<RespondedArticle>;
 
   let articles: Paged<GET_ARTICLES__DOC_TYPE> | undefined = undefined;
-  onMount(async () => {
-    const res = await fetchMore([thisObjectId], 5);
+  $: (async () => {
+    // do not fetch until the article series list has populated (stopped loading)
+    if (article.series?._loading) return;
+
+    const res = await fetchMore(
+      [
+        // exclude the current article since the reader has already read it
+        article._id,
+        // exclude articles in the same series since they are displayed elsewhere on the page
+        ...(article.series?.articles?.filter(notEmpty).map((article) => article._id) || []),
+      ],
+      5
+    );
     if (res.ok && res.data) articles = res.data;
-  });
+  })();
 
   $: componentWidth = 0;
   $: windowWidth = 0;
@@ -31,7 +44,6 @@
             : `/articles/${article.slug}`}
           description={windowWidth <= 900 ? undefined : article.description}
           photo={windowWidth <= 900 ? undefined : article.photo_path}
-          photoCredit={article.photo_credit}
           categories={article.categories}
           date={article.timestamps.published_at}
           authors={article.people.authors}

@@ -3,7 +3,7 @@
   import Button from '$lib/components/Button.svelte';
   import Container from '$lib/components/Container.svelte';
   import Image from '$lib/components/Image/Image.svelte';
-  import type { GET_ARTICLE_BY_SLUG__DOC_TYPE } from '$lib/queries';
+  import type { RespondedArticle } from '$lib/routes/(standard)/articles/+layout';
   import type { PublishedDocWithDate } from '$lib/utils/insertDate';
   import {
     ArticleBody,
@@ -19,7 +19,7 @@
   } from './';
   import CoverPage from './CoverPage.svelte';
 
-  export let article: PublishedDocWithDate<GET_ARTICLE_BY_SLUG__DOC_TYPE>;
+  export let article: PublishedDocWithDate<RespondedArticle>;
 
   // video embed options
   let video_embed_path: string | null = null;
@@ -267,7 +267,7 @@
           }
         }
       </style>
-      <MoreArticles thisObjectId={article._id} />
+      <MoreArticles {article} />
       <div class="more-from">
         <h1>More from The Paladin</h1>
         <div class={'groups'}>

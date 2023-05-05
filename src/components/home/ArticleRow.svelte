@@ -1,8 +1,8 @@
 <script lang="ts">
-  import smartquotes from 'smartquotes';
-  import { formatISODate } from '$lib/utils/formatISODate';
   import { Image } from '$lib/components/Image';
   import { listOxford, notEmpty } from '$lib/utils';
+  import { formatISODate } from '$lib/utils/formatISODate';
+  import smartquotes from 'smartquotes';
 
   export let style = '';
   export let name: string;
@@ -12,6 +12,10 @@
   export let date: string | undefined = undefined; // ISO date format
   export let authors: { name: string }[] = [];
   export let categories: string[] = [];
+  export let isSmallerHeadline = false;
+  export let photoFirst = false;
+  export let isCompact = false;
+  export let verticallyCenterText = false;
 
   // modify the names of the categories to match the website sections
   let categoriesModified: string[] = [];
@@ -36,10 +40,10 @@
   }
 </script>
 
-<a {href} {style}>
+<a {href} {style} class:photoFirst>
   <!-- photo -->
   {#if photo !== undefined && photo.length > 0}
-    <div class={'photo-wrapper'}>
+    <div class={'photo-wrapper'} class:isCompact>
       <Image
         src={photo}
         className={`article-row-image`}
@@ -48,51 +52,60 @@
     </div>
   {/if}
 
-  <div class={`text`}>
-    <!-- article categories -->
-    {#if categoriesModified.length > 0}
-      <div class={'categories'}>
-        {categoriesModified
-          .map((cat, index) => {
-            if (index < categoriesModified.length - 1) return `${cat}  |  `;
-            return cat;
-          })
-          .join('')}
+  <div class="text-wrapper" class:verticallyCenterText>
+    <div class={`text`}>
+      <!-- article categories -->
+      {#if categoriesModified.length > 0}
+        <div class={'categories'} class:isCompact>
+          {categoriesModified
+            .map((cat, index) => {
+              if (index < categoriesModified.length - 1) return `${cat}  |  `;
+              return cat;
+            })
+            .join('')}
+        </div>
+      {/if}
+
+      <!-- article name -->
+      <div
+        class={'name'}
+        class:isSmallerHeadline
+        class:noMargin={(isCompact && description === undefined) ||
+          (!isCompact && description === undefined)}
+      >
+        {smartquotes(name)}
       </div>
-    {/if}
 
-    <!-- article name -->
-    <div class={'name'}>{smartquotes(name)}</div>
-
-    <!-- article description -->
-    {#if description === undefined || description === ''}
-      {''}
-    {:else}
-      <div class={'description'}>{smartquotes(description)}</div>
-    {/if}
-
-    <!-- article meta info (date and authors) -->
-    <div class={'meta'}>
-      <!-- article date -->
-      {#if date === undefined || date === 'Dec. 31, 0000'}
+      <!-- article description -->
+      {#if description === undefined || description === ''}
         {''}
       {:else}
-        <span>{formatISODate(date)}</span>
+        <div class={'description'}>{smartquotes(description)}</div>
       {/if}
 
-      <!-- only show divider if date and authors are both defined-->
-      {#if date !== undefined && date !== 'Dec. 31, 0000' && (authors || []).filter(notEmpty).length > 0}
-        <span> | </span>
-      {/if}
+      <!-- article meta info (date and authors) -->
+      <div class={'meta'} class:noMargin={isCompact && description === undefined}>
+        <!-- article date -->
+        {#if date === undefined || date === 'Dec. 31, 0000'}
+          {''}
+        {:else}
+          <span>{formatISODate(date)}</span>
+        {/if}
 
-      <!-- display the article authors with the appropriate separators -->
-      {#if (authors || []).filter(notEmpty).length > 0}
-        <span>
-          By {listOxford(
-            authors.filter(notEmpty).map((author) => author.name.replace(' (Provisional)', ''))
-          )}
-        </span>
-      {/if}
+        <!-- only show divider if date and authors are both defined-->
+        {#if date !== undefined && date !== 'Dec. 31, 0000' && (authors || []).filter(notEmpty).length > 0}
+          <span> | </span>
+        {/if}
+
+        <!-- display the article authors with the appropriate separators -->
+        {#if (authors || []).filter(notEmpty).length > 0}
+          <span>
+            By {listOxford(
+              authors.filter(notEmpty).map((author) => author.name.replace(' (Provisional)', ''))
+            )}
+          </span>
+        {/if}
+      </div>
     </div>
   </div>
 </a>
@@ -111,11 +124,21 @@
     justify-content: space-between;
     gap: 16px;
   }
+  a.photoFirst {
+    flex-direction: row;
+  }
   a:hover {
     color: var(--color-neutral-light);
   }
   div.text {
     width: 100%;
+  }
+  div.text-wrapper {
+    display: flex;
+    width: 100%;
+  }
+  div.text-wrapper.verticallyCenterText {
+    align-items: center;
   }
   .categories {
     font-family: var(--font-detail);
@@ -123,6 +146,9 @@
     line-height: 20px;
     letter-spacing: 3px;
     text-transform: uppercase;
+  }
+  .categories.isCompact {
+    margin-top: 0;
   }
   .name {
     margin-top: 0px;
@@ -132,6 +158,13 @@
     font-weight: 700;
     line-height: 26px;
     letter-spacing: -0.017em;
+  }
+  .name.noMargin {
+    margin-bottom: 0;
+  }
+  .name.isSmallerHeadline {
+    font-size: 17px;
+    line-height: 22px;
   }
   .description {
     font-family: var(--font-body);
@@ -145,6 +178,9 @@
     margin-top: 4px;
     color: var(--color-neutral-light);
   }
+  .meta.noMargin {
+    margin-top: 0;
+  }
   .photo-wrapper {
     width: 180px;
     height: 120px;
@@ -152,6 +188,10 @@
     margin: 0;
     flex-grow: 0;
     flex-shrink: 0;
+  }
+  .photo-wrapper.isCompact {
+    width: 139px;
+    height: 90px;
   }
   :global(.article-row-image),
   :global(.article-row-image-container) {

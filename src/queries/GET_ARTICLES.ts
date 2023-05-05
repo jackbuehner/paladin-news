@@ -15,6 +15,7 @@ const GET_ARTICLES = `
       filter: $filter,
     ) {
       docs {
+        _id
         name
         slug
         timestamps {
@@ -55,6 +56,7 @@ const GET_ARTICLES = `
 `;
 
 interface GET_ARTICLES__DOC_TYPE {
+  _id: string;
   name: string;
   slug: string;
   timestamps: {

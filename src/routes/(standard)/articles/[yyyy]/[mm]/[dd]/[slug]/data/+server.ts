@@ -8,6 +8,7 @@ import { api } from '$lib/utils/api';
 import Renderer from '@cristata/prosemirror-to-html-js';
 import { error, redirect, type RequestHandler } from '@sveltejs/kit';
 import smartquotes from 'smartquotes';
+import { Response } from 'undici';
 
 export const GET: RequestHandler = async (request) => {
   // the `slug` parameter is available because this file
