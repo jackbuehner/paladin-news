@@ -179,7 +179,10 @@
   <!-- article series note -->
   {#if article.series}
     {#if article.series.articles}
-      <div class="series-article-list" class:noContributionsNote={!article.contributions_note}>
+      <div
+        class="series-article-list hide-print"
+        class:noContributionsNote={!article.contributions_note}
+      >
         {#each insertDate(article.series.articles.filter(notEmpty)) as seriesArticle}
           <ArticleRow
             name={seriesArticle.name}
@@ -197,7 +200,7 @@
       </div>
     {:else}
       <div
-        class="paladin-plus-article-prompt"
+        class="paladin-plus-article-prompt hide-print"
         class:noContributionsNote={!article.contributions_note}
       >
         This article is part of the <b>{article.series.name}</b> series.

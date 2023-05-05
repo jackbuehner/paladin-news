@@ -94,6 +94,7 @@
         href="https://levelupforchange.org/youth/?utm_source=Paladin&utm_medium=banner&utm_campaign=Prev22&utm_id=Furman"
         style="box-shadow: none;"
         rel="noopener noreferrer"
+        class="hide-print"
       >
         <img
           src="https://ik.imagekit.io/paladin/proxy/https://server.cristata.app/photo/paladin-news/63ce990b5626bfb9941b7710"
@@ -192,7 +193,9 @@
       {#if article.series}
         <div class="paladin-plus-article-prompt">
           This article is part of the <b>{article.series.name}</b> series.
-          <a href="/series/{article.series._id}">View all articles in this series.</a>
+          <a href="/series/{article.series._id}" class="hide-print"
+            >View all articles in this series.</a
+          >
         </div>
       {/if}
 
@@ -355,7 +358,8 @@
       max-width: 100%;
       margin: 0;
     }
-    :global(.article-body a) {
+    :global(.article-body a),
+    :global(.article-footer a) {
       box-shadow: none;
       text-decoration: underline;
       color: var(--color-neutral-dark);
@@ -363,6 +367,9 @@
     :global(.article-body a::after) {
       content: ' (' attr(href) ') ';
       word-break: break-all;
+    }
+    :global(.hide-print) {
+      display: none !important;
     }
   }
   @page {
