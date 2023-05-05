@@ -217,6 +217,7 @@
     </article>
 
     <!-- footer -->
+    <div class="clear-float" />
     <ArticleFooter {article} />
 
     <!-- more from the paladin -->
@@ -366,5 +367,9 @@
   }
   @page {
     margin: 0.5in;
+  }
+
+  .clear-float {
+    clear: both;
   }
 </style>
