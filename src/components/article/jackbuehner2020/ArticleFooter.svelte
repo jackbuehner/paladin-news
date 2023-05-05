@@ -1,13 +1,15 @@
 <script lang="ts">
-  import { share } from '$lib/components/article/share';
   import Button from '$lib/components/Button.svelte';
   import ApplauseButton from '$lib/components/Button/ApplauseButton.svelte';
+  import { share } from '$lib/components/article/share';
   import type { GET_ARTICLE_BY_SLUG__DOC_TYPE } from '$lib/queries';
   import { commentsOpen } from '$lib/stores/comments';
+  import { notEmpty } from '$lib/utils';
   import type { PublishedDocWithDate } from '$lib/utils/insertDate';
+  import { isVowel } from '$lib/utils/isVowel';
   import { variables } from '$lib/variables';
-  import Comments from './comments/Comments.svelte';
   import SocialButton from './_SocialButton.svelte';
+  import Comments from './comments/Comments.svelte';
 
   export let article: PublishedDocWithDate<GET_ARTICLE_BY_SLUG__DOC_TYPE>;
 
@@ -54,7 +56,7 @@
 
 <svelte:window bind:innerWidth={windowWidth} />
 
-<div class={'article-footer'}>
+<div class="article-footer article-footer--buttons">
   <!-- <ApplauseButton
     id={`article.${article._id}`}
     initialClaps={article.claps}
@@ -162,35 +164,118 @@
     </SocialButton>
   </div>
 </div>
+
 {#if article.show_comments}
   <Comments pageId={article.timestamps.published_at + '_' + article.slug} />
 {/if}
+
+<div class="article-footer article-footer--extra">
+  <!-- <div class="note">Jack Buehner contributed reporting.</div> -->
+
+  {#if article.tags}
+    <div class="tags-group">
+      <div>Tags:</div>
+      <div class="tags">
+        {#each article.tags as tag}
+          <a href="/tags/{tag}">{tag}</a>
+        {/each}
+      </div>
+    </div>
+  {/if}
+
+  {#if article?.people?.authors && article.people.authors.length > 0}
+    <div class="author-bios">
+      {#each article.people.authors.filter(notEmpty) as author}
+        <div class="author-bio-wrapper">
+          <div class="name">
+            {author.name}
+            {#if author.twitter}
+              <a href="https://twitter.com/{author.twitter}">@{author.twitter}</a>
+            {/if}
+          </div>
+          {#if author.biography}
+            <div class="author-bio">{author.biography}</div>
+          {:else if author.current_title}
+            <div class="author-bio">
+              {author.name.split(' ')[0]} is a{isVowel(author.current_title[0]) ? 'n' : ''}
+              {author.current_title} for <i>The Paladin</i>.
+            </div>
+          {/if}
+        </div>
+      {/each}
+    </div>
+  {/if}
+</div>
 
 <style>
   .article-footer {
     max-width: 590px;
     margin: 32px auto;
+    font-family: var(--font-detail);
+    font-size: 16px;
+    color: var(--color-neutral-dark);
   }
-  .article-footer {
+
+  .article-footer--buttons {
     display: flex;
     align-items: center;
     flex-direction: row;
     gap: 36px;
   }
+  @media (max-width: 500px) {
+    .article-footer--buttons {
+      flex-direction: column;
+      gap: 18px;
+    }
+  }
+
+  .article-footer--extra {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  @media print {
+    .article-footer {
+      display: none;
+    }
+  }
+
   .social-buttons {
     display: flex;
     flex-direction: row;
     gap: 12px;
   }
-  @media (max-width: 500px) {
-    .article-footer {
-      flex-direction: column;
-      gap: 18px;
-    }
+
+  .tags-group {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
   }
-  @media print {
-    .article-footer {
-      display: none;
-    }
+  .tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  a {
+    color: rgb(var(--primary));
+    box-shadow: 0 1px 0 0 rgb(var(--primary));
+    transition: background-color 0.2s, box-shadow 0.1s, color 0.2s;
+    text-decoration: none;
+  }
+  a:hover {
+    box-shadow: 0 2px 0 0 rgb(var(--primary));
+    background-color: rgba(var(--primary), 0.1);
+    color: var(--color-neutral-dark);
+  }
+  a:active {
+    background-color: rgba(var(--primary), 0.16);
+  }
+
+  .author-bio {
+    margin-left: 40px;
+    margin-bottom: 4px;
   }
 </style>

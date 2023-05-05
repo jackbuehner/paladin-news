@@ -15,6 +15,9 @@ const GET_ARTICLE_BY_SLUG = `
           name
           slug
           photo
+          biography
+          twitter
+          current_title
         }
         editors {
           primary {
@@ -59,6 +62,9 @@ interface GET_ARTICLE_BY_SLUG__DOC_TYPE {
       name: string;
       slug: string;
       photo: string;
+      biography?: string;
+      twitter?: string;
+      current_title?: string;
     }>;
     editors: {
       primary: Array<{
