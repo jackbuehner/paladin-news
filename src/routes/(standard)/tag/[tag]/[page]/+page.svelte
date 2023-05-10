@@ -29,7 +29,15 @@
 
 <svelte:window bind:innerWidth={windowWidth} />
 
-<PageHeading>{$headerLabel}</PageHeading>
+{#if $headerLabel === 'Eco Reps'}
+  <Container>
+    <div style="border-bottom: 2px solid black;">
+      <img class="eco-rep-logo" src="/images/logos/FurmanEcoRepLogo.png" alt="Furman Eco Reps" />
+    </div>
+  </Container>
+{:else}
+  <PageHeading>{$headerLabel}</PageHeading>
+{/if}
 
 {#if articles}
   <Container>
@@ -225,5 +233,19 @@
     display: flex;
     flex-direction: row;
     gap: 6px;
+  }
+
+  img.eco-rep-logo {
+    width: auto;
+    max-width: 100%;
+    max-height: 200px;
+    margin: 32px 0 24px 0;
+    display: block;
+  }
+  @media (max-width: 1000px) {
+    img.eco-rep-logo {
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 </style>
