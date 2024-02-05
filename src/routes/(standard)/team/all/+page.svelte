@@ -1,15 +1,15 @@
 <script lang="ts">
   import Container from '$lib/components/Container.svelte';
   import PageHeading from '$lib/components/PageHeading.svelte';
-  import { title } from '$lib/stores/title';
   import type { PageData } from './$types';
-
-  // set the document title
-  title.set('All current and former');
 
   export let data: PageData;
   $: profiles = data.docs;
 </script>
+
+<svelte:head>
+  <title>All current and former – The Paladin</title>
+</svelte:head>
 
 <PageHeading>All current and former</PageHeading>
 
@@ -68,7 +68,10 @@
   a {
     color: rgb(var(--primary-lighter));
     box-shadow: 0 1px 0 0 rgb(var(--primary));
-    transition: background-color 0.2s, box-shadow 0.1s, color 0.2s;
+    transition:
+      background-color 0.2s,
+      box-shadow 0.1s,
+      color 0.2s;
     text-decoration: none;
   }
   a:hover {

@@ -2,16 +2,16 @@
   import Button from '$lib/components/Button.svelte';
   import Container from '$lib/components/Container.svelte';
   import PageHeading from '$lib/components/PageHeading.svelte';
-  import { title } from '$lib/stores/title';
   import { marked } from 'marked';
   import SvelteMarkdown from 'svelte-markdown';
   import type { PageData } from './$types';
 
-  // set the document title
-  title.set('Jobs');
-
   export let data: PageData;
 </script>
+
+<svelte:head>
+  <title>Jobs – The Paladin</title>
+</svelte:head>
 
 <PageHeading type="blockCentered">Jobs</PageHeading>
 

@@ -1,16 +1,16 @@
 <script lang="ts">
   import Container from '$lib/components/Container.svelte';
   import { FeaturedVideo, Playlist } from '$lib/components/Video';
-  import { title } from '$lib/stores/title';
   import { fly } from 'svelte/transition';
   import type { PageData } from './$types';
-
-  // set the document title
-  title.set('Videos');
 
   // receive the articles from the page endpoint
   export let data: PageData;
 </script>
+
+<svelte:head>
+  <title>Videos – The Paladin</title>
+</svelte:head>
 
 {#if data?.videoPublic?.video_url?.includes('v=')}
   <Container>

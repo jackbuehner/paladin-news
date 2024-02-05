@@ -2,11 +2,11 @@
   import Container from '$lib/components/Container.svelte';
   import PageHeading from '$lib/components/PageHeading.svelte';
   import { Tab, TabList, TabPanel, Tabs } from '$lib/components/Tabs';
-  import { title } from '$lib/stores/title';
-
-  // set the document title
-  title.set('COVID-19 on Campus');
 </script>
+
+<svelte:head>
+  <title>COVID-19 on Campus – The Paladin</title>
+</svelte:head>
 
 <div style={'height: 0;'}>
   <Container>

@@ -3,7 +3,6 @@
   import Footer from '$lib/components/Footer.svelte';
   import Header from '$lib/components/header/Header.svelte';
   import Search from '$lib/components/search/Search.svelte';
-  import { title } from '$lib/stores/title';
   import { afterUpdate, onMount } from 'svelte';
 
   // keep track of the page path
@@ -24,18 +23,10 @@
 
   $: isSatireHome = path.indexOf('/the-horse') === 0;
   $: isSatire = isSatireHome || path.indexOf('/satire') === 0;
-
-  // create the document title
-  $: title_ = (() => {
-    if (path === '/') return 'The Paladin';
-    if (isSatireHome) return 'The Horse';
-    if (isSatire) return `${$title} - The Horse`;
-    return `${$title} - The Paladin`;
-  })();
 </script>
 
 <svelte:head>
-  <title>{title_}</title>
+  <title>The Paladin</title>
 </svelte:head>
 
 <div class={'wrapper'}>

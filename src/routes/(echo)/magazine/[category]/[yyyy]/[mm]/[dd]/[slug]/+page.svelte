@@ -1,13 +1,10 @@
 <script lang="ts">
-  import { title } from '$lib/stores/title';
   import { capitalize, listOxford, toIK } from '$lib/utils';
   import type { PageData } from './$types';
   import CoverPage from './CoverPage.svelte';
   import SocialButtons from './SocialButtons.svelte';
 
   export let data: PageData;
-
-  title.set(`${data.name} – ${capitalize(data.type?.replaceAll('-', ' ') || '', true)}`);
 
   /**
    * Opens the document in Cristata when ALT + C is pressed.
@@ -25,6 +22,7 @@
 <svelte:window on:keydown={openInCMS} />
 
 <svelte:head>
+  <title>{data.name} – {capitalize(data.type?.replaceAll('-', ' ') || '', true)} – The Echo</title>
   {#if data}
     <meta
       property={'og:url'}
@@ -168,7 +166,10 @@
   :global(.echo-article-body a) {
     color: unset;
     text-decoration: none;
-    transition: background-color 0.2s, box-shadow 0.1s, color 0.2s;
+    transition:
+      background-color 0.2s,
+      box-shadow 0.1s,
+      color 0.2s;
   }
   :global(.echo-article-body a:not(.invisible)) {
     color: rgb(var(--primary-lighter));

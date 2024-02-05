@@ -1,6 +1,5 @@
 <script lang="ts">
   import Container from '$lib/components/Container.svelte';
-  import { title } from '$lib/stores/title';
   import { insertDate } from '$lib/utils';
   import type { PageData } from './$types';
   import About from './About.svelte';
@@ -13,9 +12,11 @@
   import Prose from './Prose.svelte';
 
   export let data: PageData;
-
-  title.set('The Echo');
 </script>
+
+<svelte:head>
+  <title>The Echo – Furman University's Student Literary and Arts Magazine</title>
+</svelte:head>
 
 <Container width="800px">
   <div class="grid">
@@ -180,7 +181,9 @@
   a {
     color: var(--color-neutral-dark);
     text-decoration: none;
-    transition: background-color 0.2s, box-shadow 0.1s;
+    transition:
+      background-color 0.2s,
+      box-shadow 0.1s;
     display: inline-block;
     font-family: var(--font-detail);
     font-size: 16px;

@@ -5,12 +5,8 @@
   import ArticleRow from '$lib/components/home/ArticleRow.svelte';
   import TheHorseLogo from '$lib/components/svgs/TheHorseLogo.svelte';
   import { headerIsSatire, headerNoLogoUntil } from '$lib/stores/header';
-  import { title } from '$lib/stores/title';
   import { beforeUpdate, onDestroy } from 'svelte';
   import type { PageData } from './$types';
-
-  // set the document title
-  title.set('The Horse (Satire)');
 
   // get article data
   export let data: PageData;
@@ -27,6 +23,10 @@
     $headerNoLogoUntil = 0;
   });
 </script>
+
+<svelte:head>
+  <title>The Horse (Satire)</title>
+</svelte:head>
 
 <svelte:window bind:innerWidth={windowWidth} />
 
@@ -137,7 +137,10 @@
   a {
     color: rgb(var(--primary));
     box-shadow: 0 1px 0 0 rgb(var(--primary));
-    transition: background-color 0.2s, box-shadow 0.1s, color 0.2s;
+    transition:
+      background-color 0.2s,
+      box-shadow 0.1s,
+      color 0.2s;
     text-decoration: none;
   }
   a:hover {

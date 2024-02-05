@@ -3,13 +3,11 @@
   import Container from '$lib/components/Container.svelte';
   import PageHeading from '$lib/components/PageHeading.svelte';
   import { headerLabel } from '$lib/stores/header';
-  import { title } from '$lib/stores/title';
   import { formatISODate, listOxford } from '$lib/utils';
   import { onDestroy } from 'svelte';
   import type { PageData } from './$types';
 
   // set document and header title
-  title.set('All crossword puzzles');
   headerLabel.set('Crossword');
 
   // unset the header label on destroy
@@ -18,6 +16,10 @@
   // get crossword puzzles
   export let data: PageData;
 </script>
+
+<svelte:head>
+  <title>All crossword puzzles – The Paladin Games</title>
+</svelte:head>
 
 <PageHeading>All crossword puzzles</PageHeading>
 
@@ -142,7 +144,9 @@
     color: var(--color-neutral-dark);
     display: block;
     text-decoration: none;
-    transition: background-color 0.2s, box-shadow 0.1s;
+    transition:
+      background-color 0.2s,
+      box-shadow 0.1s;
   }
   a:hover {
     color: rgb(var(--primary));

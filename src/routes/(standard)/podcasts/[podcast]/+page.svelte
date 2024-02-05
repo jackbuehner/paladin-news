@@ -4,7 +4,6 @@
   import Container from '$lib/components/Container.svelte';
   import PageHeading from '$lib/components/PageHeading.svelte';
   import { PodcastListCard } from '$lib/components/PodcastListCard';
-  import { title } from '$lib/stores/title';
   import { formatISODate, listOxford } from '$lib/utils';
   import type { PageData } from './$types';
 
@@ -18,8 +17,8 @@
     (podcast) => podcast.slug === $page.params.podcast.toLowerCase()
   );
 
-  // set the document title
-  title.set(`${thisPodcast?.name || $page.params.podcast} - Podcast`);
+  // construct the document title
+  $: pageTitle = thisPodcast?.name || $page.params.podcast;
 
   // songs for audio player
   $: songs = episodes?.map((ep) => ({
@@ -30,6 +29,14 @@
     cover_art_url: thisPodcast?.photo || '',
   }));
 </script>
+
+<svelte:head>
+  {#if pageTitle}
+    <title>{pageTitle} – Podcast – The Paladin</title>
+  {:else}
+    <title>Podcast – The Paladin</title>
+  {/if}
+</svelte:head>
 
 <PageHeading type={'block'} subtitle={thisPodcast?.description} photo={thisPodcast?.photo}
   >{thisPodcast?.name || $page.params.podcast} Podcast</PageHeading

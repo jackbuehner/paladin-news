@@ -1,15 +1,15 @@
 <script lang="ts">
   import { Playlist } from '$lib/components/Video';
-  import { title } from '$lib/stores/title';
   import { fly } from 'svelte/transition';
   import type { PageData } from './$types';
-
-  // set the document title
-  title.set('Video playlists');
 
   // receive the articles from the page endpoint
   export let data: PageData;
 </script>
+
+<svelte:head>
+  <title>Video playlists – The Paladin</title>
+</svelte:head>
 
 {#if data.docs}
   <div class="playlist-continer" in:fly={{ y: 10, duration: 240 }}>

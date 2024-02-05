@@ -5,14 +5,10 @@
     ArticleTemplateJackBuehner2020,
   } from '$lib/components/article/index';
   import QuickEscape from '$lib/components/QuickEscape.svelte';
-  import { title } from '$lib/stores/title';
   import type { LayoutData } from './$types';
 
   export let data: LayoutData;
   $: ({ article } = data);
-
-  // set the document title
-  $: if ($article?.name) title.set($article.name);
 
   /**
    * Opens the article in Cristata when ALT + C is pressed.
@@ -26,6 +22,14 @@
     }
   };
 </script>
+
+<svelte:head>
+  {#if article?.name}
+    <title>{article.name} – The Paladin</title>
+  {:else}
+    <title>– The Paladin</title>
+  {/if}
+</svelte:head>
 
 <svelte:window on:keydown={openInCMS} />
 

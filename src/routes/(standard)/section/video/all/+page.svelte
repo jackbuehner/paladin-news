@@ -1,15 +1,15 @@
 <script lang="ts">
   import { VideoCard } from '$lib/components/Video';
-  import { title } from '$lib/stores/title';
   import { fly } from 'svelte/transition';
   import type { PageData } from './$types';
-
-  // set the document title
-  title.set('All videos');
 
   // receive the articles from the page endpoint
   export let data: PageData;
 </script>
+
+<svelte:head>
+  <title>All videos – The Paladin</title>
+</svelte:head>
 
 <div class="list" in:fly={{ y: 10, duration: 240 }}>
   {#if data.docs}

@@ -5,7 +5,6 @@
   import ArticleRow from '$lib/components/home/ArticleRow.svelte';
   import PageHeading from '$lib/components/PageHeading.svelte';
   import { headerLabel } from '$lib/stores/header';
-  import { title } from '$lib/stores/title';
   import { insertDate } from '$lib/utils/insertDate';
   import { onDestroy } from 'svelte';
   import type { PageData } from './$types';
@@ -16,7 +15,6 @@
 
   $: {
     if (pageTitle) {
-      title.set(pageTitle);
       headerLabel.set(pageTitle);
     }
   }
@@ -26,6 +24,14 @@
   // unset the header label on destroy
   onDestroy(() => ($headerLabel = ''));
 </script>
+
+<svelte:head>
+  {#if pageTitle}
+    <title>{pageTitle} – The Paladin</title>
+  {:else}
+    <title>The Paladin</title>
+  {/if}
+</svelte:head>
 
 <svelte:window bind:innerWidth={windowWidth} />
 

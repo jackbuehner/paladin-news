@@ -2,11 +2,7 @@
   import Container from '$lib/components/Container.svelte';
   import NewsletterCard from '$lib/components/NewsletterCard.svelte';
   import PageHeading from '$lib/components/PageHeading.svelte';
-  import { title } from '$lib/stores/title';
   import { onMount } from 'svelte';
-
-  // set the document title
-  title.set('Newsletters & notifications');
 
   /**
     Pass through a blur event for the email input field.
@@ -74,6 +70,10 @@
     fillEmailField();
   });
 </script>
+
+<svelte:head>
+  <title>Newsletters & notifications – The Paladin</title>
+</svelte:head>
 
 <PageHeading
   type={'block'}

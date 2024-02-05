@@ -3,16 +3,16 @@
   import Container from '$lib/components/Container.svelte';
   import IconButton from '$lib/components/IconButton.svelte';
   import PageHeading from '$lib/components/PageHeading.svelte';
-  import { title } from '$lib/stores/title';
   import type { PageData } from './$types';
   import type { PodcastsConfig, PodcastsStuffType } from '.';
-
-  // set the document title
-  title.set(`Podcasts`);
 
   export let data: PageData;
   $: podcastsConfig = data.podcastsConfig;
 </script>
+
+<svelte:head>
+  <title>Podcasts – The Paladin</title>
+</svelte:head>
 
 <PageHeading type={'block'} width={1000} subtitle={podcastsConfig?.description}>
   {podcastsConfig?.name}

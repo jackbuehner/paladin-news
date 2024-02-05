@@ -1,9 +1,10 @@
 <script lang="ts">
   import Container from '$lib/components/Container.svelte';
-  import { title } from '$lib/stores/title';
-
-  title.set('Bonhomie');
 </script>
+
+<svelte:head>
+  <title>Bonhomie – The Paladin</title>
+</svelte:head>
 
 <Container>
   <h1>Bonhomie</h1>

@@ -6,17 +6,17 @@
   import SatireRow from '$lib/components/home/SatireRow.svelte';
   import VideoCard from '$lib/components/Video/VideoCard.svelte';
   import { formatISODate, insertDate } from '$lib/utils';
-  import { title } from '$lib/stores/title';
   import type { PageData } from './$types';
-
-  // set the document title
-  title.set('');
 
   // receive the data from the page endpoint
   export let data: PageData;
 
   let windowWidth: number = 1200;
 </script>
+
+<svelte:head>
+  <title>The Paladin</title>
+</svelte:head>
 
 <svelte:window bind:innerWidth={windowWidth} />
 
@@ -424,7 +424,9 @@
     color: var(--color-neutral-dark);
     box-shadow: 0 0.5px 0 0 var(--color-neutral-lightest);
     text-decoration: none;
-    transition: background-color 0.2s, box-shadow 0.1s;
+    transition:
+      background-color 0.2s,
+      box-shadow 0.1s;
   }
   a:hover {
     color: rgb(var(--primary));

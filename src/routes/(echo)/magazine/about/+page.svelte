@@ -1,9 +1,10 @@
 <script lang="ts">
   import Container from '$lib/components/Container.svelte';
-  import { title } from '$lib/stores/title';
-
-  title.set('About');
 </script>
+
+<svelte:head>
+  <title>About – The Echo</title>
+</svelte:head>
 
 <Container width="800px">
   <h1>About <i>The Echo</i></h1>

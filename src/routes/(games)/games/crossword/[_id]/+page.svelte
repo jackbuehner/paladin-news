@@ -5,17 +5,12 @@
   import { Crossword } from '$lib/components/crossword';
   import type { GET_CROSSWORD__DOC_TYPE } from '$lib/queries';
   import { headerLabel } from '$lib/stores/header';
-  import { title } from '$lib/stores/title';
   import { formatISODate, listOxford } from '$lib/utils';
   import { onDestroy } from 'svelte';
   import type { PageData } from './$types';
 
   // set document and header title
-  title.set(`Crossword`);
   headerLabel.set('Crossword');
-  $: {
-    if (crossword) title.set(`${crossword.name} - Crossword - Games`);
-  }
 
   // unset the header label on destroy
   onDestroy(() => ($headerLabel = ''));
@@ -64,6 +59,14 @@
     }
   };
 </script>
+
+<svelte:head>
+  {#if crossword?.name}
+    <title>{crossword.name} – Crossword – The Paladin Games</title>
+  {:else}
+    <title>Crossword – The Paladin Games</title>
+  {/if}
+</svelte:head>
 
 <svelte:window on:keydown={openInCMS} />
 
@@ -160,7 +163,9 @@
     color: var(--color-neutral-dark);
     box-shadow: 0 0.5px 0 0 var(--color-neutral-lightest);
     text-decoration: none;
-    transition: background-color 0.2s, box-shadow 0.1s;
+    transition:
+      background-color 0.2s,
+      box-shadow 0.1s;
   }
   a:hover {
     color: rgb(var(--primary));

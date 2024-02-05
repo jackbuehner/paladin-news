@@ -1,6 +1,5 @@
 <script lang="ts">
   import GamesHeader from '$lib/components/header/GamesHeader.svelte';
-  import { title } from '$lib/stores/title';
   import type { LoadEvent } from '@sveltejs/kit';
   import { afterUpdate } from 'svelte';
 
@@ -10,13 +9,10 @@
     // keep the path updated when the component changes
     path = window.location.pathname;
   });
-
-  // create the document title
-  $: title_ = $title || path !== '/games' ? `${$title} - The Paladin Games` : 'The Paladin Games';
 </script>
 
 <svelte:head>
-  <title>{title_}</title>
+  <title>The Paladin Games</title>
 </svelte:head>
 
 <div class={'wrapper'}>

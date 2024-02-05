@@ -1,22 +1,11 @@
 <script lang="ts">
   import Button from '$lib/components/Button.svelte';
   import { FlusherDoc, type Flusher } from '$lib/components/Flusher';
-  import { title } from '$lib/stores/title';
   import { romanize } from 'romans';
   import type { PageData } from './$types';
 
   export let data: PageData;
-
-  $: {
-    if (data) {
-      const isTheRoyalFlush = new Date(data.timestamps.week) < new Date('2022-04-20');
-      if (isTheRoyalFlush)
-        title.set(`The Royal Flush – Vol. ${romanize(data.volume)}, Iss. ${data.issue}`);
-      else title.set(`The Flusher – Vol. ${romanize(data.volume)}, Iss. ${data.issue}`);
-    } else {
-      title.set(`The Flusher`);
-    }
-  }
+  $: isTheRoyalFlush = new Date(data.timestamps.week) < new Date('2022-04-20');
 
   /**
    * Opens the document in Cristata when ALT + C is pressed.
@@ -27,6 +16,18 @@
     }
   };
 </script>
+
+<svelte:head>
+  {#if data}
+    {#if isTheRoyalFlush}
+      <title>The Royal Flush – Vol. ${romanize(data.volume)}, Iss. ${data.issue}</title>
+    {:else}
+      <title>The Flusher – Vol. ${romanize(data.volume)}, Iss. ${data.issue}</title>
+    {/if}
+  {:else}
+    <title>The Flusher</title>
+  {/if}
+</svelte:head>
 
 <svelte:window on:keydown={openInCMS} />
 

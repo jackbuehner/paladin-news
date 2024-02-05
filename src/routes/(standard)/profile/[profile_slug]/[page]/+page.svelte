@@ -2,18 +2,21 @@
   import Button from '$lib/components/Button.svelte';
   import Container from '$lib/components/Container.svelte';
   import ArticleRow from '$lib/components/home/ArticleRow.svelte';
-  import { title } from '$lib/stores/title';
   import { insertDate } from '$lib/utils/insertDate';
   import type { PageData } from './$types';
 
   export let data: PageData;
   $: profile = data.profile;
   $: articles = data.articles;
-
-  // set the document title
-  if (profile?.name) title.set(`${profile.name} - Profile`);
-  else title.set(`Profile`);
 </script>
+
+<svelte:head>
+  {#if profile?.name}
+    <title>{profile.name} – Profile – The Paladin</title>
+  {:else}
+    <title>Profile – The Paladin</title>
+  {/if}
+</svelte:head>
 
 <Container>
   <div class={'header'}>
@@ -107,7 +110,10 @@
   a {
     color: rgb(var(--primary-lighter));
     box-shadow: 0 1px 0 0 rgb(var(--primary));
-    transition: background-color 0.2s, box-shadow 0.1s, color 0.2s;
+    transition:
+      background-color 0.2s,
+      box-shadow 0.1s,
+      color 0.2s;
     text-decoration: none;
   }
   a:hover {

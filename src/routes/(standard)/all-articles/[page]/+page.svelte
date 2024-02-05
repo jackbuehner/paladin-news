@@ -4,16 +4,16 @@
   import ArticleRow from '$lib/components/home/ArticleRow.svelte';
   import PageHeading from '$lib/components/PageHeading.svelte';
   import type { GET_ARTICLES__DOC_TYPE, Paged } from '$lib/queries';
-  import { title } from '$lib/stores/title';
   import { insertDate } from '$lib/utils';
   import type { PageData } from './$types';
-
-  // set document title
-  title.set('All articles');
 
   // receive the data from the page endpoint
   export let data: PageData;
 </script>
+
+<svelte:head>
+  <title>All articles – The Paladin</title>
+</svelte:head>
 
 <PageHeading>All articles</PageHeading>
 

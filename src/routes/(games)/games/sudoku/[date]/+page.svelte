@@ -3,14 +3,12 @@
   import Container from '$lib/components/Container.svelte';
   import { SudokuBoard } from '$lib/components/sudoku';
   import { headerLabel } from '$lib/stores/header';
-  import { title } from '$lib/stores/title';
   import { formatISODate } from '$lib/utils';
   import { DateTime } from 'luxon';
   import { onDestroy } from 'svelte';
   import type { PageData } from './$types';
 
   // set the document and header title
-  title.set('Sudoku');
   headerLabel.set('Sudoku');
 
   // unset the header label on destroy
@@ -40,6 +38,10 @@
 
   $: difficulty = $page.url.searchParams.get('difficulty');
 </script>
+
+<svelte:head>
+  <title>Sudoku – The Paladin Games</title>
+</svelte:head>
 
 <Container>
   {#if puzzle}
@@ -131,7 +133,9 @@
     color: var(--color-neutral-dark);
     box-shadow: 0 0.5px 0 0 var(--color-neutral-lightest);
     text-decoration: none;
-    transition: background-color 0.2s, box-shadow 0.1s;
+    transition:
+      background-color 0.2s,
+      box-shadow 0.1s;
   }
   a:hover {
     color: rgb(var(--primary));

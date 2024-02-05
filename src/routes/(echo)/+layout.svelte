@@ -5,7 +5,6 @@
   import SideNav from '$lib/components/header/_SideNav.svelte';
   import IconButton from '$lib/components/IconButton.svelte';
   import TheEchoLogo from '$lib/components/svgs/TheEchoLogo.svelte';
-  import { title } from '$lib/stores/title';
   import { afterUpdate } from 'svelte';
 
   let isSideNavOpen = false;
@@ -16,18 +15,7 @@
     // keep the path updated when the component changes
     path = $page.url.pathname;
   });
-
-  // create the document title
-  $: title_ = (() => {
-    if (path === '/magazine')
-      return `The Echo – Furman University's Student Literary and Arts Magazine `;
-    return `${$title} – The Echo`;
-  })();
 </script>
-
-<svelte:head>
-  <title>{title_}</title>
-</svelte:head>
 
 <div class="wrapper">
   <Container backgroundColor="var(--echo-header-bg)" width="800px">

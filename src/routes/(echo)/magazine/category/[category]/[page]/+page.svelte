@@ -2,7 +2,6 @@
   import Button from '$lib/components/Button.svelte';
   import Container from '$lib/components/Container.svelte';
   import { headerLabel } from '$lib/stores/header';
-  import { title } from '$lib/stores/title';
   import { capitalize, listOxford, toIK } from '$lib/utils';
   import { insertDate } from '$lib/utils/insertDate';
   import { onDestroy } from 'svelte';
@@ -12,7 +11,6 @@
 
   $: {
     if (data.pageTitle) {
-      title.set(capitalize(data.pageTitle, true));
       headerLabel.set(data.pageTitle);
     }
   }
@@ -22,6 +20,14 @@
   // unset the header label on destroy
   onDestroy(() => ($headerLabel = ''));
 </script>
+
+<svelte:head>
+  {#if data.pageTitle}
+    <title>{capitalize(data.pageTitle, true)} – The Echo</title>
+  {:else}
+    <title>The Echo</title>
+  {/if}
+</svelte:head>
 
 <svelte:window bind:innerWidth={windowWidth} />
 
@@ -140,16 +146,22 @@
     color: inherit;
     text-decoration: none;
     display: block;
-    transition: background-color 0.2s, box-shadow 0.1s;
+    transition:
+      background-color 0.2s,
+      box-shadow 0.1s;
     box-shadow: 0 -0.5px 0 0 var(--border-dark);
   }
   a:last-of-type {
-    box-shadow: 0 0.5px 0 0 var(--border-dark), 0 -0.5px 0 0 var(--border-dark);
+    box-shadow:
+      0 0.5px 0 0 var(--border-dark),
+      0 -0.5px 0 0 var(--border-dark);
   }
   a:hover {
     color: rgb(var(--primary));
     background-color: rgba(var(--primary), 0.1);
-    box-shadow: 0 2px 0 0 rgb(var(--primary)), 0 -2px 0 0 rgb(var(--primary));
+    box-shadow:
+      0 2px 0 0 rgb(var(--primary)),
+      0 -2px 0 0 rgb(var(--primary));
   }
   a:active {
     background-color: rgba(var(--primary), 0.16);

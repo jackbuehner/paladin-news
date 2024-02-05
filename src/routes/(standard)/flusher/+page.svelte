@@ -3,7 +3,6 @@
   import Container from '$lib/components/Container.svelte';
   import ArticleRow from '$lib/components/home/ArticleRow.svelte';
   import type { GET_FLUSHERS__DOC_TYPE } from '$lib/queries';
-  import { title } from '$lib/stores/title';
   import { constructArticlePath, formatISODate, insertDate } from '$lib/utils';
   import { DateTime } from 'luxon';
   import { romanize } from 'romans';
@@ -11,18 +10,7 @@
 
   // the flusher document retrieved from the page endpoint
   export let data: PageData;
-
-  // set the document title
   $: isTheRoyalFlush = new Date(data?.timestamps.week || Date.now()) < new Date('2022-04-20');
-  $: {
-    if (data)
-      title.set(
-        isTheRoyalFlush
-          ? `The Royal Flush – Vol. ${romanize(data.volume)}, Iss. ${data.issue}`
-          : `The Flusher – Vol. ${romanize(data.volume)}, Iss. ${data.issue}`
-      );
-    else title.set(`The Flusher`);
-  }
 
   // get the featured article and insert date components
   // (to be used when contructing the URL to the article)
@@ -41,6 +29,18 @@
     }
   };
 </script>
+
+<svelte:head>
+  {#if data}
+    {#if isTheRoyalFlush}
+      <title>The Royal Flush – Vol. ${romanize(data.volume)}, Iss. ${data.issue}</title>
+    {:else}
+      <title>The Flusher – Vol. ${romanize(data.volume)}, Iss. ${data.issue}</title>
+    {/if}
+  {:else}
+    <title>The Flusher</title>
+  {/if}
+</svelte:head>
 
 <svelte:window on:keydown={openInCMS} />
 

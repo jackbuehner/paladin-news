@@ -1,11 +1,11 @@
 <script>
   import Container from '$lib/components/Container.svelte';
   import PageHeading from '$lib/components/PageHeading.svelte';
-  import { title } from '$lib/stores/title';
-
-  // set the document title
-  title.set('Privacy policy');
 </script>
+
+<svelte:head>
+  <title>Privacy policy – The Paladin</title>
+</svelte:head>
 
 <PageHeading type={'blockCentered'}>Privacy policy</PageHeading>
 
@@ -140,7 +140,10 @@
   a {
     color: rgb(var(--primary-lighter));
     box-shadow: 0 1px 0 0 rgb(var(--primary));
-    transition: background-color 0.2s, box-shadow 0.1s, color 0.2s;
+    transition:
+      background-color 0.2s,
+      box-shadow 0.1s,
+      color 0.2s;
     text-decoration: none;
   }
   a:hover {

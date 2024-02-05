@@ -1,11 +1,11 @@
 <script lang="ts">
   import Container from '$lib/components/Container.svelte';
   import PageHeading from '$lib/components/PageHeading.svelte';
-  import { title } from '$lib/stores/title';
-
-  // set the document title
-  title.set('Contact us');
 </script>
+
+<svelte:head>
+  <title>Contact us – The Paladin</title>
+</svelte:head>
 
 <PageHeading>Contact us</PageHeading>
 

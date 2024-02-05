@@ -1,14 +1,10 @@
 <script lang="ts">
-  import { title } from '$lib/stores/title';
   import { marked } from 'marked';
   import Plyr from 'plyr';
   import { onMount } from 'svelte';
   import SvelteMarkdown from 'svelte-markdown';
   import { fly } from 'svelte/transition';
   import type { PageData } from './$types';
-
-  // set the document title
-  title.set('Video');
 
   // receive the articles from the page endpoint
   export let data: PageData;
@@ -47,6 +43,10 @@
     });
   }
 </script>
+
+<svelte:head>
+  <title>Video – The Paladin</title>
+</svelte:head>
 
 <article in:fly={{ y: 10, duration: 240 }}>
   <p class={'header-tag'}>
@@ -145,7 +145,9 @@
     color: var(--color-neutral-dark);
     box-shadow: 0 0.5px 0 0 var(--color-neutral-lightest);
     text-decoration: none;
-    transition: background-color 0.2s, box-shadow 0.1s;
+    transition:
+      background-color 0.2s,
+      box-shadow 0.1s;
   }
   a:hover {
     color: rgb(var(--primary));
