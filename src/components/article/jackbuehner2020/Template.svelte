@@ -271,24 +271,6 @@
           }
         }
       </style>
-      <MoreArticles {article} />
-      <div class="more-from">
-        <h1>More from The Paladin</h1>
-        <div class={'groups'}>
-          <div class={'group'}>
-            <img
-              src={'https://ik.imagekit.io/paladin/sunday-summary_logo_banner_background.svg'}
-              alt={'Sunday Summary'}
-              loading={'lazy'}
-            />
-            <div class={'desc'}>
-              A newsletter discussing the top articles of the week. Subscribe to recieve it in your
-              inbox every Sunday.
-            </div>
-            <Button width={'100%'} on:click={() => goto('/newsletters')}>Subscribe</Button>
-          </div>
-        </div>
-      </div>
     </aside>
   {/if}
 </Container>
