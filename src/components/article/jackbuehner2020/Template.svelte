@@ -53,6 +53,11 @@
 <svelte:window bind:innerWidth={windowWidth} />
 
 <svelte:head>
+  {#if article?.name}
+    <title>{article.name} – The Paladin</title>
+  {:else}
+    <title>– The Paladin</title>
+  {/if}
   {#if article}
     <meta
       property={'og:url'}
