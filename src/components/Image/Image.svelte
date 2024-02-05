@@ -37,7 +37,7 @@
                 );
 
   let renderWidth = 600;
-  let renderHeight = 600;
+  let renderHeight = 400;
   let intersecting = false;
 
   // control whether the image is shown
