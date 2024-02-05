@@ -209,7 +209,7 @@
     {/if}
   {/if}
 
-  {#if article.tags}
+  {#if article.tags && article.tags.length > 0}
     <div class="tags-group">
       <div>Tags:</div>
       <div class="tags">
