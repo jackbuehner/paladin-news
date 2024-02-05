@@ -74,7 +74,7 @@
           bind:hidden={imageHidden}
         />
       </div>
-      {#if photoCredit === undefined}
+      {#if !photoCredit}
         {''}
       {:else}
         <div class={'photo-credit'}>{photoCredit}</div>
