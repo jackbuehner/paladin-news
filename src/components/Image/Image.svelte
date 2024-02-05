@@ -25,22 +25,19 @@
   }
 
   $: tinySrc = src.replace(isProxied ? ikp : ik, `${isProxied ? ikp : ik}tr:w-27,bl-5/`);
-  $: realSrc =
-    loading === 'eager'
-      ? src.replace(
-          isProxied ? ikp : ik,
-          `${isProxied ? ikp : ik}${
-            !disableTransform
-              ? `tr:w-${
-                  renderWidth < maxSrcWidth ? renderWidth || defaultSrcWidth : maxSrcWidth
-                },h-${renderHeight ? renderHeight : 'auto'}/`
-              : ''
-          }`
-        )
-      : undefined;
+  $: realSrc = src.replace(
+                  isProxied ? ikp : ik,
+                  `${isProxied ? ikp : ik}${
+                    !disableTransform
+                      ? `tr:w-${
+                          renderWidth < maxSrcWidth ? renderWidth || defaultSrcWidth : maxSrcWidth
+                        },h-${renderHeight ? renderHeight : 'auto'}/`
+                      : ''
+                  }`
+                );
 
-  let renderWidth = 0;
-  let renderHeight = 0;
+  let renderWidth = 600;
+  let renderHeight = 600;
   let intersecting = false;
 
   // control whether the image is shown
@@ -96,33 +93,10 @@
   });
 </script>
 
-{#if loading === 'lazy' && hidden === false}
-  <IntersectionObserver
-    bind:intersecting
-    bind:clientWidth={renderWidth}
-    bind:clientHeight={renderHeight}
-    className={containerClassName}
-  >
-    <img
-      src={tinySrc}
-      {alt}
-      class={showTiny ? `${className} show` : `${className} hide`}
-      {loading}
-      on:error={() => (hidden = true)}
-    />
-    <img
-      src={realSrc || tinySrc}
-      {alt}
-      class={showFinal ? `${className} show loaded` : `${className} hide`}
-      {loading}
-      bind:this={finalImgElem}
-      on:error={() => (hidden = true)}
-    />
-  </IntersectionObserver>
-{:else if hidden === false}
+{#if hidden === false}
   <div class={containerClassName} bind:clientWidth={renderWidth} bind:clientHeight={renderHeight}>
     <img
-      src={realSrc || tinySrc}
+      src={realSrc}
       {alt}
       class={`${className} show`}
       {loading}
