@@ -57,6 +57,7 @@
     flex-direction: row;
     align-items: center;
     padding: 0;
+    font-family: var(--legacy2-font);
   }
 
   a {
