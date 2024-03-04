@@ -2,6 +2,7 @@
   import { browser } from '$app/environment';
   import Container from '$lib/components/Container.svelte';
   import type { GET_ARTICLE_BY_SLUG__DOC_TYPE } from '$lib/queries';
+  import { notEmpty } from '$lib/utils';
   import type { PublishedDocWithDate } from '$lib/utils/insertDate';
   import { onDestroy, onMount } from 'svelte';
   import {
@@ -14,6 +15,7 @@
     ArticlePhotoCredit,
     LegacyHeader,
   } from '.';
+  import ArticleComments from './ArticleComments.svelte';
 
   export let article: PublishedDocWithDate<GET_ARTICLE_BY_SLUG__DOC_TYPE>;
 
@@ -102,9 +104,17 @@
     {/if}
 
     <div class={`columns`}>
-      <ArticleMeta authors={article.people.authors} date={article.timestamps.published_at} />
+      <ArticleMeta
+        authors={article.people.authors}
+        date={article.timestamps.published_at}
+        commentsCount={article.legacy_comments
+          ?.filter(notEmpty)
+          .filter((comment) => comment?.comment_approved === '1').length}
+      />
       <ArticleBody doc={article.body || ''} />
     </div>
+
+    <ArticleComments comments={article.legacy_comments} name={article.name} />
   </article>
 </Container>
 

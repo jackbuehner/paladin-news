@@ -50,6 +50,14 @@ const GET_ARTICLE_BY_SLUG = `
         _id
         name
       }
+      legacy_comments {
+        author_name
+        commented_at
+        content
+        comment_id
+        comment_parent
+        comment_approved
+      }
     }
   }
 `;
@@ -102,6 +110,18 @@ interface GET_ARTICLE_BY_SLUG__DOC_TYPE {
     _id: string;
     name: string;
   };
+  legacy_comments?: Array<
+    | {
+        author_name?: string;
+        commented_at?: string; // ISO date
+        content?: string;
+        comment_id?: string;
+        comment_parent?: string;
+        comment_approved?: string;
+      }
+    | undefined
+    | null
+  >;
 }
 
 interface GET_ARTICLE_BY_SLUG__TYPE {
@@ -111,4 +131,4 @@ interface GET_ARTICLE_BY_SLUG__TYPE {
 type GET_ARTICLE_BY_SLUG__JSON = GraphJsonType<GET_ARTICLE_BY_SLUG__TYPE>;
 
 export { GET_ARTICLE_BY_SLUG };
-export type { GET_ARTICLE_BY_SLUG__DOC_TYPE, GET_ARTICLE_BY_SLUG__TYPE, GET_ARTICLE_BY_SLUG__JSON };
+export type { GET_ARTICLE_BY_SLUG__DOC_TYPE, GET_ARTICLE_BY_SLUG__JSON, GET_ARTICLE_BY_SLUG__TYPE };
