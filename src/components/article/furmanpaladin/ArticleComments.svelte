@@ -57,7 +57,12 @@
 {#if parsedComments.length > 0}
   <div class="comments-title-container clear-fix" id="comments">
     <h3 class="comments-title">
-      17 thoughts on “<span>{name}</span>”
+      {#if parsedComments.length === 1}
+        One thought
+      {:else}
+        {parsedComments.length} thoughts
+      {/if}
+      on “<span>{name}</span>”
     </h3>
   </div>
 
