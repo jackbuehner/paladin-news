@@ -4,7 +4,7 @@
 
 <div>
   {#each categories as category}
-    <a href={`/section/${category}`}>{category}</a>
+    <a href={`/section/${encodeURIComponent(category)}`}>{category}</a>
   {/each}
 </div>
 

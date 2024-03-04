@@ -72,10 +72,10 @@
     <span>Sections:</span>
     {#each categories as category, index}
       {#if index === 0}
-        <a href={`/section/${category}`}>{category}</a>
+        <a href={`/section/${encodeURIComponent(category)}`}>{category}</a>
       {:else}
         <span>, </span>
-        <a href={`/section/${category}`}>{category}</a>
+        <a href={`/section/${encodeURIComponent(category)}`}>{category}</a>
       {/if}
     {/each}
   </div>
