@@ -21,30 +21,21 @@
 
   // keep track of window width
   $: windowWidth = 0;
-
-  // set header colors
-  onMount(() => {
-    const topbar: HTMLDivElement | undefined = document.querySelector(
-      `.topbar-wrapper`
-    ) as HTMLDivElement;
-    document.body.style.setProperty(`--topbar-bg`, `#26272b`);
-    document.body.style.setProperty(`--topbar-color`, `#999999`);
-    document.body.style.setProperty(`background-color`, `#f4f4f4`);
-    topbar?.style.setProperty(`--border-light`, `#212121`);
-  });
-  onDestroy(() => {
-    if (browser) {
-      // onDestroy runs in SSR, so we need to ensure we are in the browser
-      const topbar: HTMLDivElement | undefined = document.querySelector(
-        `.topbar-wrapper`
-      ) as HTMLDivElement;
-      document.body.style.removeProperty(`--topbar-bg`);
-      document.body.style.removeProperty(`--topbar-color`);
-      document.body.style.removeProperty(`background-color`);
-      topbar?.style.removeProperty(`--border-light`);
-    }
-  });
 </script>
+
+<div>
+  <!-- set header colors -->
+  <style>
+    body {
+      --topbar-bg: #26272b;
+      --topbar-color: #999999;
+      background-color: #f4f4f4;
+    }
+    .topbar-wrapper {
+      --border-light: #212121;
+    }
+  </style>
+</div>
 
 <svelte:window bind:innerWidth={windowWidth} />
 

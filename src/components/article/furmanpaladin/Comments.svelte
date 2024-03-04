@@ -1,7 +1,11 @@
 <script lang="ts">
   import type { GET_ARTICLE_BY_SLUG__DOC_TYPE } from '$lib/queries';
   import { formatISODate } from '$lib/utils';
-  import { SHA256 } from 'crypto-js';
+  import * as cryptoRaw from 'crypto-js';
+
+  // @ts-expect-error we have to do weird stuff since it is only a commonjs module
+  const crypto = cryptoRaw.default ?? cryptoRaw;
+  const SHA256 = crypto.SHA256;
 
   type Comment = NonNullable<
     NonNullable<GET_ARTICLE_BY_SLUG__DOC_TYPE['legacy_comments']>[number]
