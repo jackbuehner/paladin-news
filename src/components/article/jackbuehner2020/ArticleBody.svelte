@@ -268,6 +268,9 @@
     margin-top: 0;
     margin-bottom: 10px;
   }
+  :global(.article-body p:empty) {
+    margin: 0;
+  }
   :global(.article-body li > p) {
     margin-bottom: 0;
   }

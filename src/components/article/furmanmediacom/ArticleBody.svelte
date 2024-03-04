@@ -44,6 +44,9 @@
     margin-top: 0;
     margin-bottom: 25px;
   }
+  :global(.article-body-furmanmediacom p:empty) {
+    margin: 0;
+  }
   :global(.article-body-furmanmediacom img) {
     max-width: 100%;
     height: auto;

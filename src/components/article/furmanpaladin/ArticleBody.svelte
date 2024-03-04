@@ -44,6 +44,9 @@
     margin-top: 0;
     margin-bottom: 25px;
   }
+  :global(.article-body-furmanpaladin p:empty) {
+    margin: 0;
+  }
   :global(.article-body-furmanpaladin img) {
     max-width: 100%;
     height: auto;
