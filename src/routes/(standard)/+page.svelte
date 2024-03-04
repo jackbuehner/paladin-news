@@ -161,7 +161,8 @@
       <section style="grid-area: c1">
         <div class="section-inner">
           <h2>
-            <a href="/section/arts">Arts</a>, <a href="/section/campus">Campus, &amp; Culture</a>
+            <a href="/section/arts">Arts</a>,
+            <a href="/section/campus-culture">Campus, &amp; Culture</a>
           </h2>
           <div class="featured">
             {#each insertDate(data?.acc || []) as { name, slug, date, timestamps, photo_path, description, categories }, index}
@@ -424,9 +425,7 @@
     color: var(--color-neutral-dark);
     box-shadow: 0 0.5px 0 0 var(--color-neutral-lightest);
     text-decoration: none;
-    transition:
-      background-color 0.2s,
-      box-shadow 0.1s;
+    transition: background-color 0.2s, box-shadow 0.1s;
   }
   a:hover {
     color: rgb(var(--primary));
