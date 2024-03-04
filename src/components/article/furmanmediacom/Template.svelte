@@ -5,6 +5,7 @@
   import {
     ArticleBody,
     ArticleCaption,
+    ArticleComments,
     ArticleHeading,
     ArticleMeta,
     ArticlePhoto,
@@ -80,6 +81,8 @@
       />
       <ArticleBody doc={article.body || ''} />
     </div>
+
+    <ArticleComments comments={article.legacy_comments} name={article.name} />
   </article>
 </Container>
 
