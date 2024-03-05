@@ -9,7 +9,6 @@
   $: windowWidth = 0;
   $: windowScrollY = 0;
 
-  let isSideNavOpen = false;
   const color = `var(--topbar-color)`;
 </script>
 
@@ -23,9 +22,11 @@
   <Container width={$page.url.pathname === '/games' ? '100%' : '1200px'}>
     <div class="topbar" class:scrolled={windowScrollY > 0}>
       <div class="left">
-        <IconButton ariaLabel={'menu'} on:click={() => (isSideNavOpen = !isSideNavOpen)} {color}
-          ><path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" /></IconButton
-        >
+        <div onclick="toggleSideNav()">
+          <IconButton ariaLabel={'menu'} {color}
+            ><path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" /></IconButton
+          >
+        </div>
         {#if $headerLabel}
           <div class={'label'}>{$headerLabel}</div>
         {/if}
@@ -46,7 +47,7 @@
   </Container>
 </div>
 
-<SideNav bind:isOpen={isSideNavOpen} />
+<SideNav />
 
 <slot />
 

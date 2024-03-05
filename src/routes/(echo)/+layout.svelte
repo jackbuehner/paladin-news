@@ -7,8 +7,6 @@
   import TheEchoLogo from '$lib/components/svgs/TheEchoLogo.svelte';
   import { afterUpdate } from 'svelte';
 
-  let isSideNavOpen = false;
-
   // keep track of the page path
   export let path: string = $page.url.pathname;
   afterUpdate(() => {
@@ -22,12 +20,14 @@
     <header>
       <div class="toprow">
         <div class="left">
-          <IconButton ariaLabel={'menu'} on:click={() => (isSideNavOpen = !isSideNavOpen)}>
-            <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
-          </IconButton>
+          <div onclick="toggleSideNav()">
+            <IconButton ariaLabel={'menu'}>
+              <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+            </IconButton>
+          </div>
         </div>
         <div class="center">
-          <a href="/magazine">
+          <a href="/magazine" class="logo-link">
             <TheEchoLogo size={140} />
           </a>
         </div>
@@ -70,7 +70,7 @@
   <Footer bottomOnly />
 </div>
 
-<SideNav bind:isOpen={isSideNavOpen} />
+<SideNav />
 
 <style>
   :global(:root) {
@@ -180,7 +180,7 @@
     flex-direction: column;
   }
 
-  a[href='/magazine'] {
+  .logo-link {
     color: inherit;
   }
 
