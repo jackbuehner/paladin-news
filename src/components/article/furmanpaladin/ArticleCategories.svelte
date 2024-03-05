@@ -21,6 +21,11 @@
     margin-bottom: 12px;
     flex-wrap: wrap;
   }
+  @media (max-width: 500px) {
+    div {
+      margin-top: 40px;
+    }
+  }
   a {
     display: inline-block;
     background-color: transparent;

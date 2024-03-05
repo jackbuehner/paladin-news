@@ -97,7 +97,7 @@
   @media (max-width: 950px) {
     .article-metadata-furmanpaladin {
       flex-direction: row;
-      margin: -28px 0 40px 0;
+      margin: -16px 0 40px 0;
       border-bottom: 1px solid rgba(0, 0, 0, 0.2);
       padding-bottom: 12px;
       width: 100%;

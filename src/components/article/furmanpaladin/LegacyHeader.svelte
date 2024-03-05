@@ -92,6 +92,11 @@
   .header {
     padding: 40px 0;
   }
+  @media (max-width: 500px) {
+    .header {
+      padding: 20px 0;
+    }
+  }
 
   h2 {
     font-size: 1.5em;
@@ -101,6 +106,11 @@
     text-transform: uppercase;
     font-family: var(--legacy-font-body);
     margin: 0;
+  }
+  @media (max-width: 500px) {
+    h2 {
+      font-size: 1.25em;
+    }
   }
   h2 > a {
     color: #ffffff;
@@ -117,6 +127,11 @@
     line-height: 115%;
     margin: 11px 0 0;
     font-weight: 400;
+  }
+  @media (max-width: 500px) {
+    h4 {
+      margin-top: 6px;
+    }
   }
 
   @media (max-width: 500px) {

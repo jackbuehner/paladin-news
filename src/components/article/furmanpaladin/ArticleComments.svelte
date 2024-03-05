@@ -54,13 +54,13 @@
   }, []);
 </script>
 
-{#if parsedComments.length > 0}
+{#if filteredComments.length > 0}
   <div class="comments-title-container clear-fix" id="comments">
     <h3 class="comments-title">
-      {#if parsedComments.length === 1}
+      {#if filteredComments.length === 1}
         One thought
       {:else}
-        {parsedComments.length} thoughts
+        {filteredComments.length} thoughts
       {/if}
       on “<span>{name}</span>”
     </h3>
@@ -82,6 +82,12 @@
     font-family: var(--legacy-font-body);
     color: var(--color-neutral-dark);
   }
+  @media (max-width: 500px) {
+    .comments-title-container {
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+  }
 
   .clear-fix:before,
   .clear-fix:after {
@@ -102,12 +108,22 @@
     padding: 0;
     text-align: left;
   }
+  @media (max-width: 500px) {
+    .comments-title {
+      font-size: 17px;
+    }
+  }
 
   .comments {
     margin-left: 95px;
     font-family: var(--legacy-font-body);
     font-size: 17px;
     color: var(--color-neutral-dark);
+  }
+  @media (max-width: 950px) {
+    .comments {
+      margin-left: 0;
+    }
   }
 
   .comments-list {
