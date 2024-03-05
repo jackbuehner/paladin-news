@@ -214,7 +214,7 @@
       <div>Tags:</div>
       <div class="tags">
         {#each article.tags as tag}
-          <a href="/tag/{tag}">{tag}</a>
+          <a href="/tag/{encodeURIComponent(tag)}">{tag}</a>
         {/each}
       </div>
     </div>
