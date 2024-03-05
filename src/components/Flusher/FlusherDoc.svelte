@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { notEmpty } from '$lib/utils';
   import { romanize } from 'romans';
   import {
     Advertisement,
@@ -52,7 +53,7 @@
           photo={flusher.articles.featured.photo}
         />
       {/if}
-      <MoreArticles articles={flusher.articles.more} />
+      <MoreArticles articles={flusher.articles.more.filter(notEmpty)} />
       <Footer />
     </article>
   </div>

@@ -20,6 +20,10 @@ export const load: PageServerLoad = async (request) => {
     }
   );
 
+  if (!profile?.userBySlugPublic) {
+    throw error(404);
+  }
+
   // get articles from this person
   const { data: articles, error: articleError } = await api.query<GET_ARTICLES__TYPE>(
     GET_ARTICLES,

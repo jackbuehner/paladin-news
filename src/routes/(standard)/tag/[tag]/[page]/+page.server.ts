@@ -9,7 +9,7 @@ export const load: PageServerLoad = async (request) => {
   if (request.params.tag.indexOf(' ') !== -1 || request.params.tag.indexOf('&') !== -1) {
     throw redirect(
       307, // temporary redirect
-      `/tag/${request.params.tag.replace(/\s&/gm, '').replace(/\s/gm, '-')}`
+      `/tag/${encodeURIComponent(request.params.tag.replace(/\s&/gm, '').replace(/\s/gm, '-'))}`
     );
   }
 
@@ -26,8 +26,6 @@ export const load: PageServerLoad = async (request) => {
       request.params.tag.toLocaleLowerCase().replaceAll('-', ' '),
       request.params.tag.toLocaleLowerCase().replaceAll('-', ''),
     ];
-
-  console.log(tags);
 
   // format the name of the tag
   const pagePathToTitle = (string: string): string => {

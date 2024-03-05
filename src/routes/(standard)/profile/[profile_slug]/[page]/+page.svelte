@@ -20,7 +20,9 @@
 
 <Container>
   <div class={'header'}>
-    <img src={profile?.photo} alt={''} height={profile?.email ? 90 : 74} />
+    {#if profile?.photo}
+      <img src={profile?.photo} alt={''} height={profile?.email ? 90 : 74} />
+    {/if}
     <div>
       <h1>{profile?.name?.replace(' (Provisional)', '')}</h1>
       <div class={'detail'}>{profile?.current_title}</div>
@@ -41,9 +43,9 @@
     {/if}
   {/if}
 
-  <h2>Articles</h2>
-  <div class={'articles'}>
-    {#if articles && articles.docs}
+  {#if articles && articles.docs && articles.docs.length > 0}
+    <h2>Articles</h2>
+    <div class={'articles'}>
       {#each insertDate(articles.docs) as article, index}
         <ArticleRow
           name={article.name}
@@ -58,8 +60,10 @@
         />
         <span />
       {/each}
-    {/if}
-  </div>
+    </div>
+  {:else}
+    <div class="no-articles">This person has not written any articles.</div>
+  {/if}
 
   <div class={'navrow'}>
     {#if articles?.hasNextPage || articles?.hasPrevPage}
@@ -110,10 +114,7 @@
   a {
     color: rgb(var(--primary-lighter));
     box-shadow: 0 1px 0 0 rgb(var(--primary));
-    transition:
-      background-color 0.2s,
-      box-shadow 0.1s,
-      color 0.2s;
+    transition: background-color 0.2s, box-shadow 0.1s, color 0.2s;
     text-decoration: none;
   }
   a:hover {
@@ -168,5 +169,14 @@
     display: flex;
     flex-direction: row;
     gap: 6px;
+  }
+  .no-articles {
+    font-size: 16px;
+    font-family: var(--font-detail);
+    line-height: 1.5;
+    font-weight: 400;
+    color: var(--color-neutral-dark);
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 </style>

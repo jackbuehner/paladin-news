@@ -69,6 +69,72 @@ export const GET: RequestHandler = async (request) => {
       }
     }
 
+    // replace broken image links (webflow changed the hosting location for some images)
+    [
+      'https://uploads-ssl.webflow.com/5f37fcdc1b6edd6760ad912f/608efd91b35e4dc01463ffdf_Asheton%2520_Howard_FFC01A25-0E06-457E-92BC-A2A6BAC5E838.jpeg',
+      'https://uploads-ssl.webflow.com/5f37fcdc1b6edd6760ad912f/608efddfcf0722f7cb0335e8_Ella%2520_Alsko_A68688AD-85DC-4CF7-A7EE-38F44BC80F19.jpeg',
+      'https://uploads-ssl.webflow.com/5f37fcdc1b6edd6760ad912f/60536d5bb87e8b713ee5bf15_Screen%2520Shot%25202021-03-18%2520at%252011.09.23%2520AM.png',
+      'https://uploads-ssl.webflow.com/5f37fcdc1b6edd6760ad912f/60536e5cb1a72481f4b17e9f_Screen%2520Shot%25202021-03-18%2520at%252011.12.26%2520AM.png',
+      'https://uploads-ssl.webflow.com/5f37fcdc1b6edd6760ad912f/603682914ef3fe249074ced1_Screen%2520Shot%25202021-02-24%2520at%252011.44.25%2520AM.png',
+      'https://uploads-ssl.webflow.com/5f37fcdc1b6edd6760ad912f/603683011b35e21012e95942_Screen%2520Shot%25202021-02-24%2520at%252011.46.40%2520AM.png',
+      'https://uploads-ssl.webflow.com/5f37fcdc1b6edd6760ad912f/60368337f8d933bac45161fc_Screen%2520Shot%25202021-02-24%2520at%252011.47.40%2520AM.png',
+      'https://uploads-ssl.webflow.com/5f37fcdc1b6edd6760ad912f/60368369a35ef33d8114bd27_Screen%2520Shot%25202021-02-24%2520at%252011.48.23%2520AM.png',
+      'https://uploads-ssl.webflow.com/5f37fcdc1b6edd6760ad912f/60368397d2cfc5481abc6104_Screen%2520Shot%25202021-02-24%2520at%252011.49.14%2520AM.png',
+      'https://uploads-ssl.webflow.com/5f37fcdc1b6edd6760ad912f/603683c24b2094c0ee44fe25_Screen%2520Shot%25202021-02-24%2520at%252011.50.00%2520AM.png',
+      'https://uploads-ssl.webflow.com/5f37fcdc1b6edd6760ad912f/5fc55e42651607fa06cbc89a_Screen%2520Shot%25202020-11-30%2520at%25204.03.50%2520PM.png',
+      'https://uploads-ssl.webflow.com/5f37fcdc1b6edd6760ad912f/5fc55f85739e5d4eb417761f_Screen%2520Shot%25202020-11-30%2520at%25204.09.14%2520PM.png',
+      'https://uploads-ssl.webflow.com/5f37fcdc1b6edd6760ad912f/5fc55fbf3e2fe001cb2a65e1_Screen%2520Shot%25202020-11-30%2520at%25204.10.08%2520PM.png',
+      'https://uploads-ssl.webflow.com/5f37fcdc1b6edd6760ad912f/5fc56048556cd226a05a1a73_Screen%2520Shot%25202020-11-30%2520at%25204.12.28%2520PM.png',
+      'https://uploads-ssl.webflow.com/5f37fcdc1b6edd6760ad912f/60670e44ee8ced7f127f4f06_Screen%2520Shot%25202021-03-31%2520at%25207.33.04%2520PM.png',
+      'https://uploads-ssl.webflow.com/5f37fcdc1b6edd6760ad912f/60670e75da2f6a735af70914_Screen%2520Shot%25202021-03-31%2520at%25207.51.33%2520PM.png',
+      'https://uploads-ssl.webflow.com/5f37fcdc1b6edd6760ad912f/6010501a6512f3a0804217b1_Screen%2520Shot%25202021-01-26%2520at%252012.23.22%2520PM.png',
+      'https://uploads-ssl.webflow.com/5f37fcdc1b6edd6760ad912f/601050966f449a099741b001_Screen%2520Shot%25202021-01-26%2520at%252012.25.29%2520PM.png',
+      'https://uploads-ssl.webflow.com/5f37fcdc1b6edd6760ad912f/601050b22caee061eebec7f5_Screen%2520Shot%25202021-01-26%2520at%252012.26.00%2520PM.png',
+    ].forEach((substr) => {
+      if (article.body) {
+        article.body = article.body.replace(
+          substr,
+          decodeURIComponent(substr).replace(
+            'https://uploads-ssl.webflow.com/',
+            'https://assets-global.website-files.com/'
+          )
+        );
+      }
+    });
+
+    // wordpress requires this one image link to have a resize transform
+    if (article.body?.includes('https://furmanmediacom.files.wordpress.com/2018/10/file2.jpeg')) {
+      article.body = article.body.replace(
+        'https://furmanmediacom.files.wordpress.com/2018/10/file2.jpeg',
+        'https://furmanmediacom.files.wordpress.com/2018/10/file2.jpeg?resize=4032x3024'
+      );
+    }
+
+    // these image locations are wrong and need to be replaced with the correct locations
+    const replacements = [
+      {
+        old: 'https://furmanpaladin.files.wordpress.com/2015/10/spurrier-e1446158748371.jpg?w=300',
+        new: 'https://furmanpaladin.files.wordpress.com/2015/10/spurrier-e1446580800403.jpg?w=300',
+      },
+      {
+        old: 'https://furmanpaladin.files.wordpress.com/2015/10/epa-e1446156918462.jpg?w=300',
+        new: 'https://furmanpaladin.files.wordpress.com/2015/10/epa-e1446580988675.jpg?w=300',
+      },
+    ];
+    replacements.forEach((replacement) => {
+      if (article.body?.includes(replacement.old)) {
+        article.body = article.body.replace(replacement.old, replacement.new);
+      }
+    });
+
+    // fix broken links in the article body
+    if (article.body?.includes('thetrevorproject.org/get-help-now')) {
+      article.body = article.body.replace(
+        'href="thetrevorproject.org/get-help-now/"',
+        'href="https://thetrevorproject.org/get-help-now/"'
+      );
+    }
+
     // use smart quotes (curly quotes)
     if (article) {
       try {

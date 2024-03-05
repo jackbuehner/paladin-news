@@ -7,7 +7,7 @@ import {
 import { insertDate } from '$lib/utils';
 import { api } from '$lib/utils/api';
 import type { PublishedDocWithDate } from '$lib/utils/insertDate';
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import { derived, writable } from 'svelte/store';
 import type { LayoutLoad } from './$types';
 
@@ -29,6 +29,14 @@ export const load: LayoutLoad = async (a) => {
     date.day = params.dd.padStart(2, '0'); // ensure it is always two digits
   if (date.year && date.month && date.day) {
     date.path = '/' + date.year + '/' + date.month + '/' + date.day;
+  }
+
+  // this slug appeared when crawling the site, but it is wrong
+  if (params.slug === 'SUPREME COURT OF SOUTH CAROLINA' && date.path) {
+    throw redirect(
+      302,
+      `/articles${date.path}/supreme-court-of-south-carolina-to-hear-four-cases-at-furman`
+    );
   }
 
   // fetch the data
@@ -82,7 +90,7 @@ export const load: LayoutLoad = async (a) => {
     };
   }
 
-  throw error(res.status, `Could not load ${endpoint}`);
+  throw error(500, `Could not load ${endpoint}`);
 };
 
 export type RespondedArticle = GET_ARTICLE_BY_SLUG__DOC_TYPE & {

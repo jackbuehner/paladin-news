@@ -3,7 +3,7 @@
   import Container from '$lib/components/Container.svelte';
   import ArticleRow from '$lib/components/home/ArticleRow.svelte';
   import type { GET_FLUSHERS__DOC_TYPE } from '$lib/queries';
-  import { constructArticlePath, formatISODate, insertDate } from '$lib/utils';
+  import { constructArticlePath, formatISODate, insertDate, notEmpty } from '$lib/utils';
   import { DateTime } from 'luxon';
   import { romanize } from 'romans';
   import type { PageData } from './$types';
@@ -73,7 +73,7 @@
   {#if data && data.articles && data.articles.more}
     <h2>More Articles</h2>
     <ol>
-      {#each insertDate(data.articles.more) as article}
+      {#each insertDate(data.articles.more.filter(notEmpty)) as article}
         <li>
           <a href={constructArticlePath(article.slug, article.date)}>{article.name}</a>
         </li>

@@ -41,7 +41,7 @@
       <img class="eco-rep-logo" src="/images/logos/FurmanEcoRepLogo.png" alt="Furman Eco Reps" />
     </div>
   </Container>
-{:else}
+{:else if $headerLabel !== 'tag'}
   <PageHeading>{$headerLabel}</PageHeading>
 {/if}
 
