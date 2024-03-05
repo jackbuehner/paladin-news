@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Container from '$lib/components/Container.svelte';
   import {
     ArticleBody,
     ArticleCaption,
@@ -9,7 +10,6 @@
     ArticleSubtitle,
   } from '$lib/components/article/jackbuehner2020';
   import SatireMeta from '$lib/components/article/jackbuehner2020/SatireMeta.svelte';
-  import Container from '$lib/components/Container.svelte';
   import { headerIsSatire } from '$lib/stores/header';
   import { onDestroy } from 'svelte';
   import type { PageData } from './$types';
@@ -25,9 +25,9 @@
 
 <svelte:head>
   {#if data?.name}
-    <title>{data.name} – The Hourse</title>
+    <title>{data.name} – The House</title>
   {:else}
-    <title>The Hourse</title>
+    <title>The Horse</title>
   {/if}
   {#if data}
     <meta property={'og:url'} content={`https://thepaladin.news/satire/${data.slug}`} />
