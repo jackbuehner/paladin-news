@@ -2,16 +2,23 @@
   //export let type = 'default';
   export let disabled = false;
   export let ariaLabel: string;
+  export let href: string;
 </script>
 
-<button on:click class:disabled aria-label={ariaLabel}>
+<a
+  {href}
+  class:disabled
+  aria-label={ariaLabel}
+  rel={'external noopener noreferrer'}
+  target={'_blank'}
+>
   <svg style="width:15px;height:15px">
     <slot />
   </svg>
-</button>
+</a>
 
 <style>
-  button {
+  a {
     display: inline-flex;
     width: 26px;
     height: 26px;
@@ -26,13 +33,13 @@
     color: var(--button-color);
     padding: 4px;
   }
-  button:hover:not(.disabled) {
+  a:hover:not(.disabled) {
     background-color: var(--button-light-bg-hover);
     border: 1px solid var(--button-light-bg-hover);
     box-shadow: var(--button-shadow-hover);
     border-radius: var(--radius);
   }
-  button:active:not(.disabled) {
+  a:active:not(.disabled) {
     background-color: var(--button-light-bg-active);
     border: 1px solid var(--button-light-bg-active);
     box-shadow: var(--button-shadow-active);
@@ -41,7 +48,7 @@
   svg {
     fill: currentColor;
   }
-  button.disabled {
+  a.disabled {
     color: var(--button-color-disabled);
   }
 </style>

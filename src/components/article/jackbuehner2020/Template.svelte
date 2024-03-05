@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
   import Button from '$lib/components/Button.svelte';
   import Container from '$lib/components/Container.svelte';
   import Image from '$lib/components/Image/Image.svelte';
@@ -144,7 +145,7 @@
         date={article.timestamps.published_at}
         authors={article.people.authors.filter((p) => !!p)}
         articleName={article.name}
-        articleLocation={`https://thepaladin.news/articles/${article.slug}`}
+        articleLocation={`https://thepaladin.news${$page.url.pathname}`}
         articleDescription={article.description}
       />
 
