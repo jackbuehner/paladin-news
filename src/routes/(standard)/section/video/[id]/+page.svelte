@@ -70,7 +70,9 @@
   </div>
   <h1>{data.name}</h1>
   <div class="description">
-    <SvelteMarkdown source={marked.parser(tokens)} />
+    <SvelteMarkdown
+      source={marked.parser(tokens).replaceAll('href="https://thepaladin.news/', 'href="/')}
+    />
   </div>
   <div class="tags">
     {#each data.tags || [] as tag}

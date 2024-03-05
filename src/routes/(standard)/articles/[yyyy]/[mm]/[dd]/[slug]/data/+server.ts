@@ -146,6 +146,11 @@ export const GET: RequestHandler = async (request) => {
       }
     }
 
+    // make links to the website relative
+    if (article.body) {
+      article.body = article.body.replaceAll('href="https://thepaladin.news/', 'href="/');
+    }
+
     return new Response(JSON.stringify(article));
   }
 
