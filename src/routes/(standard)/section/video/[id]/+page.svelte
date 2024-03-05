@@ -140,21 +140,22 @@
     height: 100%;
   }
 
-  a {
+  a,
+  .description :global(a) {
     font-family: var(--font-detail);
     color: var(--color-neutral-dark);
     box-shadow: 0 0.5px 0 0 var(--color-neutral-lightest);
     text-decoration: none;
-    transition:
-      background-color 0.2s,
-      box-shadow 0.1s;
+    transition: background-color 0.2s, box-shadow 0.1s;
   }
-  a:hover {
+  a:hover,
+  .description :global(a:hover) {
     color: rgb(var(--primary));
     background-color: rgba(var(--primary), 0.1);
     box-shadow: 0 2px 0 0 rgb(var(--primary));
   }
-  a:active {
+  a:active,
+  .description :global(a:active) {
     background-color: rgba(var(--primary), 0.16);
   }
 
