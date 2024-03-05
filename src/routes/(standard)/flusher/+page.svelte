@@ -85,9 +85,10 @@
     <br />
     <br />
     <br />
-    <Button href={`/flusher/${DateTime.fromISO(data.timestamps.week).toISODate()}/print`}
-      >View print edition</Button
-    >
+    <Button href={`/flusher/${DateTime.fromISO(data.timestamps.week).toISODate()}/print`}>
+      View print edition
+    </Button>
+    <Button href={`/flusher/all`}>View all issues</Button>
   {/if}
 </Container>
 
