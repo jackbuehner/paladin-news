@@ -20,9 +20,9 @@
 <svelte:head>
   {#if data}
     {#if isTheRoyalFlush}
-      <title>The Royal Flush – Vol. ${romanize(data.volume)}, Iss. ${data.issue}</title>
+      <title>The Royal Flush – Vol. {romanize(data.volume)}, Iss. {data.issue}</title>
     {:else}
-      <title>The Flusher – Vol. ${romanize(data.volume)}, Iss. ${data.issue}</title>
+      <title>The Flusher – Vol. {romanize(data.volume)}, Iss. {data.issue}</title>
     {/if}
   {:else}
     <title>The Flusher</title>
