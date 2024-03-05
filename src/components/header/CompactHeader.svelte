@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { browser } from '$app/environment';
   import { headerIsSatire, headerLabel, headerNoLogoUntil } from '../../stores/header';
   import { searchOpen } from '../../stores/search';
   import Container from '../Container.svelte';
@@ -10,7 +11,6 @@
   $: windowWidth = 0;
   $: windowScrollY = 0;
 
-  let isSideNavOpen = false;
   const color = `var(--topbar-color)`;
 </script>
 
@@ -23,35 +23,40 @@
 <div class="topbar-wrapper compact-header" class:scrolled={windowScrollY > 0}>
   <Container>
     <div class="topbar" class:scrolled={windowScrollY > 0}>
-      <div class="left">
-        <IconButton ariaLabel={'menu'} on:click={() => (isSideNavOpen = !isSideNavOpen)} {color}
-          ><path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" /></IconButton
-        >
+      <div class="left" onclick="toggleSideNav()">
+        <IconButton ariaLabel={'menu'} {color}>
+          <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+        </IconButton>
+        <div />
         {#if $headerLabel}
           <div class={'label'} style="color: {color};">{$headerLabel}</div>
         {/if}
       </div>
       <div class="logo" class:hidden={windowScrollY < $headerNoLogoUntil}>
         {#if $headerIsSatire}
-          <a href={'/satire'} aria-label={'satire home'}
-            ><TheHorseLogo width={'100%'} height={46} /></a
-          >
+          <a href={'/satire'} aria-label={'satire home'}>
+            <TheHorseLogo width={'100%'} height={46} />
+          </a>
         {:else}
-          <a href={'/'} aria-label={'home'}><ThePaladinLogo width={'100%'} height={46} /></a>
+          <a href={'/'} aria-label={'home'}>
+            <ThePaladinLogo width={'100%'} height={46} />
+          </a>
         {/if}
       </div>
       <div class="right">
-        <IconButton ariaLabel={'search'} on:click={() => ($searchOpen = true)} {color}
-          ><path
-            d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"
-          /></IconButton
-        >
+        {#if browser}
+          <IconButton ariaLabel={'search'} on:click={() => ($searchOpen = true)} {color}>
+            <path
+              d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"
+            />
+          </IconButton>
+        {/if}
       </div>
     </div>
   </Container>
 </div>
 
-<SideNav bind:isOpen={isSideNavOpen} />
+<SideNav />
 
 <slot />
 

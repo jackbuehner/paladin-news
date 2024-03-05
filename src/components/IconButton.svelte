@@ -12,6 +12,8 @@
   export let iconSize: string | undefined = undefined;
   export let className: string | undefined = undefined;
   export let background: { base?: string; hover?: string; active?: string } | undefined = undefined;
+  export let target = '';
+  export let rel = '';
 </script>
 
 {#if href}
@@ -28,6 +30,8 @@
     }${background?.active ? `--button-bg-active: ${background.active};` : ``}${
       size ? `--size: ${size};` : ``
     }${iconSize ? `--icon-size: ${iconSize};` : ``}`}
+    {target}
+    {rel}
   >
     <svg {viewBox}>
       <slot />

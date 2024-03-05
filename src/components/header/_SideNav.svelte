@@ -1,8 +1,6 @@
 <script lang="ts">
-  import ThePaladinLogo from '../svgs/ThePaladinLogo.svelte';
   import IconButton from '../IconButton.svelte';
-
-  export let isOpen = false;
+  import ThePaladinLogo from '../svgs/ThePaladinLogo.svelte';
 
   const items = [
     [
@@ -41,7 +39,33 @@
   ];
 </script>
 
-<nav class:isOpen>
+<div>
+  <script>
+    // we use plain javascript to avoid svelte reactivity
+    // so that this works when svelte's javascript is unavailable
+    // (e.g., when the page was downloaded with wget or there
+    // was an error in the svelte javascript)
+
+    function toggleSideNav() {
+      const navElem = document.querySelector('.main-side-nav');
+      if (!navElem) return;
+
+      const isOpen = navElem.classList.contains('isOpen');
+      if (isOpen) navElem.classList.remove('isOpen');
+      else navElem.classList.add('isOpen');
+
+      const navOverlayElem = document.querySelector('.main-nav-overlay');
+      if (!navOverlayElem) return;
+
+      if (isOpen) navOverlayElem.classList.remove('isOpen');
+      else navOverlayElem.classList.add('isOpen');
+
+      console.log('hi');
+    }
+  </script>
+</div>
+
+<nav class="main-side-nav">
   <div class={`logo`}>
     <ThePaladinLogo width={252} height={85} />
   </div>
@@ -83,7 +107,7 @@
         href={item.href}
         target={item.external ? '_blank' : undefined}
         rel="noreferrer"
-        on:click={() => (isOpen = false)}
+        onclick="toggleSideNav()"
         class:withSubLabel={!!item.sublabel}
       >
         <span class="label">
@@ -104,7 +128,7 @@
     {/each}
   {/each}
 </nav>
-<div class={`overlay`} class:isOpen on:click={() => (isOpen = false)} />
+<div class={`overlay main-nav-overlay`} onclick="toggleSideNav()" />
 
 <style>
   /* the entire nav component */
@@ -123,8 +147,8 @@
     transform: none;
     transition: transform cubic-bezier(0.165, 0.84, 0.44, 1) 360ms;
   }
-  nav.isOpen {
-    transform: translateX(var(--sidenav-width));
+  :global(.main-side-nav.isOpen) {
+    transform: translateX(var(--sidenav-width)) !important;
   }
 
   /* label and sublabel */
@@ -194,7 +218,7 @@
   }
 
   /* overlay */
-  .overlay.isOpen {
+  :global(.main-nav-overlay.isOpen) {
     position: fixed;
     inset: 0;
     z-index: 998;
