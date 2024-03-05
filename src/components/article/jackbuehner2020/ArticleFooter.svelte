@@ -225,7 +225,7 @@
       {#each article.people.authors.filter(notEmpty) as author}
         <div class="author-bio-wrapper">
           <div class="name">
-            {author.name}
+            {author.name.replace('(Provisional)', '').trim()}
             {#if author.twitter}
               <a href="https://twitter.com/{author.twitter}">@{author.twitter}</a>
             {/if}
@@ -234,7 +234,11 @@
             <div class="author-bio">{author.biography}</div>
           {:else if author.current_title}
             <div class="author-bio">
-              {author.name.split(' ')[0]} is a{isVowel(author.current_title[0]) ? 'n' : ''}
+              {author.name.replace('(Provisional)', '').trim().split(' ')[0]} is a{isVowel(
+                author.current_title[0]
+              )
+                ? 'n'
+                : ''}
               {author.current_title} for <i>The Paladin</i>.
             </div>
           {/if}
