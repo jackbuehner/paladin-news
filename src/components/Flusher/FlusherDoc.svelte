@@ -54,7 +54,7 @@
         />
       {/if}
       <MoreArticles articles={flusher.articles.more.filter(notEmpty)} />
-      <Footer />
+      <Footer week={flusher.timestamps.week} />
     </article>
   </div>
 </div>
