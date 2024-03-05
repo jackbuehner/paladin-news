@@ -54,13 +54,13 @@
   }, []);
 </script>
 
-{#if parsedComments.length > 0}
+{#if filteredComments.length > 0}
   <div class="comments">
     <h3 class="comments-title">
-      {#if parsedComments.length === 1}
+      {#if filteredComments.length === 1}
         One thought
       {:else}
-        {parsedComments.length} thoughts
+        {filteredComments.length} thoughts
       {/if}
       on “<span>{name}</span>”
     </h3>
