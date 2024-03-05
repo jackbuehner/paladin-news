@@ -13,61 +13,91 @@
   export let articleDescription: string | undefined = undefined;
 
   $: parsed = DateTime.fromISO(date).isValid ? formatISODate(date) : date;
+
+  $: showHeadshots = authors.length <= 2 && authors.some((author) => author.photo);
 </script>
 
-<div class={'grid'}>
+<div class={'grid'} class:showHeadshots>
   <div class={'byline'}>
-    <span>By</span>
-    <!-- display the article authors with the appropriate separators -->
-    {#if authors === []}
-      <!-- hide if undefined -->
-      {''}
-    {:else if authors.length === 1}
-      <!-- show author if only one -->
-      <a
-        href={`/profile/${
-          authors[0].slug ? authors[0].slug : slugify(authors[0].name.replace(' (Provisional)', ''))
-        }`}>{authors[0].name.replace(' (Provisional)', '')}</a
-      >
-    {:else if authors.length === 2}
-      <!-- separate with 'and' if two authors -->
-      <a
-        href={`/profile/${
-          authors[0].slug ? authors[0].slug : slugify(authors[0].name.replace(' (Provisional)', ''))
-        }`}>{authors[0].name.replace(' (Provisional)', '')}</a
-      >
-      <span> and </span>
-      <a
-        href={`/profile/${
-          authors[1].slug ? authors[1].slug : slugify(authors[1].name.replace(' (Provisional)', ''))
-        }`}>{authors[1].name.replace(' (Provisional)', '')}</a
-      >
-    {:else if authors.length > 2}
-      <!-- separate with either a comma or ', and' if more than two authors -->
-      {#each authors as author, index}
-        {#if index === 0}
-          <a
-            href={`/profile/${
-              author.slug ? author.slug : slugify(author.name.replace(' (Provisional)', ''))
-            }`}>{author.name.replace(' (Provisional)', '')}</a
-          >
-        {:else if index === authors.length - 1}
-          <span>, and </span>
-          <a
-            href={`/profile/${
-              author.slug ? author.slug : slugify(author.name.replace(' (Provisional)', ''))
-            }`}>{author.name.replace(' (Provisional)', '')}</a
-          >
-        {:else}
-          <span>, </span>
-          <a
-            href={`/profile/${
-              author.slug ? author.slug : slugify(author.name.replace(' (Provisional)', ''))
-            }`}>{author.name.replace(' (Provisional)', '')}</a
-          >
-        {/if}
+    {#if showHeadshots}
+      {#each authors as { photo, ...author }}
+        <a
+          class="headshot-anchor"
+          href={`/profile/${
+            author.slug ? author.slug : slugify(author.name.replace(' (Provisional)', ''))
+          }`}
+        >
+          <img
+            loading="lazy"
+            width="36"
+            height="36"
+            alt=""
+            src={photo}
+            sizes="100vw"
+            class="article-author-photo"
+          />
+        </a>
       {/each}
     {/if}
+    <div class="byline-text">
+      <span>By{' '}</span>
+      <!-- display the article authors with the appropriate separators -->
+      {#if !authors || authors.length === 0}
+        <!-- hide if undefined -->
+        {''}
+      {:else if authors.length === 1}
+        <!-- show author if only one -->
+        <a
+          href={`/profile/${
+            authors[0].slug
+              ? authors[0].slug
+              : slugify(authors[0].name.replace(' (Provisional)', ''))
+          }`}>{authors[0].name.replace(' (Provisional)', '')}</a
+        >
+      {:else if authors.length === 2}
+        <!-- separate with 'and' if two authors -->
+        <a
+          href={`/profile/${
+            authors[0].slug
+              ? authors[0].slug
+              : slugify(authors[0].name.replace(' (Provisional)', ''))
+          }`}>{authors[0].name.replace(' (Provisional)', '')}</a
+        >
+        <span>{' '}and{' '}</span>
+        <a
+          href={`/profile/${
+            authors[1].slug
+              ? authors[1].slug
+              : slugify(authors[1].name.replace(' (Provisional)', ''))
+          }`}>{authors[1].name.replace(' (Provisional)', '')}</a
+        >
+      {:else if authors.length > 2}
+        <!-- separate with either a comma or ', and' if more than two authors -->
+        {#each authors as author, index}
+          {#if index === 0}
+            <a
+              href={`/profile/${
+                author.slug ? author.slug : slugify(author.name.replace(' (Provisional)', ''))
+              }`}>{author.name.replace(' (Provisional)', '')}</a
+            >
+          {:else if index === authors.length - 1}
+            <span>,{' '}and{' '}</span>
+            <a
+              href={`/profile/${
+                author.slug ? author.slug : slugify(author.name.replace(' (Provisional)', ''))
+              }`}>{author.name.replace(' (Provisional)', '')}</a
+            >
+          {:else}
+            <span>,{' '}</span>
+            <a
+              href={`/profile/${
+                author.slug ? author.slug : slugify(author.name.replace(' (Provisional)', ''))
+              }`}>{author.name.replace(' (Provisional)', '')}</a
+            >
+          {/if}
+        {/each}
+      {/if}
+    </div>
   </div>
   <div class={'date'}>
     {parsed}
@@ -130,28 +160,57 @@
       'date     social-buttons';
     align-items: center;
   }
+  .grid.showHeadshots {
+    grid-row-gap: 4px;
+  }
   .byline {
-    height: 36px;
-    justify-content: center;
+    /* height: 36px; */
     align-self: auto;
     grid-area: byline;
     font-family: var(--font-detail);
     color: var(--color-neutral-dark);
     font-size: 16px;
-    line-height: 36px;
+    /* line-height: 36px; */
     font-weight: 700;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
   }
-  .byline a {
+  .byline-text {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 36px;
+    line-height: 20px;
+    white-space: pre-wrap;
+    flex-wrap: wrap;
+  }
+  .byline a:not(.headshot-anchor) {
     color: var(--color-neutral-dark);
     text-decoration: none;
     transition: background-color 0.2s, box-shadow 0.1s;
+    flex-grow: 0;
+    flex-shrink: 0;
   }
-  .byline a:hover {
+  .byline a:not(.headshot-anchor):hover {
     background-color: rgba(var(--primary), 0.1);
     box-shadow: 0 2px 0 0 rgb(var(--primary));
   }
-  .byline a:active {
+  .byline a:not(.headshot-anchor):active {
     background-color: rgba(var(--primary), 0.16);
+  }
+  .byline img {
+    border-radius: 20px;
+    margin-right: 8px;
+    transition: 200ms;
+  }
+  .byline .headshot-anchor:hover img {
+    border-radius: var(--radius);
+    box-shadow: var(--button-shadow-hover);
+  }
+  .byline .headshot-anchor:active img {
+    box-shadow: none;
   }
   .date {
     font-family: var(--font-detail);
