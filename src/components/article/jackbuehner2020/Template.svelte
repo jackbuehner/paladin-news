@@ -277,6 +277,37 @@
           }
         }
       </style>
+      <MoreArticles {article} />
+      <div class="more-from">
+        <h1>More from The Paladin</h1>
+        <div class={'groups'}>
+          <div class={'group'}>
+            <img
+              src={'https://ik.imagekit.io/paladin/sunday-summary_logo_banner_background.svg'}
+              alt={'Sunday Summary'}
+              loading={'lazy'}
+            />
+            <div class={'desc'}>
+              A newsletter discussing the top articles of the week. Subscribe to recieve it in your
+              inbox every Sunday.
+            </div>
+            <Button width={'100%'} href="/newsletters">Subscribe</Button>
+          </div>
+          <div class={'group'}>
+            <img
+              src={'https://ik.imagekit.io/paladin/the-works_logo_banner_color.svg'}
+              alt={'The Works'}
+              loading={'lazy'}
+            />
+            <div class={'desc'}>
+              The Paladin’s casual newsletter tracking the latest trends sweeping the student body,
+              highlighting creative talent, and shining a light on the best (and worst) aspects of
+              campus culture at Furman.
+            </div>
+            <Button width={'100%'} href="/newsletters">Subscribe</Button>
+          </div>
+        </div>
+      </div>
     </aside>
   {/if}
 </Container>

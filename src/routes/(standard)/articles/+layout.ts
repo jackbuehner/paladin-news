@@ -56,7 +56,7 @@ export const load: LayoutLoad = async (a) => {
     const article = writable<PublishedDocWithDate<RespondedArticle>>(insertDate([_article])[0]);
 
     // attempt to get more data on the series
-    await new Promise<void>((resolve, reject) => {
+    await new Promise<void>((resolve) => {
       let loadingSeriesState: 'none' | 'loading' | 'loaded' = 'none';
       article.subscribe(async ($article) => {
         if ($article?.series && !$article.series.articles && loadingSeriesState === 'none') {
@@ -94,6 +94,50 @@ export const load: LayoutLoad = async (a) => {
       });
     });
 
+    // attempt to get more articles for the reader
+    await new Promise<void>((resolve) => {
+      article.subscribe(async ($article) => {
+        if (!$article.more) {
+          const publishDatePlusThreeDays = new Date(
+            new Date($article.timestamps.published_at).getTime() + 1000 * 60 * 60 * 72
+          );
+
+          const { data } = await api.query<GET_ARTICLES__TYPE>(GET_ARTICLES, {
+            variables: {
+              limit: 6,
+              page: 1,
+              filter: JSON.stringify({
+                _id: {
+                  $nin: [
+                    // exclude the current article
+                    $article._id,
+                    // exclude the other articles in the series
+                    ...($article.series?.articles || []).map((article) => article._id),
+                  ],
+                },
+                $and: [
+                  { 'timestamps.published_at': { $exists: true } },
+                  // since this is the old version of the site, we want the archived
+                  // pages to reflect the articles that were published around the same
+                  // time as the article displayed on the page
+                  { 'timestamps.published_at': { $lte: publishDatePlusThreeDays.toISOString() } },
+                ],
+              }),
+              sort: JSON.stringify({ 'timestamps.published_at': -1 }),
+            },
+          });
+          article.set({
+            ...$article,
+            more: {
+              articles: data?.articlesPublic?.docs || [],
+              _loading: false,
+            },
+          });
+        }
+        resolve();
+      });
+    });
+
     return {
       article: derived(article, (_) => _), // return a read-only version of the store
       date: get(article).date,
@@ -109,6 +153,10 @@ export const load: LayoutLoad = async (a) => {
 
 export type RespondedArticle = GET_ARTICLE_BY_SLUG__DOC_TYPE & {
   series?: {
+    articles?: GET_ARTICLES__DOC_TYPE[];
+    _loading?: boolean;
+  };
+  more?: {
     articles?: GET_ARTICLES__DOC_TYPE[];
     _loading?: boolean;
   };

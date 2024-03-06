@@ -8,70 +8,63 @@
   import { fetchMore } from '.';
 
   export let article: PublishedDocWithDate<RespondedArticle>;
-
-  let articles: Paged<GET_ARTICLES__DOC_TYPE> | undefined = undefined;
-  $: (async () => {
-    // do not fetch until the article series list has populated (stopped loading)
-    if (article.series?._loading) return;
-
-    const res = await fetchMore(
-      [
-        // exclude the current article since the reader has already read it
-        article._id,
-        // exclude articles in the same series since they are displayed elsewhere on the page
-        ...(article.series?.articles?.filter(notEmpty).map((article) => article._id) || []),
-      ],
-      5
-    );
-    if (res.ok && res.data) articles = res.data;
-  })();
-
-  $: componentWidth = 0;
-  $: windowWidth = 0;
 </script>
 
-<svelte:window bind:innerWidth={windowWidth} />
-
-<div>
+<div class="more-container">
   <h1>More articles</h1>
-  <div class={'grid'} bind:clientWidth={componentWidth} class:narrower={componentWidth <= 860}>
-    {#if articles && articles.docs}
-      {#each insertDate(articles.docs) as article}
+  <div class={'grid'}>
+    {#if article.more?.articles}
+      {#each insertDate(article.more.articles) as moreArticle}
         <ArticleCard
-          name={article.name}
-          href={article.date
-            ? `/articles/${article.date.year}/${article.date.month}/${article.date.day}/${article.slug}`
-            : `/articles/${article.slug}`}
-          description={windowWidth <= 900 ? undefined : article.description}
-          photo={windowWidth <= 900 ? undefined : article.photo_path}
-          categories={article.categories}
-          date={article.timestamps.published_at}
-          authors={article.people.authors}
-          isCompact={windowWidth <= 900}
+          name={moreArticle.name}
+          href={moreArticle.date
+            ? `/articles/${moreArticle.date.year}/${moreArticle.date.month}/${moreArticle.date.day}/${moreArticle.slug}`
+            : `/articles/${moreArticle.slug}`}
+          photo={moreArticle.photo_path}
+          categories={moreArticle.categories}
+          date={moreArticle.timestamps.published_at}
+          authors={moreArticle.people.authors}
         />
       {/each}
     {/if}
   </div>
 </div>
 
+<div style="display: none;">
+  <style>
+    @container (max-width: 860px) {
+      .grid {
+        grid-template-columns: 1fr 1fr !important;
+        grid-template-rows: auto auto auto !important;
+      }
+      a:nth-child(6) {
+        display: none;
+      }
+    }
+  </style>
+</div>
+
 <style>
+  .more-container {
+    container-type: inline-size;
+  }
+
   .grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: auto auto;
     gap: 16px;
   }
-  .grid.narrower {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto;
-  }
   @media (max-width: 900px) {
-    .grid,
-    .grid.narrower {
-      grid-template-columns: 1fr;
-      grid-template-rows: auto auto auto auto auto;
+    .grid {
+      grid-template-columns: 1fr !important;
+      grid-template-rows: auto auto auto auto auto !important;
+    }
+    .grid :global(a:nth-child(5)) {
+      display: none;
     }
   }
+
   h1 {
     font-family: var(--font-detail);
     color: var(--color-neutral-dark);
@@ -85,6 +78,26 @@
   @media print {
     div {
       display: none;
+    }
+  }
+
+  /* simulate compact mode article cards */
+  @media (max-width: 900px) {
+    .grid :global(.description) {
+      display: none;
+    }
+    .grid :global(.categories),
+    .grid :global(.meta) {
+      margin-top: 0;
+    }
+    .grid :global(.name) {
+      margin-bottom: 0;
+    }
+    .grid :global(.photo-wrapper) {
+      width: 88px;
+      padding-top: 62.6px;
+      float: right;
+      margin-left: 10px;
     }
   }
 </style>
