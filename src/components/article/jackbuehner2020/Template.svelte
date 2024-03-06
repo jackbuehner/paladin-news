@@ -379,13 +379,13 @@
     }
     :global(.article-body a),
     :global(.article-footer a) {
-      box-shadow: none;
-      text-decoration: underline;
-      color: var(--color-neutral-dark);
+      color: var(--color-neutral-dark) !important;
     }
     :global(.article-body a::after) {
       content: ' (' attr(href) ') ';
       word-break: break-all;
+      box-shadow: 0 2px 0 1.5px white;
+      color: #999 !important;
     }
     :global(.hide-print) {
       display: none !important;
