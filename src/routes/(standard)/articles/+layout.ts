@@ -89,8 +89,8 @@ export const load: LayoutLoad = async (a) => {
               _loading: false,
             },
           });
-          resolve();
         }
+        resolve();
       });
     });
 
