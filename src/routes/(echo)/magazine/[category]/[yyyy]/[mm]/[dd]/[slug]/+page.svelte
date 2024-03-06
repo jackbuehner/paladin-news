@@ -166,10 +166,7 @@
   :global(.echo-article-body a) {
     color: unset;
     text-decoration: none;
-    transition:
-      background-color 0.2s,
-      box-shadow 0.1s,
-      color 0.2s;
+    transition: background-color 0.2s, box-shadow 0.1s, color 0.2s;
   }
   :global(.echo-article-body a:not(.invisible)) {
     color: rgb(var(--primary-lighter));
@@ -199,6 +196,11 @@
   /* do not use top and bottom borders for photos/figures */
   :global(.echo-article-body figure.widget) {
     border: none;
+  }
+
+  :global(.article-body figure .img-wrapper) {
+    position: relative;
+    display: flex;
   }
 
   /* insert photo credit after the figure */

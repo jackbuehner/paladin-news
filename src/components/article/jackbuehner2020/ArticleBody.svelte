@@ -336,6 +336,11 @@
     border: none;
   }
 
+  :global(.article-body figure .img-wrapper) {
+    position: relative;
+    display: flex;
+  }
+
   /* insert photo credit after the figure */
   /*when there is no caption*/
   :global(.article-body figure .img-wrapper::after) {
