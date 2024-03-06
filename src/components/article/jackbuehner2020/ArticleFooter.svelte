@@ -220,7 +220,7 @@
     </div>
   {/if}
 
-  {#if article?.people?.authors && article.people.authors.length > 0}
+  {#if article?.people?.authors && article.people.authors.length > 0 && article.people.authors.some((author) => author.biography)}
     <div class="author-bios">
       {#each article.people.authors.filter(notEmpty) as author}
         <div class="author-bio-wrapper">
