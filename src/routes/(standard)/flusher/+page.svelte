@@ -75,7 +75,11 @@
     <ol>
       {#each insertDate(data.articles.more.filter(notEmpty)) as article}
         <li>
-          <a href={constructArticlePath(article.slug, article.date)}>{article.name}</a>
+          {#if article.slug}
+            <a href={constructArticlePath(article.slug, article.date)}>{article.name}</a>
+          {:else}
+            <span style="cursor: not-allowed;">{article.name}</span>
+          {/if}
         </li>
       {/each}
     </ol>

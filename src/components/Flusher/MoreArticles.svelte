@@ -1,7 +1,7 @@
 <script lang="ts">
   import { SectionHeading } from '.';
 
-  export let articles: Array<{ name: string; _id: string }>;
+  export let articles: Array<{ name: string; _id: string; slug?: string }>;
 </script>
 
 <section>
@@ -11,7 +11,11 @@
     {#each articles as article}
       <li>
         <h3>
-          <a href={`https://thepaladin.news/permalink/articles/${article._id}`}>{article.name}</a>
+          {#if article.slug}
+            <a href={`https://thepaladin.news/permalink/articles/${article._id}`}>{article.name}</a>
+          {:else}
+            <span style="cursor: not-allowed;">{article.name}</span>
+          {/if}
         </h3>
       </li>
     {/each}
