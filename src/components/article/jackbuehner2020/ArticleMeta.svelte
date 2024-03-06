@@ -14,7 +14,7 @@
 
   $: parsed = DateTime.fromISO(date).isValid ? formatISODate(date) : date;
 
-  $: showHeadshots = authors.length <= 2 && authors.some((author) => author.photo);
+  $: showHeadshots = authors.length <= 2 && authors.every((author) => author.photo);
 </script>
 
 <div class={'grid'} class:showHeadshots>
