@@ -15,9 +15,6 @@
 
   export let article: PublishedDocWithDate<RespondedArticle>;
 
-  // keep track of window width
-  $: windowWidth = 0;
-
   /**
    * Add claps to the article.
    *
@@ -56,8 +53,6 @@
   }
 </script>
 
-<svelte:window bind:innerWidth={windowWidth} />
-
 <div class="article-footer article-footer--buttons">
   <!-- <ApplauseButton
     id={`article.${article._id}`}
@@ -66,16 +61,11 @@
   /> -->
 
   {#if article.show_comments}
-    <Button
-      on:click={() => ($commentsOpen = true)}
-      style={'flex-grow: 1; height: 36px; font-weight: 700; letter-spacing: 0.6px;' +
-        (windowWidth <= 500 ? 'width: 100%; margin-top: -14px;' : '')}>READ ALL COMMENTS</Button
-    >
+    <Button on:click={() => ($commentsOpen = true)} class="article-footer--comments-button">
+      Read all comments
+    </Button>
   {:else}
-    <div
-      style={'flex-grow: 1; height: 36px; font-weight: 700; letter-spacing: 0.6px;' +
-        (windowWidth <= 500 ? 'display: none' : '')}
-    />
+    <div class="article-footer--comments-button" />
   {/if}
   {#if article.name}
     {@const articleLocation = `https://thepaladin.news/${
@@ -305,5 +295,22 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+  }
+
+  .article-footer :global(.article-footer--comments-button) {
+    flex-grow: 1;
+    height: 36px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+  }
+  @media (max-width: 500px) {
+    .article-footer :global(button.article-footer--comments-button) {
+      width: 100%;
+      margin-top: -14px;
+    }
+    .article-footer div.article-footer--comments-button {
+      display: none;
+    }
   }
 </style>

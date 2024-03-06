@@ -5,11 +5,14 @@
   export let width: string | undefined = undefined;
   export let href: string | undefined = undefined;
   export let style: string | undefined = undefined;
+  let className = '';
+  export { className as class };
 </script>
 
 {#if href}
   <a
     {href}
+    class={className}
     class:disabled
     style={style && width
       ? `width: ${width};${style}`
@@ -31,6 +34,7 @@
     on:mouseover
     on:focus
     on:mousemove
+    class={className}
     class:disabled
     type={htmlType}
     style={style && width
