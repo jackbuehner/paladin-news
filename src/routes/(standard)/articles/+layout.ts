@@ -8,7 +8,7 @@ import { insertDate } from '$lib/utils';
 import { api } from '$lib/utils/api';
 import type { PublishedDocWithDate } from '$lib/utils/insertDate';
 import { error, redirect } from '@sveltejs/kit';
-import { derived, writable } from 'svelte/store';
+import { derived, get, writable } from 'svelte/store';
 import type { LayoutLoad } from './$types';
 
 export const load: LayoutLoad = async (a) => {
@@ -42,12 +42,18 @@ export const load: LayoutLoad = async (a) => {
   // fetch the data
   const endpoint = `${a.url.origin}/articles${date.path || '/_/_/_'}/${params.slug}/data`;
   const res = await a.fetch(endpoint);
-  const _article: RespondedArticle = await res.json();
+  const _article: RespondedArticle | null = await (() => {
+    try {
+      if (res.status === 307) return null;
+      return res.json();
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  })();
 
   if (res.ok && _article) {
-    const article = writable<PublishedDocWithDate<RespondedArticle> | undefined>(
-      insertDate([_article])[0]
-    );
+    const article = writable<PublishedDocWithDate<RespondedArticle>>(insertDate([_article])[0]);
 
     // attempt to get more data on the series
     let loadingSeriesState: 'none' | 'loading' | 'loaded' = 'none';
@@ -86,10 +92,15 @@ export const load: LayoutLoad = async (a) => {
     });
 
     return {
-      article: derived(article, (_) => _),
+      article: derived(article, (_) => _), // return a read-only version of the store
+      date: get(article).date,
+      slug: get(article).slug ?? params.slug,
     };
   }
 
+  if (res.status === 307) {
+    throw error(404, `Could not find article "${params.slug}" due to a missing or invalid date`);
+  }
   throw error(500, `Could not load ${endpoint}`);
 };
 
