@@ -132,6 +132,13 @@
   {#if article.series}
     {#if article.series.articles}
       <div
+        class="paladin-plus-article-prompt hide-print"
+        class:noContributionsNote={!article.contributions_note}
+      >
+        This article is part of the <b>{article.series.name}</b> series.
+        <a href="/series/{article.series._id}">View all articles in this series.</a>
+      </div>
+      <div
         class="series-article-list hide-print"
         class:noContributionsNote={!article.contributions_note}
       >
@@ -312,5 +319,10 @@
     .article-footer div.article-footer--comments-button {
       display: none;
     }
+  }
+
+  .paladin-plus-article-prompt + .series-article-list {
+    margin-top: -32px;
+    border-top: 0;
   }
 </style>

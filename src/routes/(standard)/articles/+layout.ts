@@ -56,39 +56,42 @@ export const load: LayoutLoad = async (a) => {
     const article = writable<PublishedDocWithDate<RespondedArticle>>(insertDate([_article])[0]);
 
     // attempt to get more data on the series
-    let loadingSeriesState: 'none' | 'loading' | 'loaded' = 'none';
-    article.subscribe(async ($article) => {
-      if ($article?.series && !$article.series.articles && loadingSeriesState === 'none') {
-        loadingSeriesState = 'loading';
-        article.set({
-          ...$article,
-          series: {
-            ...$article.series,
-            _loading: true,
-          },
-        });
-        const { data } = await api.query<GET_ARTICLES__TYPE>(GET_ARTICLES, {
-          variables: {
-            limit: 3,
-            page: 1,
-            filter: JSON.stringify({
-              series: $article.series._id,
-              'timestamps.published_at': { $exists: true },
-              _id: { $nin: [$article._id] },
-            }),
-            sort: JSON.stringify({ 'timestamps.published_at': -1 }),
-          },
-        });
-        loadingSeriesState = 'loaded';
-        article.set({
-          ...$article,
-          series: {
-            ...$article.series,
-            articles: data?.articlesPublic?.docs || [],
-            _loading: false,
-          },
-        });
-      }
+    await new Promise<void>((resolve, reject) => {
+      let loadingSeriesState: 'none' | 'loading' | 'loaded' = 'none';
+      article.subscribe(async ($article) => {
+        if ($article?.series && !$article.series.articles && loadingSeriesState === 'none') {
+          loadingSeriesState = 'loading';
+          article.set({
+            ...$article,
+            series: {
+              ...$article.series,
+              _loading: true,
+            },
+          });
+          const { data } = await api.query<GET_ARTICLES__TYPE>(GET_ARTICLES, {
+            variables: {
+              limit: 3,
+              page: 1,
+              filter: JSON.stringify({
+                series: $article.series._id,
+                'timestamps.published_at': { $exists: true },
+                _id: { $nin: [$article._id] },
+              }),
+              sort: JSON.stringify({ 'timestamps.published_at': -1 }),
+            },
+          });
+          loadingSeriesState = 'loaded';
+          article.set({
+            ...$article,
+            series: {
+              ...$article.series,
+              articles: data?.articlesPublic?.docs || [],
+              _loading: false,
+            },
+          });
+          resolve();
+        }
+      });
     });
 
     return {
