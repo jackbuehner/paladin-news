@@ -4,6 +4,7 @@
   import { searchOpen } from '../../stores/search';
   import Container from '../Container.svelte';
   import IconButton from '../IconButton.svelte';
+  import ThePaladinLogo from '../svgs/ThePaladinLogo.svelte';
   import ThePaladinLogoAlt from '../svgs/ThePaladinLogoAlt.svelte';
   import HorizontalNav from './_HorizontalNav.svelte';
   import SideNav from './_SideNav.svelte';
@@ -60,7 +61,7 @@
       {/if}
     </div>
     <div class="logo" class:hidden={windowScrollY < 180}>
-      <a href={'/'} aria-label={'home'}><ThePaladinLogoAlt width={'100%'} height={15} /></a>
+      <a href={'/'} aria-label={'home'}><ThePaladinLogo width={'100%'} height={46} /></a>
     </div>
     <div class="right">
       <div class="gt-760">
