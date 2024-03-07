@@ -5,11 +5,18 @@ import { error, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (request) => {
-  // remove special characters (including spaces) and redirect
-  if (request.params.tag.indexOf(' ') !== -1 || request.params.tag.indexOf('&') !== -1) {
+  // remove special characters (including spaces) and leading or trailing hyphens and redirect
+  if (
+    request.params.tag.indexOf(' ') !== -1 ||
+    request.params.tag.indexOf('&') !== -1 ||
+    request.params.tag.startsWith('-') ||
+    request.params.tag.endsWith('-')
+  ) {
     throw redirect(
       307, // temporary redirect
-      `/tag/${encodeURIComponent(request.params.tag.replace(/\s&/gm, '').replace(/\s/gm, '-'))}`
+      `/tag/${encodeURIComponent(
+        request.params.tag.replaceAll('-', ' ').trim().replace(/\s&/gm, '').replace(/\s/gm, '-')
+      )}`
     );
   }
 
@@ -27,6 +34,25 @@ export const load: PageServerLoad = async (request) => {
       request.params.tag.toLocaleLowerCase().replaceAll('-', ''),
     ];
 
+  // generate a regex for the query that
+  // ignores spaces, hyphens, and case
+  const regex = {
+    $regex:
+      // allow any number and combination of leading spaces and hyphens
+      '([ -]*)' +
+      request.params.tag
+        // nornamlize to lowercase
+        .toLocaleLowerCase()
+        // normalize to not include hyphens
+        .replaceAll('-', '')
+        // allow any number and combination of spaces and hyphens between each character
+        .split('')
+        .map((char) => `${char}([ -]*)`)
+        .join(''),
+    // ignore case
+    $options: 'i',
+  };
+
   // format the name of the tag
   const pagePathToTitle = (string: string): string => {
     string = string.replaceAll('/', '');
@@ -38,7 +64,7 @@ export const load: PageServerLoad = async (request) => {
   const limit = 25;
   const page = parseInt(request.params.page);
   const filter = JSON.stringify({
-    tags: { $in: tags },
+    $or: [{ tags: { $in: tags } }, { tags: regex }],
     'timestamps.published_at': { $exists: true },
   });
   const sort = JSON.stringify({ 'timestamps.published_at': -1 });

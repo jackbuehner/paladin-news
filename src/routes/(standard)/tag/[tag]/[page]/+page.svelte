@@ -15,7 +15,7 @@
 
   $: {
     if (pageTitle) {
-      headerLabel.set(pageTitle.length < 14 ? pageTitle : 'tag');
+      headerLabel.set(pageTitle.length < 14 ? pageTitle : '');
     }
   }
 
@@ -41,7 +41,7 @@
       <img class="eco-rep-logo" src="/images/logos/FurmanEcoRepLogo.png" alt="Furman Eco Reps" />
     </div>
   </Container>
-{:else if $headerLabel !== 'tag'}
+{:else if $headerLabel}
   <PageHeading>{$headerLabel}</PageHeading>
 {/if}
 
