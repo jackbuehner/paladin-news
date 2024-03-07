@@ -8,6 +8,7 @@
   export let grow = false;
   export let isDefault = false;
   export let href: string | undefined = undefined;
+  export let manualSelected: boolean | undefined = undefined;
 
   onMount(() => {
     if (isDefault === true) selectTab(tab);
@@ -16,7 +17,7 @@
   registerTab(tab);
 </script>
 
-<div class:selected={$selectedTab === tab} class:grow>
+<div class:selected={manualSelected ?? $selectedTab === tab} class:grow>
   {#if href}
     <a
       {href}

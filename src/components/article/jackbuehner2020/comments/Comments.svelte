@@ -19,14 +19,10 @@
   export let pageId: string;
 </script>
 
-{#if isPanelOpen}
-  <div class={'scrim'} class:isOpen={isPanelWrapperOpen} on:click={() => ($commentsOpen = false)} />
-{/if}
+<div class={'scrim'} class:isOpen={isPanelWrapperOpen} on:click={() => ($commentsOpen = false)} />
 
 <div class={'flyout-wrapper'} class:isOpen={isPanelWrapperOpen}>
-  {#if isPanelOpen}
-    <CommentsPanel {pageId} />
-  {/if}
+  <CommentsPanel {pageId} />
 </div>
 
 <style>
@@ -50,6 +46,7 @@
     .flyout-wrapper {
       width: 100%;
       margin: 0;
+      transform: translateX(530px);
     }
   }
   .flyout-wrapper.isOpen {
