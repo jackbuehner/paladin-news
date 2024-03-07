@@ -17,14 +17,17 @@
 <PageHeading
   type={'block'}
   subtitle={'Data visualizations for student testing, positivity rates, and quarantine/isolation space on campus. For updated disease metrics in South Carolina by county, <a href="https://scdhec.gov/covid19/south-carolina-county-level-data-covid-19">visit SC DHEC</a>.'}
-  >COVID-19 on Campus</PageHeading
 >
+  COVID-19 on Campus
+</PageHeading>
 
 <div style={'margin: -20px 0 0 0;'}>
   <Tabs>
     <TabList>
-      <Tab grow>2020</Tab>
-      <Tab grow isDefault>2021</Tab>
+      <div style="display: flex; flex-direction: row; width: 1200px; margin: 0 auto;">
+        <Tab grow>2020</Tab>
+        <Tab grow isDefault>2021</Tab>
+      </div>
     </TabList>
 
     <TabPanel>
