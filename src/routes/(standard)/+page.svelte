@@ -254,11 +254,17 @@
 <style>
   h2 {
     margin: 0;
-    padding: 0 0 10px 0;
+    --padding-top: 0;
+    padding: var(--padding-top) 0 10px 0;
     font-family: var(--font-detail);
     font-size: 18px;
     line-height: 18px;
     letter-spacing: 0.17px;
+  }
+  @media (max-width: 600px) {
+    h2 {
+      --padding-top: 12px;
+    }
   }
 
   h2:not(:first-of-type) {
@@ -269,6 +275,11 @@
   section {
     position: relative;
     padding-bottom: 12px;
+  }
+  @media (max-width: 600px) {
+    section {
+      padding-bottom: 0;
+    }
   }
 
   .section-inner {
@@ -292,12 +303,6 @@
     .hide-desktop {
       display: none;
     }
-  }
-
-  .grid:nth-of-type(2) {
-    padding-bottom: 15px;
-    border-bottom: 1px solid var(--border-dark);
-    margin-bottom: 15px;
   }
 
   .wrapper {
@@ -339,6 +344,7 @@
         'c1'
         'c0'
         'c2';
+      gap: 0;
     }
   }
 
@@ -364,6 +370,8 @@
 
   .side-col-item {
     border-top: 1px solid var(--border-dark);
+  }
+  .side-col-item:not(:last-of-type) {
     padding: 0 0 12px 0;
   }
   .side-col-item.padTop {
@@ -406,6 +414,10 @@
         'c0'
         'c1'
         'c2';
+    }
+    .featured > :global(:where(div, a):not(:first-of-type)) {
+      border-top: 1px solid var(--border-dark);
+      padding: 12px 0 0 0;
     }
   }
 
