@@ -21,17 +21,42 @@ export const load: PageServerLoad = async () => {
   }
 
   if (data?.articleFrontPagePublic?.[0]) {
+    const frontPageArticles = [
+      ...data.articleFrontPagePublic[0].news,
+      ...data.articleFrontPagePublic[0].opinion,
+      ...data.articleFrontPagePublic[0].sports,
+      ...data.articleFrontPagePublic[0].acc,
+      ...data.articleFrontPagePublic[0].featured,
+      ...data.articleFrontPagePublic[0].diversity,
+    ];
+
+    const moreArticles = await getArticles(frontPageArticles.map(({ slug }) => slug));
+
+    const chronologicalArticles = [...frontPageArticles, ...moreArticles].sort((a, b) => {
+      return new Date(a.timestamps.published_at) > new Date(b.timestamps.published_at) ? -1 : 1;
+    });
+
+    // get the chronological index of the last article inside moreArticles,
+    // which should represent how far into the "all articles" list
+    // that the home page goes
+    const lastMoreArticlesChrologicalIndex = chronologicalArticles.findIndex(
+      (chronologicalArticle) => {
+        return chronologicalArticle.slug === moreArticles.slice(-1)[0].slug;
+      }
+    );
+
+    // determine which page of more articles that the home page
+    // should link so that there is no need scroll through pages
+    // with articles that are already on the front page
+    const nextPage = Math.ceil(lastMoreArticlesChrologicalIndex / 10);
+    const nextPageSkipIndex = (lastMoreArticlesChrologicalIndex - 1) % 10;
+    const nextPageLink = `/all-articles/${nextPage}?skip=${nextPageSkipIndex}`;
+
     return {
       ...data.articleFrontPagePublic[0],
       satires: getSatires(),
-      articles: getArticles([
-        ...data.articleFrontPagePublic[0].news.map(({ slug }) => slug),
-        ...data.articleFrontPagePublic[0].opinion.map(({ slug }) => slug),
-        ...data.articleFrontPagePublic[0].sports.map(({ slug }) => slug),
-        ...data.articleFrontPagePublic[0].acc.map(({ slug }) => slug),
-        ...data.articleFrontPagePublic[0].featured.map(({ slug }) => slug),
-        ...data.articleFrontPagePublic[0].diversity.map(({ slug }) => slug),
-      ]),
+      articles: moreArticles,
+      nextPageLink,
     };
   }
 

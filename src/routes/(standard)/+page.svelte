@@ -247,7 +247,7 @@
       <h2><a href="/the-horse">The Horse (Satire)</a></h2>
     </SatireRow>
     <ArticleHomeRow articles={data.articles} />
-    <a href="/all-articles">View all articles</a>
+    <a href={data.nextPageLink}>View all articles</a>
   </Container>
 </div>
 

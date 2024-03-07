@@ -1,9 +1,9 @@
 <script lang="ts">
+  import { page } from '$app/stores';
   import Button from '$lib/components/Button.svelte';
   import Container from '$lib/components/Container.svelte';
   import ArticleRow from '$lib/components/home/ArticleRow.svelte';
   import PageHeading from '$lib/components/PageHeading.svelte';
-  import type { GET_ARTICLES__DOC_TYPE, Paged } from '$lib/queries';
   import { insertDate } from '$lib/utils';
   import type { PageData } from './$types';
 
@@ -32,19 +32,21 @@
 <Container>
   {#if data && data.docs}
     {#each insertDate(data.docs) as article, index}
-      <ArticleRow
-        style={'grid-area: auto / 1 / auto / 3;'}
-        name={article.name}
-        href={article.date
-          ? `/articles/${article.date.year}/${article.date.month}/${article.date.day}/${article.slug}`
-          : `/articles/${article.slug}`}
-        description={article.description}
-        photo={article.photo_path}
-        date={article.timestamps.published_at}
-        authors={article.people.authors}
-        categories={article.categories}
-      />
-      <span />
+      {#if index > parseInt($page.url.searchParams.get('skip') || '0')}
+        <ArticleRow
+          style={'grid-area: auto / 1 / auto / 3;'}
+          name={article.name}
+          href={article.date
+            ? `/articles/${article.date.year}/${article.date.month}/${article.date.day}/${article.slug}`
+            : `/articles/${article.slug}`}
+          description={article.description}
+          photo={article.photo_path}
+          date={article.timestamps.published_at}
+          authors={article.people.authors}
+          categories={article.categories}
+        />
+        <span />
+      {/if}
     {/each}
   {/if}
 
