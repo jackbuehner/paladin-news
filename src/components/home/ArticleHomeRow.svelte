@@ -1,47 +1,37 @@
 <script lang="ts">
-  import { GET_ARTICLES, type GET_ARTICLES__DOC_TYPE, type GET_ARTICLES__TYPE } from '$lib/queries';
-  import { insertDate } from '$lib/utils';
-  import { api } from '$lib/utils/api';
-  import { onMount } from 'svelte';
+  import { deserialize } from '$app/forms';
+  import type { GET_ARTICLES__DOC_TYPE } from '$lib/queries';
+  import { insertDate, notEmpty } from '$lib/utils';
   import ArticleCard from './ArticleCard.svelte';
 
-  export let excludeSlugs: string[] = [];
-
-  let articles: GET_ARTICLES__DOC_TYPE[] = [];
-  onMount(async () => {
-    // define the variables for the query
-    const limit = windowWidth > 960 ? 15 : windowWidth <= 600 ? 5 : 12;
-    const page = 1;
-    const filter = JSON.stringify({
-      'timestamps.published_at': { $exists: true },
-      slug: { $nin: excludeSlugs },
-    });
-    const sort = JSON.stringify({ 'timestamps.published_at': -1 });
-
-    // request the satires from the api
-    const { data, error } = await api.query<GET_ARTICLES__TYPE>(GET_ARTICLES, {
-      variables: { limit, page, filter, sort },
-    });
-
-    if (data?.articlesPublic) articles = data.articlesPublic.docs;
-  });
-
-  let windowWidth: number = 1200;
+  export let articles: GET_ARTICLES__DOC_TYPE[] = [];
 </script>
-
-<svelte:window bind:innerWidth={windowWidth} />
 
 <section class:hide={articles.length === 0}>
   <slot />
-  <div>
-    {#each insertDate(articles.slice(0, windowWidth > 960 ? 15 : windowWidth <= 600 ? 5 : 12)) as { name, slug, people, photo_path, categories, date }}
+  <div class="desktop">
+    {#each insertDate(articles.filter(notEmpty)) as { name, slug, people, photo_path, categories, date }}
       <ArticleCard
         {name}
         {categories}
         href={`/articles/${date.year}/${date.month}/${date.day}/${slug}`}
-        photo={windowWidth <= 600 ? undefined : photo_path}
+        photo={photo_path}
         authors={people.authors}
         isSmallerHeadline
+      />
+    {/each}
+  </div>
+  <div class="mobile">
+    {#each insertDate(articles.filter(notEmpty)) as { name, slug, people, photo_path, categories, date, description }, index}
+      <ArticleCard
+        {name}
+        {categories}
+        href={`/articles/${date.year}/${date.month}/${date.day}/${slug}`}
+        photo={[0, 3, 8, 12, 17].includes(index) ? photo_path : undefined}
+        authors={people.authors}
+        isSmallerHeadline
+        isCompact
+        description={[0, 3, 8, 12, 17].includes(index) ? description : undefined}
       />
     {/each}
   </div>
@@ -60,6 +50,10 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: auto;
     gap: 15px;
+  }
+
+  div.mobile {
+    display: none;
   }
 
   @media (max-width: 960px) {
@@ -81,8 +75,26 @@
   }
 
   @media (max-width: 600px) {
+    div.mobile {
+      display: grid;
+    }
+    div.desktop {
+      display: none;
+    }
     div {
       grid-template-columns: 1fr;
+    }
+    div :global(a:first-of-type) {
+      padding-top: 12px;
+      border-top: 1px solid var(--color-neutral-light);
+    }
+    div :global(a:not(:first-of-type)) {
+      padding-top: 12px;
+      border-top: 1px solid var(--border-dark);
+    }
+    div :global(a:last-of-type) {
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-dark);
     }
   }
 </style>

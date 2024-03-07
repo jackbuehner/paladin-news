@@ -243,21 +243,10 @@
         </div>
       </section>
     </div>
-    <SatireRow>
+    <SatireRow satires={data.satires}>
       <h2><a href="/the-horse">The Horse (Satire)</a></h2>
     </SatireRow>
-    <ArticleHomeRow
-      excludeSlugs={data
-        ? [
-            ...data.news.map(({ slug }) => slug),
-            ...data.opinion.map(({ slug }) => slug),
-            ...data.sports.map(({ slug }) => slug),
-            ...data.acc.map(({ slug }) => slug),
-            ...data.featured.map(({ slug }) => slug),
-            ...data.diversity.map(({ slug }) => slug),
-          ]
-        : []}
-    />
+    <ArticleHomeRow articles={data.articles} />
     <a href="/all-articles">View all articles</a>
   </Container>
 </div>
