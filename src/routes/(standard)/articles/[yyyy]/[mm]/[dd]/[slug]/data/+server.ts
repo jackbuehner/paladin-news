@@ -3,8 +3,14 @@ import { PhotoWidget } from '$lib/pm/render/PhotoWidget';
 import { PullQuote } from '$lib/pm/render/PullQuote';
 import { SweepwidgetWidget } from '$lib/pm/render/SweepwidgetWidget';
 import { YoutubeWidget } from '$lib/pm/render/YoutubeWidget';
-import { GET_ARTICLE_BY_SLUG, type GET_ARTICLE_BY_SLUG__TYPE } from '$lib/queries';
+import {
+  GET_ARTICLE_BY_SLUG,
+  GET_PHOTO,
+  type GET_ARTICLE_BY_SLUG__TYPE,
+  type GET_PHOTO__TYPE,
+} from '$lib/queries';
 import { api } from '$lib/utils/api';
+import { variables } from '$lib/variables';
 import Renderer from '@cristata/prosemirror-to-html-js';
 import { error, redirect, type RequestHandler } from '@sveltejs/kit';
 import smartquotes from 'smartquotes';
@@ -32,6 +38,22 @@ export const GET: RequestHandler = async (request) => {
 
   if (data?.articleBySlugPublic) {
     const article = data?.articleBySlugPublic;
+
+    // if the photo credit field is missing, attempt to
+    // manually get it from the API
+    // (the photo credit field sometimes fails to populate)
+    if (!article.photo_credit) {
+      const photo_id = article.photo_path.split('/').slice(-1)[0];
+      const photo_created_by = await api
+        .query<GET_PHOTO__TYPE>(GET_PHOTO, {
+          variables: { _id: photo_id },
+          headers: { Authorization: `app-token ${variables.API_TOKEN}` },
+        })
+        .then(({ data }) => data?.photo?.people?.photo_created_by);
+      if (photo_created_by) {
+        article.photo_credit = photo_created_by;
+      }
+    }
 
     // rename categories (sections) to their full names
     if (article) {
