@@ -1,0 +1,30 @@
+[
+  {
+    "Week": "2020-09-28T00:00:00.000Z",
+    "Quarantine Space Utilization": 0.11
+  },
+  {
+    "Week": "2020-10-05T00:00:00.000Z",
+    "Quarantine Space Utilization": 0.17
+  },
+  {
+    "Week": "2020-10-12T00:00:00.000Z",
+    "Quarantine Space Utilization": 0.09
+  },
+  {
+    "Week": "2020-10-19T00:00:00.000Z",
+    "Quarantine Space Utilization": 0.01
+  },
+  {
+    "Week": "2020-10-26T00:00:00.000Z",
+    "Quarantine Space Utilization": 0.04
+  },
+  {
+    "Week": "2020-11-02T00:00:00.000Z",
+    "Quarantine Space Utilization": 0.13
+  },
+  {
+    "Week": "2020-11-09T00:00:00.000Z",
+    "Quarantine Space Utilization": 0.03
+  }
+]

@@ -10,7 +10,7 @@ export const load: LayoutLoad = async ({ url }) => {
   // return 204 status when sveltekit tries to load scripts as pages
   // (this happens with embedded scripts and pwabuilder scripts)
   if (url.pathname.includes('/pwa-update.js') || url.pathname.includes('/js/')) {
-    throw error(204);
+    throw error(404);
   }
 
   // return the page path to the page

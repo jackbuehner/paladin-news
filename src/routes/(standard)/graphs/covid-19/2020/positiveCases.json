@@ -1,0 +1,37 @@
+[
+  {
+    "Week": "2020-09-28T00:00:00.000Z",
+    "Positive Cases": 10,
+    "Positivity Rate": 0.0242
+  },
+  {
+    "Week": "2020-10-05T00:00:00.000Z",
+    "Positive Cases": 4,
+    "Positivity Rate": 0.0096
+  },
+  {
+    "Week": "2020-10-12T00:00:00.000Z",
+    "Positive Cases": 4,
+    "Positivity Rate": 0.0092
+  },
+  {
+    "Week": "2020-10-19T00:00:00.000Z",
+    "Positive Cases": 1,
+    "Positivity Rate": 0.0023
+  },
+  {
+    "Week": "2020-10-26T00:00:00.000Z",
+    "Positive Cases": 8,
+    "Positivity Rate": 0.0174
+  },
+  {
+    "Week": "2020-11-02T00:00:00.000Z",
+    "Positive Cases": 13,
+    "Positivity Rate": 0.013
+  },
+  {
+    "Week": "2020-11-09T00:00:00.000Z",
+    "Positive Cases": 8,
+    "Positivity Rate": 0.0226
+  }
+]

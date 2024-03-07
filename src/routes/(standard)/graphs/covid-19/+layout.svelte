@@ -43,7 +43,9 @@
       </div>
     </TabList>
 
-    <slot />
+    <div class="page-content">
+      <slot />
+    </div>
   </Tabs>
 </div>
 
@@ -78,5 +80,21 @@
       border-width: 0;
       text-align: center;
     }
+  }
+
+  .page-content :global(text) {
+    font-family: 'Lato';
+    font-size: 16px;
+    fill: #333;
+  }
+
+  .page-content :global(g[aria-label*='-axis label']) {
+    font-weight: 600;
+  }
+
+  .page-content :global(div[class*='-swatches']) {
+    font-family: 'Lato';
+    font-size: 16px;
+    fill: #333;
   }
 </style>
