@@ -142,7 +142,7 @@
       // insert the plot with the initial window width
       const plot = Plot.plot({
         ...options,
-        width: window.innerWidth,
+        width: Math.min(window.innerWidth, 1200),
       });
       if (node) node.innerHTML = '';
       node?.appendChild(plot);
@@ -316,7 +316,7 @@
       // insert the plot with the initial window width
       const plot = Plot.plot({
         ...options,
-        width: window.innerWidth,
+        width: Math.min(window.innerWidth, 1200),
       });
       if (node) node.innerHTML = '';
       node?.appendChild(plot);
@@ -538,7 +538,7 @@
       // insert the plot with the initial window width
       const plot = Plot.plot({
         ...options,
-        width: window.innerWidth,
+        width: Math.min(window.innerWidth, 1200),
       });
       if (node) node.innerHTML = '';
       node?.appendChild(plot);
@@ -669,7 +669,7 @@
       // insert the plot with the initial window width
       const plot = Plot.plot({
         ...options,
-        width: window.innerWidth,
+        width: Math.min(window.innerWidth, 1200),
       });
       if (node) node.innerHTML = '';
       node?.appendChild(plot);
