@@ -55,6 +55,11 @@ export const GET: RequestHandler = async (request) => {
       }
     }
 
+    // remove photo credit from the photo caption if the caption ends in the photo credit
+    if (article.photo_caption?.endsWith(article.photo_credit)) {
+      article.photo_caption = article.photo_caption.replace(article.photo_credit, '').trim();
+    }
+
     // rename categories (sections) to their full names
     if (article) {
       try {
