@@ -93,7 +93,7 @@
               fill: '#75A1C7',
               tip: {
                 format: {
-                  x: (x) => formatISODate(new Date(x).toISOString()),
+                  x: (x) => formatISODate(new Date(x).toISOString(), true),
                   y: (y) => `${y}`,
                 },
               },
@@ -222,7 +222,7 @@
               y: (d) => d['Positive Cases'] / 2,
               channels: { 'Positivity Rate': 'Positivity Rate' },
               format: {
-                x: (x) => formatISODate(new Date(x).toISOString()),
+                x: (x) => formatISODate(new Date(x).toISOString(), true),
                 y: (y) => `${y}`,
                 PositivityRate: true,
               },
@@ -352,7 +352,7 @@
               fill: (d) => (d.type.startsWith('On- ') ? '#AD74A0' : '#C7C1EF'),
               tip: {
                 format: {
-                  fx: (fx) => formatISODate(new Date(fx).toISOString()),
+                  fx: (fx) => formatISODate(new Date(fx).toISOString(), true),
                   x: (x) => `${x}`,
                   y: (fy) => `${fy}`,
                   fill: false,
@@ -446,7 +446,7 @@
               stroke: '#57557E',
               tip: {
                 format: {
-                  x: (x) => formatISODate(new Date(x).toISOString()),
+                  x: (x) => formatISODate(new Date(x).toISOString(), true),
                   y: (y) => `${y}`,
                 },
               },
