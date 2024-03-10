@@ -6,26 +6,9 @@ import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (request) => {
   // remove special characters (including spaces) and leading or trailing hyphens and redirect
-  if (
-    request.params.tag.indexOf(' ') !== -1 ||
-    request.params.tag.indexOf('&') !== -1 ||
-    request.params.tag.startsWith('-') ||
-    request.params.tag.endsWith('-') ||
-    request.params.tag.includes('_') ||
-    !!request.params.tag.match(/[A-Z]+/g) // if there are any capital letters
-  ) {
-    throw redirect(
-      307, // temporary redirect
-      `/tag/${encodeURIComponent(
-        request.params.tag
-          .replaceAll('_', ' ')
-          .replaceAll('-', ' ')
-          .trim()
-          .replace(/\s&/gm, '')
-          .replace(/\s/gm, '-')
-          .toLowerCase()
-      )}`
-    );
+  const processedTag = processTag(request.params.tag);
+  if (request.params.tag !== processedTag) {
+    throw redirect(307, `/tag/${encodeURIComponent(processedTag)}/${request.params.page}`);
   }
 
   // generate the tags for the query
@@ -82,6 +65,24 @@ export const load: PageServerLoad = async (request) => {
     variables: { limit, page, filter, sort },
   });
 
+  // identify tags in the response that might be alternate forms of the tag
+  // in the page param, and if there is an alternate form that is longer
+  // (usually because it includes a hyphen or space) then redirect to that
+  const allProcessedForms = Array.from(
+    new Set(
+      data?.articlesPublic?.docs
+        .flatMap((doc) => doc.tags)
+        .filter((tag) => tag.match(new RegExp(regex.$regex, regex.$options)))
+        .map((tag) => processTag(tag)) || []
+    )
+  );
+  if (allProcessedForms.length > 0) {
+    const longestForm = allProcessedForms.reduce((a, b) => (a.length > b.length ? a : b));
+    if (longestForm !== request.params.tag) {
+      throw redirect(307, `/tag/${encodeURIComponent(longestForm)}/${request.params.page}`);
+    }
+  }
+
   if (err.errors) {
     throw error(400, JSON.stringify(err.errors));
   }
@@ -95,3 +96,14 @@ export const load: PageServerLoad = async (request) => {
 
   throw error(err.status);
 };
+
+function processTag(tag: string): string {
+  return tag
+    .replaceAll('_', ' ') // replace underscores with spaces
+    .replaceAll('-', ' ') // replace hyphens with spaces
+    .trim() // remove leading and trailing spaces
+    .replace(/ +(?= )/g, '') // remove multiple spaces
+    .replace(/\s&/gm, '') // remove spaces before ampersands
+    .replace(/\s/gm, '-') // replace spaces with hyphens
+    .toLowerCase(); // convert to lowercase
+}
