@@ -10,12 +10,20 @@ export const load: PageServerLoad = async (request) => {
     request.params.tag.indexOf(' ') !== -1 ||
     request.params.tag.indexOf('&') !== -1 ||
     request.params.tag.startsWith('-') ||
-    request.params.tag.endsWith('-')
+    request.params.tag.endsWith('-') ||
+    request.params.tag.includes('_') ||
+    !!request.params.tag.match(/[A-Z]+/g) // if there are any capital letters
   ) {
     throw redirect(
       307, // temporary redirect
       `/tag/${encodeURIComponent(
-        request.params.tag.replaceAll('-', ' ').trim().replace(/\s&/gm, '').replace(/\s/gm, '-')
+        request.params.tag
+          .replaceAll('_', ' ')
+          .replaceAll('-', ' ')
+          .trim()
+          .replace(/\s&/gm, '')
+          .replace(/\s/gm, '-')
+          .toLowerCase()
       )}`
     );
   }
