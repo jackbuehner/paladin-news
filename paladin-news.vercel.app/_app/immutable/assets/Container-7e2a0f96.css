@@ -1,0 +1,1 @@
+.outer.svelte-eij79l{display:flex;margin:calc(var(--expandUp) * -1) 0 calc(var(--expandDown) * -1) 0;padding:var(--expandUp) 20px var(--expandDown) 20px;justify-content:center;background-color:var(--this-background-color)}.outer.grow.svelte-eij79l{flex-grow:1}.inner.svelte-eij79l{width:var(--width);border-bottom:var(--borderBottom)}@media print{.outer.svelte-eij79l{padding:0}}
